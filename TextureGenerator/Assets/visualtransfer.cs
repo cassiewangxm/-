@@ -108,9 +108,6 @@ public class visualtransfer : MonoBehaviour
                 d2xy(256, asn, out ax, out ay);
 
 
-                
-                
-
                 ascdata[ax, ay, 0] = red;
                 ascdata[ax, ay, 1] = green;
                 ascdata[ax, ay, 2] = blue;
@@ -174,7 +171,7 @@ public class visualtransfer : MonoBehaviour
         ascolor.texture = asc;
         data = new int[1024, 1024,3];
         ascdata = new int[256, 256, 3];
-        readTextFile("/Users/arria/Downloads/newtransfered.txt");
+        readTextFile("/Users/x-dt/workspace/Qinghua/newtransfered.txt");
         Debug.Log("----------------------");
         for(int i = 0; i < 1024; i++)
         {
@@ -188,7 +185,7 @@ public class visualtransfer : MonoBehaviour
                 asnl.SetPixel(i, j, new Color32(0, 0, 0, 1));
             }
         }
-        readTextFile("/Users/arria/Downloads/newtransfered.txt", true);
+        readTextFile("/Users/x-dt/workspace/Qinghua/newtransfered.txt", true);
         Debug.Log("----------------------");
         for (int i = 0; i < 1024; i++)
         {

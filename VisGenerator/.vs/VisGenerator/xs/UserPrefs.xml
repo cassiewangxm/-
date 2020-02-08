@@ -1,0 +1,48 @@
+﻿<Properties StartupConfiguration="{6E89F6D2-D722-D119-CC9D-1B47816BE29A}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/UI/Scripts/Panel/UIline.cs">
+    <Files>
+      <File FileName="Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshProUGUI.cs" Line="1" Column="1" IsPinned="True" />
+      <File FileName="Assets/raycastas.cs" Line="124" Column="57" IsPinned="True" />
+      <File FileName="Assets/Scripts/CameraController.cs" Line="29" Column="39" IsPinned="True" />
+      <File FileName="Assets/UI/Scripts/Proxy/IPProxy.cs" Line="17" Column="26" />
+      <File FileName="Assets/UI/Scripts/Util.cs" Line="62" Column="6" />
+      <File FileName="Assets/UI/Scripts/Panel/IPDetailPanel.cs" Line="42" Column="43" />
+      <File FileName="Assets/UI/Scripts/Panel/IPMenuPanel.cs" Line="44" Column="40" />
+      <File FileName="Assets/UI/Scripts/UIEventDispatcher.cs" Line="50" Column="1" />
+      <File FileName="Assets/UI/Scripts/Panel/UIController.cs" Line="39" Column="6" />
+      <File FileName="Assets/UI/Scripts/Panel/IPTopologyPanel.cs" Line="122" Column="21" />
+      <File FileName="Assets/UI/Scripts/Panel/IpTopologyBox.cs" Line="15" Column="28" />
+      <File FileName="Assets/UI/Scripts/Panel/UIBasePanel.cs" Line="5" Column="23" />
+      <File FileName="Assets/UI/Config/IpConfig.json" Line="23" Column="31" />
+      <File FileName="Assets/UI/Scripts/Panel/UIline.cs" Line="7" Column="17" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="VisGenerator" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True" />
+              <Node name="UI" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Panel" expanded="True">
+                    <Node name="UIline.cs" selected="True" />
+                  </Node>
+                  <Node name="Proxy" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="53f5019a-0230-4592-9b3b-c27b315d4f56" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/x-dt/workspace/Qinghua/-/VisGenerator/Assets/UI/Scripts/Proxy/IPProxy.cs" relfile="Assets/UI/Scripts/Proxy/IPProxy.cs" line="91" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
