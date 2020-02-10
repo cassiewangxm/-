@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Controller;
+using UnityEngine.EventSystems;
 
 public class raycastas : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class raycastas : MonoBehaviour
 
     public Camera Camera;
     private CameraController CameraController;
+
+    private bool m_HasHit;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +82,10 @@ public class raycastas : MonoBehaviour
             //Detect when there is a mouse click
             if (Input.GetMouseButton(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                m_HasHit = false;
 
                 for (int i = planes.Length - 1; i >= 0; i--)
                 {
@@ -99,18 +105,26 @@ public class raycastas : MonoBehaviour
                                 //Cube.transform.position = hitPoint;
                                 Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
                                 uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
-                                Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
-                                Debug.Log(color);
+                                //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
+                                Debug.Log(Input.mousePosition);
                                 Text.transform.position = Input.mousePosition;
                                 Text.text = "IP number: " + num.ToString();
-                                Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
+                                Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                                UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
+                                //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
+                                m_HasHit = true;
                                 break;
                             }
                         }
                     }
                 }
+
+                if(!m_HasHit)
+                {
+                    UIEventDispatcher.HideIpMenuPanel();
+                }
             }
-            if (true)
+            if (false)
             {
                 for (int i = 0; i < pairs.Length / 4; i++)
                 {
