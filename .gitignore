@@ -1,5 +1,8 @@
-
 TextureGenerator/Library/*
 TextureGenerator/Temp/*
 VisGenerator/Library/*
 VisGenerator/Temp/*
+VisGenerator/obj/*
+*.sln
+*.csproj
+*.vscode
