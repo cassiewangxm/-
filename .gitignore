@@ -5,3 +5,4 @@ VisGenerator/Temp/*
 VisGenerator/obj/*
 *.sln
 *.csproj
+*.vscode
