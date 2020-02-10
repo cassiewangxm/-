@@ -107,8 +107,8 @@ public class raycastas : MonoBehaviour
                                 uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
                                 //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
                                 Debug.Log(Input.mousePosition);
-                                //Text.transform.position = Input.mousePosition;
-                                //Text.text = "IP number: " + num.ToString();
+                                Text.transform.position = Input.mousePosition;
+                                Text.text = "IP number: " + num.ToString();
                                 Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                                 UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
                                 //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
