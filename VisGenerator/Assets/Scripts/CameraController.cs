@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 namespace Controller
 {
-    public enum ViewType
-    {
-        ViewAS,
-        ViewIP,
-        ViewSingleAS,
-        ViewMap,
-        ViewAll,
-    }
 
     public class CameraController : MonoBehaviour
     {
@@ -31,8 +23,6 @@ namespace Controller
         public bool IsNavigationUpdate = false;
 
         public bool IsAS = true;
-
-        public ViewType currentView = ViewType.ViewAS;
 
         bool IsInside(Vector3 move)
         {
@@ -55,19 +45,11 @@ namespace Controller
 
         public void ViewAS()
         {
-            currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
         }
-        public void ViewSingleAS()
-        {
-            currentView = ViewType.ViewSingleAS;
-            Camera.cullingMask = 4097 + 1025;
-            IsAS = false;
-        }
         public void ViewIP()
         {
-            currentView = ViewType.ViewIP;
             Camera.cullingMask = 2049;
             IsAS = false;
         }

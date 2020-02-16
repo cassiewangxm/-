@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_0;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_OSX;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_0;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_OSX;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -44,1059 +44,1075 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneOSX:2</UnityBuildTarget>
+    <UnityVersion>2019.3.0f3</UnityVersion>
+  </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\AS\Scripts\ASSegmentItem.cs" />
-     <Compile Include="Assets\AS\Scripts\SingleAS.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Demo Scenes\Demo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_0_CreatingGizmos_and_AssigningObjects.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_1_Enabling_and_Disabling_Gizmos.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_2_MultipleTargetObjects.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_3_TransformSpaces.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_4_Mesh_and_Center_Pivots.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_5_CustomObjectLocalPivot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_6_CustomWorldPivot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoArrowCap2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCircleCap2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoQuadCap2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\IGizmoCap2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoBoxCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoConeCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoPyramidCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoSphereCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoTriPrismCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\IGizmoCap3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\GizmoCap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\IGizmoCap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoDimension.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoDragInfo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoFillMode2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoFillMode3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoHoverInfo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoLine2DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoLine3DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoMultiAxisScaleMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoOverrideColor.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoPlane2DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoPlane3DType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoShadeMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoSnapMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoSpace.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransform.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformAxisMap2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformAxisMap3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformSnapshot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisOffsetDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisRotationDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisScaleDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDragChannel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDragSession.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoObjectVertexSnapDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoObjectVertexSnapSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoPlaneDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoScreenDrag.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisOffsetDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisRotationDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisScaleDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoUniformScaleDrag3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\IGizmoDragSession.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\GizmoBehaviour.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\GizmoBehaviourCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\IGizmoBehaviour.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\GizmoCollectionEnabledStateSnapshot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\GizmoEngineSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandle.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleHoverData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleId.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\IGizmoHandle.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\IRTTransformGizmoListener.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoCircularMaterial.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoLabelMaterial.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoLineMaterial.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoSolidMaterial.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\RTGizmosEngine.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoDblAxisScaleMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScaleGuide.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScaleGuideLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScalerHandle.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\ISceneGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\ISceneGizmoCamViewportUpdater.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\RTSceneGizmoCamera.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoAxisCap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoCamPrjSwitchLabel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoCap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoMidCap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmoCamViewportUpdater.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmoLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoBoxLineSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoThinLineSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\IGizmoLineSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoCircle2DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoCirclePlaneSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPolygon2DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPolygonPlaneSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoQuad2DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoQuadPlaneSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\IGizmoPlaneSlider2DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoBoxLineSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoCylinderLineSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoThinLineSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\IGizmoLineSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoCircle3DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoCirclePlaneSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoQuad3DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoQuadPlaneSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoRATriangle3DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoRATrianglePlaneSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\IGizmoPlaneSlider3DController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoThinCircle2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\IGizmoCircle2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoThickPolygon2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoThinPolygon2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\IGizmoPolygon2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoThinQuad2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\IGizmoQuad2DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCylindricalTorusCircle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoThinCircle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoTorusCircle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\IGizmoCircle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoBoxQuad3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoThinQuad3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\IGizmoQuad3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorder.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorderControllerData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoThinRATriangle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\IGizmoRATriangle3DBorderController.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc2DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc3DLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArcFillFlags.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoSlider.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\IGizmoSlider.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\GizmoObjectTransformPivot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoLookAndFeel2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoLookAndFeel3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoSettings2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoSettings3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\ObjectTransformGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\ObjectTransformGizmoSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoLookAndFeel3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoSettings3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoLookAndFeel3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoSettings3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoConfig.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoLookAndFeel2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoLookAndFeel3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettings2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettings3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettingsCategory.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettingsType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\RTGApp.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Application\IRLDApplication.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\BVHNodeFlags.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTree.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTreeNode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTreeNodeRayHit.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraBackgroundSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraFocus.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraFocusSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraLookAroundSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraMoveSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraOrbitSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraPanSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraPrjSwitchTransition.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraProjectionSwitchSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraRotationSwitchSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraViewVolume.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraZoomSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTCameraBackground.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTCameraViewports.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTFocusCamera.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\Priority.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\Vec3Samples.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\YesNoAnswer.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\DragAndDropHandler.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\EditorToolbar.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\EditorToolbarTab.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\RLDEditorWindow.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\Settings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Effects\ColorRef.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Effects\ColorTransition.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\CameraEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\ColorEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\EditorGUILayoutEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\EditorUndoEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GUIEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GameObjectEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GraphicsEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\LayerEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\MaterialEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\MathEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Matrix4x4Ex.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\PlaneEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\QuaternionEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\RayEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\RectEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\SpriteEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\SpriteRendererEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\StringEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\TerrainEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\TransformEx.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector2Ex.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector3Ex.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector4Ex.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\Hotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\IInputDevice.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceBase.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceDeltaCapture.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\MouseButton.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\MouseInputDevice.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\RTInputDevice.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\TouchInputDevice.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AABB.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Axis.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AxisDescriptor.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AxisSign.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\OBB.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Plane2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneDescriptor.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneId.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneQuadrantId.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\ArcMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\BoxMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\CircleMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\ConeMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\CylinderMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PlaneMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PolygonMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\Primitive Epsilons.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PrimitiveFactory.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PrismMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PyramidMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\QuadMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\SegmentMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\SphereMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\TorusMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\TriangleMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\QuaternionRef.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\SnapMath.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Sphere.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Vector3Ref.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\BoxMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\CircleMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\CylinderMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\LineMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\PrismMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\PyramidMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\QuadMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\SphereMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\TorusMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\TriangleMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshTransform.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshTree.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunk.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunkCollection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunkCollectionDb.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMesh.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMeshCompiler.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMeshDb.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\GameObjectType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectKeyRotationSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectPool.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectRotationPivot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\PivotPointShapeType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\RTSystemValues.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Rendering\GLRenderer.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\MaterialPool.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\MeshPool.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\ShaderPool.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\TexturePool.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\GameObjectRayHit.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\IXZGrid.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\RTSceneGrid.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\SceneGridHotkeys.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridCell.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridLookAndFeel.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridRayHit.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\IHoverableSceneEntityContainer.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\MeshRayHit.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\RTCustomObjectInteractionSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\RTScene.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneOverlapFilter.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\ScenePhysicsMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastFilter.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastHit.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastPrecision.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneSettings.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneTree.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Serializable Collections\SerializableDictionary.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Sessions\InputDevicePlaneDragSession3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Sessions\InputDeviceScreenDragSession.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ArcShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ArcShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\BoxShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CircleShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CircleShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ConeShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ConeShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CylTorusShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CylinderShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\EqTriangle2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\EqTriangle3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\PolygonShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\PyramidShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\QuadShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\QuadShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\RightAngTriangle2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\RightAngTriangle3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SegmentShape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SegmentShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DBorderDirection.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DBorderType.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DExtentPoint.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DPtContainMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape3DRaycastMode.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SphereShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\TorusShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\TriangPrismShape3D.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Singleton\MonoSingleton.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Singleton\Singleton.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Transform\TransformAxis.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Transform\TransformSnapshot.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\IUndoRedoAction.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\RTUndoRedo.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\UndoRedoActions.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\FileSystem.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnapData.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnapDataDb.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectAlign.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectBounds.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectCloning.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectPositionCalculator.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSnap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSpawnUtil.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSurfaceSnap.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectVertexCollect.cs" />
-     <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\UniqueNameGen.cs" />
-     <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\CameraGizmoListener.cs" />
-     <Compile Include="Assets\Scripts\CameraMovement.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\IPDetailPanel.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\IPMenuPanel.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\IPTopologyPanel.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\IpTopologyBox.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\UIBasePanel.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\UIController.cs" />
-     <Compile Include="Assets\UI\Scripts\Panel\UIline.cs" />
-     <Compile Include="Assets\UI\Scripts\Proxy\ASProxy.cs" />
-     <Compile Include="Assets\UI\Scripts\Proxy\IPProxy.cs" />
-     <Compile Include="Assets\UI\Scripts\UIEventDispatcher.cs" />
-     <Compile Include="Assets\UI\Scripts\Util.cs" />
-     <Compile Include="Assets\movingpls.cs" />
-     <Compile Include="Assets\raycastas.cs" />
-     <Compile Include="Assets\setparam.cs" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_SimpleColor.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_GizmoSolidHandle.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_CircleCull.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_TintedTexture.shader" />
-     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
-     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <None Include="Assets\Runtime Transform Gizmos\Docs\Readme.txt" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_TorusCull.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Docs\Version History.txt" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_LinearGradientCameraBk.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_CylindricalTorusCull.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
-     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-     <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_XZGrid_Plane.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
-     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.Core.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.Core.Runtime">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VisualEffectGraph.Runtime">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VisualEffectGraph.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.ShaderGraph.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/Users/lipengyue/Qinghua/-/VisGenerator/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AIModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ARModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AccessibilityModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AndroidJNIModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AnimationModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AssetBundleModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AudioModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClothModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClusterInputModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClusterRendererModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.CoreModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.CrashReportingModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.DSPGraphModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.DirectorModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.GameCenterModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.GridModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HotReloadModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.IMGUIModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ImageConversionModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.InputModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.InputLegacyModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.JSONSerializeModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.LocalizationModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ParticleSystemModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PerformanceReportingModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PhysicsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Physics2DModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ProfilerModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ScreenCaptureModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SharedInternalsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpriteMaskModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpriteShapeModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.StreamingModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SubstanceModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SubsystemsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubsystemsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TLSModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TerrainModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TerrainPhysicsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TextCoreModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TextRenderingModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TilemapModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIElementsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UNETModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UmbraModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityAnalyticsModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityConnectModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityTestProtocolModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestAudioModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestTextureModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestWWWModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VFXModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VRModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VehiclesModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VideoModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.WindModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.XRModule">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
- </Reference>
- <Reference Include="mscorlib">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
- </Reference>
- <Reference Include="System">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll</HintPath>
- </Reference>
- <Reference Include="System.Core">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Core.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Runtime.Serialization.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.Linq">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.Linq.dll</HintPath>
- </Reference>
- <Reference Include="System.Numerics">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.dll</HintPath>
- </Reference>
- <Reference Include="System.Numerics.Vectors">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.Vectors.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Http">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Net.Http.dll</HintPath>
- </Reference>
- <Reference Include="Microsoft.CSharp">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Microsoft.CSharp.dll</HintPath>
- </Reference>
- <Reference Include="System.Data">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Data.dll</HintPath>
- </Reference>
- <Reference Include="Microsoft.Win32.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/Microsoft.Win32.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.AppContext">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.AppContext.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.Concurrent">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Concurrent.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.NonGeneric">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.NonGeneric.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.Specialized">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Specialized.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.Annotations">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Annotations.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.EventBasedAsync">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.EventBasedAsync.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.TypeConverter">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.TypeConverter.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.dll</HintPath>
- </Reference>
- <Reference Include="System.Console">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Console.dll</HintPath>
- </Reference>
- <Reference Include="System.Data.Common">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Data.Common.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Contracts">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Contracts.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Debug">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Debug.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.FileVersionInfo">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.FileVersionInfo.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Process">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Process.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.StackTrace">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.StackTrace.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.TextWriterTraceListener">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Tools">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Tools.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.TraceSource">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TraceSource.dll</HintPath>
- </Reference>
- <Reference Include="System.Drawing.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Drawing.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Dynamic.Runtime">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Dynamic.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization.Calendars">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Calendars.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization.Extensions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Compression.ZipFile">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Compression.ZipFile.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.DriveInfo">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.DriveInfo.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.Watcher">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Watcher.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.IsolatedStorage">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.IsolatedStorage.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.MemoryMappedFiles">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.MemoryMappedFiles.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Pipes">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Pipes.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.UnmanagedMemoryStream">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.UnmanagedMemoryStream.dll</HintPath>
- </Reference>
- <Reference Include="System.IO">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Expressions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Expressions.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Parallel">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Parallel.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Queryable">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Queryable.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Http.Rtc">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Http.Rtc.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.NameResolution">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NameResolution.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.NetworkInformation">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NetworkInformation.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Ping">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Ping.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Requests">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Requests.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Security">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Security.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Sockets">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Sockets.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebHeaderCollection">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebHeaderCollection.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebSockets.Client">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.Client.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebSockets">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.dll</HintPath>
- </Reference>
- <Reference Include="System.ObjectModel">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ObjectModel.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Emit.ILGeneration">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.ILGeneration.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Emit.Lightweight">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.Lightweight.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Emit">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Extensions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.Reader">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Reader.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.ResourceManager">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.ResourceManager.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.Writer">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Writer.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.CompilerServices.VisualC">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.CompilerServices.VisualC.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Extensions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Handles">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Handles.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Numerics">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Numerics.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Formatters">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Formatters.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Json">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Json.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Xml">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Xml.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Claims">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Claims.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Algorithms">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Algorithms.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Csp">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Csp.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Encoding">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Encoding.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.X509Certificates">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.X509Certificates.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Principal">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Principal.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.SecureString">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.SecureString.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.Duplex">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Duplex.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.Http">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Http.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.NetTcp">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.NetTcp.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.Primitives">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.Security">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Security.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.Encoding.Extensions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.Encoding">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.RegularExpressions">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.RegularExpressions.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Overlapped">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Overlapped.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Tasks.Parallel">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.Parallel.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Tasks">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Thread">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Thread.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.ThreadPool">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.ThreadPool.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Timer">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Timer.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.dll</HintPath>
- </Reference>
- <Reference Include="System.ValueTuple">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ValueTuple.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.ReaderWriter">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.ReaderWriter.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XDocument">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XPath.XDocument">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XPath">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XmlDocument">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XmlSerializer">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlSerializer.dll</HintPath>
- </Reference>
- <Reference Include="netstandard">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/netstandard.dll</HintPath>
- </Reference>
- <Reference Include="UnityScript">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/UnityScript.dll</HintPath>
- </Reference>
- <Reference Include="UnityScript.Lang">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/UnityScript.Lang.dll</HintPath>
- </Reference>
- <Reference Include="Boo.Lang">
- <HintPath>/Applications/Unity/Hub/Editor/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
- </Reference>
+    <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Runtime Transform Gizmos\Demo Scenes\Demo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_0_CreatingGizmos_and_AssigningObjects.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_1_Enabling_and_Disabling_Gizmos.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_2_MultipleTargetObjects.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_3_TransformSpaces.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_4_Mesh_and_Center_Pivots.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_5_CustomObjectLocalPivot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripting Tutorials\Tut_6_CustomWorldPivot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoArrowCap2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCap2DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoCircleCap2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\GizmoQuadCap2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\2D Caps\IGizmoCap2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoBoxCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoCap3DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoConeCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoPyramidCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoSphereCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\GizmoTriPrismCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\3D Caps\IGizmoCap3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\GizmoCap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Caps\IGizmoCap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoDimension.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoDragInfo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoFillMode2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoFillMode3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoHoverInfo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoLine2DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoLine3DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoMultiAxisScaleMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoOverrideColor.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoPlane2DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoPlane3DType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoShadeMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoSnapMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoSpace.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransform.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformAxisMap2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformAxisMap3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Core Data Types\GizmoTransformSnapshot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisOffsetDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisRotationDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDblAxisScaleDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDragChannel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoDragSession.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoObjectVertexSnapDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoObjectVertexSnapSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoPlaneDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoScreenDrag.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisOffsetDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisRotationDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoSglAxisScaleDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\GizmoUniformScaleDrag3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Drag\IGizmoDragSession.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\GizmoBehaviour.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\GizmoBehaviourCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo Behaviour\IGizmoBehaviour.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Gizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\GizmoCollectionEnabledStateSnapshot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\GizmoEngineSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandle.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleHoverData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleId.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\GizmoHandleShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Handles\IGizmoHandle.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\IRTTransformGizmoListener.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoCircularMaterial.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoLabelMaterial.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoLineMaterial.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Materials\GizmoSolidMaterial.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\RTGizmosEngine.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoDblAxisScaleMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScaleGuide.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScaleGuideLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scaling\GizmoScalerHandle.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\ISceneGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\ISceneGizmoCamViewportUpdater.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\RTSceneGizmoCamera.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoAxisCap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoCamPrjSwitchLabel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoCap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\Scene Gizmo Handles\SceneGizmoMidCap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmoCamViewportUpdater.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Scene Gizmo\SceneGizmoLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoBoxLineSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoLineSlider2DSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\GizmoThinLineSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Line Slider\IGizmoLineSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoCircle2DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoCirclePlaneSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPlaneSlider2DSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPolygon2DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoPolygonPlaneSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoQuad2DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\GizmoQuadPlaneSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\2D Plane Slider\IGizmoPlaneSlider2DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoBoxLineSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoCylinderLineSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoLineSlider3DSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\GizmoThinLineSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Line Slider\IGizmoLineSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoCircle3DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoCirclePlaneSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoPlaneSlider3DSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoQuad3DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoQuadPlaneSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoRATriangle3DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\GizmoRATrianglePlaneSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\3D Plane Slider\IGizmoPlaneSlider3DController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoCircle2DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\GizmoThinCircle2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Circle\IGizmoCircle2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoPolygon2DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoThickPolygon2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\GizmoThinPolygon2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Polygon\IGizmoPolygon2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoQuad2DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\GizmoThinQuad2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\2D Quad\IGizmoQuad2DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCircle3DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoCylindricalTorusCircle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoThinCircle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\GizmoTorusCircle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Circle\IGizmoCircle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoBoxQuad3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoQuad3DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\GizmoThinQuad3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D Quad\IGizmoQuad3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorder.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoRATriangle3DBorderControllerData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\GizmoThinRATriangle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\Borders\3D RATriangle\IGizmoRATriangle3DBorderController.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc2DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArc3DLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoRotationArcFillFlags.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\GizmoSlider.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Sliders\IGizmoSlider.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\GizmoObjectTransformPivot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoLookAndFeel2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoLookAndFeel3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoSettings2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Move Gizmo\MoveGizmoSettings3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\ObjectTransformGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\ObjectTransformGizmoSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoLookAndFeel3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Rotation Gizmo\RotationGizmoSettings3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoLookAndFeel3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Scale Gizmo\ScaleGizmoSettings3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoConfig.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoLookAndFeel2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoLookAndFeel3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettings2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettings3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettingsCategory.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Gizmos\Transform Gizmos\Universal Gizmo\UniversalGizmoSettingsType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\RTGApp.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Application\IRLDApplication.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\BVHNodeFlags.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTree.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTreeNode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\BVH\SphereTreeNodeRayHit.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraBackgroundSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraFocus.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraFocusSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraLookAroundSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraMoveSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraOrbitSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraPanSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraPrjSwitchTransition.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraProjectionSwitchSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraRotationSwitchSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraViewVolume.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\CameraZoomSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTCameraBackground.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTCameraViewports.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Camera\RTFocusCamera.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\Priority.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\Vec3Samples.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Core Types\YesNoAnswer.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\DragAndDropHandler.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\EditorToolbar.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\EditorToolbarTab.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\RLDEditorWindow.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Editor UI\Settings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Effects\ColorRef.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Effects\ColorTransition.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\CameraEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\ColorEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\EditorGUILayoutEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\EditorUndoEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GUIEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GameObjectEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\GraphicsEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\LayerEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\MaterialEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\MathEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Matrix4x4Ex.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\PlaneEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\QuaternionEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\RayEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\RectEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\SpriteEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\SpriteRendererEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\StringEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\TerrainEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\TransformEx.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector2Ex.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector3Ex.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Extensions\Vector4Ex.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\Hotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\IInputDevice.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceBase.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceDeltaCapture.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\InputDeviceType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\MouseButton.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\MouseInputDevice.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\RTInputDevice.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Input\TouchInputDevice.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AABB.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Axis.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AxisDescriptor.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\AxisSign.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\OBB.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Plane2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneDescriptor.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneId.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\PlaneQuadrantId.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\ArcMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\BoxMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\CircleMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\ConeMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\CylinderMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PlaneMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PolygonMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\Primitive Epsilons.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PrimitiveFactory.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PrismMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\PyramidMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\QuadMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\SegmentMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\SphereMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\TorusMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Primitive Math\TriangleMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\QuaternionRef.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\SnapMath.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Sphere.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Math\Vector3Ref.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\BoxMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\CircleMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\CylinderMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\LineMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\PrismMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\PyramidMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\QuadMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\SphereMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\TorusMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Creation\TriangleMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshTransform.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshTree.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunk.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunkCollection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\MeshVertexChunkCollectionDb.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMesh.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMeshCompiler.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Meshes\Data Management\RTMeshDb.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\GameObjectType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectKeyRotationSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectPool.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\ObjectRotationPivot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Objects\PivotPointShapeType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\RTSystemValues.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Rendering\GLRenderer.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\MaterialPool.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\MeshPool.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\ShaderPool.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resource Management\TexturePool.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\GameObjectRayHit.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\IXZGrid.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\RTSceneGrid.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\SceneGridHotkeys.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridCell.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridLookAndFeel.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridRayHit.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\Grid\XZGridSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\IHoverableSceneEntityContainer.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\MeshRayHit.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\RTCustomObjectInteractionSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\RTScene.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneOverlapFilter.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\ScenePhysicsMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastFilter.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastHit.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneRaycastPrecision.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneSettings.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Scene\SceneTree.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Serializable Collections\SerializableDictionary.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Sessions\InputDevicePlaneDragSession3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Sessions\InputDeviceScreenDragSession.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ArcShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ArcShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\BoxShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CircleShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CircleShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ConeShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\ConeShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CylTorusShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\CylinderShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\EqTriangle2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\EqTriangle3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\PolygonShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\PyramidShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\QuadShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\QuadShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\RightAngTriangle2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\RightAngTriangle3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SegmentShape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SegmentShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DBorderDirection.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DBorderType.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DExtentPoint.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape2DPtContainMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\Shape3DRaycastMode.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\SphereShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\TorusShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Shapes\TriangPrismShape3D.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Singleton\MonoSingleton.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Singleton\Singleton.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Transform\TransformAxis.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Transform\TransformSnapshot.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\IUndoRedoAction.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\RTUndoRedo.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\UndoRedo\UndoRedoActions.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\FileSystem.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnapData.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\Object2ObjectSnapDataDb.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectAlign.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectBounds.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectCloning.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectPositionCalculator.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSnap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSpawnUtil.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectSurfaceSnap.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\ObjectVertexCollect.cs" />
+    <Compile Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Utilities\UniqueNameGen.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CameraGizmoListener.cs" />
+    <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\IPDetailPanel.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\IPMenuPanel.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\IPTopologyPanel.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\IpTopologyBox.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\UIBasePanel.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\UIController.cs" />
+    <Compile Include="Assets\UI\Scripts\Panel\UIline.cs" />
+    <Compile Include="Assets\UI\Scripts\Proxy\IPProxy.cs" />
+    <Compile Include="Assets\UI\Scripts\UIEventDispatcher.cs" />
+    <Compile Include="Assets\UI\Scripts\Util.cs" />
+    <Compile Include="Assets\movingpls.cs" />
+    <Compile Include="Assets\raycastas.cs" />
+    <Compile Include="Assets\setparam.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_SimpleColor.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_GizmoSolidHandle.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_CircleCull.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_TintedTexture.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Runtime Transform Gizmos\Docs\Readme.txt" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_TorusCull.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Docs\Version History.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_LinearGradientCameraBk.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_CylindricalTorusCull.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Runtime Transform Gizmos\Scripts\Runtime Package Common\Resources\Shaders\RTApp_XZGrid_Plane.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.CollabProxy.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>/Users/x-dt/workspace/Qinghua/-/VisGenerator/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.NonGeneric">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.NonGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.Specialized.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.EventBasedAsync.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Common">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Contracts">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.FileVersionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TextWriterTraceListener">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tools">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TraceSource">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Diagnostics.TraceSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Drawing.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Dynamic.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Extensions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.DriveInfo">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.DriveInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.Watcher.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.IsolatedStorage">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.MemoryMappedFiles">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.MemoryMappedFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipes">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.Pipes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.UnmanagedMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Parallel">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Queryable">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.Queryable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Rtc">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Http.Rtc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NameResolution">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NameResolution.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NetworkInformation">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.NetworkInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Ping">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Ping.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Security">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebHeaderCollection">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebHeaderCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Net.WebSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.ILGeneration">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.ILGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.Lightweight">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Emit">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Emit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Reader">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Writer">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Resources.Writer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.VisualC">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.CompilerServices.VisualC.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Handles">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Handles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Numerics">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Formatters.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Xml">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.Serialization.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Claims">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Claims.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Csp">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Csp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.Principal.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.SecureString">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Security.SecureString.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Duplex">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Http">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.NetTcp">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.NetTcp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Overlapped">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Overlapped.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Parallel">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.ThreadPool">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.ThreadPool.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Timer">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.Timer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XDocument">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlSerializer">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XmlSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/UnityScript.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript.Lang">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/UnityScript.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang">
+      <HintPath>/Applications/Unity hub/2019.3.0f3/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{1631C737-3B69-01C7-A637-214DC73C7469}</Project>
+      <Project>{DA4059A4-7A67-70AA-FB51-D11FAE89D45C}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
