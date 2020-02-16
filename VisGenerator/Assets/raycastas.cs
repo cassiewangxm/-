@@ -112,7 +112,7 @@ public class raycastas : MonoBehaviour
                             {
                                 hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
                                 hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
-                                hitPoint.y = height * HScale / 256.00f;
+                                hitPoint.y = height * HScale / 256.00f; //
                                 //Cube.transform.position = hitPoint;
                                 Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
                                 uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);

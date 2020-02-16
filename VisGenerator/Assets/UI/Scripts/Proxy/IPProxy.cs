@@ -70,6 +70,11 @@ public class IPProxy : MonoBehaviour
         s_instance = this;
     }
 
+    public Dictionary<string, IpDetail> GetDictionary()
+    {
+        return fadeIpDetailDic;
+    }
+
     public IpDetail GetIpDetail(string ip)
     {
         if (fadeIpDetailDic.ContainsKey(ip))
