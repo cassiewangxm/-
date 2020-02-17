@@ -15,6 +15,7 @@ public class SingleAS : MonoBehaviour
     public Transform m_RegmentsRoot;//quad的 根结点
     public GameObject m_QuadPrefab; // 用于划分区段
     public SpriteRenderer m_SegmentIPMap; //区段IP图
+    public Camera m_targetCamera;
 
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
     private ASDetail m_ASData; //AS柱数据
@@ -29,7 +30,7 @@ public class SingleAS : MonoBehaviour
 
         ASProxy.instance.GetASByPosition(x,y,height,out m_ASData);
         
-        m_RegmentsRoot.position = Camera.main.transform.position + Camera.main.transform.forward * (6 + height/5) - new Vector3(3,0,0);
+        m_RegmentsRoot.position = m_targetCamera.transform.position + m_targetCamera.transform.forward * (6 + height/5) - new Vector3(3,0,0);
 
         m_ASCube.transform.position = m_RegmentsRoot.position;
         m_ASCube.transform.localScale = new Vector3(m_ASCube.transform.localScale.x,m_ASData.Segments.Length,m_ASCube.transform.localScale.z);
@@ -66,7 +67,7 @@ public class SingleAS : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = m_targetCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;
                 if(Physics.Raycast(ray,out hitInfo))
                 {
