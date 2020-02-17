@@ -28,7 +28,9 @@ public class Filters : MonoBehaviour
     private Dropdown dropdownType;
 
     public GameObject GeoPointCollector;
+    public GameObject PosPointCollector;
     public GameObject GeoPointPrefab;
+    public GameObject PosMarkerPrefab;
     public float MapWidth;
     public float MapHeight;
 
@@ -78,6 +80,36 @@ public class Filters : MonoBehaviour
         
     }
 
+    public void ShowPos()
+    {
+        // Clear geopoints
+        Destroy(GameObject.FindWithTag("PosPoint"));
+
+        string IP = "89.151.176.13";
+        Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
+        string region;
+        string asNumber;
+        string type;
+        foreach (var item in dictionary)
+        {
+            if (item.Value.IP == IP)
+            {
+                region = item.Value.country;
+                asNumber = item.Value.ASNum.ToString();
+                type = "0";
+                // Show in AS View
+
+                // Show in Map View
+                float lat = item.Value.lat;
+                float lng = item.Value.lng;
+                GameObject newPosPoint = Instantiate(PosMarkerPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
+                //newPosPoint.transform.parent = PosPointCollector.transform;
+                // Show in IP View
+
+            }
+        }
+    }
+
     void MultipleFilters()
     {
         Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
@@ -92,10 +124,7 @@ public class Filters : MonoBehaviour
         }
 
         // Clear geopoints
-        foreach (Transform child in GeoPointCollector.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
+        Destroy(GameObject.FindWithTag("GeoPoint"));
 
         // Clear geo points
 
@@ -109,11 +138,13 @@ public class Filters : MonoBehaviour
                     {
                         // Highlight an as
                         asFilterFlag[item.Value.ASNum] = true;
+                        // Highlight an IP
+
                         // Highlight an geo
                         float lat = item.Value.lat;
                         float lng = item.Value.lng;
                         GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                        newGeoPoint.transform.parent = GeoPointCollector.transform;
+                        //newGeoPoint.transform.parent = GeoPointCollector.transform;
                     }
                 }
             }

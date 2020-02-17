@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2300773877640200085}
   - component: {fileID: 2300773877640200084}
   m_Layer: 12
-  m_Name: GeoPoint
-  m_TagString: GeoPoint
+  m_Name: PosPoint
+  m_TagString: PosPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2300773877640200087}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 7ce8ff22a9a6342418e2e232526e72fb, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 2cbc2513593284d1ba50bc0c17b94aef, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
