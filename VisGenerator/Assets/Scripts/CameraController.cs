@@ -80,7 +80,7 @@ namespace Controller
         public void ViewSingleAS()
         {
             currentView = ViewType.ViewSingleAS;
-            Camera.cullingMask = 4097 + 1025;
+            Camera.cullingMask = 8193 + 1025;
             IsAS = false;
         }
         public void ViewSingleAS()
