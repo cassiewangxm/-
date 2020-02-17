@@ -363,8 +363,7 @@ namespace RTG
                     }
                 }
             }
-
-            if (CanUseMouseScrollWheel())
+            //if (CanUseMouseScrollWheel())
             {
                 float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
                 if (mouseScroll != 0.0f && _zoomSettings.IsZoomEnabled)
