@@ -88,7 +88,8 @@ public class raycastas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CameraController.currentView == ViewType.ViewAS)
+        //if (CameraController.currentView == ViewType.ViewAS)
+        if (CameraController.IsAS)
         {
             //Detect when there is a mouse click
             if (Input.GetMouseButton(0))
@@ -104,6 +105,7 @@ public class raycastas : MonoBehaviour
                     if (planes[i].Raycast(ray, out enter))
                     {
                         Vector3 hitPoint = ray.GetPoint(enter);
+                        Debug.Log(hitPoint);
                         if (IsInside(hitPoint, Position, Size))
                         {
                             Vector2 hitPointT = WorldtoUVHit(hitPoint, 256.0f, Position, Size);
@@ -124,7 +126,7 @@ public class raycastas : MonoBehaviour
                                 UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
                                 Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
                                 //PPPS: 这里可以显示单独柱体
-                                //ShowSingleAS((int)(hitPointT.x), (int)(hitPointT.y), height);
+                                ShowSingleAS((int)(hitPointT.x), (int)(hitPointT.y), height);
                                 m_HasHit = true;
                                 break;
                             }
@@ -187,6 +189,7 @@ public class raycastas : MonoBehaviour
 #region LIPENGYUE
     void ShowSingleAS(int x, int y, float height)
     {
+        Debug.Log("!");
         singleAS.ShowSingleAS(x, y, height);
         CameraController.ViewSingleAS();
     }
