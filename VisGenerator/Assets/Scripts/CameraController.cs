@@ -43,8 +43,6 @@ namespace Controller
 
         public ViewType currentView = ViewType.ViewAS;
 
-        public ViewType currentView = ViewType.ViewAS;
-
         bool IsInside(Vector3 move)
         {
             if (move.x < cameraBound0)
@@ -80,13 +78,7 @@ namespace Controller
         public void ViewSingleAS()
         {
             currentView = ViewType.ViewSingleAS;
-            Camera.cullingMask = 8193 + 1025;
-            IsAS = false;
-        }
-        public void ViewSingleAS()
-        {
-            currentView = ViewType.ViewSingleAS;
-            Camera.cullingMask = 4097 + 1025;
+            Camera.cullingMask = 8193;
             IsAS = false;
         }
         public void ViewIP()

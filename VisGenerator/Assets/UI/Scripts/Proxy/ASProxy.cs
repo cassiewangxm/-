@@ -45,7 +45,7 @@ public class ASSegment
     void FakeInit()
     {
         BornDate = Random.Range(1990,2019).ToString();
-        IPCount = (uint)Random.Range(33,233);
+        IPCount = (uint)Random.Range(99,233);
         IPList = new string[IPCount];
         for(int i =0; i<IPList.Length; i++)
         {
@@ -68,6 +68,7 @@ public class ASSegment
 public class ASProxy : MonoBehaviour
 {
     private static ASProxy s_instance;
+    private Dictionary<Vector2,ASDetail> m_ASDict = new Dictionary<Vector2, ASDetail>();
     public static ASProxy instance
     {
         get {
@@ -88,7 +89,16 @@ public class ASProxy : MonoBehaviour
 
     public void GetASByPosition(int x, int y, float height, out ASDetail asDetail)
     {
-        asDetail = new ASDetail();
-        asDetail.FakeInit(x,y,(int)height);
+        Vector2 v = new Vector2(x,y);
+        if(m_ASDict.ContainsKey(v))
+        {
+            asDetail = m_ASDict[v];
+        }    
+        else
+        {
+            asDetail = new ASDetail();
+            asDetail.FakeInit(x,y,(int)height);
+            m_ASDict.Add(v,asDetail);
+        }
     }
 }

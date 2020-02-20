@@ -31,12 +31,12 @@ public class raycastas : MonoBehaviour
     private bool m_HasHit;
 
     #region LIPENGYUE
-    public GameObject textPrefab;
-    public Transform textParent;
-    private TextMesh[] nearTexts; //附近AS柱体名称
-    private bool titlesDirty; //当前 TextMesh[] nearTexts 是否有title在显示
-    private Vector3 oldCamPos;
-    public SingleAS singleAS;
+    // public GameObject textPrefab;
+    // public Transform textParent;
+    // private TextMesh[] nearTexts; //附近AS柱体名称
+    // private bool titlesDirty; //当前 TextMesh[] nearTexts 是否有title在显示
+    // private Vector3 oldCamPos;
+    public WanderingASMap wanderingASMap;
     #endregion
 
     // Start is called before the first frame update
@@ -49,9 +49,9 @@ public class raycastas : MonoBehaviour
         }
         CameraController = Camera.GetComponent<CameraController>();
 
-    #region LIPENGYUE
-        InitTextsForNearlyAS();
-    #endregion
+    // #region LIPENGYUE
+    //     InitTextsForNearlyAS();
+    // #endregion
     }
     int Select(float v, float textureSize)
     {
@@ -96,7 +96,7 @@ public class raycastas : MonoBehaviour
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
                 m_HasHit = false;
 
                 for (int i = planes.Length - 1; i >= 0; i--)
@@ -112,19 +112,19 @@ public class raycastas : MonoBehaviour
                             float height = Heights.GetPixel((int)(hitPointT.x), (int)(hitPointT.y)).r * 256.00f;
                             if (hitPoint.y <= height * HScale / 256.00f + 0.005f)
                             {
-                                hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
-                                hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
-                                hitPoint.y = height * HScale / 256.00f; //
+                                // hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
+                                // hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
+                                // hitPoint.y = height * HScale / 256.00f; //
                                 //Cube.transform.position = hitPoint;
-                                Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
-                                uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
+                                //Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
+                                //uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
                                 //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
                                 //Debug.Log(Input.mousePosition);
-                                Text.transform.position = Input.mousePosition;
-                                Text.text = "IP number: " + num.ToString();
-                                Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                                UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
-                                Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
+                                // Text.transform.position = Input.mousePosition;
+                                // Text.text = "IP number: " + num.ToString();
+                                // Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                                // UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
+                                // Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
                                 //PPPS: 这里可以显示单独柱体
                                 ShowSingleAS((int)(hitPointT.x), (int)(hitPointT.y), height);
                                 m_HasHit = true;
@@ -160,7 +160,7 @@ public class raycastas : MonoBehaviour
             }
 
             //PPPS: 显示附近AS柱体名称
-            DetectNearAS();
+            //DetectNearAS();
         }
         else if(CameraController.currentView == ViewType.ViewIP)
         {
@@ -190,18 +190,18 @@ public class raycastas : MonoBehaviour
     void ShowSingleAS(int x, int y, float height)
     {
         Debug.Log("!");
-        singleAS.ShowSingleAS(x, y, height);
+        wanderingASMap.IntoWanderingMap(x,y);
         CameraController.ViewSingleAS();
     }
-    void InitTextsForNearlyAS()
-    {
-        oldCamPos = Camera.transform.position;
-        nearTexts = new TextMesh[100];
-        for (int i = 0; i < nearTexts.Length; i++)
-        {
-            nearTexts[i] = Instantiate(textPrefab,textParent).GetComponent<TextMesh>();
-        }
-    }
+    // void InitTextsForNearlyAS()
+    // {
+    //     oldCamPos = Camera.transform.position;
+    //     nearTexts = new TextMesh[100];
+    //     for (int i = 0; i < nearTexts.Length; i++)
+    //     {
+    //         nearTexts[i] = Instantiate(textPrefab,textParent).GetComponent<TextMesh>();
+    //     }
+    // }
     float Select2(float v, float textureSize)
     {
         if (v < 0.0f)
@@ -221,80 +221,80 @@ public class raycastas : MonoBehaviour
         newPoint.z = (newPoint.z - position.z) / size.y * textureSize ;
         return new Vector2(Select2(newPoint.x, textureSize), Select2(newPoint.z, textureSize));
     }
-    void DetectNearAS()
-    {
-        //相机超出范围后 清空 
-        if(Camera.transform.position.y > 70)
-        {
-            ClearASTitles();
-            return;
-        }    
+    // void DetectNearAS()
+    // {
+    //     //相机超出范围后 清空 
+    //     if(Camera.transform.position.y > 70)
+    //     {
+    //         ClearASTitles();
+    //         return;
+    //     }    
 
-            float camMovD = Vector3.Distance(Camera.transform.position, oldCamPos);
-            if(camMovD > 2)
-            {
-                oldCamPos = Camera.transform.position;
+    //         float camMovD = Vector3.Distance(Camera.transform.position, oldCamPos);
+    //         if(camMovD > 2)
+    //         {
+    //             oldCamPos = Camera.transform.position;
 
-                // world space position 视野中心点
-                Vector3 camPos = Camera.transform.position + Camera.transform.forward * Mathf.Abs(Camera.transform.position.y/Camera.transform.forward.y);
-                Vector3 bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, Vector3.Distance(Camera.transform.position,camPos)));
+    //             // world space position 视野中心点
+    //             Vector3 camPos = Camera.transform.position + Camera.transform.forward * Mathf.Abs(Camera.transform.position.y/Camera.transform.forward.y);
+    //             Vector3 bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, Vector3.Distance(Camera.transform.position,camPos)));
                 
                 
-                int viewWidth = 10;
-                int viewDepth = -(int)((camPos.z - bottomBorder.z)/2.5f);
+    //             int viewWidth = 10;
+    //             int viewDepth = -(int)((camPos.z - bottomBorder.z)/2.5f);
 
-                //矫正位置
-                camPos.x = ((int)(camPos.x/2.5f) - 0.5f)*2.5f;
-                camPos.z = ((int)(camPos.z/2.5f) - 0.5f)*2.5f;
-                if(IsInside(camPos, Position, Size))
-                {
-                    titlesDirty = true;
-                    int usedText = 0;
-                    for (int i = 0; i<viewWidth*3; i++)
-                    {
-                        for (int j = viewDepth; ; j--)
-                        {
-                            Vector3 hitPoint = new Vector3(camPos.x + i*2.5f, 0, camPos.z + j*2.5f);
-                                if(IsInside(hitPoint, Position, Size))
-                                {
-                                    Vector2 hitPointT = WorldtoUVHit2(hitPoint, 1.0f, Position, Size);
-                                    float height = (Heights.GetPixelBilinear((hitPointT.x), (hitPointT.y)).r * 0.3f + 0.01f)*200.0f;
-                                    if (height > 0 )
-                                    {
-                                            hitPoint.y = height;
-                                            if(!IsInViewport(hitPoint))
-                                                continue;
+    //             //矫正位置
+    //             camPos.x = ((int)(camPos.x/2.5f) - 0.5f)*2.5f;
+    //             camPos.z = ((int)(camPos.z/2.5f) - 0.5f)*2.5f;
+    //             if(IsInside(camPos, Position, Size))
+    //             {
+    //                 titlesDirty = true;
+    //                 int usedText = 0;
+    //                 for (int i = 0; i<viewWidth*3; i++)
+    //                 {
+    //                     for (int j = viewDepth; ; j--)
+    //                     {
+    //                         Vector3 hitPoint = new Vector3(camPos.x + i*2.5f, 0, camPos.z + j*2.5f);
+    //                             if(IsInside(hitPoint, Position, Size))
+    //                             {
+    //                                 Vector2 hitPointT = WorldtoUVHit2(hitPoint, 1.0f, Position, Size);
+    //                                 float height = (Heights.GetPixelBilinear((hitPointT.x), (hitPointT.y)).r * 0.3f + 0.01f)*200.0f;
+    //                                 if (height > 0 )
+    //                                 {
+    //                                         hitPoint.y = height;
+    //                                         if(!IsInViewport(hitPoint))
+    //                                             continue;
 
-                                            // PPPS : 这里可以调整距离范围
-                                            if(Vector3.Distance(hitPoint,Camera.transform.position) > 40)
-                                                continue;
+    //                                         // PPPS : 这里可以调整距离范围
+    //                                         if(Vector3.Distance(hitPoint,Camera.transform.position) > 40)
+    //                                             continue;
 
-                                            if(usedText < nearTexts.Length)
-                                            {
-                                                nearTexts[usedText].transform.position = hitPoint;
-                                                nearTexts[usedText].text = hitPoint.ToString();
-                                                usedText++;
-                                            }
-                                            else
-                                            {
-                                                break;
-                                            }
-                                    }
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                        }
-                    }
+    //                                         if(usedText < nearTexts.Length)
+    //                                         {
+    //                                             nearTexts[usedText].transform.position = hitPoint;
+    //                                             nearTexts[usedText].text = hitPoint.ToString();
+    //                                             usedText++;
+    //                                         }
+    //                                         else
+    //                                         {
+    //                                             break;
+    //                                         }
+    //                                 }
+    //                             }
+    //                             else
+    //                             {
+    //                                 break;
+    //                             }
+    //                     }
+    //                 }
 
-                    for (int i = usedText; i < nearTexts.Length; i++)
-                    {
-                        nearTexts[i].text = "";
-                    }
-                }
-            }
-    }
+    //                 for (int i = usedText; i < nearTexts.Length; i++)
+    //                 {
+    //                     nearTexts[i].text = "";
+    //                 }
+    //             }
+    //         }
+    // }
 
     bool IsInViewport(Vector3 v)
     {
@@ -305,17 +305,17 @@ public class raycastas : MonoBehaviour
         return false;
     }
 
-    void ClearASTitles()
-    {
-        if(!titlesDirty)
-            return;
+    // void ClearASTitles()
+    // {
+    //     if(!titlesDirty)
+    //         return;
 
-        for (int i = 0; i < nearTexts.Length; i++)
-        {
-            nearTexts[i].text = "";
-        }
-        titlesDirty = false;
-    }
+    //     for (int i = 0; i < nearTexts.Length; i++)
+    //     {
+    //         nearTexts[i].text = "";
+    //     }
+    //     titlesDirty = false;
+    // }
 #endregion
 
 }
