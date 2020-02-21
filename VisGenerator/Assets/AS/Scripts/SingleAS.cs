@@ -48,6 +48,14 @@ public class SingleAS : MonoBehaviour
         StopAllCoroutines();
     }
 
+    void OnBecameVisible()
+    {
+        if(!Application.isPlaying)
+            return;
+
+        InitASLooking(true);
+    }
+
     public void InitASData(int x, int y, float height,CameraController ctrl = null, Camera cam = null)
     {
         m_height = height;
@@ -82,7 +90,7 @@ public class SingleAS : MonoBehaviour
     {
         InitASData(x, y, height);
 
-        InitASLooking();
+        InitASLooking(true);
     }
 
     public void SetSelected(bool value)
@@ -145,7 +153,7 @@ public class SingleAS : MonoBehaviour
 
     void InitMesh(bool usejob)
     {
-        if(m_ASData.Segments.Length > 1)
+        if(m_ASData != null && m_ASData.Segments.Length > 1)
         {
             if(usejob)
                 m_mesh.mesh = GenerateMeshJob(m_ASData.Segments.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);

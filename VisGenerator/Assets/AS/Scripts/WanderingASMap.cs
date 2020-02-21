@@ -16,8 +16,8 @@ public class WanderingASMap : MonoBehaviour
     private int m_mapWidth = 256;
     private SingleAS[][] m_ASArray;
     private Vector2Int m_curSelected;
-    private const int m_lineCount = 16;
-    private int m_cacheCount = m_lineCount * m_lineCount; //缓存16*16个
+    private const int m_lineCount = 20;
+    private int m_cacheCount = m_lineCount * m_lineCount; //缓存n个
     private Vector3 m_oldCamPos;
     private int m_MLR = 0; // most Left Row
     private int m_MDL = 0; // most Down Line
@@ -26,7 +26,7 @@ public class WanderingASMap : MonoBehaviour
     void Awake()
     {
         m_oldCamPos = m_targetCamera.transform.position;
-        CreateASCubes();
+        StartCoroutine(CreateASCubes());
     }
     void OnDestroy()
     {
@@ -40,7 +40,9 @@ public class WanderingASMap : MonoBehaviour
         m_curSelected = Vector2Int.zero;
 
         StartCoroutine(InitMap(x,y,false));
-        StartCoroutine(InitMap(x,y,true));
+        //StartCoroutine(InitMap(x,y,true));
+
+        SetFocusAS(m_lineCount/2 + m_lineCount/6, m_lineCount/2 - m_lineCount/6);
     }
     
     IEnumerator InitMap(int x, int y, bool corot)
@@ -52,26 +54,27 @@ public class WanderingASMap : MonoBehaviour
         float centerHeight = 0;
         int count = 0;
         int n = 0;
-        int arrayc = m_lineCount/2;
+        int arrayc = m_lineCount/2 + m_lineCount/6;
+        int arraycY = m_lineCount/2 - m_lineCount/6;
         while(count < m_cacheCount)
         {
             if(n == 0)
             {
                 count++;
                 centerHeight = GetASHeight(x, y);
-                centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (10 + centerHeight/2f);
+                centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
                 if(corot)
                 {
-                    m_ASArray[arrayc][arrayc].InitASLooking(true);
+                    m_ASArray[arrayc][arraycY].InitASLooking(true);
                     if(centerHeight > 0.0f)
                         yield return new WaitForEndOfFrame();
-                    SetFocusAS(arrayc,arrayc);
+                    SetFocusAS(arrayc,arraycY);
                 }
                 else
                 {
-                    m_ASArray[arrayc][arrayc].transform.position = centerPos;
-                    m_ASArray[arrayc][arrayc].name = string.Format("{0}_{1}", arrayc, arrayc);
-                    m_ASArray[arrayc][arrayc].InitASData(x, y, centerHeight, m_camController, m_targetCamera);
+                    m_ASArray[arrayc][arraycY].transform.position = centerPos;
+                    m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
+                    m_ASArray[arrayc][arraycY].InitASData(x, y, centerHeight, m_camController, m_targetCamera);
                 }
             }
             else
@@ -84,7 +87,7 @@ public class WanderingASMap : MonoBehaviour
                     {
                         Vector2Int xy = new Vector2Int(x + i, y + j);
                         float height = GetASHeight(xy.x, xy.y);
-                        int arrayy = arrayc + j;
+                        int arrayy = arraycY + j;
                         if((arrayx >= 0 && arrayx < m_ASArray.Length && arrayy >= 0 && arrayy < m_ASArray[arrayx].Length))
                         {
                             count++;
@@ -92,7 +95,7 @@ public class WanderingASMap : MonoBehaviour
                             if(corot)
                             {
                                 m_ASArray[arrayx][arrayy].InitASLooking(true);
-                                if(height > 0.0f && n > 4)
+                                if(height > 0.0f)
                                     yield return new WaitForEndOfFrame();
                             }
                             else
@@ -116,7 +119,7 @@ public class WanderingASMap : MonoBehaviour
                                 break;
                         }
                     }
-                    if(n <= 4 && corot)
+                    if(n > 6)
                         yield return new WaitForEndOfFrame();
 
                 }
@@ -136,9 +139,9 @@ public class WanderingASMap : MonoBehaviour
 
             m_ASArray[v.x][v.y].SetSelected(true);
             m_curSelected = v;
-        }   
+        }
     }
-    void CreateASCubes()
+    IEnumerator CreateASCubes()
     {
         m_ASArray = new SingleAS[m_lineCount][];
         for(int i = 0; i < m_lineCount; i++)
@@ -149,6 +152,7 @@ public class WanderingASMap : MonoBehaviour
                 GameObject obj = Instantiate(m_SingleASPrefab, m_root);   
                 m_ASArray[i][j] = obj.GetComponent<SingleAS>();
             }
+            yield return new WaitForEndOfFrame();
         }
     }
     
