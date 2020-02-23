@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GeoPoint
   - PosPoint
+  - MapCurve
   layers:
   - Default
   - TransparentFX

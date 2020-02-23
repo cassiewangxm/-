@@ -24,9 +24,10 @@ public class drawallcurve : MonoBehaviour
     {
         lines = new Dictionary<kk, GameObject>();
     }
-    public void Addlines(Vector3 v1,Vector3 v2)
+    public void Addlines(Vector3 v1,Vector3 v2, string tag)
     {
         GameObject li= Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        li.tag = tag;
         
         lines.Add(new kk(v1, v2), li);
 
@@ -46,7 +47,7 @@ public class drawallcurve : MonoBehaviour
         for(int i = 0; i < v11.Length; i++)
         {
             Vector3 v1 = v11[i];
-            Addlines(v1, v2);
+            //Addlines(v1, v2);
         }
     }
     public void Addlines(Vector3 v1, Vector3[] v22)
@@ -54,7 +55,7 @@ public class drawallcurve : MonoBehaviour
         for(int i = 0; i < v22.Length; i++)
         {
             Vector3 v2 = v22[i];
-            Addlines(v1, v2);
+            //Addlines(v1, v2);
         }
     }
     public void Addlines(Vector3[] v11, Vector3[] v22)
@@ -97,6 +98,11 @@ public class drawallcurve : MonoBehaviour
         {
             Deletelines(i, v2);
         }
+    }
+
+    public void DeleteAllLines()
+    {
+        OnDisable();
     }
     
     private void OnDisable()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    public drawallcurve testdraw;
+    drawallcurve testdraw;
     Vector3[] testarray = { new Vector3(3, 0, 4), new Vector3(3, 0, 5) , new Vector3(3, 0, 6) };
     Vector3[] testarray2 = { new Vector3(0, 0, 4), new Vector3(0, 0, 5) };
     // Start is called before the first frame update
@@ -16,6 +16,7 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (aaa++ == 0)
         {
             //add lines
@@ -26,7 +27,16 @@ public class test : MonoBehaviour
             //delete lines
             testdraw.Deletelines(Vector3.zero, testarray);
         }
-            
+        */
         
+    }
+
+    public void AddLine(Vector3 vectorA, Vector3 vectorB, string tag)
+    {
+        testdraw.Addlines(vectorA, vectorB, tag);
+    }
+    public void DeleteLines()
+    {
+        testdraw.DeleteAllLines();
     }
 }
