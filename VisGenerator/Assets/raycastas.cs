@@ -26,9 +26,16 @@ public class raycastas : MonoBehaviour
     private float[] pairs;
 
     public Camera Camera;
+    public GameObject CameraParent;
     private CameraController CameraController;
 
     private bool m_HasHit;
+
+    int zoomX;
+    int zoomY;
+    float zoomHeight;
+    Vector3 cameraHitPoint;
+    bool isZooming = false;
 
     #region LIPENGYUE
     // public GameObject textPrefab;
@@ -91,6 +98,11 @@ public class raycastas : MonoBehaviour
         //if (CameraController.currentView == ViewType.ViewAS)
         if (CameraController.IsAS)
         {
+            if (isZooming)
+            {
+                MoveASCamera();
+                return;
+            }
             //Detect when there is a mouse click
             if (Input.GetMouseButton(0))
             {
@@ -105,7 +117,7 @@ public class raycastas : MonoBehaviour
                     if (planes[i].Raycast(ray, out enter))
                     {
                         Vector3 hitPoint = ray.GetPoint(enter);
-                        Debug.Log(hitPoint);
+                        //Debug.Log(hitPoint);
                         if (IsInside(hitPoint, Position, Size))
                         {
                             Vector2 hitPointT = WorldtoUVHit(hitPoint, 256.0f, Position, Size);
@@ -116,8 +128,8 @@ public class raycastas : MonoBehaviour
                                 // hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
                                 // hitPoint.y = height * HScale / 256.00f; //
                                 //Cube.transform.position = hitPoint;
-                                //Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
-                                //uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
+                                Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
+                                uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
                                 //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
                                 //Debug.Log(Input.mousePosition);
                                 // Text.transform.position = Input.mousePosition;
@@ -130,8 +142,18 @@ public class raycastas : MonoBehaviour
                                 Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                                 //UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
                                 Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
+
+                                // Move the camera forward
+                                float cameraEnter = 0.0f;
+                                planes[255].Raycast(ray, out cameraEnter);
+                                cameraHitPoint = ray.GetPoint(cameraEnter);
+                                Debug.Log(cameraHitPoint);
+                                zoomX = (int)(hitPointT.x);
+                                zoomY = (int)(hitPointT.y);
+                                zoomHeight = height;
+                                isZooming = true;
+
                                 //PPPS: 这里可以显示单独柱体
-                                ShowSingleAS((int)(hitPointT.x), (int)(hitPointT.y), height);
                                 m_HasHit = true;
                                 break;
                             }
@@ -191,10 +213,23 @@ public class raycastas : MonoBehaviour
             }
         }
     }
+
+    void MoveASCamera()
+    {
+        if (Vector3.Distance(Camera.transform.position, cameraHitPoint) >= 1.0f)
+        {
+            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 200.0f * Time.deltaTime);
+        }
+        else
+        {
+            ShowSingleAS(zoomX, zoomY, zoomHeight);
+            isZooming = false;
+        }
+    }
+
 #region LIPENGYUE
     void ShowSingleAS(int x, int y, float height)
     {
-        Debug.Log("!");
         wanderingASMap.IntoWanderingMap(x,y);
         CameraController.ViewSingleAS();
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using RTG;
 
 namespace Controller
@@ -40,6 +41,8 @@ namespace Controller
         public Camera CameraAS;
         public Camera CameraIP;
         public Camera CameraMap;
+
+        public GameObject ASGameObject;
 
         public ViewType currentView = ViewType.ViewAS;
 
@@ -213,50 +216,13 @@ namespace Controller
         // Update is called once per frame
         void Update()
         {
-            /*
-            if (!IsNavigationUpdate)
-            {
-                Vector3 zoom = Parent.transform.position + Parent.transform.forward * Input.GetAxis("Mouse ScrollWheel") * Step;
-                if (IsInside(zoom))
-                {
-                    if ((!IsNavigation) && (zoom.y < 255.0f) && (zoom.y > 25.0f))
-                    Parent.transform.position = zoom;
-                }
-
-                if (!Input.GetMouseButton(2))
-                {
-                    return;
-                }
-
-
-                if (Input.GetMouseButtonDown(2))
-                {
-                    dragOrigin = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                    return;
-                }
-
-
-                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition) - dragOrigin;
-                Vector3 move = new Vector3(pos.x * (IsNavigation ? Speed / 2 : Speed), 0, pos.y * (IsNavigation ? Speed / 2 : Speed));
-
-                Vector3 des = Parent.transform.position + Parent.transform.TransformDirection(move);
-                if (IsInside(des))
-                {
-                    Parent.transform.position = des;
-                }
-            }
-            else
-            {
-                if (IsNavigation)
-                {
-                    IncreaseDepth();
-                }
-                else
-                {
-                    DecreaseDepth();
-                }
-            }
-            */
+            float height = CameraAS.transform.position.y;
+            float asScale = height / 250.0f * 0.3f;
+            float asGScale = 250.0f / height * 0.03f;
+            float asItemsize = (height / 250.0f) * 0.4f + 0.6f;
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("itemsize", asItemsize);
         }
 
     }

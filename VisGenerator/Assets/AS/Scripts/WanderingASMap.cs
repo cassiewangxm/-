@@ -12,7 +12,7 @@ public class WanderingASMap : MonoBehaviour
     public Camera m_targetCamera;
     public Transform m_root;
 
-    private float m_baseWith = 12;
+    private float m_baseWith = 640 / 256;
     private int m_mapWidth = 256;
     private SingleAS[][] m_ASArray;
     private Vector2Int m_curSelected;
@@ -62,8 +62,9 @@ public class WanderingASMap : MonoBehaviour
             {
                 count++;
                 centerHeight = GetASHeight(x, y);
-                centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
-                if(corot)
+                //centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
+                centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f);
+                if (corot)
                 {
                     m_ASArray[arrayc][arraycY].InitASLooking(true);
                     if(centerHeight > 0.0f)

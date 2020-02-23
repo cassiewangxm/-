@@ -28,7 +28,7 @@ public class drawcur : MonoBehaviour
         }
         return res;
     }
-    public void SetPoints(Vector3 v1, Vector3 v2)
+    public void SetPoints(Vector3 v1, Vector3 v2, float thickness)
     {
         
         float dist = Vector3.Distance(v1, v2);
@@ -44,8 +44,8 @@ public class drawcur : MonoBehaviour
         lrender.positionCount = ctrlnums;
         Vector3[] points = calpoints(v1, v2, vmid, ctrlnums);
         lrender.SetPositions(points);
-        lrender.endWidth = linewidth;
-        lrender.startWidth = linewidth;
+        lrender.endWidth = linewidth * thickness;
+        lrender.startWidth = linewidth * thickness;
         lrender.material = mat;
     }
     

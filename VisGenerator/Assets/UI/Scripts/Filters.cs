@@ -28,6 +28,17 @@ class IPPair
     }
 }
 
+class CurveLine
+{
+    public Vector3 PosA;
+    public Vector3 PosB;
+    public CurveLine(Vector3 A, Vector3 B)
+    {
+        PosA = A;
+        PosB = B;
+    }
+}
+
 public class Filters : MonoBehaviour
 {
     public GameObject FilterRegion;
@@ -54,6 +65,10 @@ public class Filters : MonoBehaviour
 
     public bool[] asFilterFlag = new bool[65536];
     private IPPair[] ipPairs = new IPPair[1];
+
+    public Camera MapCamera;
+
+    private List<CurveLine> MapCurveLines = new List<CurveLine>();
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -95,7 +110,7 @@ public class Filters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateAttacks();
     }
 
     public void ShowPos()
@@ -244,6 +259,27 @@ public class Filters : MonoBehaviour
         MultipleFilters();
     }
 
+    float CalculateCurveLineThickness(Camera camera)
+    {
+        return camera.transform.position.y / 20.0f;
+    }
+
+    void UpdateAttacks()
+    {
+        if (isShowAttackOn)
+        {
+            CurveCal.DeleteLines();
+
+            // Add curvelines on map view
+            float thickness = CalculateCurveLineThickness(MapCamera);
+
+            for (int i = 0; i < MapCurveLines.Count; i ++)
+            {
+                CurveCal.AddLine(MapCurveLines[i].PosA, MapCurveLines[i].PosB, "MapCurve", thickness);
+            }
+        }
+    }
+
     public void ShowAttacks()
     {
         isShowAttackOn = !isShowAttackOn;
@@ -276,7 +312,7 @@ public class Filters : MonoBehaviour
                                 // Show in Map View
                                 Vector3 posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
                                 Vector3 posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
-                                CurveCal.AddLine(posA, posB, "MapCurve");
+                                MapCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in IP View
                             }

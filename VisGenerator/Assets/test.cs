@@ -31,9 +31,9 @@ public class test : MonoBehaviour
         
     }
 
-    public void AddLine(Vector3 vectorA, Vector3 vectorB, string tag)
+    public void AddLine(Vector3 vectorA, Vector3 vectorB, string tag, float thickness)
     {
-        testdraw.Addlines(vectorA, vectorB, tag);
+        testdraw.Addlines(vectorA, vectorB, tag, thickness);
     }
     public void DeleteLines()
     {

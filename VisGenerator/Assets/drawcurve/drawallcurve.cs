@@ -24,7 +24,7 @@ public class drawallcurve : MonoBehaviour
     {
         lines = new Dictionary<kk, GameObject>();
     }
-    public void Addlines(Vector3 v1,Vector3 v2, string tag)
+    public void Addlines(Vector3 v1,Vector3 v2, string tag, float thickness)
     {
         GameObject li= Instantiate(prefab, Vector3.zero, Quaternion.identity);
         li.tag = tag;
@@ -40,7 +40,7 @@ public class drawallcurve : MonoBehaviour
         {
             curve.mat = mat;
         }
-        curve.SetPoints(v1, v2);
+        curve.SetPoints(v1, v2, thickness);
     }
     public void Addlines(Vector3[] v11, Vector3 v2)
     {
