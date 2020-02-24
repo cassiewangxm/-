@@ -12,7 +12,7 @@ public class WanderingASMap : MonoBehaviour
     public Camera m_targetCamera;
     public Transform m_root;
 
-    private float m_baseWith = 640 / 256;
+    private float m_baseWith = 640 / 256 * 4;
     private int m_mapWidth = 256;
     private SingleAS[][] m_ASArray;
     private Vector2Int m_curSelected;
@@ -120,7 +120,7 @@ public class WanderingASMap : MonoBehaviour
                                 break;
                         }
                     }
-                    if(n > 6)
+                    if(n > 4)
                         yield return new WaitForEndOfFrame();
 
                 }

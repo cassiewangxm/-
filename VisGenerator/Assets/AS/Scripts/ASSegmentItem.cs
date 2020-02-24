@@ -23,7 +23,7 @@ public class ASSegmentItem : MonoBehaviour
     {
         m_SegemntData = data;
 
-        float scale = (float)m_SegemntData.IPCount/256*4 + 2;
+        float scale = (float)m_SegemntData.IPCount/256*2 + 2;
         transform.localScale = new Vector3(scale,scale,1);
 
         m_SegmentName.text = "";
