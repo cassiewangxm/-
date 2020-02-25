@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,8 @@ public class Filters : MonoBehaviour
     public GameObject PosMarkerPrefab;
     public float MapWidth;
     public float MapHeight;
+    public float IPHalfWidth;
+    public float IPHalfHeight;
 
     public bool isRegionFilterOn = false;
     public bool isASFilterOn = false;
@@ -67,8 +70,10 @@ public class Filters : MonoBehaviour
     private IPPair[] ipPairs = new IPPair[1];
 
     public Camera MapCamera;
+    public Camera IPCamera;
 
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
+    private List<CurveLine> IPCurveLines = new List<CurveLine>();
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -261,7 +266,7 @@ public class Filters : MonoBehaviour
 
     float CalculateCurveLineThickness(Camera camera)
     {
-        return camera.transform.position.y / 20.0f;
+        return camera.transform.position.y / 5.0f;
     }
 
     void UpdateAttacks()
@@ -270,8 +275,16 @@ public class Filters : MonoBehaviour
         {
             CurveCal.DeleteLines();
 
+            // Add curvelines on ip view
+            float thickness = CalculateCurveLineThickness(IPCamera);
+
+            for (int i = 0; i < IPCurveLines.Count; i++)
+            {
+                CurveCal.AddLine(IPCurveLines[i].PosA, IPCurveLines[i].PosB, "IPCurve", thickness);
+            }
+
             // Add curvelines on map view
-            float thickness = CalculateCurveLineThickness(MapCamera);
+            thickness = CalculateCurveLineThickness(MapCamera);
 
             for (int i = 0; i < MapCurveLines.Count; i ++)
             {
@@ -315,6 +328,23 @@ public class Filters : MonoBehaviour
                                 MapCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in IP View
+                                uint ips = item.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+                                ips = ips >> 12;
+                                int xs = 0;
+                                int ys = 0;
+                                d2xy(256, ips, out xs, out ys);
+                                xs -= 128;
+                                ys -= 128;
+                                uint ipe = itemB.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+                                ipe = ipe >> 12;
+                                int xe = 0;
+                                int ye = 0;
+                                d2xy(256, ipe, out xe, out ye);
+                                xe -= 128;
+                                ye -= 128;
+                                posA = new Vector3(xs / 256.0f * IPHalfWidth, 0, ys / 256.0f * IPHalfHeight);
+                                posB = new Vector3(xe / 256.0f * IPHalfWidth, 0, ye / 256.0f * IPHalfHeight);
+                                IPCurveLines.Add(new CurveLine(posA, posB));
                             }
                         }
                     }
@@ -325,6 +355,40 @@ public class Filters : MonoBehaviour
         else
         {
             CurveCal.DeleteLines();
+        }
+    }
+
+    void d2xy(int n, long d, out int x, out int y)
+    {
+        long t = d;
+        int s = 1;
+        long rx, ry;
+        rx = ry = x = y = 0;
+        while (true)
+        {
+            if (s >= n) break;
+            rx = 1 & (t / 2);
+            ry = 1 & (t ^ rx);
+            rot(s, ref x, ref y, (int)rx, (int)ry);
+            x += s * (int)rx;
+            y += s * (int)ry;
+            t /= 4;
+            s *= 2;
+        }
+    }
+
+    void rot(int n, ref int x, ref int y, int rx, int ry)
+    {
+        if (ry == 0)
+        {
+            if (rx == 1)
+            {
+                x = n - 1 - x;
+                y = n - 1 - y;
+            }
+            int t = x;
+            x = y;
+            y = t;
         }
     }
 }
