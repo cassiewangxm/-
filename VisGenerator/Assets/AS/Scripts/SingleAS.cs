@@ -17,8 +17,8 @@ public class SingleAS : MonoBehaviour
     public Transform m_RegmentsRoot;//quad的 根结点
     public GameObject m_QuadPrefab; // 用于划分区段
     //public SpriteRenderer m_SegmentIPMap; //区段IP图
-    public Camera m_targetCamera;
     public MeshFilter m_mesh; //模拟柱体mesh
+    public Transform m_simpleLook;
     public TextMeshPro m_ASName;
     public GameObject m_TestSeletedSegment;
     public BoxCollider m_boxCollider;
@@ -31,8 +31,11 @@ public class SingleAS : MonoBehaviour
     {
         get {return m_height;}
     }
-
-    private CameraController cameraController;
+    public WanderingASMap WanderingASMap
+    {
+        set {m_wanderMap = value;}
+    }
+    private WanderingASMap m_wanderMap;
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
     private ASDetail m_ASData; //AS柱数据
    //private Texture2D m_tempTexture;    //区段IP图
@@ -42,6 +45,9 @@ public class SingleAS : MonoBehaviour
     private Color m_colorUnSelected = new Color(250.0f/255, 184.0f/255, 6.0f/255, 100.0f/255);
     private float m_height;
     private bool m_isFocused;
+    private float m_maxSegmentWidth;
+    private bool m_isVisibleInCam;
+    private Vector3 m_oldCamPos;
 
     void OnDestroy()
     {
@@ -52,38 +58,43 @@ public class SingleAS : MonoBehaviour
     {
         if(!Application.isPlaying)
             return;
-
+        m_isVisibleInCam = true;
         InitASLooking(true);
     }
 
-    public void InitASData(int x, int y, float height,CameraController ctrl = null, Camera cam = null)
+    void OnBecameInvisible()
+    {
+        m_isVisibleInCam = false;
+    }
+
+    public void InitASData(int x, int y, float height)
     {
         m_height = height;
-
-        if(cam!= null)
-            m_targetCamera = cam;
-        if(ctrl != null)
-            cameraController = ctrl;
-
-        if(cameraController == null)
-            Debug.Log(cameraController);
 
         ASProxy.instance.GetASByPosition(x,y,height,out m_ASData);
         m_TestSeletedSegment.SetActive(false);
 
         //生成每一层
-        float width = InitSegments();
+        m_maxSegmentWidth = InitSegments();
         m_boxCollider.enabled = true;
         m_boxCollider.center = Vector3.zero;
-        m_boxCollider.size = new Vector3(width, m_height, width); 
+        m_boxCollider.size = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth); 
     }
     public void InitASLooking(bool job = false)
     {
-        m_ASName.text = transform.name;//m_ASData.OrgName;
+        m_ASName.text = transform.name;
         m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 2, 0);
+
+        if(m_wanderMap.m_targetCamera != null)
+        {
+            m_ASName.transform.parent.LookAt(m_wanderMap.m_targetCamera.transform);
+            m_ASName.transform.parent.localEulerAngles = new Vector3(0, m_ASName.transform.parent.localEulerAngles.y,m_ASName.transform.parent.localEulerAngles.z);
+        }
 
         //生成外围不规则mesh
         InitMesh(job);
+
+        m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
     }
 
     public void RefreshAS(int x, int y, float height)
@@ -116,6 +127,19 @@ public class SingleAS : MonoBehaviour
             if(value)
                 yield return new WaitForEndOfFrame();
         }
+    }
+
+    // true : nearly enough
+    bool CheckDistance()
+    {
+        Vector2 b = new Vector2(transform.position.x, transform.position.z);
+        Vector2 a = new Vector2(m_wanderMap.m_targetCamera.transform.position.x,m_wanderMap.m_targetCamera.transform.position.z);
+        if(Vector2.Distance(a,b) < m_maxSegmentWidth * 20)
+        //if(Vector2Int.Distance(m_wanderMap.CurSelectedLct, m_ASData.Location) < 9)
+        {
+            return true;
+        }
+        return false;
     }
 
     float InitSegments()
@@ -155,15 +179,26 @@ public class SingleAS : MonoBehaviour
     {
         if(m_ASData != null && m_ASData.Segments.Length > 1)
         {
-            if(usejob)
-                m_mesh.mesh = GenerateMeshJob(m_ASData.Segments.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
-            else
-                m_mesh.mesh = GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
+            if(CheckDistance())
+            {
+                if(usejob)
+                    m_mesh.mesh = GenerateMeshJob(m_ASData.Segments.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
+                else
+                    m_mesh.mesh = GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
 
-            m_mesh.gameObject.SetActive(true);
+                m_simpleLook.gameObject.SetActive(false);
+                m_mesh.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_simpleLook.localScale = new Vector3(4,m_ASData.Segments.Length, m_maxSegmentWidth);
+                m_simpleLook.gameObject.SetActive(true);
+                m_mesh.gameObject.SetActive(false);
+            }
         }
         else
         {
+            m_simpleLook.gameObject.SetActive(false);
             m_mesh.gameObject.SetActive(false);
         }
     }
@@ -213,19 +248,29 @@ public class SingleAS : MonoBehaviour
     //暂时去掉对柱体的点击
     void Update()
     {
-        if(m_isFocused && cameraController != null && cameraController.currentView == ViewType.ViewSingleAS)
+        if(m_isFocused && m_wanderMap.m_camController != null && m_wanderMap.m_camController.currentView == ViewType.ViewSingleAS)
         {
             if(Input.GetMouseButtonDown(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                Ray ray = m_targetCamera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = m_wanderMap.m_targetCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;
                 if(Physics.Raycast(ray,out hitInfo))
                 {
                     ShowIPMap(hitInfo.transform.name);
                 }
+            }
+        }
+
+        if(m_isVisibleInCam && m_simpleLook.gameObject.activeSelf)
+        {
+            float distance = Vector3.Distance(m_wanderMap.m_targetCamera.transform.position, m_oldCamPos);
+            if(distance > m_maxSegmentWidth*4 && CheckDistance())
+            {
+                m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
+                InitMesh(true);
             }
         }
     }
