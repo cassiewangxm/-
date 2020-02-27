@@ -43,6 +43,7 @@ namespace Controller
         public Camera CameraMap;
 
         public GameObject ASGameObject;
+        public raycastas raycastas;
 
         public ViewType currentView = ViewType.ViewAS;
 

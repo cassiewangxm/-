@@ -28,6 +28,7 @@ public class raycastas : MonoBehaviour
     public Camera Camera;
     public GameObject CameraParent;
     private CameraController CameraController;
+    public Filters ASFilter;
 
     private bool m_HasHit;
 
@@ -36,6 +37,7 @@ public class raycastas : MonoBehaviour
     float zoomHeight;
     Vector3 cameraHitPoint;
     bool isZooming = false;
+    bool isSelected = false;
 
     #region LIPENGYUE
     // public GameObject textPrefab;
@@ -45,6 +47,11 @@ public class raycastas : MonoBehaviour
     // private Vector3 oldCamPos;
     public WanderingASMap wanderingASMap;
     #endregion
+
+    public void ExitZooming()
+    {
+        isZooming = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -104,7 +111,7 @@ public class raycastas : MonoBehaviour
                 return;
             }
             //Detect when there is a mouse click
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
@@ -148,15 +155,28 @@ public class raycastas : MonoBehaviour
                                 planes[255].Raycast(ray, out cameraEnter);
                                 cameraHitPoint = ray.GetPoint(cameraEnter);
                                 Debug.Log(cameraHitPoint);
+                                if (isSelected && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
+                                {
+                                    isZooming = true;
+                                }
+                                else
+                                {
+                                    isZooming = false;
+                                    ASFilter.FilterBySelectedAS((int)(hitPointT.x), (int)(hitPointT.y));
+                                }
                                 zoomX = (int)(hitPointT.x);
                                 zoomY = (int)(hitPointT.y);
                                 zoomHeight = height;
-                                isZooming = true;
+                                isSelected = true;
 
                                 //PPPS: 这里可以显示单独柱体
                                 m_HasHit = true;
                                 break;
                             }
+                        }
+                        else
+                        {
+                            isSelected = false;
                         }
                     }
                 }

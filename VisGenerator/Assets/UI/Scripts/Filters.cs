@@ -75,6 +75,8 @@ public class Filters : MonoBehaviour
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
 
+    public InputField SearchBox;
+
     RegionData ReadJsonFile(string filePath)
     {
         string path = Path.Combine(Application.dataPath, filePath);
@@ -110,6 +112,8 @@ public class Filters : MonoBehaviour
 
         // Fake ddos
         ipPairs[0] = new IPPair("89.151.0.0", "89.151.176.13");
+
+        ModifyASHighlight(false);
     }
 
     // Update is called once per frame
@@ -153,6 +157,7 @@ public class Filters : MonoBehaviour
 
     void ModifyASHighlight(bool isHighlight)
     {
+        
         Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
 
         for (int i = 0; i < 256; i ++)
@@ -161,11 +166,11 @@ public class Filters : MonoBehaviour
             {
                 if (!isHighlight)
                 {
-                    texas.SetPixel(i, j, new Color(1.0f, 0.0f, 0.0f));
+                    texas.SetPixel(i, j, new Color(0.0f, 1.0f, 0.0f));
                 }
                 else
                 {
-                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(0.1f, 0.0f, 0.0f) : new Color(1.0f, 0.0f, 0.0f));
+                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 1.0f, 0.0f));
                 }
             }
         }
@@ -174,7 +179,7 @@ public class Filters : MonoBehaviour
         File.WriteAllBytes(Application.dataPath + "/ashl.png", bytesas);
     }
 
-    void MultipleFilters()
+    void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)
     {
         Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
         string region = dropdownRegion.options[dropdownRegion.value].text;
@@ -203,20 +208,50 @@ public class Filters : MonoBehaviour
                     if ((isTypeFilterOn && (item.Value.country == type)) || !isTypeFilterOn)
                     {
                         // Highlight an as
-                        asFilterFlag[item.Value.ASNum] = true;
-                        isHighlight = true;
+                        if (isASFilterOn)
+                        {
+                            asFilterFlag[item.Value.ASNum] = true;
+                            isHighlight = true;
+                        }
                         // Highlight an IP
 
+
                         // Highlight an geo
-                        float lat = item.Value.lat;
-                        float lng = item.Value.lng;
-                        GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                        //newGeoPoint.transform.parent = GeoPointCollector.transform;
+                        if (isRegionFilterOn)
+                        {
+                            float lat = item.Value.lat;
+                            float lng = item.Value.lng;
+                            GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
+                            //newGeoPoint.transform.parent = GeoPointCollector.transform;
+                        }
                     }
                 }
             }
         }
+        // as test
+        {
+            for (int i = 0; i < 256; i ++)
+                asFilterFlag[128 * 256 + i] = true;
+            isHighlight = true;
+        }
+        if (isSelectedAS)
+        {
+            asFilterFlag[x * 256 + y] = true;
+            isHighlight = true;
+        }
         ModifyASHighlight(isHighlight);
+    }
+
+    public void FilterBySearch()
+    {
+        isASFilterOn = true;
+        MultipleFilters();
+    }
+
+    public void FilterBySelectedAS(int x, int y)
+    {
+        isASFilterOn = true;
+        MultipleFilters(true, x, y);
     }
 
     public void FilterByRegion()
