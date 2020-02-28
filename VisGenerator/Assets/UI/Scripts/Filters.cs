@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 [Serializable]
 public class RegionDetail
@@ -76,6 +77,8 @@ public class Filters : MonoBehaviour
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
 
     public InputField SearchBox;
+
+    public GameObject ASGameObject;
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -177,6 +180,7 @@ public class Filters : MonoBehaviour
         texas.Apply();
         byte[] bytesas = texas.EncodeToPNG();
         File.WriteAllBytes(Application.dataPath + "/ashl.png", bytesas);
+        ASGameObject.GetComponent<VisualEffect>().SetTexture("ashl", texas);
     }
 
     void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)

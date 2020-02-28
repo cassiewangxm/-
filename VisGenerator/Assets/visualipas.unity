@@ -4280,6 +4280,7 @@ MonoBehaviour:
   MapCamera: {fileID: 1007791854}
   IPCamera: {fileID: 1260833526}
   SearchBox: {fileID: 509693579}
+  ASGameObject: {fileID: 267209659}
 --- !u!1 &855524664
 GameObject:
   m_ObjectHideFlags: 0
