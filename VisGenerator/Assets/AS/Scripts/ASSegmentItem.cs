@@ -9,11 +9,15 @@ public class ASSegmentItem : MonoBehaviour
     public TextMeshPro m_SegmentName;
     public Collider m_Collider;
     public ASSegment m_SegemntData;
+    public int SegmentObjID{
+        get {return m_segmentID;}
+    }
 
-    private Texture2D m_IPTexture;
+    //private Texture2D m_IPTexture;
 
-    private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
+    //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
     private Vector3 m_OrifinalScale = Vector3.zero;
+    private int m_segmentID;
 
     public void HideSelf()
     {
@@ -53,50 +57,16 @@ public class ASSegmentItem : MonoBehaviour
     {
         if(!open)
         {
+            SegmentPool.Instance.ReturnBackTexture((Texture2D)m_SegmentIPMap.material.GetTexture("_BaseColorMap"));
             m_SegmentIPMap.material.SetTexture("_BaseColorMap",null);
             return;
         }
 
-        InitTexture();
-        m_SegmentIPMap.material.SetTexture("_BaseColorMap",m_IPTexture);
+        m_SegmentIPMap.material.SetTexture("_BaseColorMap", SegmentPool.Instance.GetTexture(m_SegemntData));//m_IPTexture);
     }
 
     public void SetCollider(bool open)
     {
         m_Collider.enabled = open;
-    }
-
-    void InitTexture()
-    {
-        int pixelsize, lineCount;
-        GetTextureAreaInfo(out pixelsize,out lineCount);
-
-        if(m_IPTexture == null)
-        {
-            m_IPTexture = new Texture2D(m_TextureW,m_TextureW);
-        }
-        int curCount = 0;
-        for(int i = 0; i < m_TextureW; i++)
-        {  
-            for(int j = 0; j < m_TextureW; j++)
-            {
-                if(j/pixelsize >= lineCount)
-                {
-                    m_IPTexture.SetPixel(i, j,Color.black);
-                }
-                else
-                {
-                    curCount = i/pixelsize * lineCount + j/pixelsize;
-                    m_IPTexture.SetPixel(j, i, m_SegemntData.GetIPColor(curCount));
-                }
-            }
-        }
-        m_IPTexture.Apply();
-    }
-    void GetTextureAreaInfo(out int pixelsize, out int line)
-    {
-        pixelsize = (int)Mathf.Sqrt((m_TextureW * m_TextureW) / (int)m_SegemntData.IPCount) ;
-        pixelsize = pixelsize > 0 ? pixelsize : 1;
-        line = m_TextureW/pixelsize + 1;
     }
 }

@@ -12,11 +12,11 @@ public class MeshGenerater : MonoBehaviour
         public NativeArray<Vector3> vertices;
         public NativeArray<Vector2> uvs;
         public NativeArray<int> tris;
-        public NativeArray<Vector3> scales;       
-        public NativeArray<Vector3> positions;
+        public NativeArray<float> scales;       
+        public NativeArray<float> positions;
         public void Execute()
         {
-            int[] contris = { 0, 3, 2, 2, 1, 0 };
+            int[] contris = { 0, 3, 2, 0, 2, 1 };
             int n = scales.Length;
             int count = 0;
             int trisCount = 0;
@@ -26,10 +26,10 @@ public class MeshGenerater : MonoBehaviour
                     break;
 
 
-                float radius = scales[i].x/2;
-                float radius2 = scales[i+1].x/2;
-                float upY = positions[i].y;
-                float downY = positions[i+1].y;
+                float radius = scales[i]/2;
+                float radius2 = scales[i+1]/2;
+                float upY = positions[i];
+                float downY = positions[i+1];
 
                 //front
                 {
@@ -105,6 +105,25 @@ public class MeshGenerater : MonoBehaviour
                 for(int j =0; j<6; j++)
                 {
                     tris[trisCount++] = (count/4 - 1)*4 + contris[j];
+                }
+
+                //top
+                if(i == n - 2)
+                {
+                    uvs[count] = new Vector2(0,0);
+                    vertices[count++] = new Vector3(-radius2,downY,radius2);
+                    uvs[count] = new Vector2(0,1);
+                    vertices[count++] = new Vector3(-radius2,downY,-radius2);
+                
+                    uvs[count] = new Vector2(1,1);
+                    vertices[count++] = new Vector3(radius2,downY,-radius2);
+                    uvs[count] = new Vector2(1,0);
+                    vertices[count++] = new Vector3(radius2,downY,radius2);
+
+                    for(int j =0; j<6; j++)
+                    {
+                        tris[trisCount++] = (count/4 - 1)*4 + contris[j];
+                    }
                 }
                 
                 i++;

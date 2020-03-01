@@ -39,13 +39,13 @@ public class WanderingASMap : MonoBehaviour
             m_ASArray[m_curSelected.x][m_curSelected.y].SetSelected(false);
         m_curSelected = Vector2Int.zero;
 
-        StartCoroutine(InitMap(x,y,false));
+        StartCoroutine(InitMap(x,y));
         //StartCoroutine(InitMap(x,y,true));
 
         SetFocusAS(m_lineCount/2, m_lineCount/2);
     }
     
-    IEnumerator InitMap(int x, int y, bool corot)
+    IEnumerator InitMap(int x, int y)
     {
         Debug.Log("Start init map : "+Time.time);
         m_initFinished = false;
@@ -64,19 +64,9 @@ public class WanderingASMap : MonoBehaviour
                 centerHeight = GetASHeight(x, y);
                 //centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
                 centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f);
-                if (corot)
-                {
-                    m_ASArray[arrayc][arraycY].InitASLooking(true);
-                    if(centerHeight > 0.0f)
-                        yield return new WaitForEndOfFrame();
-                    SetFocusAS(arrayc,arraycY);
-                }
-                else
-                {
-                    m_ASArray[arrayc][arraycY].transform.position = centerPos;
-                    m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
-                    m_ASArray[arrayc][arraycY].InitASData(x, y, centerHeight);//, m_camController, m_targetCamera);
-                }
+                m_ASArray[arrayc][arraycY].transform.position = centerPos;
+                m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
+                m_ASArray[arrayc][arraycY].InitASData(x, y, centerHeight);
             }
             else
             {
@@ -92,21 +82,11 @@ public class WanderingASMap : MonoBehaviour
                         if((arrayx >= 0 && arrayx < m_ASArray.Length && arrayy >= 0 && arrayy < m_ASArray[arrayx].Length))
                         {
                             count++;
-                            
-                            if(corot)
-                            {
-                                m_ASArray[arrayx][arrayy].InitASLooking(true);
-                                if(height > 0.0f)
-                                    yield return new WaitForEndOfFrame();
-                            }
-                            else
-                            {
-                                float posz = centerPos.z + m_baseWith * j;
-                                float posy = centerPos.y + (height - centerHeight)/2;
-                                m_ASArray[arrayx][arrayy].transform.position = new Vector3(posx, posy, posz);
-                                m_ASArray[arrayx][arrayy].name = string.Format("{0}_{1}", arrayx, arrayy);
-                                m_ASArray[arrayx][arrayy].InitASData(xy.x, xy.y, height);//, m_camController, m_targetCamera);
-                            }
+                            float posz = centerPos.z + m_baseWith * j;
+                            float posy = centerPos.y + (height - centerHeight)/2;
+                            m_ASArray[arrayx][arrayy].transform.position = new Vector3(posx, posy, posz);
+                            m_ASArray[arrayx][arrayy].name = string.Format("{0}_{1}", arrayx, arrayy);
+                            m_ASArray[arrayx][arrayy].InitASData(xy.x, xy.y, height);
                         }
                         if(i == -n || i == n)
                         {
@@ -120,8 +100,8 @@ public class WanderingASMap : MonoBehaviour
                                 break;
                         }
                     }
-                    if(n > 5 && n%2==0)
-                        yield return new WaitForEndOfFrame();
+                    if(n > 9 && n%2==0)
+                        yield return null;
 
                 }
             }
@@ -145,18 +125,19 @@ public class WanderingASMap : MonoBehaviour
     }
     IEnumerator CreateASCubes()
     {
+        //Debug.Log("Start Instantiate :"+Time.time);
         m_ASArray = new SingleAS[m_lineCount][];
         for(int i = 0; i < m_lineCount; i++)
         {
             m_ASArray[i] = new SingleAS[m_lineCount];
             for(int j = 0; j < m_lineCount; j++)
-            {
-                GameObject obj = Instantiate(m_SingleASPrefab, m_root);   
-                m_ASArray[i][j] = obj.GetComponent<SingleAS>();
+            {  
+                m_ASArray[i][j] = Instantiate(m_SingleASPrefab, m_root).GetComponent<SingleAS>();
                 m_ASArray[i][j].WanderingASMap = this;
             }
             yield return new WaitForEndOfFrame();
         }
+        //Debug.Log("Finish Instantiate :"+Time.time);
     }
     
     // Update is called once per frame
