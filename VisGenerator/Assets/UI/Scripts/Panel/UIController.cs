@@ -3,16 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class UIController:MonoBehaviour
+public class UIController : MonoBehaviour
 {
-    [SerializeField]
-    private IPMenuPanel m_IPMenu;
-    [SerializeField]
-    private IPDetailPanel m_IPDetailPanel;
-    [SerializeField]
-    private IPTopologyPanel m_IPTopologyPanel;
+    [SerializeField] private IPMenuPanel m_IPMenu;
+    [SerializeField] private IPDetailPanel m_IPDetailPanel;
+    [SerializeField] private IPTopologyPanel m_IPTopologyPanel;
 
 
     private void Start()
@@ -34,10 +29,10 @@ public class UIController:MonoBehaviour
             m_IPMenu.SetUIData(_IP, screenPos);
         }
     }
-    
+
     public void HideIpMenu()
     {
-        if(m_IPMenu != null)
+        if (m_IPMenu != null)
             m_IPMenu.gameObject.SetActive(false);
     }
 
@@ -52,7 +47,7 @@ public class UIController:MonoBehaviour
 
     public void ShowTopology(string _IP)
     {
-        if(m_IPTopologyPanel != null)
+        if (m_IPTopologyPanel != null)
         {
             m_IPTopologyPanel.gameObject.SetActive(true);
             m_IPTopologyPanel.SetUIData(_IP);
