@@ -21,7 +21,7 @@ public class raycastas : MonoBehaviour
     public GameObject Cube;
     public Text Text;
 
-    private Plane[] planes;
+    //private Plane[] planes;
 
     private float[] pairs;
 
@@ -56,11 +56,13 @@ public class raycastas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         planes = new Plane[256];
         for (int i = 0; i < planes.Length; i ++)
         {
             planes[i] = new Plane(Vector3.up, new Vector3(0.0f, i * HScale / 256.00f, 0.0f));
         }
+        */
         CameraController = Camera.GetComponent<CameraController>();
 
     // #region LIPENGYUE
@@ -118,17 +120,19 @@ public class raycastas : MonoBehaviour
                 Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
                 m_HasHit = false;
 
-                for (int i = planes.Length - 1; i >= 0; i--)
+                for (int i = 255; i >= 0; i--)
                 {
+                    Plane plane = new Plane(Vector3.up, new Vector3(0.0f, i * CameraController.GetModifiedASScale(HScale) / 256.00f, 0.0f));
                     float enter = 0.0f;
-                    if (planes[i].Raycast(ray, out enter))
+                    if (plane.Raycast(ray, out enter))
                     {
                         Vector3 hitPoint = ray.GetPoint(enter);
                         //Debug.Log(hitPoint);
                         if (IsInside(hitPoint, Position, Size))
                         {
-                            Vector2 hitPointT = WorldtoUVHit(hitPoint, 256.0f, Position, Size);
+                            Vector2 hitPointT = WorldtoUVHit(hitPoint, 1024.0f, Position, Size);
                             float height = Heights.GetPixel((int)(hitPointT.x), (int)(hitPointT.y)).r * 256.00f;
+                            hitPointT = new Vector2(hitPointT.x / 4.0f, hitPointT.y / 4.0f);
                             if (hitPoint.y <= height * HScale / 256.00f + 0.005f)
                             {
                                 // hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
@@ -148,12 +152,14 @@ public class raycastas : MonoBehaviour
                                 //Text.text = "IP number: " + num.ToString();
                                 //Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                                 //UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
-                                Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
 
                                 // Move the camera forward
+                                Vector3 targetBasePos = new Vector3((hitPointT.x) / 256.0f * Size.x + Position.x, 0.0f, (hitPointT.y) / 256.0f * Size.y + Position.z);
+                                Vector3 cameraPos = Camera.transform.position;
+                                Ray cameraRay = new Ray(cameraPos, Vector3.Normalize(targetBasePos - cameraPos));
                                 float cameraEnter = 0.0f;
-                                planes[255].Raycast(ray, out cameraEnter);
-                                cameraHitPoint = ray.GetPoint(cameraEnter);
+                                plane.Raycast(cameraRay, out cameraEnter);
+                                cameraHitPoint = cameraRay.GetPoint(cameraEnter);
                                 Debug.Log(cameraHitPoint);
                                 if (isSelected && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
                                 {
@@ -216,8 +222,10 @@ public class raycastas : MonoBehaviour
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+
                 float enter = 0.0f;
-                if (planes[0].Raycast(ray, out enter))
+                if (plane.Raycast(ray, out enter))
                 {
                     Vector3 hitPoint = ray.GetPoint(enter);
                     if (IsInside(hitPoint, IPPosition, IPSize))

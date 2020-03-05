@@ -232,12 +232,6 @@ public class Filters : MonoBehaviour
                 }
             }
         }
-        // as test
-        {
-            for (int i = 0; i < 256; i ++)
-                asFilterFlag[128 * 256 + i] = true;
-            isHighlight = true;
-        }
         if (isSelectedAS)
         {
             asFilterFlag[x * 256 + y] = true;
