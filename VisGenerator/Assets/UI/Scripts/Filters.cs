@@ -77,6 +77,7 @@ public class Filters : MonoBehaviour
     public Camera ASCamera;
 
     private List<CurveLine> ASCurveLines = new List<CurveLine>();
+    private List<CurveLine> ASNavCurveLines = new List<CurveLine>();
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
 
@@ -335,6 +336,11 @@ public class Filters : MonoBehaviour
             {
                 CurveCal.AddLine(ASCurveLines[i].PosA, ASCurveLines[i].PosB, "ASCurve", thickness);
             }
+
+            for (int i = 0; i < ASNavCurveLines.Count; i++)
+            {
+                CurveCal.AddLine(ASNavCurveLines[i].PosA, ASNavCurveLines[i].PosB, "ASCurve", thickness);
+            }
         }
     }
 
@@ -369,6 +375,10 @@ public class Filters : MonoBehaviour
                                 Vector3 posA = new Vector3(asNumberA / 256 * ASHeight, 0.0f, asNumberA % 256 * ASWidth);
                                 Vector3 posB = new Vector3(asNumberB / 256 * ASHeight, 0.0f, asNumberB % 256 * ASWidth);
                                 ASCurveLines.Add(new CurveLine(posA, posB));
+
+                                // Show in AS Navigation View
+
+                                ASNavCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in Map View
                                 posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
