@@ -8,10 +8,10 @@ public class ViewIP : MonoBehaviour
     public Camera Camera;
     public RTFocusCamera RTFocusCamera;
 
-    private GameObject IP20;
-    private GameObject IP24;
-    private GameObject IP28;
-    private GameObject IP32;
+    public GameObject IP20;
+    public GameObject IP24;
+    public GameObject IP28;
+    public GameObject IP32;
 
     private float heightLv24;
     private float heightLv28;

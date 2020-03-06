@@ -55,6 +55,8 @@ public class Filters : MonoBehaviour
 
     public GameObject GeoPointPrefab;
     public GameObject PosMarkerPrefab;
+    public float ASWidth;
+    public float ASHeight;
     public float MapWidth;
     public float MapHeight;
     public float IPHalfWidth;
@@ -72,7 +74,9 @@ public class Filters : MonoBehaviour
 
     public Camera MapCamera;
     public Camera IPCamera;
+    public Camera ASCamera;
 
+    private List<CurveLine> ASCurveLines = new List<CurveLine>();
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
 
@@ -323,6 +327,14 @@ public class Filters : MonoBehaviour
             {
                 CurveCal.AddLine(MapCurveLines[i].PosA, MapCurveLines[i].PosB, "MapCurve", thickness);
             }
+
+            // Add curvelines on as view
+            thickness = CalculateCurveLineThickness(ASCamera);
+
+            for (int i = 0; i < ASCurveLines.Count; i++)
+            {
+                CurveCal.AddLine(ASCurveLines[i].PosA, ASCurveLines[i].PosB, "ASCurve", thickness);
+            }
         }
     }
 
@@ -332,7 +344,7 @@ public class Filters : MonoBehaviour
         if (isShowAttackOn)
         {
             Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
-            string asNumberA, asNumberB;
+            int asNumberA, asNumberB;
             float latA, latB;
             float lngA, lngB;
 
@@ -342,22 +354,25 @@ public class Filters : MonoBehaviour
                 {
                     if (item.Value.IP == ipPairs[i].IPA)
                     {
-                        asNumberA = item.Value.ASNum.ToString();
+                        asNumberA = (int)item.Value.ASNum;
                         latA = item.Value.lat;
                         lngA = item.Value.lng;
                         foreach (var itemB in dictionary)
                         {
                             if (itemB.Value.IP == ipPairs[i].IPB)
                             {
-                                asNumberB = itemB.Value.ASNum.ToString();
+                                asNumberB = (int)itemB.Value.ASNum;
                                 latB = itemB.Value.lat;
                                 lngB = itemB.Value.lng;
 
                                 // Show in AS View
+                                Vector3 posA = new Vector3(asNumberA / 256 * ASHeight, 0.0f, asNumberA % 256 * ASWidth);
+                                Vector3 posB = new Vector3(asNumberB / 256 * ASHeight, 0.0f, asNumberB % 256 * ASWidth);
+                                ASCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in Map View
-                                Vector3 posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
-                                Vector3 posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
+                                posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
+                                posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
                                 MapCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in IP View
