@@ -12,7 +12,12 @@ public class WanderingASMap : MonoBehaviour
     public Camera m_targetCamera;
     public Transform m_root;
 
-    private float m_baseWith = 640 / 256 * 4;
+    public float BaseCellWidth
+    {
+        get {return m_baseWith;}
+    }
+
+    private float m_baseWith = 15;//640.0f / 256 * 6;
     private int m_mapWidth = 256;
     private SingleAS[][] m_ASArray;
     private Vector2Int m_curSelected;
@@ -25,6 +30,7 @@ public class WanderingASMap : MonoBehaviour
 
     void Awake()
     {
+        SegmentPool.Instance.Prepare();
         m_oldCamPos = m_targetCamera.transform.position;
         StartCoroutine(CreateASCubes());
     }
@@ -34,6 +40,8 @@ public class WanderingASMap : MonoBehaviour
     }
     public void IntoWanderingMap(int x, int y)
     {
+        ASProxy.instance.GetASInfoAll();
+
         //取消上次focus的柱子
         if(m_curSelected != Vector2Int.zero)
             m_ASArray[m_curSelected.x][m_curSelected.y].SetSelected(false);
@@ -60,13 +68,17 @@ public class WanderingASMap : MonoBehaviour
         {
             if(n == 0)
             {
-                count++;
-                centerHeight = GetASHeight(x, y);
-                //centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
-                centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f);
-                m_ASArray[arrayc][arraycY].transform.position = centerPos;
-                m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
-                m_ASArray[arrayc][arraycY].InitASData(x, y, centerHeight);
+                ASInfo data = ASProxy.instance.GetASByPosition(x, y, GetASHeight(x, y));//ASProxy.instance.GetASByPosition(arrayc, arraycY);
+                if(data != null)
+                {
+                    count++;
+                    centerHeight = data.Height;
+                    //centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
+                    centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f);
+                    m_ASArray[arrayc][arraycY].transform.position = centerPos;
+                    m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
+                    m_ASArray[arrayc][arraycY].InitASData(data);
+                }
             }
             else
             {
@@ -77,16 +89,17 @@ public class WanderingASMap : MonoBehaviour
                     for(int j = -n; j <= n && count < m_cacheCount; )
                     {
                         Vector2Int xy = new Vector2Int(x + i, y + j);
-                        float height = GetASHeight(xy.x, xy.y);
                         int arrayy = arraycY + j;
-                        if((arrayx >= 0 && arrayx < m_ASArray.Length && arrayy >= 0 && arrayy < m_ASArray[arrayx].Length))
+                        if(IsInMap(xy.x, xy.y) && (arrayx >= 0 && arrayx < m_ASArray.Length && arrayy >= 0 && arrayy < m_ASArray[arrayx].Length))
                         {
+                            ASInfo data = ASProxy.instance.GetASByPosition(xy.x, xy.y, GetASHeight(xy.x, xy.y));//ASProxy.instance.GetASByPosition(xy.x, xy.y);
+                            float height = data.Height;
                             count++;
                             float posz = centerPos.z + m_baseWith * j;
                             float posy = centerPos.y + (height - centerHeight)/2;
                             m_ASArray[arrayx][arrayy].transform.position = new Vector3(posx, posy, posz);
                             m_ASArray[arrayx][arrayy].name = string.Format("{0}_{1}", arrayx, arrayy);
-                            m_ASArray[arrayx][arrayy].InitASData(xy.x, xy.y, height);
+                            m_ASArray[arrayx][arrayy].InitASData(data);
                         }
                         if(i == -n || i == n)
                         {
@@ -204,18 +217,27 @@ public class WanderingASMap : MonoBehaviour
                     bool moved = false;
                     for(int i = 0; i < srcA.Length; i++)
                     {
-                        Vector2Int v = cmpA[i].ASData.Location + new Vector2Int(neg, 0);
+                        Vector2Int v = new Vector2Int(neg + cmpA[i].ASData.X, cmpA[i].ASData.Y);
                         if(IsInMap(v.x, v.y))
                         {
-                            moved = true;
-                            float height = GetASHeight(v.x, v.y);
-                            Vector3 pos =  cmpA[i].transform.position;
-                            float posY = srcA[i].transform.position.y + (height - srcA[i].Height)/2;
-                            srcA[i].transform.position = new Vector3(pos.x + neg * m_baseWith, posY, pos.z);
-                            srcA[i].RefreshAS(v.x, v.y, height);
-                            if(m_curSelected.x == xx && m_curSelected.y == i)
+                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//ASProxy.instance.GetASByPosition(v.x, v.y);
+                            if(data == null)
                             {
-                                srcA[i].SetSelected(false);
+                                srcA[i].gameObject.SetActive(false);
+                                continue;
+                            }
+                            else
+                            {
+                                moved = true;
+                                float height = data.Height;
+                                Vector3 pos =  cmpA[i].transform.position;
+                                float posY = srcA[i].transform.position.y + (height - srcA[i].Height)/2;
+                                srcA[i].transform.position = new Vector3(pos.x + neg * m_baseWith, posY, pos.z);
+                                srcA[i].RefreshAS(data);
+                                if(m_curSelected.x == xx && m_curSelected.y == i)
+                                {
+                                    srcA[i].SetSelected(false);
+                                }
                             }
                         }
                         else
@@ -259,19 +281,29 @@ public class WanderingASMap : MonoBehaviour
                     bool moved = false;
                     for(int i = 0; i < m_ASArray.Length; i++)
                     {
-                        Vector2Int v = m_ASArray[i][cmp].ASData.Location + new Vector2Int(0, neg);
+                        Vector2Int v = new Vector2Int(m_ASArray[i][cmp].ASData.X, m_ASArray[i][cmp].ASData.Y + neg);
                         if(IsInMap(v.x, v.y))
                         {
-                            moved = true;
-                            float height = GetASHeight(v.x, v.y);
-                            Vector3 pos =  m_ASArray[i][cmp].transform.position;
-                            float posY = m_ASArray[i][src].transform.position.y + (height - m_ASArray[i][src].Height)/2;
-                            m_ASArray[i][src].transform.position = new Vector3(pos.x, posY, pos.z + neg * m_baseWith);
-                            m_ASArray[i][src].RefreshAS(v.x, v.y, height);
-                            if(m_curSelected.x == m_MDL && m_curSelected.y == i)
+                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//ASProxy.instance.GetASByPosition(v.x, v.y);
+                            if(data == null)
                             {
-                                m_ASArray[i][src].SetSelected(false);
+                                m_ASArray[i][src].gameObject.SetActive(false);
+                                continue;
                             }
+                            else
+                            {
+                                moved = true;
+                                float height = data.Height;
+                                Vector3 pos =  m_ASArray[i][cmp].transform.position;
+                                float posY = m_ASArray[i][src].transform.position.y + (height - m_ASArray[i][src].Height)/2;
+                                m_ASArray[i][src].transform.position = new Vector3(pos.x, posY, pos.z + neg * m_baseWith);
+                                m_ASArray[i][src].RefreshAS(data);
+                                if(m_curSelected.x == m_MDL && m_curSelected.y == i)
+                                {
+                                    m_ASArray[i][src].SetSelected(false);
+                                }
+                            }
+
                         }
                         else
                         {

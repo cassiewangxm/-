@@ -6,9 +6,15 @@ public class SegmentPool : MonoBehaviour
 {
     public static SegmentPool Instance
     {
-        get {return m_instance;}
+        get {
+                if(m_instance == null)
+                {
+                    m_instance = new GameObject("SegmentPool").AddComponent<SegmentPool>();
+                }
+                return m_instance;
+            }
     }
-    public GameObject m_segmentPrefab;
+    private GameObject m_segmentPrefab;
     private static SegmentPool m_instance;
     private const int m_textureW = 256;
     private const int m_originalCount = 20;
@@ -17,21 +23,13 @@ public class SegmentPool : MonoBehaviour
     private Stack<ASSegmentItem> m_freeSegments = new Stack<ASSegmentItem>();
     private Dictionary<int,ASSegmentItem> m_inUsingSegments = new Dictionary<int,ASSegmentItem>();
 
-    void Awake()
+    public void Prepare()
     {
+        m_segmentPrefab = Resources.Load("SegmentItem") as GameObject;
         transform.position = new Vector3(0,1000,0);
-        if(m_instance == null)
-        {
-            m_instance = this;
-            Init();
-        }
-    }
-
-    void Init()
-    {
         StartCoroutine(GenerateObjects());
     }
-
+    
     IEnumerator GenerateObjects()
     {
         if(m_freeTextures.Count == 0 && m_freeSegments.Count == 0)
@@ -97,9 +95,11 @@ public class SegmentPool : MonoBehaviour
         m_freeSegments.Push(seg);
     }
 
-    public Texture2D GetTexture(ASSegment segData)
+    public Texture2D GetTexture(ASSegmentInfo segData)
     {
         Texture2D tex = GetTextureFormStask();
+        //int needSize = (int)Mathf.Sqrt(segData.IPCount) + 1;
+        
         int pixelsize = (int)Mathf.Sqrt((m_textureW * m_textureW) / segData.IPCount) ;
         pixelsize = pixelsize > 0 ? pixelsize : 1;
         int lineCount = m_textureW/pixelsize + 1;

@@ -8,7 +8,7 @@ public class ASSegmentItem : MonoBehaviour
     public MeshRenderer m_SegmentIPMap;
     public TextMeshPro m_SegmentName;
     public Collider m_Collider;
-    public ASSegment m_SegemntData;
+    public ASSegmentInfo m_SegemntData;
     public int SegmentObjID{
         get {return m_segmentID;}
     }
@@ -23,11 +23,11 @@ public class ASSegmentItem : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public void SetSegment(ASSegment data)
+    public void SetSegment(ASSegmentInfo data)
     {
         m_SegemntData = data;
 
-        float scale = (float)m_SegemntData.IPCount/256*2 + 2;
+        float scale = m_SegemntData.GetRadius();
         transform.localScale = new Vector3(scale,scale,1);
 
         m_SegmentName.text = "";
@@ -44,7 +44,7 @@ public class ASSegmentItem : MonoBehaviour
             return;
         }
 
-        m_SegmentName.text = "---" + m_SegemntData.BornDate + " , " + m_SegemntData.IPCount;
+        m_SegmentName.text = "--- " + m_SegemntData.Time;// + " , " + m_SegemntData.IPCount;
 
         if(m_OrifinalScale == Vector3.zero)
             m_OrifinalScale = m_SegmentName.transform.localScale;

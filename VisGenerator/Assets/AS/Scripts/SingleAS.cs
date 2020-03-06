@@ -23,7 +23,7 @@ public class SingleAS : MonoBehaviour
     public GameObject m_TestSeletedSegment;
     public BoxCollider m_boxCollider;
 
-    public ASDetail ASData
+    public ASInfo ASData
     {
         get {return m_ASData;}
     }
@@ -37,12 +37,12 @@ public class SingleAS : MonoBehaviour
     }
     private WanderingASMap m_wanderMap;
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
-    private ASDetail m_ASData; //AS柱数据
+    private ASInfo m_ASData; //AS柱数据
    //private Texture2D m_tempTexture;    //区段IP图
     //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
     private int m_curSegment;   //当前选中的区段序号
-    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 100.0f/255);
-    private Color m_colorUnSelected = new Color(250.0f/255, 184.0f/255, 6.0f/255, 100.0f/255);
+    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 150.0f/255);
+    private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
     private float m_height;
     private bool m_isFocused;
     private float m_maxSegmentWidth;
@@ -66,18 +66,22 @@ public class SingleAS : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        
         m_isVisibleInCam = false;
     }
 
-    public void InitASData(int x, int y, float height)
+    public void InitASData(ASInfo asData)
     {
-        m_height = height;
-
-        ASProxy.instance.GetASByPosition(x,y,height,out m_ASData);
         m_TestSeletedSegment.SetActive(false);
         m_simpleLook.gameObject.SetActive(false);
+        m_mesh.gameObject.SetActive(false);
 
+        m_ASData = asData;
+        
+        if(m_ASData != null)
+            m_height = m_ASData.Height;
+        else
+            return;
+        
         //生成每一层
         m_maxSegmentWidth = InitSegmentsSimple();
         m_boxCollider.enabled = true;
@@ -86,13 +90,21 @@ public class SingleAS : MonoBehaviour
     }
     public void InitASLooking()
     {
-        m_ASName.text = m_height < 1 ? "" : transform.name;
-        m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 2, 0);
-
-        if(m_wanderMap.m_targetCamera != null)
+        float d;
+        if(CheckDistance(out d,5))
         {
-            m_ASName.transform.parent.LookAt(m_wanderMap.m_targetCamera.transform);
-            m_ASName.transform.parent.localEulerAngles = new Vector3(0, m_ASName.transform.parent.localEulerAngles.y,m_ASName.transform.parent.localEulerAngles.z);
+            m_ASName.text = transform.name;
+            m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 1, 0);
+
+            if(m_wanderMap.m_targetCamera != null)
+            {
+                m_ASName.transform.parent.LookAt(m_wanderMap.m_targetCamera.transform);
+                m_ASName.transform.parent.localEulerAngles = new Vector3(0, m_ASName.transform.parent.localEulerAngles.y,m_ASName.transform.parent.localEulerAngles.z);
+            }
+        }
+        else
+        {
+            m_ASName.text = "";
         }
 
         //生成外围不规则mesh
@@ -101,9 +113,9 @@ public class SingleAS : MonoBehaviour
         m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
     }
 
-    public void RefreshAS(int x, int y, float height)
+    public void RefreshAS(ASInfo data)
     {
-        InitASData(x, y, height);
+        InitASData(data);
 
         InitASLooking();
     }
@@ -114,10 +126,13 @@ public class SingleAS : MonoBehaviour
 
         m_TestSeletedSegment.SetActive(false);
         m_isFocused = value;
+
         m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
+        m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
         
         StopAllCoroutines();
         StartCoroutine(InitSegments(value));
+
         //InitSegments(value);
         //StartCoroutine(SetSelectedByStep(value));
     }
@@ -136,11 +151,12 @@ public class SingleAS : MonoBehaviour
     // }
 
     // true : nearly enough
-    bool CheckDistance()
+    bool CheckDistance(out float distance, int multip = 10)
     {
         Vector2 b = new Vector2(transform.position.x, transform.position.z);
         Vector2 a = new Vector2(m_wanderMap.m_targetCamera.transform.position.x,m_wanderMap.m_targetCamera.transform.position.z);
-        if(Vector2.Distance(a,b) < m_maxSegmentWidth * 20)
+        distance = Vector2.Distance(a,b);
+        if(distance < m_wanderMap.BaseCellWidth * multip)
         {
             return true;
         }
@@ -152,10 +168,10 @@ public class SingleAS : MonoBehaviour
         float maxWith = 0;
         m_radiusList.Clear();
         m_heightList.Clear();
-        for(int i = 0; i < m_ASData.Segments.Length; i++)
+        for(int i = 0; i < m_ASData.ASSegment.Length; i++)
         {
-            m_radiusList.Add((float)m_ASData.Segments[i].IPCount/256*2 + 2);
-            m_heightList.Add(i - m_ASData.Segments.Length/2);
+            m_radiusList.Add(m_ASData.ASSegment[i].GetRadius());
+            m_heightList.Add(i*2 - m_height/2);
             maxWith = Mathf.Max(maxWith, m_radiusList[i]);
         }
 
@@ -171,12 +187,12 @@ public class SingleAS : MonoBehaviour
 
         if(select)
         {
-            for(int i = 0; i < m_ASData.Segments.Length; i++)
+            for(int i = 0; i < m_ASData.ASSegment.Length; i++)
             {
                 ASSegmentItem seg =  SegmentPool.Instance.GetSegment();//Instantiate(m_QuadPrefab, m_RegmentsRoot).GetComponent<ASSegmentItem>();
                 seg.transform.SetParent(m_RegmentsRoot);
-                seg.transform.localPosition = new Vector3(0, i + 0 - m_ASData.Segments.Length/2, 0);
-                seg.SetSegment(m_ASData.Segments[i]);
+                seg.transform.localPosition = new Vector3(0, i*2 - m_height/2, 0);
+                seg.SetSegment(m_ASData.ASSegment[i]);
                 seg.transform.name = m_SegmentList.Count.ToString();
                 seg.SetText(select);
                 seg.SetIPMap(select);
@@ -221,23 +237,36 @@ public class SingleAS : MonoBehaviour
 
     void InitMesh()
     {
-        if(m_ASData != null && m_ASData.Segments.Length > 1)
+        if(m_ASData != null )
         {
-            if(CheckDistance())
+            float distance ;
+            bool isnear = CheckDistance(out distance);
+            if(isnear && m_ASData.ASSegment.Length > 1)
             {
-                //if(usejob)
-                m_mesh.mesh = GenerateMeshJob(m_ASData.Segments.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
-                //else
-                //    m_mesh.mesh = GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
-
+                GenerateMeshJob(m_ASData.ASSegment.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
+                
                 m_simpleLook.gameObject.SetActive(false);
                 m_mesh.gameObject.SetActive(true);
             }
             else
             {
-                m_simpleLook.localScale = new Vector3(4,m_ASData.Segments.Length, m_maxSegmentWidth);
-                m_simpleLook.gameObject.SetActive(true);
                 m_mesh.gameObject.SetActive(false);
+
+                Color color = m_isFocused ? m_colorSelected : m_colorUnSelected;
+                if(!isnear)//distance > m_wanderMap.BaseCellWidth * 5)
+                {
+                    float weak = (m_wanderMap.BaseCellWidth*15-  distance)/(m_wanderMap.BaseCellWidth*5);
+                    weak = weak < 0 ? 0 : (weak > 1 ? 1 : weak);
+                    weak = 0.5f + weak*0.5f;
+                    //Debug.Log( distance+" , "+weak);
+                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", new Vector4(color.r*weak, color.g*weak, color.b*weak, color.a*weak));
+                }
+                else
+                {
+                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", color);
+                }    
+                m_simpleLook.localScale = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth);
+                m_simpleLook.gameObject.SetActive(true);
             }
         }
         else
@@ -257,8 +286,8 @@ public class SingleAS : MonoBehaviour
         var poss = new NativeArray<float>(n, Allocator.Persistent);
         for(int i = 0; i < n; i++)
         {
-            scls[i] = m_radiusList[i];//m_SegmentList[i].transform.localScale;
-            poss[i] = m_heightList[i];//m_SegmentList[i].transform.localPosition;
+            scls[i] = m_radiusList[i];
+            poss[i] = m_heightList[i];
         }
 
         var job = new MeshGenerater.MeshJob()
@@ -305,6 +334,7 @@ public class SingleAS : MonoBehaviour
                 RaycastHit hitInfo;
                 if(Physics.Raycast(ray,out hitInfo))
                 {
+                    Debug.Log("Hit : ----- " + hitInfo.transform.name);
                     ShowIPMap(hitInfo.transform.name);
                 }
             }
@@ -312,11 +342,13 @@ public class SingleAS : MonoBehaviour
 
         if(m_isVisibleInCam && m_simpleLook.gameObject.activeSelf)
         {
+            float d;
             float distance = Vector3.Distance(m_wanderMap.m_targetCamera.transform.position, m_oldCamPos);
-            if(distance > m_maxSegmentWidth*4 && CheckDistance())
+            if(distance > m_wanderMap.BaseCellWidth * 4 && CheckDistance(out d))
             {
-                m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
-                InitMesh();
+                //m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
+                //InitMesh();
+                InitASLooking();
             }
         }
     }
