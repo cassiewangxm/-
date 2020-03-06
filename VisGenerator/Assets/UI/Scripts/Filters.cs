@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 [Serializable]
 public class RegionDetail
@@ -54,6 +55,8 @@ public class Filters : MonoBehaviour
 
     public GameObject GeoPointPrefab;
     public GameObject PosMarkerPrefab;
+    public float ASWidth;
+    public float ASHeight;
     public float MapWidth;
     public float MapHeight;
     public float IPHalfWidth;
@@ -71,9 +74,16 @@ public class Filters : MonoBehaviour
 
     public Camera MapCamera;
     public Camera IPCamera;
+    public Camera ASCamera;
 
+    private List<CurveLine> ASCurveLines = new List<CurveLine>();
+    private List<CurveLine> ASNavCurveLines = new List<CurveLine>();
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
+
+    public InputField SearchBox;
+
+    public GameObject ASGameObject;
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -110,6 +120,8 @@ public class Filters : MonoBehaviour
 
         // Fake ddos
         ipPairs[0] = new IPPair("89.151.0.0", "89.151.176.13");
+
+        ModifyASHighlight(false);
     }
 
     // Update is called once per frame
@@ -153,6 +165,7 @@ public class Filters : MonoBehaviour
 
     void ModifyASHighlight(bool isHighlight)
     {
+        
         Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
 
         for (int i = 0; i < 256; i ++)
@@ -161,20 +174,21 @@ public class Filters : MonoBehaviour
             {
                 if (!isHighlight)
                 {
-                    texas.SetPixel(i, j, new Color(1.0f, 0.0f, 0.0f));
+                    texas.SetPixel(i, j, new Color(0.0f, 1.0f, 0.0f));
                 }
                 else
                 {
-                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(0.1f, 0.0f, 0.0f) : new Color(1.0f, 0.0f, 0.0f));
+                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 1.0f, 0.0f));
                 }
             }
         }
         texas.Apply();
         byte[] bytesas = texas.EncodeToPNG();
         File.WriteAllBytes(Application.dataPath + "/ashl.png", bytesas);
+        ASGameObject.GetComponent<VisualEffect>().SetTexture("ashl", texas);
     }
 
-    void MultipleFilters()
+    void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)
     {
         Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
         string region = dropdownRegion.options[dropdownRegion.value].text;
@@ -203,20 +217,44 @@ public class Filters : MonoBehaviour
                     if ((isTypeFilterOn && (item.Value.country == type)) || !isTypeFilterOn)
                     {
                         // Highlight an as
-                        asFilterFlag[item.Value.ASNum] = true;
-                        isHighlight = true;
+                        if (isASFilterOn)
+                        {
+                            asFilterFlag[item.Value.ASNum] = true;
+                            isHighlight = true;
+                        }
                         // Highlight an IP
 
+
                         // Highlight an geo
-                        float lat = item.Value.lat;
-                        float lng = item.Value.lng;
-                        GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                        //newGeoPoint.transform.parent = GeoPointCollector.transform;
+                        if (isRegionFilterOn)
+                        {
+                            float lat = item.Value.lat;
+                            float lng = item.Value.lng;
+                            GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
+                            //newGeoPoint.transform.parent = GeoPointCollector.transform;
+                        }
                     }
                 }
             }
         }
+        if (isSelectedAS)
+        {
+            asFilterFlag[x * 256 + y] = true;
+            isHighlight = true;
+        }
         ModifyASHighlight(isHighlight);
+    }
+
+    public void FilterBySearch()
+    {
+        isASFilterOn = true;
+        MultipleFilters();
+    }
+
+    public void FilterBySelectedAS(int x, int y)
+    {
+        isASFilterOn = true;
+        MultipleFilters(true, x, y);
     }
 
     public void FilterByRegion()
@@ -290,6 +328,19 @@ public class Filters : MonoBehaviour
             {
                 CurveCal.AddLine(MapCurveLines[i].PosA, MapCurveLines[i].PosB, "MapCurve", thickness);
             }
+
+            // Add curvelines on as view
+            thickness = CalculateCurveLineThickness(ASCamera);
+
+            for (int i = 0; i < ASCurveLines.Count; i++)
+            {
+                CurveCal.AddLine(ASCurveLines[i].PosA, ASCurveLines[i].PosB, "ASCurve", thickness);
+            }
+
+            for (int i = 0; i < ASNavCurveLines.Count; i++)
+            {
+                CurveCal.AddLine(ASNavCurveLines[i].PosA, ASNavCurveLines[i].PosB, "ASCurve", thickness);
+            }
         }
     }
 
@@ -299,7 +350,7 @@ public class Filters : MonoBehaviour
         if (isShowAttackOn)
         {
             Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
-            string asNumberA, asNumberB;
+            int asNumberA, asNumberB;
             float latA, latB;
             float lngA, lngB;
 
@@ -309,22 +360,29 @@ public class Filters : MonoBehaviour
                 {
                     if (item.Value.IP == ipPairs[i].IPA)
                     {
-                        asNumberA = item.Value.ASNum.ToString();
+                        asNumberA = (int)item.Value.ASNum;
                         latA = item.Value.lat;
                         lngA = item.Value.lng;
                         foreach (var itemB in dictionary)
                         {
                             if (itemB.Value.IP == ipPairs[i].IPB)
                             {
-                                asNumberB = itemB.Value.ASNum.ToString();
+                                asNumberB = (int)itemB.Value.ASNum;
                                 latB = itemB.Value.lat;
                                 lngB = itemB.Value.lng;
 
                                 // Show in AS View
+                                Vector3 posA = new Vector3(asNumberA / 256 * ASHeight, 0.0f, asNumberA % 256 * ASWidth);
+                                Vector3 posB = new Vector3(asNumberB / 256 * ASHeight, 0.0f, asNumberB % 256 * ASWidth);
+                                ASCurveLines.Add(new CurveLine(posA, posB));
+
+                                // Show in AS Navigation View
+
+                                ASNavCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in Map View
-                                Vector3 posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
-                                Vector3 posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
+                                posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
+                                posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
                                 MapCurveLines.Add(new CurveLine(posA, posB));
 
                                 // Show in IP View
