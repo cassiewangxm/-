@@ -60,5 +60,6 @@ public class SceneMananger : MonoBehaviour
         { 
             pair.Value.SetActive(pair.Key == currentSceneView);
         }
+        EventManager.SendEvent(EventDefine.OnSceneViewChange);
     }
 }
