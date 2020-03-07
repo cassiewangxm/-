@@ -7,7 +7,7 @@ using System;
 [Serializable]
 public class ASInfo
 {
-    public string ASN;       //AS号
+    public int ASN;       //AS号
     public int X;      //ASN Hilbert横坐标
     public int Y;      //ASN Hilbert纵坐标
     public string org;      //分配该AS的组织
@@ -36,7 +36,7 @@ public class ASInfo
     public void FakeInit(int x, int y, int segNum)
     {
         //Debug.Log("Fake ASInfo ...... ");//+x + ","+y);
-        ASN = UnityEngine.Random.Range(1,99999).ToString();
+        ASN = UnityEngine.Random.Range(1,99999);
         Y = y;
         X = x;
 
@@ -66,8 +66,9 @@ public class ASSegmentInfo
     public string TailIP;   //终止IP 
     public int IPCount;     //IP数量
     public string Time;     //分配时间
+    //public string[] IPList;
 
-    private string[] IPList;
+    private Dictionary<int, Color> IPColorDict = new Dictionary<int, Color>();
 
     public ASSegmentInfo(string time, string[] other)
     {
@@ -91,18 +92,23 @@ public class ASSegmentInfo
     //制造假数据
     void FakeInit()
     {
+        HeadIP = "0.0.0.0";
+        TailIP = "99.88.77.66";
         Time = "1990";//UnityEngine.Random.Range(1990,2019).ToString();
         IPCount = UnityEngine.Random.Range(99,233);
-        IPList = new string[IPCount];
-        for(int i =0; i<IPList.Length; i++)
-        {
-            IPList[i] = UnityEngine.Random.Range(16,255).ToString()+"."+UnityEngine.Random.Range(0,155).ToString()+"."+UnityEngine.Random.Range(0,133).ToString()+"."+UnityEngine.Random.Range(0,255).ToString();;
-        }
+        // IPList = new string[IPCount];
+        // for(int i =0; i<IPList.Length; i++)
+        // {
+        //     IPList[i] = UnityEngine.Random.Range(16,255).ToString()+"."+UnityEngine.Random.Range(0,155).ToString()+"."+UnityEngine.Random.Range(0,133).ToString()+"."+UnityEngine.Random.Range(0,255).ToString();;
+        // }
     }
 
     public Color GetIPColor(int index)
     {
-        return UnityEngine.Random.ColorHSV(0,1,0,1,0,1,0.5f,1);
+        if(!IPColorDict.ContainsKey(index))
+            IPColorDict.Add(index, UnityEngine.Random.ColorHSV(0,1,0,1,0,1,0.5f,1));
+        
+        return IPColorDict[index];//UnityEngine.Random.ColorHSV(0,1,0,1,0,1,0.5f,1);
         //return Color.black;
     }
 
@@ -115,6 +121,8 @@ public class ASSegmentInfo
 public class ASProxy : MonoBehaviour
 {
     private Dictionary<Vector2,ASInfo> m_ASDict = new Dictionary<Vector2, ASInfo>();
+    //(x,y) : x AS号，y 层序号
+    private Dictionary<Vector2Int,IpDetail[]> m_SegmentCache = new Dictionary<Vector2Int, IpDetail[]>();
 
     private static ASProxy s_instance;
     public static ASProxy instance
@@ -135,21 +143,14 @@ public class ASProxy : MonoBehaviour
         NetUtil.Instance.RequestASMapInfo(new MessageRequestASMap(), OnReciveASInfo);
     }
 
-    void OnReciveASInfo(ASMapResponse response)
+    void OnReciveASInfo(ASInfo[] response)
     {
-        if(response.Status == 0)
+        for(int i = 0; i < response.Length; i++)
         {
-            for(int i = 0; i < response.Result.Length; i++)
-            {
-                m_ASDict.Add(new Vector2Int(response.Result[i].X, response.Result[i].Y), response.Result[i]);
-            }
+            m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
+        }
 
-            Debug.Log("Finished AS info : "+m_ASDict.Count);
-        }
-        else
-        {
-            Debug.LogError("RequestASMapInfo get error : " + response.Status);
-        }
+        Debug.Log("Finished AS info : "+m_ASDict.Count);
     }
 
     // TEST --------
@@ -187,5 +188,82 @@ public class ASProxy : MonoBehaviour
     public bool IsASExistInLocal(int x, int y)
     {
         return m_ASDict.ContainsKey(new Vector2(x,y));
+    }
+
+    //获取 某坐标的AS柱体某一层的某个IP信息
+    public void GetIpInfoFromAS(Vector2 asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
+    {
+        if(m_ASDict.ContainsKey(asPos))
+        {
+            ASInfo asinfo = m_ASDict[asPos];
+            Vector2Int p = new Vector2Int(asinfo.ASN, segmentIndex);
+            if(m_SegmentCache.ContainsKey(p))
+            {
+                if(ipIndex < m_SegmentCache[p].Length)
+                {
+                    action(m_SegmentCache[p][ipIndex]);
+                }
+                else
+                {
+                    Debug.LogError("IpIndex overflow : " + ipIndex);
+                }
+            }
+            else
+            {
+                if(segmentIndex < asinfo.ASSegment.Length)
+                {
+                    ASSegmentInfo segInfo = asinfo.ASSegment[segmentIndex];
+                    MessageRequestASSegments msg = new MessageRequestASSegments();
+                    msg.ASN = asinfo.ASN;
+                    msg.HeadIp = segInfo.HeadIP;
+                    msg.TailIp = segInfo.TailIP;
+                    msg.type = "IPinfotype4";
+
+                    NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, new Vector3Int(asinfo.ASN, segmentIndex, ipIndex), action);
+                    return;
+                }
+                else
+                {
+                    Debug.LogError("segmentIndex overflow : " + segmentIndex);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("AS form location : " + asPos + " not found");
+        }
+
+        action(null);
+    }
+
+
+    void OnRecieveSegmentInfo(IpInfoType4[] array, Vector3Int key, Action<IpDetail> action)
+    {
+        ManageCacheSize();
+        
+        IpDetail[] ips = new IpDetail[array.Length];
+        for(int i = 0; i < array.Length; i++)
+        {
+            ips[i] = new IpDetail(array[i]);
+        }
+
+        Vector2Int vi = new Vector2Int(key.x, key.y);
+        if(!m_SegmentCache.ContainsKey(vi))
+        {
+            m_SegmentCache.Add(vi, ips);
+        }
+
+        if(key.z < ips.Length)
+            action(ips[key.z]);
+        else
+            action(null);
+    }
+
+    void ManageCacheSize()
+    {
+        if(m_SegmentCache.Count > 20)
+        {
+            m_SegmentCache.Clear();
+        }
     }
 }

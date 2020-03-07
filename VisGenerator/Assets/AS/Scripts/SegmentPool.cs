@@ -95,14 +95,14 @@ public class SegmentPool : MonoBehaviour
         m_freeSegments.Push(seg);
     }
 
-    public Texture2D GetTexture(ASSegmentInfo segData)
+    public Texture2D GetTexture(ASSegmentInfo segData, out int lineCount)
     {
         Texture2D tex = GetTextureFormStask();
         //int needSize = (int)Mathf.Sqrt(segData.IPCount) + 1;
         
         int pixelsize = (int)Mathf.Sqrt((m_textureW * m_textureW) / segData.IPCount) ;
         pixelsize = pixelsize > 0 ? pixelsize : 1;
-        int lineCount = m_textureW/pixelsize + 1;
+        lineCount = m_textureW/pixelsize + 1;
 
         int curCount = 0;
         for(int i = 0; i < m_textureW; i++)

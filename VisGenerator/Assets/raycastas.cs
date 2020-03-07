@@ -240,6 +240,15 @@ public class raycastas : MonoBehaviour
                 }
             }
         }
+        
+        //漫游状态下zooming
+        if(CameraController.currentView == ViewType.ViewWanderingAS)
+        {
+            if(isZooming)
+            {
+                MoveCamera();
+            }
+        }
     }
 
     void MoveASCamera()
@@ -250,140 +259,36 @@ public class raycastas : MonoBehaviour
         }
         else
         {
-            ShowSingleAS(zoomX, zoomY, zoomHeight);
+            ShowWanderingMap(zoomX, zoomY, zoomHeight);
             isZooming = false;
         }
     }
 
 #region LIPENGYUE
-    void ShowSingleAS(int x, int y, float height)
+    void ShowWanderingMap(int x, int y, float height)
     {
         wanderingASMap.IntoWanderingMap(x,y);
-        CameraController.ViewSingleAS();
+        CameraController.ViewWanderingAS();
     }
-    // void InitTextsForNearlyAS()
-    // {
-    //     oldCamPos = Camera.transform.position;
-    //     nearTexts = new TextMesh[100];
-    //     for (int i = 0; i < nearTexts.Length; i++)
-    //     {
-    //         nearTexts[i] = Instantiate(textPrefab,textParent).GetComponent<TextMesh>();
-    //     }
-    // }
-    float Select2(float v, float textureSize)
+
+    public void FocusCamera(Vector3 target)
     {
-        if (v < 0.0f)
+        ExitZooming();
+        cameraHitPoint = target;
+        isZooming = true;
+    }
+
+    void MoveCamera()
+    {
+        if (Vector3.Distance(Camera.transform.position, cameraHitPoint) >= 1.0f)
         {
-            return 0;
+            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 200.0f * Time.deltaTime);
         }
-        if (v > textureSize)
+        else
         {
-            return (float)textureSize;
+            isZooming = false;
         }
-        return (float)v;
     }
-    Vector2 WorldtoUVHit2(Vector3 point, float textureSize, Vector3 position, Vector2 size)
-    {
-        Vector3 newPoint = point;
-        newPoint.x = (newPoint.x - position.x) / size.x * textureSize ;
-        newPoint.z = (newPoint.z - position.z) / size.y * textureSize ;
-        return new Vector2(Select2(newPoint.x, textureSize), Select2(newPoint.z, textureSize));
-    }
-    // void DetectNearAS()
-    // {
-    //     //相机超出范围后 清空 
-    //     if(Camera.transform.position.y > 70)
-    //     {
-    //         ClearASTitles();
-    //         return;
-    //     }    
-
-    //         float camMovD = Vector3.Distance(Camera.transform.position, oldCamPos);
-    //         if(camMovD > 2)
-    //         {
-    //             oldCamPos = Camera.transform.position;
-
-    //             // world space position 视野中心点
-    //             Vector3 camPos = Camera.transform.position + Camera.transform.forward * Mathf.Abs(Camera.transform.position.y/Camera.transform.forward.y);
-    //             Vector3 bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, Vector3.Distance(Camera.transform.position,camPos)));
-                
-                
-    //             int viewWidth = 10;
-    //             int viewDepth = -(int)((camPos.z - bottomBorder.z)/2.5f);
-
-    //             //矫正位置
-    //             camPos.x = ((int)(camPos.x/2.5f) - 0.5f)*2.5f;
-    //             camPos.z = ((int)(camPos.z/2.5f) - 0.5f)*2.5f;
-    //             if(IsInside(camPos, Position, Size))
-    //             {
-    //                 titlesDirty = true;
-    //                 int usedText = 0;
-    //                 for (int i = 0; i<viewWidth*3; i++)
-    //                 {
-    //                     for (int j = viewDepth; ; j--)
-    //                     {
-    //                         Vector3 hitPoint = new Vector3(camPos.x + i*2.5f, 0, camPos.z + j*2.5f);
-    //                             if(IsInside(hitPoint, Position, Size))
-    //                             {
-    //                                 Vector2 hitPointT = WorldtoUVHit2(hitPoint, 1.0f, Position, Size);
-    //                                 float height = (Heights.GetPixelBilinear((hitPointT.x), (hitPointT.y)).r * 0.3f + 0.01f)*200.0f;
-    //                                 if (height > 0 )
-    //                                 {
-    //                                         hitPoint.y = height;
-    //                                         if(!IsInViewport(hitPoint))
-    //                                             continue;
-
-    //                                         // PPPS : 这里可以调整距离范围
-    //                                         if(Vector3.Distance(hitPoint,Camera.transform.position) > 40)
-    //                                             continue;
-
-    //                                         if(usedText < nearTexts.Length)
-    //                                         {
-    //                                             nearTexts[usedText].transform.position = hitPoint;
-    //                                             nearTexts[usedText].text = hitPoint.ToString();
-    //                                             usedText++;
-    //                                         }
-    //                                         else
-    //                                         {
-    //                                             break;
-    //                                         }
-    //                                 }
-    //                             }
-    //                             else
-    //                             {
-    //                                 break;
-    //                             }
-    //                     }
-    //                 }
-
-    //                 for (int i = usedText; i < nearTexts.Length; i++)
-    //                 {
-    //                     nearTexts[i].text = "";
-    //                 }
-    //             }
-    //         }
-    // }
-
-    bool IsInViewport(Vector3 v)
-    {
-        Vector3 vv = Camera.WorldToViewportPoint(v);
-        if(vv.x >0 && vv.x<1 && vv.y >0 && vv.y<1)
-            return true;
-        
-        return false;
-    }
-
-    // void ClearASTitles()
-    // {
-    //     if(!titlesDirty)
-    //         return;
-
-    //     for (int i = 0; i < nearTexts.Length; i++)
-    //     {
-    //         nearTexts[i].text = "";
-    //     }
-    //     titlesDirty = false;
-    // }
 #endregion
 
 }

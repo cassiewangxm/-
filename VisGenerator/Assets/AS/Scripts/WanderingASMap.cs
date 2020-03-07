@@ -74,7 +74,7 @@ public class WanderingASMap : MonoBehaviour
                     count++;
                     centerHeight = data.Height;
                     //centerPos = m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + centerHeight/2f);
-                    centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f);
+                    centerPos = new Vector3(x * 640.0f / 256.0f, 0.0f, y * 640.0f / 256.0f) + m_targetCamera.transform.forward * (12 + centerHeight/2f);
                     m_ASArray[arrayc][arraycY].transform.position = centerPos;
                     m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
                     m_ASArray[arrayc][arraycY].InitASData(data);
@@ -123,8 +123,9 @@ public class WanderingASMap : MonoBehaviour
         m_initFinished = true;
         Debug.Log("Finish init map : "+Time.time);
     }
-    void SetFocusAS(int x, int y)
+    void SetFocusAS(int x, int y, bool moveCam = false)
     {
+        Debug.Log(Time.time + " , Set focus ");
         Vector2Int v = new Vector2Int(x,y);
         if(v != m_curSelected && (v.x >= 0 && v.x < m_ASArray.Length && v.y >= 0 && v.y < m_ASArray[v.x].Length))
         {
@@ -133,9 +134,15 @@ public class WanderingASMap : MonoBehaviour
 
             m_ASArray[v.x][v.y].SetSelected(true);
             m_curSelected = v;
-            //m_curSelectedLct = m_ASArray[v.x][v.y].ASData.Location;
+
+            if(moveCam)
+            {
+                Vector3 targetPos = m_ASArray[v.x][v.y].transform.position - m_targetCamera.transform.forward * (12 + m_ASArray[v.x][v.y].Height/2f);//m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + m_ASArray[v.x][v.y].Height/2f);
+                m_camController.raycastas.FocusCamera(targetPos);
+            }
         }
     }
+
     IEnumerator CreateASCubes()
     {
         //Debug.Log("Start Instantiate :"+Time.time);
@@ -156,8 +163,14 @@ public class WanderingASMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_camController != null && m_camController.currentView == ViewType.ViewSingleAS)
+        if(m_camController != null && m_camController.currentView == ViewType.ViewWanderingAS)
         {
+            if(m_targetCamera.transform.position.y > 70)
+            {
+                //退回鸟瞰view
+                m_camController.ViewAS();
+                return;
+            }
             if(Input.GetMouseButtonDown(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
@@ -179,7 +192,7 @@ public class WanderingASMap : MonoBehaviour
                     if(!int.TryParse(strs[0],out x) || !int.TryParse(strs[1],out y))
                         return;
 
-                    SetFocusAS(x,y);
+                    SetFocusAS(x,y,true);
                 }
             }
 

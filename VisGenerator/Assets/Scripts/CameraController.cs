@@ -11,7 +11,7 @@ namespace Controller
     {
         ViewAS,
         ViewIP,
-        ViewSingleAS,
+        ViewWanderingAS,
         ViewMap,
         ViewAll,
     }
@@ -63,6 +63,7 @@ namespace Controller
         // Start is called before the first frame update
         void Start()
         {
+            raycastas = GetComponent<raycastas>();
         }
 
         public void ViewAS()
@@ -78,10 +79,12 @@ namespace Controller
             viewport.height = 0.9f;
             GetComponent<Camera>().rect = viewport;
             RTFocusCamera.GetComponent<RTFocusCamera>().SetTargetCamera(CameraAS);
+            RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 15;
         }
-        public void ViewSingleAS()
+        public void ViewWanderingAS()
         {
-            currentView = ViewType.ViewSingleAS;
+            RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
+            currentView = ViewType.ViewWanderingAS;
             Camera.cullingMask = 8193;
             IsAS = false;
         }

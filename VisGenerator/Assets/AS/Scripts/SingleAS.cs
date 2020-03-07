@@ -15,7 +15,7 @@ using UnityEngine.EventSystems;
 public class SingleAS : MonoBehaviour
 {
     public Transform m_RegmentsRoot;//quad的 根结点
-    public GameObject m_QuadPrefab; // 用于划分区段
+    //public GameObject m_QuadPrefab; // 用于划分区段
     //public SpriteRenderer m_SegmentIPMap; //区段IP图
     public MeshFilter m_mesh; //模拟柱体mesh
     public Transform m_simpleLook;
@@ -40,11 +40,12 @@ public class SingleAS : MonoBehaviour
     private ASInfo m_ASData; //AS柱数据
    //private Texture2D m_tempTexture;    //区段IP图
     //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
-    private int m_curSegment;   //当前选中的区段序号
+    //private int m_curSegment;   //当前选中的区段序号
     private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 150.0f/255);
     private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
     private float m_height;
     private bool m_isFocused;
+    private float m_focusTime;
     private float m_maxSegmentWidth;
     private bool m_isVisibleInCam;
     private Vector3 m_oldCamPos;
@@ -122,33 +123,20 @@ public class SingleAS : MonoBehaviour
 
     public void SetSelected(bool value)
     {
+        StopAllCoroutines();
+        StartCoroutine(InitSegments(value));
+
         m_boxCollider.enabled = !value;
 
         m_TestSeletedSegment.SetActive(false);
+
         m_isFocused = value;
+        m_focusTime = Time.time;
 
         m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
         m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
         
-        StopAllCoroutines();
-        StartCoroutine(InitSegments(value));
-
-        //InitSegments(value);
-        //StartCoroutine(SetSelectedByStep(value));
     }
-
-    // IEnumerator SetSelectedByStep(bool value)
-    // {
-    //     for(int i = 0; i < m_SegmentList.Count; i++)
-    //     {
-    //         m_SegmentList[i].SetText(value);
-    //         m_SegmentList[i].SetIPMap(value);
-    //         m_SegmentList[i].SetCollider(value);
-
-    //         if(value)
-    //             yield return null;
-    //     }
-    // }
 
     // true : nearly enough
     bool CheckDistance(out float distance, int multip = 10)
@@ -175,7 +163,7 @@ public class SingleAS : MonoBehaviour
             maxWith = Mathf.Max(maxWith, m_radiusList[i]);
         }
 
-        return maxWith;
+        return maxWith + 0.1f;
     }
     IEnumerator InitSegments(bool select)
     {
@@ -189,7 +177,7 @@ public class SingleAS : MonoBehaviour
         {
             for(int i = 0; i < m_ASData.ASSegment.Length; i++)
             {
-                ASSegmentItem seg =  SegmentPool.Instance.GetSegment();//Instantiate(m_QuadPrefab, m_RegmentsRoot).GetComponent<ASSegmentItem>();
+                ASSegmentItem seg =  SegmentPool.Instance.GetSegment();
                 seg.transform.SetParent(m_RegmentsRoot);
                 seg.transform.localPosition = new Vector3(0, i*2 - m_height/2, 0);
                 seg.SetSegment(m_ASData.ASSegment[i]);
@@ -206,34 +194,6 @@ public class SingleAS : MonoBehaviour
         }
         
     }
-    // void InitSegments()
-    // {
-    //     int count = Mathf.Max(m_ASData.Segments.Length, m_SegmentList.Count);
-    //     for(int i = 0; i < count; i++)
-    //     {
-    //         if(i < m_ASData.Segments.Length)
-    //         {
-    //             if(i < m_SegmentList.Count)
-    //             {
-    //                 m_SegmentList[i].SetSegment(m_ASData.Segments[i]);
-    //                 m_SegmentList[i].transform.localPosition = new Vector3(0, i + 0 - m_ASData.Segments.Length/2, 0);
-    //             }
-    //             else
-    //             {
-    //                 ASSegmentItem seg =  Instantiate(m_QuadPrefab, m_RegmentsRoot).GetComponent<ASSegmentItem>();
-    //                 seg.transform.localPosition = new Vector3(0, i + 0 - m_ASData.Segments.Length/2, 0);
-    //                 seg.SetSegment(m_ASData.Segments[i]);
-    //                 seg.transform.name = m_SegmentList.Count.ToString();
-                    
-    //                 m_SegmentList.Add(seg);
-    //             }
-    //         }
-    //         else if(i < m_SegmentList.Count)
-    //         {
-    //             m_SegmentList[i].HideSelf();
-    //         }
-    //     }
-    // }
 
     void InitMesh()
     {
@@ -320,10 +280,12 @@ public class SingleAS : MonoBehaviour
         return mesh;
     }
 
+    
+
     //暂时去掉对柱体的点击
     void Update()
     {
-        if(m_isFocused && m_wanderMap.m_camController != null && m_wanderMap.m_camController.currentView == ViewType.ViewSingleAS)
+        if(m_isFocused && (Time.time - m_focusTime) > Time.deltaTime && m_wanderMap.m_camController != null && m_wanderMap.m_camController.currentView == ViewType.ViewWanderingAS)
         {
             if(Input.GetMouseButtonDown(0))
             {
@@ -334,8 +296,10 @@ public class SingleAS : MonoBehaviour
                 RaycastHit hitInfo;
                 if(Physics.Raycast(ray,out hitInfo))
                 {
-                    Debug.Log("Hit : ----- " + hitInfo.transform.name);
-                    ShowIPMap(hitInfo.transform.name);
+                    Vector3 v = hitInfo.point - hitInfo.transform.position;
+                    Debug.Log(v+ " , Hit : ----- " + hitInfo.transform.name);
+                    
+                    OnClickIp(hitInfo.transform.name, v);
                 }
             }
         }
@@ -346,62 +310,33 @@ public class SingleAS : MonoBehaviour
             float distance = Vector3.Distance(m_wanderMap.m_targetCamera.transform.position, m_oldCamPos);
             if(distance > m_wanderMap.BaseCellWidth * 4 && CheckDistance(out d))
             {
-                //m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
-                //InitMesh();
                 InitASLooking();
             }
         }
     }
 
-    void ShowIPMap(string name)
+    void OnClickIp(string segName, Vector2 pos)
     {
-        if(string.IsNullOrEmpty(name))
+        if(string.IsNullOrEmpty(segName))
             return;
 
-        int index = 0;
-        if(!int.TryParse(name,out index))
+        int segIndex = 0;
+        if(!int.TryParse(segName,out segIndex))
             return;
 
-        //Color[] colors = {Color.red,Color.green,Color.yellow,Color.blue};
-        //m_SegmentIPMap.gameObject.SetActive(true);
-        if(index < m_SegmentList.Count)
+        if(segIndex < m_SegmentList.Count)
         {
-            m_curSegment = index;
-            if(!m_TestSeletedSegment.activeInHierarchy)
-                m_TestSeletedSegment.SetActive(true);
-            m_TestSeletedSegment.transform.position = new Vector3(m_TestSeletedSegment.transform.position.x,m_SegmentList[index].transform.position.y - 1,m_TestSeletedSegment.transform.position.z);
-       
-            // int pixelsize, lineCount;
-            // GetTextureAreaInfo(index,out pixelsize,out lineCount);
+            Vector3 targetPos = m_SegmentList[segIndex].transform.position - m_wanderMap.m_targetCamera.transform.forward * 8; 
+            m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
 
-            // if(m_tempTexture == null)
-            // {
-            //     m_tempTexture = new Texture2D(m_TextureW,m_TextureW);
-            //     m_SegmentIPMap.sprite =  Sprite.Create(m_tempTexture,new Rect(0,0,m_tempTexture.width,m_tempTexture.height),new Vector2(0,0));
-            // }
-            // int curCount = 0;
-            // for(int i = 0; i < m_TextureW; i++)
-            // {  
-            //     for(int j = 0; j < m_TextureW; j++)
-            //     {
-            //         if(j/pixelsize >= lineCount)
-            //         {
-            //             m_tempTexture.SetPixel(i, j,Color.black);
-            //         }
-            //         else
-            //         {
-            //             curCount = i/pixelsize * lineCount + j/pixelsize;
-            //             m_tempTexture.SetPixel(j, i, m_SegmentList[index].m_SegemntData.GetIPColor(curCount));// colors[(i/pixelsize + j/pixelsize)%4]);
-            //         }
-            //     }
-            // }
-            
-           // Debug.Log(pixelsize+","+lineCount);
-            
-            //m_tempTexture.Apply();
-
-            //m_SegmentIPMap.transform.position = new Vector3(m_SegmentIPMap.transform.position.x,m_SegmentList[index].transform.position.y - 1,m_SegmentIPMap.transform.position.z);
+            int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
+            ASProxy.instance.GetIpInfoFromAS(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
         }
+    }
+
+    void ShowIPDetail(IpDetail ipDetail)
+    {
+        UIEventDispatcher.OpenIPDetailPanel(ipDetail.IP);
     }
 
     // Mesh GenerateMesh(List<ASSegmentItem> list, int n)

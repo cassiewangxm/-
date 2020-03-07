@@ -18,6 +18,7 @@ public class ASSegmentItem : MonoBehaviour
     //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
     private Vector3 m_OrifinalScale = Vector3.zero;
     private int m_segmentID;
+    private int m_texturePixelLineCount = 1;
 
     public void HideSelf()
     {
@@ -62,11 +63,27 @@ public class ASSegmentItem : MonoBehaviour
             return;
         }
 
-        m_SegmentIPMap.material.SetTexture("_BaseColorMap", SegmentPool.Instance.GetTexture(m_SegemntData));//m_IPTexture);
+        m_SegmentIPMap.material.SetTexture("_BaseColorMap", SegmentPool.Instance.GetTexture(m_SegemntData, out m_texturePixelLineCount));
     }
 
     public void SetCollider(bool open)
     {
         m_Collider.enabled = open;
+    }
+
+    public int GetIPIndexByPos(Vector2 pos)
+    {
+        float scale = transform.localScale.x;
+        pos += new Vector2(scale/2, scale/2);
+        //Texture tex = m_SegmentIPMap.material.GetTexture("_BaseColorMap");
+        //int width = tex.width;
+        int x = (int)(pos.x / scale * m_texturePixelLineCount);
+        int y = (int)(pos.y / scale * m_texturePixelLineCount);
+        int count = y*m_texturePixelLineCount + x;
+        count = count >= 0 ? count : 0;
+        if(count >= m_SegemntData.IPCount)
+            count = m_SegemntData.IPCount - 1;
+        
+        return count;
     }
 }

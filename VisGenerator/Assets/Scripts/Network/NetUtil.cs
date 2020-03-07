@@ -1,4 +1,4 @@
-﻿#define NET_DEBUG
+﻿//#define NET_DEBUG
 
 using System.Collections;
 using System.Collections.Generic;
@@ -126,7 +126,7 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestASMapInfo(MessageRequestASMap msg,Action<ASMapResponse> action)
+    public void RequestASMapInfo(MessageRequestASMap msg,Action<ASInfo[]> action)
     {
         StartCoroutine(_RequestASMapInfo(msg.GetParamString(), action));
     }
@@ -137,7 +137,7 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestASMapInfo(string urlParam, Action<ASMapResponse> action)
+    IEnumerator _RequestASMapInfo(string urlParam, Action<ASInfo[]> action)
     {
 #if NET_DEBUG
         FakeASResponse("/Scripts/Network/AS.json", action);
@@ -147,13 +147,25 @@ public class NetUtil : MonoBehaviour
         StringBuilder sb = new StringBuilder(m_baseAdress);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
-        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        //UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Loading/StartASN=48,xLen=21,yLen=21,type=ASinfotype");
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            ASMapResponse response = JsonUtility.FromJson<ASMapResponse>(uwr.downloadHandler.text);
+            //Debug.Log(uwr.downloadHandler.text);
+
+            try
+            {
+                ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
+                action(asinfo);
+            }
+            catch
+            {
+                Debug.LogError(uwr.downloadHandler.text);
+            }
             
-            action(response);
+            //ASMapResponse response = JsonUtility.FromJson<ASMapResponse>(result.ToString());
+            
         }
 
 #endif
@@ -196,9 +208,9 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestASSegmentsInfo(MessageRequestASSegments msg,Action<ASSegmentsResponse> action)
+    public void RequestASSegmentsInfo(MessageRequestASSegments msg, Action<IpInfoType4[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
     {
-        StartCoroutine(_RequestASSegmentsInfo(msg.GetParamString(), action));
+        StartCoroutine(_RequestASSegmentsInfo(msg.GetParamString(), action, key, action2));
     }
 
     /// <summary>
@@ -207,25 +219,32 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<ASSegmentsResponse> action)
+    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType4[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
     {
-#if NET_DEBUG
-        //FakeASResponse("/Scripts/Network/AS.json", action);
-        yield return new WaitForEndOfFrame();
-#else
+// #if NET_DEBUG
+//         //FakeASResponse("/Scripts/Network/AS.json", action);
+//         yield return new WaitForEndOfFrame();
+// #else
         
         StringBuilder sb = new StringBuilder(m_baseAdress);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
-        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Query/ASN=2,HeadIP=91.143.144.0,TailIP=91.143.144.25,type=IPinfotype4");//(sb.ToString());
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            ASSegmentsResponse response = JsonUtility.FromJson<ASSegmentsResponse>(uwr.downloadHandler.text);
-            
-            action(response);
+            try
+            {
+                IpInfoType4[] array = JsonConvert.DeserializeObject<IpInfoType4[]>(uwr.downloadHandler.text);
+                
+                action(array, key, action2);
+            }
+            catch
+            {
+                Debug.LogError("Net Error : " + uwr.downloadHandler.text);
+            }
         }
 
-#endif
+//#endif
     }
 }
