@@ -21,7 +21,7 @@ namespace RTG
             bool usesPrjSwitchLabel = lookAndFeel.IsCamPrjSwitchLabelVisible;
             float screenSize = SceneGizmoLookAndFeel.ScreenSize;
 
-            /*
+            
             if (lookAndFeel.ScreenCorner == SceneGizmoScreenCorner.TopRight)
                 sceneGizmoCamera.Camera.pixelRect = new Rect(sceneCameraViewRect.xMax - screenSize + screenOffset.x, sceneCameraViewRect.yMax - screenSize + screenOffset.y, screenSize, screenSize);
             else
@@ -34,8 +34,8 @@ namespace RTG
             else
                 sceneGizmoCamera.Camera.pixelRect = new Rect(sceneCameraViewRect.xMin + screenOffset.x,
                     sceneCameraViewRect.yMin + (usesPrjSwitchLabel ? camPrjSwitchLabelRectSize.y + 1.0f : 0.0f) + screenOffset.y, screenSize, screenSize);
-            */
-            sceneGizmoCamera.Camera.pixelRect = new Rect(0.0f, 0.0f, 0.0f, 0.0f);
+            
+            //sceneGizmoCamera.Camera.pixelRect = new Rect(0.0f, 0.0f, 0.0f, 0.0f);
         }
     }
 }

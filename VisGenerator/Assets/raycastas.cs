@@ -23,6 +23,8 @@ public class raycastas : MonoBehaviour
 
     //private Plane[] planes;
 
+    public SceneMananger SceneMananger;
+
     private float[] pairs;
 
     public Camera Camera;
@@ -105,7 +107,8 @@ public class raycastas : MonoBehaviour
     void Update()
     {
         //if (CameraController.currentView == ViewType.ViewAS)
-        if (CameraController.IsAS)
+        //if (CameraController.IsAS)
+        if (SceneMananger.CurrentSceneView == SceneView.ASView)
         {
             if (isZooming)
             {

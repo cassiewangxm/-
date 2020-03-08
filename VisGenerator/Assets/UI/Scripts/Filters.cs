@@ -191,9 +191,9 @@ public class Filters : MonoBehaviour
     void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)
     {
         Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
-        string region = dropdownRegion.options[dropdownRegion.value].text;
-        string asNumber = dropdownAS.options[dropdownAS.value].text;
-        string type = dropdownType.options[dropdownType.value].text;
+        //string region = dropdownRegion.options[dropdownRegion.value].text;
+        //string asNumber = dropdownAS.options[dropdownAS.value].text;
+        //string type = dropdownType.options[dropdownType.value].text;
 
         // Clear flags
         for (int i = 0; i < asFilterFlag.Length; i++)
@@ -210,6 +210,7 @@ public class Filters : MonoBehaviour
         bool isHighlight = false;
         foreach (var item in dictionary)
         {
+            /*
             if ((isRegionFilterOn && (item.Value.country == region)) || !isRegionFilterOn)
             {
                 if ((isASFilterOn && (item.Value.ASNum.ToString() == asNumber)) || !isASFilterOn)
@@ -236,6 +237,7 @@ public class Filters : MonoBehaviour
                     }
                 }
             }
+            */
         }
         if (isSelectedAS)
         {
