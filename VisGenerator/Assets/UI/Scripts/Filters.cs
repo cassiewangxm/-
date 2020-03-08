@@ -43,24 +43,26 @@ class CurveLine
 
 public class Filters : MonoBehaviour
 {
-    public GameObject FilterRegion;
-    public GameObject FilterAS;
-    public GameObject FilterType;
+    public Consts Consts;
+
+    //public GameObject FilterRegion;
+    //public GameObject FilterAS;
+    //public GameObject FilterType;
     public GameObject IPProxy;
-    private Dropdown dropdownRegion;
-    private Dropdown dropdownAS;
-    private Dropdown dropdownType;
+    //private Dropdown dropdownRegion;
+    //private Dropdown dropdownAS;
+    //private Dropdown dropdownType;
 
     public test CurveCal;
 
     public GameObject GeoPointPrefab;
     public GameObject PosMarkerPrefab;
-    public float ASWidth;
-    public float ASHeight;
-    public float MapWidth;
-    public float MapHeight;
-    public float IPHalfWidth;
-    public float IPHalfHeight;
+    private float ASWidth;
+    private float ASHeight;
+    private float MapWidth;
+    private float MapHeight;
+    private float IPWidth;
+    private float IPHeight;
 
     public bool isRegionFilterOn = false;
     public bool isASFilterOn = false;
@@ -99,23 +101,30 @@ public class Filters : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dropdownRegion = FilterRegion.GetComponent<Dropdown>();
+        ASWidth = Consts.ASSize.x;
+        ASHeight = Consts.ASSize.y;
+        MapWidth = Consts.MapSize.x;
+        MapHeight = Consts.MapSize.y;
+        IPWidth = Consts.IPSize.x;
+        IPHeight = Consts.IPSize.y;
+
+        //dropdownRegion = FilterRegion.GetComponent<Dropdown>();
         RegionData regionData = ReadJsonFile("UI/Config/RegionConfig.json");
         for (int i = 0; i < regionData.Regions.Length; i ++)
         {
-            dropdownRegion.options.Add(new Dropdown.OptionData(regionData.Regions[i].country));
+            //dropdownRegion.options.Add(new Dropdown.OptionData(regionData.Regions[i].country));
         }
 
-        dropdownAS = FilterAS.GetComponent<Dropdown>();
+        //dropdownAS = FilterAS.GetComponent<Dropdown>();
         for (int i = 0; i < 65536; i++)
         {
-            dropdownAS.options.Add(new Dropdown.OptionData(i.ToString()));
+            //dropdownAS.options.Add(new Dropdown.OptionData(i.ToString()));
         }
 
-        dropdownType = FilterType.GetComponent<Dropdown>();
+        //dropdownType = FilterType.GetComponent<Dropdown>();
         for (int i = 0; i < 3; i++)
         {
-            dropdownType.options.Add(new Dropdown.OptionData(i.ToString()));
+            //dropdownType.options.Add(new Dropdown.OptionData(i.ToString()));
         }
 
         // Fake ddos
@@ -261,6 +270,7 @@ public class Filters : MonoBehaviour
 
     public void FilterByRegion()
     {
+        /*
         string region = dropdownRegion.options[dropdownRegion.value].text;
         Debug.Log("Filter by Region: " + region);
         if (dropdownRegion.value != 0)
@@ -272,10 +282,12 @@ public class Filters : MonoBehaviour
             isRegionFilterOn = false;
         }
         MultipleFilters();
+        */
     }
 
     public void FilterByAS()
     {
+        /*
         string asNumber = dropdownAS.options[dropdownAS.value].text;
         if (dropdownAS.value != 0)
         {
@@ -287,10 +299,12 @@ public class Filters : MonoBehaviour
             isASFilterOn = false;
         }
         MultipleFilters();
+        */
     }
 
     public void FilterByType()
     {
+        /*
         string type = dropdownType.options[dropdownType.value].text;
         if (dropdownType.value != 0)
         {
@@ -302,6 +316,7 @@ public class Filters : MonoBehaviour
             isTypeFilterOn = false;
         }
         MultipleFilters();
+        */
     }
 
     float CalculateCurveLineThickness(Camera camera)
@@ -393,17 +408,17 @@ public class Filters : MonoBehaviour
                                 int xs = 0;
                                 int ys = 0;
                                 d2xy(256, ips, out xs, out ys);
-                                xs -= 128;
-                                ys -= 128;
+                                //xs -= 128;
+                                //ys -= 128;
                                 uint ipe = itemB.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
                                 ipe = ipe >> 12;
                                 int xe = 0;
                                 int ye = 0;
                                 d2xy(256, ipe, out xe, out ye);
-                                xe -= 128;
-                                ye -= 128;
-                                posA = new Vector3(xs / 256.0f * IPHalfWidth, 0, ys / 256.0f * IPHalfHeight);
-                                posB = new Vector3(xe / 256.0f * IPHalfWidth, 0, ye / 256.0f * IPHalfHeight);
+                                //xe -= 128;
+                                //ye -= 128;
+                                posA = new Vector3(xs / 256.0f * IPWidth, 0, ys / 256.0f * IPHeight);
+                                posB = new Vector3(xe / 256.0f * IPWidth, 0, ye / 256.0f * IPHeight);
                                 IPCurveLines.Add(new CurveLine(posA, posB));
                             }
                         }

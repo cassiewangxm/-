@@ -5,6 +5,8 @@ using RTG;
 
 public class ViewIP : MonoBehaviour
 {
+    public Consts Consts;
+
     public Camera Camera;
     public RTFocusCamera RTFocusCamera;
 
@@ -17,13 +19,14 @@ public class ViewIP : MonoBehaviour
     private float heightLv28;
     private float heightLv32;
 
-    public Vector2 IPSize;
-    public Vector2 IPPos;
+    private Vector2 IPSize;
+    private Vector2 IPPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        IPSize = Consts.IPSize;
+        IPPos = Consts.IPPos;
     }
 
     Vector2 CalculateIdx(int level, Vector3 cameraPos)

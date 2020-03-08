@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 
 public class raycastas : MonoBehaviour
 {
+    public Consts Consts;
 
-    public Vector3 Position;
-    public Vector2 Size;
+    private Vector3 Position;
+    private Vector2 Size;
 
     public Vector3 IPPosition;
     public Vector2 IPSize;
@@ -67,9 +68,12 @@ public class raycastas : MonoBehaviour
         */
         CameraController = Camera.GetComponent<CameraController>();
 
-    // #region LIPENGYUE
-    //     InitTextsForNearlyAS();
-    // #endregion
+        Position = new Vector3(Consts.ASPos.x, 0.0f, Consts.ASPos.y);
+        Size = Consts.ASSize;
+
+        // #region LIPENGYUE
+        //     InitTextsForNearlyAS();
+        // #endregion
     }
     int Select(float v, float textureSize)
     {

@@ -18,16 +18,18 @@ namespace Controller
 
     public class CameraController : MonoBehaviour
     {
+        public Consts Consts;
+
         public float Speed;
         public float Step;
         public GameObject Parent;
         public Camera Camera;
         Vector3 dragOrigin = Vector3.zero;
 
-        public float cameraBound0;
-        public float cameraBound1;
-        public float cameraBound2;
-        public float cameraBound3;
+        private float cameraBound0;
+        private float cameraBound1;
+        private float cameraBound2;
+        private float cameraBound3;
 
         public bool IsNavigation = false;
         public bool IsNavigationUpdate = false;
@@ -46,6 +48,8 @@ namespace Controller
 
         public ViewType currentView = ViewType.ViewAS;
 
+        public raycastas raycastas;
+
         bool IsInside(Vector3 move)
         {
             if (move.x < cameraBound0)
@@ -63,6 +67,11 @@ namespace Controller
         void Start()
         {
             raycastas = GetComponent<raycastas>();
+
+            cameraBound0 = Consts.ASPos.x;
+            cameraBound1 = Consts.ASPos.x + Consts.ASSize.x;
+            cameraBound2 = Consts.ASPos.y;
+            cameraBound3 = Consts.ASPos.y + Consts.ASSize.y;
         }
 
         public void ViewAS()
