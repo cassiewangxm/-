@@ -27,15 +27,15 @@ public enum IpInfoStructType
 [Serializable]
 public class IpInfoType1
 {
-    public string IP;   //IP地址前缀
-    public int CoordX;  //IP地址前缀Hilbert横坐标
-    public int CoordY;   //IP地址前缀Hilbert纵坐标
+    public string ip_prefix;   //IP地址前缀
+    public int X;  //IP地址前缀Hilbert横坐标
+    public int Y;   //IP地址前缀Hilbert纵坐标
     public float Lat;   //IP地址前缀所属经度
     public float Lng;   //IP地址前缀所属纬度
-    public string ASN;  //所属AS的AS号
-    public string Continent;    //所在大洲
-    public string Country_name; //所在国家
-    public string Country_code; //所在国家代号
+    public int ASN;  //所属AS的AS号
+    public string continent;    //所在大洲
+    public string country_name; //所在国家
+    public string country_code; //所在国家代号
     public string Province;     //所在州/省
     public string City;         //所在城市
     public string Time_zone;    //所在时区
@@ -100,14 +100,14 @@ public class MessageRequestIpMap
     public string startIp = "0.0.0.0";  //需要显示的左上角IP地址
     public int xLen;        //显示区域的横向大小
     public int yLen;        //显示区域的纵向大小
-    public string type = "IPinfotype1";     //请求IP信息基本数据的具体级别 例如：“IPinfotype1”
+    public string type = "[IPinfotype1]";     //请求IP信息基本数据的具体级别 例如：“IPinfotype1”
 
     public virtual string GetParamString()
     {
         xLen = (xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
         yLen = (yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
 
-        return string.Format("/{0}/{1}/{2}/{3}/{4}", prefixLen, startIp, xLen, yLen, type);
+        return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4}", prefixLen, startIp, xLen, yLen, type);
     }
 }
 
@@ -162,8 +162,8 @@ public class MessageRequestIpMapFilter : MessageRequestIpMap
 
         if(string.Compare(Other, "None") != 0)
             Other = Other.Replace(' ', '_');
-        
-        return string.Format("/{0}/{1}/{2}/{3}/{4}", ASN > 0 ? ASN.ToString() : "None", ISP, Country, Province,Other);
+
+        return string.Format("{0},ASN={1},ISP={2},Country={3},Province={4},Other={5}", base.GetParamString(), ASN > 0 ? ASN.ToString() : "None", ISP, Country, Province,Other);
     }
 }
 
@@ -182,14 +182,18 @@ public class IpMapFilterResponse
 /// </summary>
 public class MessageRequestASMap 
 {
-    public int startASN = 1; //左上角AS号
+    public int startASN = 2; //左上角AS号
     public int xLen = (int)Mathf.Pow(2, 8);        //显示区域的横向大小
-    public int yLen = (int)Mathf.Pow(2, 8);         //显示区域的纵向大小
+    public int yLen = (int)Mathf.Pow(2, 8);        //显示区域的纵向大小
     public string type = "ASinfotype";     //请求AS基本数据类型 例如“ASinfotype”
 
     public virtual string GetParamString()
     {
-        return string.Format("/{0}/{1}/{2}/{3}", startASN, xLen, yLen, type);
+        //http://166.111.9.83:3000/ASMAP_Loading/StartASN=48,xLen=21,yLen=21,type=ASinfotype
+        
+        //http://166.111.9.83:3000/ASMAP_Loading/StartASN=1,xLen=8,yLen=8,type=ASinfotype
+
+        return string.Format("/StartASN={0},xLen={1},yLen={2},type={3}", startASN, xLen, yLen, type);
     }
 }
 
@@ -215,6 +219,8 @@ public class MessageRequestASSegments
 
     public virtual string GetParamString()
     {
-        return string.Format("/{0}/{1}/{2}/{3}", ASN, HeadIp, TailIp, type);
+        //http://166.111.9.83:3000/ASMAP_Query/ASN=2,HeadIP=91.143.144.0,TailIP=91.143.144.25,type=IPinfotype4
+        
+        return string.Format("/ASN={0},HeadIP={1},TailIP={2},type={3}", ASN, HeadIp, TailIp, type);
     }
 }

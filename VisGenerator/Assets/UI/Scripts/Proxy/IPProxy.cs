@@ -16,6 +16,8 @@ public class IpDetail
     public float lat;
     public float lng;
     public bool isBanned;
+    public int X;
+    public int Y;
 
     private Vector2 mapCoordinate;
 
@@ -35,6 +37,13 @@ public class IpDetail
         country = info.Country_name;
         lat = info.Lat;
         lng = info.Lng;
+    }
+    public IpDetail(IpInfoType1 info)
+    {
+        IP = info.ip_prefix;
+        X = info.X;
+        Y = info.Y;
+        ASNum = (uint)info.ASN;
     }
 
     public static readonly string DEFAULT_IP = "0.0.0.0";
@@ -57,6 +66,7 @@ public class IPProxy : MonoBehaviour
     public bool isFileReady;
 
     private Dictionary<string, IpDetail> fadeIpDetailDic;
+    private Dictionary<Vector2Int, IpDetail> m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
 
     public static IPProxy instance
     {
@@ -124,15 +134,18 @@ public class IPProxy : MonoBehaviour
         { IpInfoStructType.InfoType4, "IPinfotype4"}
     };
 
-    public void GetIpInfoBlockType1(Action<IpInfoType1[]> action, int prefixLen = -1, string startIp = null, int xlen = -1, int ylen = -1)
+    public void GetIpInfoBlockType1(Action<IpDetail[]> action,int prefixLen = 20, int x = -1, int y = -1)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
-        if(xlen > 0)
-            msg.xLen = xlen;
-        if(ylen > 0)
-            msg.yLen = ylen;
-        if(!string.IsNullOrEmpty(startIp))
-            msg.startIp = startIp;
+
+        Vector2Int key = new Vector2Int(x,y);
+        if(m_ipDetailDict.ContainsKey(key))
+        {
+            string[] strs = m_ipDetailDict[key].IP.Split('/');
+            if(strs != null && strs.Length > 0)
+                msg.startIp = strs[0];
+        }
+
         if(prefixLen > 0)
             msg.prefixLen = prefixLen;
 
@@ -141,24 +154,29 @@ public class IPProxy : MonoBehaviour
         NetUtil.Instance.RequestIpMapInfo(msg, OnIpInfoResponse, action);
     }
 
+
+    void OnIpInfoResponse(IpInfoType1[] array, Action<IpDetail[]> action)
+    {
+        if(m_ipDetailDict == null)
+            m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
+        m_ipDetailDict.Clear();
+
+        IpDetail[] ipArray = new IpDetail[array.Length];
+        for(int i = 0; i < array.Length; i++)
+        {
+            ipArray[i] = new IpDetail(array[i]);
+            m_ipDetailDict.Add(new Vector2Int(array[i].X, array[i].Y), ipArray[i]);
+        }
+        if(action != null)
+        {
+            action(ipArray);
+        }
+    }
+
     public void GetIpInfoFilterType1(Action<IpInfoType1[]> action, MessageRequestIpMapFilter msg)
     {
         msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
         NetUtil.Instance.RequestIpMapFilterInfo(msg, OnIpInfoFilterResponse, action);  
-    }
-
-    void OnIpInfoResponse(string data, Action<IpInfoType1[]> action)
-    {
-        IpMapResponse response = JsonUtility.FromJson<IpMapResponse>(data);
-        if(response.Status != 0)
-        {
-            Debug.LogError("IpMapLoad Response error code : " + response.Status);
-            return;
-        }
-        if(action != null)
-        {
-            action(response.Result);
-        }
     }
     void OnIpInfoFilterResponse(string data, Action<IpInfoType1[]> action)
     {

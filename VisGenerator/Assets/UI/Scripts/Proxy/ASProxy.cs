@@ -19,7 +19,7 @@ public class ASInfo
 
     public void Transfer()
     {
-        if(IP_segments != null)
+        if(IP_segments != null && ASSegment == null)
         {
             int i = 0;
             ASSegment = new ASSegmentInfo[IP_segments.Count];
@@ -35,7 +35,7 @@ public class ASInfo
     // TEST ----
     public void FakeInit(int x, int y, int segNum)
     {
-        //Debug.Log("Fake ASInfo ...... ");//+x + ","+y);
+        Debug.Log("Fake ASInfo ...... ");//+x + ","+y);
         ASN = UnityEngine.Random.Range(1,99999);
         Y = y;
         X = x;
@@ -135,22 +135,54 @@ public class ASProxy : MonoBehaviour
             return s_instance;
         }
     }
-    public void GetASInfoAll()
+    public bool OriginalDataReady {get {return m_originalDataReady;}}
+    private bool m_originalDataReady;
+    public void GetASAreaInfo(int asN, int xlen, int ylen, Action action)
+    {
+        MessageRequestASMap msg = new MessageRequestASMap();
+        msg.startASN = asN;
+        msg.xLen = xlen;
+        msg.yLen = ylen;
+        NetUtil.Instance.RequestASMapInfo(msg, OnReciveASInfo, action);
+    }
+    void OnReciveASInfo(ASInfo[] response, Action action)
+    {
+        // for(int i = 0; i < response.Length; i++)
+        // {
+        //     response[i].Transfer();
+        //     m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
+        // }
+
+        // m_originalDataReady = true;
+
+        if(action != null)
+            action();
+
+    }
+    public void GetASInfoOriginal(Action action)
     {
         if(m_ASDict.Count > Mathf.Pow(2,8))
             return;
 
-        NetUtil.Instance.RequestASMapInfo(new MessageRequestASMap(), OnReciveASInfo);
+        MessageRequestASMap msg = new MessageRequestASMap();
+        NetUtil.Instance.RequestASMapInfo(msg, OnRecieveOriginalInfo, action);
     }
 
-    void OnReciveASInfo(ASInfo[] response)
+
+    void OnRecieveOriginalInfo(ASInfo[] response, Action action)
     {
         for(int i = 0; i < response.Length; i++)
         {
+            if(i==0 || i == response.Length - 1)
+            {
+                Debug.Log(response[i].X + " , " + response[i].X );
+            }
+            response[i].Transfer();
             m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
         }
+        Debug.Log("Get AS Count : 256x" + m_ASDict.Count/256);
 
-        Debug.Log("Finished AS info : "+m_ASDict.Count);
+        m_originalDataReady = true;
     }
 
     // TEST --------
@@ -159,7 +191,7 @@ public class ASProxy : MonoBehaviour
         Vector2 v = new Vector2(x,y);
         if(m_ASDict.ContainsKey(v))
         {
-            //Debug.Log("Found AS : ");
+            Debug.Log("Found AS : ");
             return m_ASDict[v];
         }    
         else

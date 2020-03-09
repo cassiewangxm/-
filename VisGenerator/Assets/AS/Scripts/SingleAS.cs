@@ -35,6 +35,9 @@ public class SingleAS : MonoBehaviour
     {
         set {m_wanderMap = value;}
     }
+    public Vector2Int Location{
+        get {return m_location;}
+    }
     private WanderingASMap m_wanderMap;
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
     private ASInfo m_ASData; //AS柱数据
@@ -49,6 +52,7 @@ public class SingleAS : MonoBehaviour
     private float m_maxSegmentWidth;
     private bool m_isVisibleInCam;
     private Vector3 m_oldCamPos;
+    private Vector2Int m_location;
     List<float> m_radiusList = new List<float>();
     List<float> m_heightList = new List<float>();
 
@@ -70,6 +74,10 @@ public class SingleAS : MonoBehaviour
         m_isVisibleInCam = false;
     }
 
+    public void InitLocation(int x, int y)
+    {
+        m_location = new Vector2Int(x, y);
+    }
     public void InitASData(ASInfo asData)
     {
         m_TestSeletedSegment.SetActive(false);
@@ -77,6 +85,8 @@ public class SingleAS : MonoBehaviour
         m_mesh.gameObject.SetActive(false);
 
         m_ASData = asData;
+
+        m_location = new Vector2Int(asData.X, asData.Y);
         
         if(m_ASData != null)
             m_height = m_ASData.Height;

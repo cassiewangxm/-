@@ -23,7 +23,8 @@ public class NetUtil : MonoBehaviour
 		}
 	}
 
-    private string m_baseAdress = "http://166.111.9.83:28280/";
+    private string m_baseAdressIP = "http://166.111.9.83:28281/";
+    private string m_baseAdressAS = "http://166.111.9.83:3000/";
     private Dictionary<NetMessageType, string> m_meessageKeywords = new Dictionary<NetMessageType, string> {
         { NetMessageType.IpMapLoad, "IPMAP_Loading"},
         { NetMessageType.IpMapFilter, "IPMAP_Query"},
@@ -51,7 +52,7 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestIpMapInfo(MessageRequestIpMap msg, Action<string, Action<IpInfoType1[]>> action, Action<IpInfoType1[]> action2)
+    public void RequestIpMapInfo(MessageRequestIpMap msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
         StartCoroutine(_RequestIpMapInfo(msg.GetParamString(), action, action2));
     }
@@ -62,21 +63,24 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestIpMapInfo(string urlParam, Action<string, Action<IpInfoType1[]>> action, Action<IpInfoType1[]> action2)
+    IEnumerator _RequestIpMapInfo(string urlParam, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
 // #if NET_DEBUG
 //         //FakeResponse("/Scripts/Network/AS_2.json", action, action2);
 //         yield return new WaitForEndOfFrame();
 // #else
-        StringBuilder sb = new StringBuilder(m_baseAdress);
+        StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        Debug.Log(uwr.url);
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
+            Debug.Log(uwr.downloadHandler.text);
+            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
             //IpMapResponse response = JsonUtility.FromJson<IpMapResponse>(uwr.downloadHandler.text);
-            action(uwr.downloadHandler.text, action2);
+            action(array, action2);
         }
 
         uwr.Dispose();
@@ -108,7 +112,7 @@ public class NetUtil : MonoBehaviour
 
 #else
         
-        StringBuilder sb = new StringBuilder(m_baseAdress);
+        StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapFilter]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
@@ -126,9 +130,9 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestASMapInfo(MessageRequestASMap msg,Action<ASInfo[]> action)
+    public void RequestASMapInfo(MessageRequestASMap msg,Action<ASInfo[],Action> action, Action action2)
     {
-        StartCoroutine(_RequestASMapInfo(msg.GetParamString(), action));
+        StartCoroutine(_RequestASMapInfo(msg.GetParamString(), action, action2));
     }
 
     /// <summary>
@@ -137,18 +141,19 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestASMapInfo(string urlParam, Action<ASInfo[]> action)
+    IEnumerator _RequestASMapInfo(string urlParam, Action<ASInfo[],Action> action, Action action2)
     {
 #if NET_DEBUG
         FakeASResponse("/Scripts/Network/AS.json", action);
         yield return new WaitForEndOfFrame();
 #else
         
-        StringBuilder sb = new StringBuilder(m_baseAdress);
+        StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
-        //UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
-        UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Loading/StartASN=48,xLen=21,yLen=21,type=ASinfotype");
+        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        Debug.Log(uwr.url);
+        //UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Loading/StartASN=48,xLen=21,yLen=21,type=ASinfotype");
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
@@ -157,7 +162,7 @@ public class NetUtil : MonoBehaviour
             try
             {
                 ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
-                action(asinfo);
+                action(asinfo, action2);
             }
             catch
             {
@@ -226,7 +231,7 @@ public class NetUtil : MonoBehaviour
 //         yield return new WaitForEndOfFrame();
 // #else
         
-        StringBuilder sb = new StringBuilder(m_baseAdress);
+        StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Query/ASN=2,HeadIP=91.143.144.0,TailIP=91.143.144.25,type=IPinfotype4");//(sb.ToString());

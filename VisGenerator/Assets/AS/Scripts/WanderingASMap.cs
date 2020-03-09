@@ -31,11 +31,13 @@ public class WanderingASMap : MonoBehaviour
     private int m_MLR = 0; // most Left Row
     private int m_MDL = 0; // most Down Line
     private bool m_initFinished = false;
+    private Vector2Int m_curSelectedASLocation;
 
     void Awake()
     {
         SegmentPool.Instance.Prepare();
         m_oldCamPos = m_targetCamera.transform.position;
+        ASProxy.instance.GetASInfoOriginal(null);
         StartCoroutine(CreateASCubes());
     }
     void OnViewChange()
@@ -56,14 +58,37 @@ public class WanderingASMap : MonoBehaviour
     {
         InWanderingState = true;
 
-        ASProxy.instance.GetASInfoAll();
-
         //取消上次focus的柱子
         if(m_curSelected != Vector2Int.zero)
             m_ASArray[m_curSelected.x][m_curSelected.y].SetSelected(false);
         m_curSelected = Vector2Int.zero;
 
-        StartCoroutine(InitMap(x,y));
+        m_curSelectedASLocation = new Vector2Int(x,y);
+        StartCoroutine(GetASAreaInfo());
+        //ASProxy.instance.GetASInfoOriginal(OnRecieveASMapInfo);
+    }
+
+    IEnumerator GetASAreaInfo()
+    {
+        while(true)
+        {
+            if(ASProxy.instance.OriginalDataReady)
+            {
+                OnRecieveASMapInfo();
+                break;
+            }
+            else
+            {
+                yield return null;
+            }
+            //ASInfo info = ASProxy.instance.GetASByPosition(m_curSelectedASLocation.x, m_curSelectedASLocation.y);
+            
+        }
+    }
+
+    void OnRecieveASMapInfo()
+    {
+        StartCoroutine(InitMap(m_curSelectedASLocation.x,m_curSelectedASLocation.y));
         //StartCoroutine(InitMap(x,y,true));
 
         SetFocusAS(m_lineCount/2, m_lineCount/2);
@@ -84,7 +109,7 @@ public class WanderingASMap : MonoBehaviour
         {
             if(n == 0)
             {
-                ASInfo data = ASProxy.instance.GetASByPosition(x, y, GetASHeight(x, y));//ASProxy.instance.GetASByPosition(arrayc, arraycY);
+                ASInfo data = ASProxy.instance.GetASByPosition(x, y);
                 if(data != null)
                 {
                     count++;
@@ -94,6 +119,12 @@ public class WanderingASMap : MonoBehaviour
                     m_ASArray[arrayc][arraycY].transform.position = centerPos;
                     m_ASArray[arrayc][arraycY].name = string.Format("{0}_{1}", arrayc, arraycY);
                     m_ASArray[arrayc][arraycY].InitASData(data);
+                }
+                else
+                {
+                    m_ASArray[arrayc][arraycY].InitLocation(x, y);
+                    m_ASArray[arrayc][arraycY].gameObject.SetActive(false);
+                    Debug.LogFormat("There is no AS in location : {0},{1}", x, y);
                 }
             }
             else
@@ -108,14 +139,22 @@ public class WanderingASMap : MonoBehaviour
                         int arrayy = arraycY + j;
                         if(IsInMap(xy.x, xy.y) && (arrayx >= 0 && arrayx < m_ASArray.Length && arrayy >= 0 && arrayy < m_ASArray[arrayx].Length))
                         {
-                            ASInfo data = ASProxy.instance.GetASByPosition(xy.x, xy.y, GetASHeight(xy.x, xy.y));//ASProxy.instance.GetASByPosition(xy.x, xy.y);
-                            float height = data.Height;
                             count++;
-                            float posz = centerPos.z + m_baseWith * j;
-                            float posy = centerPos.y + (height - centerHeight)/2;
-                            m_ASArray[arrayx][arrayy].transform.position = new Vector3(posx, posy, posz);
-                            m_ASArray[arrayx][arrayy].name = string.Format("{0}_{1}", arrayx, arrayy);
-                            m_ASArray[arrayx][arrayy].InitASData(data);
+                            ASInfo data = ASProxy.instance.GetASByPosition(xy.x, xy.y);//ASProxy.instance.GetASByPosition(xy.x, xy.y, GetASHeight(xy.x, xy.y));//
+                            if(data == null)
+                            {
+                                m_ASArray[arrayx][arrayy].InitLocation(xy.x, xy.y);
+                                m_ASArray[arrayx][arrayy].gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                float height = data.Height;
+                                float posz = centerPos.z + m_baseWith * j;
+                                float posy = centerPos.y + (height - centerHeight)/2;
+                                m_ASArray[arrayx][arrayy].transform.position = new Vector3(posx, posy, posz);
+                                m_ASArray[arrayx][arrayy].name = string.Format("{0}_{1}", arrayx, arrayy);
+                                m_ASArray[arrayx][arrayy].InitASData(data);
+                            }
                         }
                         if(i == -n || i == n)
                         {
@@ -135,13 +174,14 @@ public class WanderingASMap : MonoBehaviour
                 }
             }
             n++;
+            Debug.Log("Now the N is : " + n);
         }
         m_initFinished = true;
-        Debug.Log("Finish init map : "+Time.time);
+        Debug.LogFormat("Finish init map in : {0}, with n = {1}",Time.time,n);
     }
     void SetFocusAS(int x, int y, bool moveCam = false)
     {
-        Debug.Log(Time.time + " , Set focus ");
+        //Debug.Log(Time.time + " , Set focus ");
         Vector2Int v = new Vector2Int(x,y);
         if(v != m_curSelected && (v.x >= 0 && v.x < m_ASArray.Length && v.y >= 0 && v.y < m_ASArray[v.x].Length))
         {
@@ -247,10 +287,10 @@ public class WanderingASMap : MonoBehaviour
                     bool moved = false;
                     for(int i = 0; i < srcA.Length; i++)
                     {
-                        Vector2Int v = new Vector2Int(neg + cmpA[i].ASData.X, cmpA[i].ASData.Y);
+                        Vector2Int v = new Vector2Int(neg + cmpA[i].Location.x, cmpA[i].Location.y);
                         if(IsInMap(v.x, v.y))
                         {
-                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//ASProxy.instance.GetASByPosition(v.x, v.y);
+                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y);//ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//
                             if(data == null)
                             {
                                 srcA[i].gameObject.SetActive(false);
@@ -311,10 +351,10 @@ public class WanderingASMap : MonoBehaviour
                     bool moved = false;
                     for(int i = 0; i < m_ASArray.Length; i++)
                     {
-                        Vector2Int v = new Vector2Int(m_ASArray[i][cmp].ASData.X, m_ASArray[i][cmp].ASData.Y + neg);
+                        Vector2Int v = new Vector2Int(m_ASArray[i][cmp].Location.x, m_ASArray[i][cmp].Location.y + neg);
                         if(IsInMap(v.x, v.y))
                         {
-                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//ASProxy.instance.GetASByPosition(v.x, v.y);
+                            ASInfo data = ASProxy.instance.GetASByPosition(v.x, v.y);//ASProxy.instance.GetASByPosition(v.x, v.y, GetASHeight(v.x, v.y));//
                             if(data == null)
                             {
                                 m_ASArray[i][src].gameObject.SetActive(false);

@@ -71,9 +71,16 @@ public class raycastas : MonoBehaviour
         Position = new Vector3(Consts.ASPos.x, 0.0f, Consts.ASPos.y);
         Size = Consts.ASSize;
 
+        IPProxy.instance.GetIpInfoBlockType1(OnGetIPBlockBack);
+
         // #region LIPENGYUE
         //     InitTextsForNearlyAS();
         // #endregion
+    }
+
+    void OnGetIPBlockBack(IpDetail[] a)
+    {
+        Debug.Log(a.Length+" ,got IPs hhhhaaaa");
     }
     int Select(float v, float textureSize)
     {
