@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RTG;
 
 public enum SceneView
 {
@@ -13,6 +14,8 @@ public enum SceneView
 public class SceneMananger : MonoBehaviour
 {
     private static SceneMananger ms_instance = null;
+
+    public RTFocusCamera RTFocusCamera;
 
     public static SceneMananger Instance
     {
@@ -59,6 +62,10 @@ public class SceneMananger : MonoBehaviour
         foreach (var pair in viewToObjMapping)
         { 
             pair.Value.SetActive(pair.Key == currentSceneView);
+            if (pair.Key == currentSceneView)
+            {
+                RTFocusCamera.SetTargetCamera(pair.Value.GetComponentInChildren<Camera>());
+            }
         }
         EventManager.SendEvent(EventDefine.OnSceneViewChange);
     }
