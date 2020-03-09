@@ -27,7 +27,8 @@ namespace RTG
 
         public override void OnAttached()
         {
-            _sceneGizmoCamera = RTGizmosEngine.Get.CreateSceneGizmoCamera(RTFocusCamera.Get.TargetCamera, new SceneGizmoCamViewportUpdater(this));
+            //_sceneGizmoCamera = RTGizmosEngine.Get.CreateSceneGizmoCamera(RTFocusCamera.Get.TargetCamera, new SceneGizmoCamViewportUpdater(this));
+            _sceneGizmoCamera = RTGizmosEngine.Get.CreateSceneGizmoCamera(RTFocusCamera.Get.TargetCamera, null);
 
             // Create the mid axis handle
             _midAxisHandle = new SceneGizmoMidCap(this);
