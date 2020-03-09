@@ -11,6 +11,10 @@ public class WanderingASMap : MonoBehaviour
     public CameraController m_camController;
     public Camera m_targetCamera;
     public Transform m_root;
+    public bool InWanderingState
+    {
+        get; set;
+    }
 
     public float BaseCellWidth
     {
@@ -34,12 +38,24 @@ public class WanderingASMap : MonoBehaviour
         m_oldCamPos = m_targetCamera.transform.position;
         StartCoroutine(CreateASCubes());
     }
+    void OnViewChange()
+    {
+        switch (SceneMananger.Instance.CurrentSceneView)
+        {
+            case SceneView.MapView:
+            case SceneView.IPView:
+                InWanderingState = false;
+                break;
+        }
+    }
     void OnDestroy()
     {
         StopAllCoroutines();
     }
     public void IntoWanderingMap(int x, int y)
     {
+        InWanderingState = true;
+
         ASProxy.instance.GetASInfoAll();
 
         //取消上次focus的柱子
@@ -163,11 +179,12 @@ public class WanderingASMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_camController != null && m_camController.currentView == ViewType.ViewWanderingAS)
+        if(InWanderingState)
         {
             if(m_targetCamera.transform.position.y > 70)
             {
                 //退回鸟瞰view
+                InWanderingState = false;
                 m_camController.ViewAS();
                 return;
             }

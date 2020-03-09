@@ -7,14 +7,14 @@ using RTG;
 
 namespace Controller
 {
-    public enum ViewType
-    {
-        ViewAS,
-        ViewIP,
-        ViewWanderingAS,
-        ViewMap,
-        ViewAll,
-    }
+    // public enum ViewType
+    // {
+    //     ViewAS,
+    //     ViewIP,
+    //     ViewWanderingAS,
+    //     ViewMap,
+    //     ViewAll,
+    // }
 
     public class CameraController : MonoBehaviour
     {
@@ -46,7 +46,7 @@ namespace Controller
 
         public GameObject ASGameObject;
 
-        public ViewType currentView = ViewType.ViewAS;
+        //public ViewType currentView = ViewType.ViewAS;
 
         public raycastas raycastas;
 
@@ -76,7 +76,7 @@ namespace Controller
 
         public void ViewAS()
         {
-            currentView = ViewType.ViewAS;
+            //currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
             IsDefault = false;
@@ -89,16 +89,17 @@ namespace Controller
             RTFocusCamera.GetComponent<RTFocusCamera>().SetTargetCamera(CameraAS);
             RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 15;
         }
-        public void ViewWanderingAS()
+        public void ViewWanderingAS(int x, int y)
         {
+            raycastas.wanderingASMap.IntoWanderingMap(x,y);
             RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
-            currentView = ViewType.ViewWanderingAS;
+            //currentView = ViewType.ViewWanderingAS;
             Camera.cullingMask = 8193;
             IsAS = false;
         }
         public void ViewIP()
         {
-            currentView = ViewType.ViewIP;
+            //currentView = ViewType.ViewIP;
             Camera.cullingMask = 2049;
             IsDefault = false;
             SetIP();

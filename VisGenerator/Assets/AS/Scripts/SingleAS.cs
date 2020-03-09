@@ -285,7 +285,7 @@ public class SingleAS : MonoBehaviour
     //暂时去掉对柱体的点击
     void Update()
     {
-        if(m_isFocused && (Time.time - m_focusTime) > Time.deltaTime && m_wanderMap.m_camController != null && m_wanderMap.m_camController.currentView == ViewType.ViewWanderingAS)
+        if(m_isFocused && (Time.time - m_focusTime) > Time.deltaTime && m_wanderMap.InWanderingState)
         {
             if(Input.GetMouseButtonDown(0))
             {

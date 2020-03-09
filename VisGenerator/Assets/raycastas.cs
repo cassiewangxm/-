@@ -114,115 +114,127 @@ public class raycastas : MonoBehaviour
         //if (CameraController.IsAS)
         if (SceneMananger.CurrentSceneView == SceneView.ASView)
         {
-            if (isZooming)
+            if(wanderingASMap.InWanderingState)
             {
-                MoveASCamera();
-                return;
-            }
-            //Detect when there is a mouse click
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
-                Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
-                m_HasHit = false;
-
-                for (int i = 255; i >= 0; i--)
+                //漫游状态下zooming
+                if(isZooming)
                 {
-                    Plane plane = new Plane(Vector3.up, new Vector3(0.0f, i * CameraController.GetModifiedASScale(HScale) / 256.00f, 0.0f));
-                    float enter = 0.0f;
-                    if (plane.Raycast(ray, out enter))
+                    MoveCamera();
+                }
+            }
+            else
+            {
+                if (isZooming)
+                {
+                    MoveASCamera();
+                    return;
+                }
+                //Detect when there is a mouse click
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (EventSystem.current.IsPointerOverGameObject())
+                        return;
+                    Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
+                    m_HasHit = false;
+
+                    for (int i = 255; i >= 0; i--)
                     {
-                        Vector3 hitPoint = ray.GetPoint(enter);
-                        //Debug.Log(hitPoint);
-                        if (IsInside(hitPoint, Position, Size))
+                        Plane plane = new Plane(Vector3.up, new Vector3(0.0f, i * CameraController.GetModifiedASScale(HScale) / 256.00f, 0.0f));
+                        float enter = 0.0f;
+                        if (plane.Raycast(ray, out enter))
                         {
-                            Vector2 hitPointT = WorldtoUVHit(hitPoint, 1024.0f, Position, Size);
-                            float height = Heights.GetPixel((int)(hitPointT.x), (int)(hitPointT.y)).r * 256.00f;
-                            hitPointT = new Vector2(hitPointT.x / 4.0f, hitPointT.y / 4.0f);
-                            if (hitPoint.y <= height * HScale / 256.00f + 0.005f)
+                            Vector3 hitPoint = ray.GetPoint(enter);
+                            //Debug.Log(hitPoint);
+                            if (IsInside(hitPoint, Position, Size))
                             {
-                                // hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
-                                // hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
-                                // hitPoint.y = height * HScale / 256.00f; //
-                                //Cube.transform.position = hitPoint;
-                                Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
-                                uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
-                                //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
-                                //Debug.Log(Input.mousePosition);
-                                // Text.transform.position = Input.mousePosition;
-                                // Text.text = "IP number: " + num.ToString();
-                                // Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                                // UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
-                                // Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
-                                //Text.transform.position = Input.mousePosition;
-                                //Text.text = "IP number: " + num.ToString();
-                                //Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                                //UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
-
-                                // Move the camera forward
-                                Vector3 targetBasePos = new Vector3((hitPointT.x) / 256.0f * Size.x + Position.x, 0.0f, (hitPointT.y) / 256.0f * Size.y + Position.z);
-                                Vector3 cameraPos = Camera.transform.position;
-                                Ray cameraRay = new Ray(cameraPos, Vector3.Normalize(targetBasePos - cameraPos));
-                                float cameraEnter = 0.0f;
-                                plane.Raycast(cameraRay, out cameraEnter);
-                                cameraHitPoint = cameraRay.GetPoint(cameraEnter);
-                                Debug.Log(cameraHitPoint);
-                                if (isSelected && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
+                                Vector2 hitPointT = WorldtoUVHit(hitPoint, 1024.0f, Position, Size);
+                                float height = Heights.GetPixel((int)(hitPointT.x), (int)(hitPointT.y)).r * 256.00f;
+                                hitPointT = new Vector2(hitPointT.x / 4.0f, hitPointT.y / 4.0f);
+                                if (hitPoint.y <= height * HScale / 256.00f + 0.005f)
                                 {
-                                    isZooming = true;
-                                }
-                                else
-                                {
-                                    isZooming = false;
-                                    ASFilter.FilterBySelectedAS((int)(hitPointT.x), (int)(hitPointT.y));
-                                }
-                                zoomX = (int)(hitPointT.x);
-                                zoomY = (int)(hitPointT.y);
-                                zoomHeight = height;
-                                isSelected = true;
+                                    // hitPoint.x = (int)(hitPointT.x) * 1.00f / 256 * Size.x;
+                                    // hitPoint.z = (int)(hitPointT.y) * 1.00f / 256 * Size.y;
+                                    // hitPoint.y = height * HScale / 256.00f; //
+                                    //Cube.transform.position = hitPoint;
+                                    Color32 color = Nums.GetPixel((int)(hitPointT.x), (int)(hitPointT.y));
+                                    uint num = (uint)(color.r) * (uint)(1 << 24) + (uint)(color.g) * (uint)(1 << 16) + (uint)(color.b) * (1 << 8) + (uint)(color.a);
+                                    //Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y) + " = " + height + ", " + num);
+                                    //Debug.Log(Input.mousePosition);
+                                    // Text.transform.position = Input.mousePosition;
+                                    // Text.text = "IP number: " + num.ToString();
+                                    // Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                                    // UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
+                                    // Debug.Log((int)(hitPointT.x) + ", " + (int)(hitPointT.y));
+                                    //Text.transform.position = Input.mousePosition;
+                                    //Text.text = "IP number: " + num.ToString();
+                                    //Vector2 screenPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                                    //UIEventDispatcher.OpenIpMenuPanel(num.ToString(), screenPos);
 
-                                //PPPS: 这里可以显示单独柱体
-                                m_HasHit = true;
-                                break;
+                                    // Move the camera forward
+                                    Vector3 targetBasePos = new Vector3((hitPointT.x) / 256.0f * Size.x + Position.x, 0.0f, (hitPointT.y) / 256.0f * Size.y + Position.z);
+                                    Vector3 cameraPos = Camera.transform.position;
+                                    Ray cameraRay = new Ray(cameraPos, Vector3.Normalize(targetBasePos - cameraPos));
+                                    float cameraEnter = 0.0f;
+                                    plane.Raycast(cameraRay, out cameraEnter);
+                                    cameraHitPoint = cameraRay.GetPoint(cameraEnter);
+                                    Debug.Log(cameraHitPoint);
+                                    if (isSelected && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
+                                    {
+                                        isZooming = true;
+                                    }
+                                    else
+                                    {
+                                        isZooming = false;
+                                        ASFilter.FilterBySelectedAS((int)(hitPointT.x), (int)(hitPointT.y));
+                                    }
+                                    zoomX = (int)(hitPointT.x);
+                                    zoomY = (int)(hitPointT.y);
+                                    zoomHeight = height;
+                                    isSelected = true;
+
+                                    //PPPS: 这里可以显示单独柱体
+                                    m_HasHit = true;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                isSelected = false;
                             }
                         }
-                        else
-                        {
-                            isSelected = false;
-                        }
+                    }
+
+                    if(!m_HasHit)
+                    {
+                        UIEventDispatcher.HideIpMenuPanel();
                     }
                 }
-
-                if(!m_HasHit)
+                if (false)
                 {
-                    UIEventDispatcher.HideIpMenuPanel();
+                    for (int i = 0; i < pairs.Length / 4; i++)
+                    {
+                        Vector2 hitPointT1 = new Vector2(pairs[i * 2], pairs[i * 2 + 1]);
+                        float height1 = Heights.GetPixel((int)(hitPointT1.x), (int)(hitPointT1.y)).r * 256.00f;
+                        Vector3 hitPoint1 = new Vector3();
+                        hitPoint1.x = (int)(hitPointT1.x) * 1.00f / 256 * Size.x;
+                        hitPoint1.z = (int)(hitPointT1.y) * 1.00f / 256 * Size.y;
+                        hitPoint1.y = height1 * HScale / 256.00f;
+
+                        Vector2 hitPointT2 = new Vector2(pairs[i * 2 + 2], pairs[i * 2 + 3]);
+                        float height2 = Heights.GetPixel((int)(hitPointT2.x), (int)(hitPointT2.y)).r * 256.00f;
+                        Vector3 hitPoint2 = new Vector3();
+                        hitPoint2.x = (int)(hitPointT2.x) * 1.00f / 256 * Size.x;
+                        hitPoint2.z = (int)(hitPointT2.y) * 1.00f / 256 * Size.y;
+                        hitPoint2.y = height2 * HScale / 256.00f;
+                    }
                 }
             }
-            if (false)
-            {
-                for (int i = 0; i < pairs.Length / 4; i++)
-                {
-                    Vector2 hitPointT1 = new Vector2(pairs[i * 2], pairs[i * 2 + 1]);
-                    float height1 = Heights.GetPixel((int)(hitPointT1.x), (int)(hitPointT1.y)).r * 256.00f;
-                    Vector3 hitPoint1 = new Vector3();
-                    hitPoint1.x = (int)(hitPointT1.x) * 1.00f / 256 * Size.x;
-                    hitPoint1.z = (int)(hitPointT1.y) * 1.00f / 256 * Size.y;
-                    hitPoint1.y = height1 * HScale / 256.00f;
-
-                    Vector2 hitPointT2 = new Vector2(pairs[i * 2 + 2], pairs[i * 2 + 3]);
-                    float height2 = Heights.GetPixel((int)(hitPointT2.x), (int)(hitPointT2.y)).r * 256.00f;
-                    Vector3 hitPoint2 = new Vector3();
-                    hitPoint2.x = (int)(hitPointT2.x) * 1.00f / 256 * Size.x;
-                    hitPoint2.z = (int)(hitPointT2.y) * 1.00f / 256 * Size.y;
-                    hitPoint2.y = height2 * HScale / 256.00f;
-                }
-            }
+            
 
             //PPPS: 显示附近AS柱体名称
             //DetectNearAS();
         }
-        else if(CameraController.currentView == ViewType.ViewIP)
+        else if(SceneMananger.CurrentSceneView == SceneView.IPView)
         {
             //Detect when there is a mouse click
             if (Input.GetMouseButton(0))
@@ -247,15 +259,6 @@ public class raycastas : MonoBehaviour
                 }
             }
         }
-        
-        //漫游状态下zooming
-        if(CameraController.currentView == ViewType.ViewWanderingAS)
-        {
-            if(isZooming)
-            {
-                MoveCamera();
-            }
-        }
     }
 
     void MoveASCamera()
@@ -266,17 +269,18 @@ public class raycastas : MonoBehaviour
         }
         else
         {
-            ShowWanderingMap(zoomX, zoomY, zoomHeight);
+            CameraController.ViewWanderingAS(zoomX, zoomY);
+            //ShowWanderingMap(zoomX, zoomY, zoomHeight);
             isZooming = false;
         }
     }
 
 #region LIPENGYUE
-    void ShowWanderingMap(int x, int y, float height)
-    {
-        wanderingASMap.IntoWanderingMap(x,y);
-        CameraController.ViewWanderingAS();
-    }
+    // void ShowWanderingMap(int x, int y, float height)
+    // {
+    //     wanderingASMap.IntoWanderingMap(x,y);
+    //     CameraController.ViewWanderingAS(x,y);
+    // }
 
     public void FocusCamera(Vector3 target)
     {
