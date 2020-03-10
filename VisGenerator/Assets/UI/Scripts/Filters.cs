@@ -46,6 +46,8 @@ class CurveLine
         PosT = new Vector3((A.x + B.x) / 2.0f, 20.0f, (A.z + B.z) / 2.0f);
     }
     public GameObject ParticlePathGO;
+    public GameObject EffectA;
+    public GameObject EffectB;
 }
 
 public class Filters : MonoBehaviour
@@ -88,6 +90,7 @@ public class Filters : MonoBehaviour
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
     public GameObject CurveLinePrefab;
     public GameObject CurveLineParent;
+    public GameObject AttackEffectPrefab;
 
     public InputField SearchBox;
 
@@ -335,18 +338,49 @@ public class Filters : MonoBehaviour
         float mapHeight = MapCamera.transform.position.y;
 
         float thicknessk = 25.0f;
+        float radiusk = 140.0f;
 
         for (int i = 0; i < ASCurveLines.Count; i ++)
         {
             ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = asHeight / thicknessk;
+            GameObject GO = ASCurveLines[i].EffectA;
+            for (int j = 0; j < GO.transform.childCount; j ++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(asHeight / radiusk, asHeight / radiusk, 0.0f);
+            }
+            GO = ASCurveLines[i].EffectB;
+            for (int j = 0; j < GO.transform.childCount; j++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(asHeight / radiusk, asHeight / radiusk, 0.0f);
+            }
         }
         for (int i = 0; i < IPCurveLines.Count; i++)
         {
             IPCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = ipHeight / thicknessk;
+            GameObject GO = IPCurveLines[i].EffectA;
+            for (int j = 0; j < GO.transform.childCount; j++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(ipHeight / radiusk, ipHeight / radiusk, 0.0f);
+            }
+            GO = IPCurveLines[i].EffectB;
+            for (int j = 0; j < GO.transform.childCount; j++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(ipHeight / radiusk, ipHeight / radiusk, 0.0f);
+            }
         }
         for (int i = 0; i < MapCurveLines.Count; i++)
         {
             MapCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = mapHeight / thicknessk;
+            GameObject GO = MapCurveLines[i].EffectA;
+            for (int j = 0; j < GO.transform.childCount; j++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(mapHeight / radiusk, mapHeight / radiusk, 0.0f);
+            }
+            GO = MapCurveLines[i].EffectB;
+            for (int j = 0; j < GO.transform.childCount; j++)
+            {
+                GO.transform.GetChild(i).localScale = new Vector3(mapHeight / radiusk, mapHeight / radiusk, 0.0f);
+            }
         }
         for (int i = 0; i < ASNavCurveLines.Count; i++)
         {
@@ -372,6 +406,18 @@ public class Filters : MonoBehaviour
             CurveLine.transform.position = IPCurveLines[i].PosA;
             CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
             IPCurveLines[i].ParticlePathGO = CurveLine;
+            GameObject EffectA = Instantiate(AttackEffectPrefab, IPCurveLines[i].PosA, Quaternion.identity);
+            GameObject EffectB = Instantiate(AttackEffectPrefab, IPCurveLines[i].PosB, Quaternion.identity);
+            for (int j = 0; j < EffectA.transform.childCount; j++)
+            {
+                EffectA.transform.GetChild(i).gameObject.layer = 11;
+            }
+            for (int j = 0; j < EffectB.transform.childCount; j++)
+            {
+                EffectB.transform.GetChild(i).gameObject.layer = 11;
+            }
+            IPCurveLines[i].EffectA = EffectA;
+            IPCurveLines[i].EffectB = EffectB;
         }
 
         // Add curvelines on map view
@@ -389,6 +435,19 @@ public class Filters : MonoBehaviour
             CurveLine.transform.position = MapCurveLines[i].PosA;
             CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
             MapCurveLines[i].ParticlePathGO = CurveLine;
+
+            GameObject EffectA = Instantiate(AttackEffectPrefab, MapCurveLines[i].PosA, Quaternion.identity);
+            GameObject EffectB = Instantiate(AttackEffectPrefab, MapCurveLines[i].PosB, Quaternion.identity);
+            for (int j = 0; j < EffectA.transform.childCount; j++)
+            {
+                EffectA.transform.GetChild(i).gameObject.layer = 12;
+            }
+            for (int j = 0; j < EffectB.transform.childCount; j++)
+            {
+                EffectB.transform.GetChild(i).gameObject.layer = 12;
+            }
+            MapCurveLines[i].EffectA = EffectA;
+            MapCurveLines[i].EffectB = EffectB;
         }
 
         // Add curvelines on as view
@@ -406,6 +465,19 @@ public class Filters : MonoBehaviour
             CurveLine.transform.position = ASCurveLines[i].PosA;
             CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
             ASCurveLines[i].ParticlePathGO = CurveLine;
+
+            GameObject EffectA = Instantiate(AttackEffectPrefab, ASCurveLines[i].PosA, Quaternion.identity);
+            GameObject EffectB = Instantiate(AttackEffectPrefab, ASCurveLines[i].PosB, Quaternion.identity);
+            for (int j = 0; j < EffectA.transform.childCount; j++)
+            {
+                EffectA.transform.GetChild(i).gameObject.layer = 10;
+            }
+            for (int j = 0; j < EffectB.transform.childCount; j++)
+            {
+                EffectB.transform.GetChild(i).gameObject.layer = 10;
+            }
+            ASCurveLines[i].EffectA = EffectA;
+            ASCurveLines[i].EffectB = EffectB;
         }
 
         for (int i = 0; i < ASNavCurveLines.Count; i++)
