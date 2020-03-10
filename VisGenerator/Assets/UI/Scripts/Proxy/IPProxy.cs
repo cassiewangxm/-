@@ -134,7 +134,7 @@ public class IPProxy : MonoBehaviour
         { IpInfoStructType.InfoType4, "IPinfotype4"}
     };
 
-    public void GetIpInfoBlockType1(Action<IpDetail[]> action,int prefixLen = 20, int x = -1, int y = -1)
+    public void GetIpInfoBlock(Action<IpDetail[]> action,int prefixLen = 20, int x = -1, int y = -1)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
@@ -145,11 +145,20 @@ public class IPProxy : MonoBehaviour
             if(strs != null && strs.Length > 0)
                 msg.startIp = strs[0];
         }
+        else if(x != -1 || y != -1)
+        {
+            Debug.LogErrorFormat("Invalid IP pos : {0},{1}", x, y);
+        }
 
         if(prefixLen > 0)
             msg.prefixLen = prefixLen;
 
-        msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
+        if(msg.prefixLen >= 32)
+            msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType3];
+        else
+            msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
+
+        //msg.startIp = "166.111.9.83";
 
         NetUtil.Instance.RequestIpMapInfo(msg, OnIpInfoResponse, action);
     }

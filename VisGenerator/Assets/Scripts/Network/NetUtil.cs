@@ -65,10 +65,6 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestIpMapInfo(string urlParam, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
-// #if NET_DEBUG
-//         //FakeResponse("/Scripts/Network/AS_2.json", action, action2);
-//         yield return new WaitForEndOfFrame();
-// #else
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
         sb.Append(urlParam);
@@ -77,14 +73,31 @@ public class NetUtil : MonoBehaviour
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
+            /////TEST
+            string path = Application.dataPath + "/../ip.txt";
+            if(!System.IO.File.Exists(path))
+            {
+                FileStream fileStream = System.IO.File.Create(path);
+                fileStream.Write(uwr.downloadHandler.data , 0 , (int)uwr.downloadedBytes);
+                fileStream.Close();
+                fileStream.Dispose();
+            }
+            else
+            {
+                FileStream fileStream = File.OpenWrite(path);
+                fileStream.Write(uwr.downloadHandler.data , 0 , (int)uwr.downloadedBytes);
+                fileStream.Close();
+                fileStream.Dispose();
+            }    
+            /////
+
+
             Debug.Log(uwr.downloadHandler.text);
             IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-            //IpMapResponse response = JsonUtility.FromJson<IpMapResponse>(uwr.downloadHandler.text);
             action(array, action2);
         }
 
         uwr.Dispose();
-//#endif
     }
 
     /// <summary>
