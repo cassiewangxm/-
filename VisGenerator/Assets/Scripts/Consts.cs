@@ -9,8 +9,8 @@ public class Consts : MonoBehaviour
     public Vector2 ASPos;
     public Vector2 IPSize;
     public Vector2 IPPos;
-    public Vector3 MapSize;
-    public Vector3 MapPos;
+    public Vector2 MapSize;
+    public Vector2 MapPos;
 
     public GameObject ASGameObject;
     public GameObject IPGameObject;

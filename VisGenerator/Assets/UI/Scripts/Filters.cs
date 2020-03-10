@@ -34,11 +34,18 @@ class CurveLine
 {
     public Vector3 PosA;
     public Vector3 PosB;
+    private Vector3 PosT;
+    public Vector3 GetPosT()
+    {
+        return PosT;
+    }
     public CurveLine(Vector3 A, Vector3 B)
     {
         PosA = A;
         PosB = B;
+        PosT = new Vector3((A.x + B.x) / 2.0f, 20.0f, (A.z + B.z) / 2.0f);
     }
+    public GameObject ParticlePathGO;
 }
 
 public class Filters : MonoBehaviour
@@ -52,8 +59,6 @@ public class Filters : MonoBehaviour
     //private Dropdown dropdownRegion;
     //private Dropdown dropdownAS;
     //private Dropdown dropdownType;
-
-    public test CurveCal;
 
     public GameObject GeoPointPrefab;
     public GameObject PosMarkerPrefab;
@@ -69,7 +74,6 @@ public class Filters : MonoBehaviour
     public bool isTypeFilterOn = false;
 
     private bool isShowPosOn = false;
-    private bool isShowAttackOn = false;
 
     public bool[] asFilterFlag = new bool[65536];
     private IPPair[] ipPairs = new IPPair[1];
@@ -82,10 +86,13 @@ public class Filters : MonoBehaviour
     private List<CurveLine> ASNavCurveLines = new List<CurveLine>();
     private List<CurveLine> MapCurveLines = new List<CurveLine>();
     private List<CurveLine> IPCurveLines = new List<CurveLine>();
+    public GameObject CurveLinePrefab;
+    public GameObject CurveLineParent;
 
     public InputField SearchBox;
 
     public GameObject ASGameObject;
+    public ViewIP IPGameObject;
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -105,8 +112,8 @@ public class Filters : MonoBehaviour
         ASHeight = Consts.ASSize.y;
         MapWidth = Consts.MapSize.x;
         MapHeight = Consts.MapSize.y;
-        IPWidth = Consts.IPSize.x;
-        IPHeight = Consts.IPSize.y;
+        IPWidth = IPGameObject.GetIPFullSize().x;
+        IPHeight = IPGameObject.GetIPFullSize().y;
 
         //dropdownRegion = FilterRegion.GetComponent<Dropdown>();
         RegionData regionData = ReadJsonFile("UI/Config/RegionConfig.json");
@@ -131,6 +138,8 @@ public class Filters : MonoBehaviour
         ipPairs[0] = new IPPair("89.151.0.0", "89.151.176.13");
 
         ModifyASHighlight(false);
+
+        ShowAttacks();
     }
 
     // Update is called once per frame
@@ -319,118 +328,151 @@ public class Filters : MonoBehaviour
         */
     }
 
-    float CalculateCurveLineThickness(Camera camera)
+    private void UpdateAttacks()
     {
-        return camera.transform.position.y / 5.0f;
+        float asHeight = ASCamera.transform.position.y;
+        float ipHeight = IPCamera.transform.position.y;
+        float mapHeight = MapCamera.transform.position.y;
+
+        float thicknessk = 25.0f;
+
+        for (int i = 0; i < ASCurveLines.Count; i ++)
+        {
+            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = asHeight / thicknessk;
+        }
+        for (int i = 0; i < IPCurveLines.Count; i++)
+        {
+            IPCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = ipHeight / thicknessk;
+        }
+        for (int i = 0; i < MapCurveLines.Count; i++)
+        {
+            MapCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = mapHeight / thicknessk;
+        }
+        for (int i = 0; i < ASNavCurveLines.Count; i++)
+        {
+            ASNavCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = asHeight / thicknessk;
+        }
     }
 
-    void UpdateAttacks()
+
+    private void AppendLines()
     {
-        if (isShowAttackOn)
+        // Add curvelines on ip view
+
+        for (int i = 0; i < IPCurveLines.Count; i++)
         {
-            CurveCal.DeleteLines();
+            GameObject CurveLine = Instantiate(CurveLinePrefab, Vector3.zero, Quaternion.identity);
+            CurveLine.transform.SetParent(CurveLineParent.transform);
+            CurveLine.tag = "IPCurve";
+            CurveLine.layer = 11;
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Clear();
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(IPCurveLines[i].PosA);
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(IPCurveLines[i].GetPosT());
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(IPCurveLines[i].PosB);
+            CurveLine.transform.position = IPCurveLines[i].PosA;
+            CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
+            IPCurveLines[i].ParticlePathGO = CurveLine;
+        }
 
-            // Add curvelines on ip view
-            float thickness = CalculateCurveLineThickness(IPCamera);
+        // Add curvelines on map view
 
-            for (int i = 0; i < IPCurveLines.Count; i++)
-            {
-                CurveCal.AddLine(IPCurveLines[i].PosA, IPCurveLines[i].PosB, "IPCurve", thickness);
-            }
+        for (int i = 0; i < MapCurveLines.Count; i ++)
+        {
+            GameObject CurveLine = Instantiate(CurveLinePrefab, Vector3.zero, Quaternion.identity);
+            CurveLine.transform.SetParent(CurveLineParent.transform);
+            CurveLine.tag = "MapCurve";
+            CurveLine.layer = 12;
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Clear();
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(MapCurveLines[i].PosA);
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(MapCurveLines[i].GetPosT());
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(MapCurveLines[i].PosB);
+            CurveLine.transform.position = MapCurveLines[i].PosA;
+            CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
+            MapCurveLines[i].ParticlePathGO = CurveLine;
+        }
 
-            // Add curvelines on map view
-            thickness = CalculateCurveLineThickness(MapCamera);
+        // Add curvelines on as view
 
-            for (int i = 0; i < MapCurveLines.Count; i ++)
-            {
-                CurveCal.AddLine(MapCurveLines[i].PosA, MapCurveLines[i].PosB, "MapCurve", thickness);
-            }
+        for (int i = 0; i < ASCurveLines.Count; i++)
+        {
+            GameObject CurveLine = Instantiate(CurveLinePrefab, Vector3.zero, Quaternion.identity);
+            CurveLine.transform.SetParent(CurveLineParent.transform);
+            CurveLine.tag = "ASCurve";
+            CurveLine.layer = 10;
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Clear();
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(ASCurveLines[i].PosA);
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(ASCurveLines[i].GetPosT());
+            CurveLine.GetComponent<ParticlePath>().Waypoints.Add(ASCurveLines[i].PosB);
+            CurveLine.transform.position = ASCurveLines[i].PosA;
+            CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
+            ASCurveLines[i].ParticlePathGO = CurveLine;
+        }
 
-            // Add curvelines on as view
-            thickness = CalculateCurveLineThickness(ASCamera);
-
-            for (int i = 0; i < ASCurveLines.Count; i++)
-            {
-                CurveCal.AddLine(ASCurveLines[i].PosA, ASCurveLines[i].PosB, "ASCurve", thickness);
-            }
-
-            for (int i = 0; i < ASNavCurveLines.Count; i++)
-            {
-                CurveCal.AddLine(ASNavCurveLines[i].PosA, ASNavCurveLines[i].PosB, "ASCurve", thickness);
-            }
+        for (int i = 0; i < ASNavCurveLines.Count; i++)
+        {
         }
     }
 
     public void ShowAttacks()
     {
-        isShowAttackOn = !isShowAttackOn;
-        if (isShowAttackOn)
+        Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
+        int asNumberA, asNumberB;
+        float latA, latB;
+        float lngA, lngB;
+
+        for (int i = 0; i < ipPairs.Length; i++)
         {
-            Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
-            int asNumberA, asNumberB;
-            float latA, latB;
-            float lngA, lngB;
-
-            for (int i = 0; i < ipPairs.Length; i++)
+            foreach (var item in dictionary)
             {
-                foreach (var item in dictionary)
+                if (item.Value.IP == ipPairs[i].IPA)
                 {
-                    if (item.Value.IP == ipPairs[i].IPA)
+                    asNumberA = (int)item.Value.ASNum;
+                    latA = item.Value.lat;
+                    lngA = item.Value.lng;
+                    foreach (var itemB in dictionary)
                     {
-                        asNumberA = (int)item.Value.ASNum;
-                        latA = item.Value.lat;
-                        lngA = item.Value.lng;
-                        foreach (var itemB in dictionary)
+                        if (itemB.Value.IP == ipPairs[i].IPB)
                         {
-                            if (itemB.Value.IP == ipPairs[i].IPB)
-                            {
-                                asNumberB = (int)itemB.Value.ASNum;
-                                latB = itemB.Value.lat;
-                                lngB = itemB.Value.lng;
+                            asNumberB = (int)itemB.Value.ASNum;
+                            latB = itemB.Value.lat;
+                            lngB = itemB.Value.lng;
 
-                                // Show in AS View
-                                Vector3 posA = new Vector3(asNumberA / 256 * ASHeight, 0.0f, asNumberA % 256 * ASWidth);
-                                Vector3 posB = new Vector3(asNumberB / 256 * ASHeight, 0.0f, asNumberB % 256 * ASWidth);
-                                ASCurveLines.Add(new CurveLine(posA, posB));
+                            // Show in AS View
+                            Vector3 posA = new Vector3((asNumberA / 256.0f) / 256.0f * ASHeight, 0.0f, (asNumberA % 256) / 256.0f * ASWidth);
+                            Vector3 posB = new Vector3((asNumberB / 256.0f) / 256.0f * ASHeight, 0.0f, (asNumberB % 256) / 256.0f * ASWidth);
+                            ASCurveLines.Add(new CurveLine(posA, posB));
 
-                                // Show in AS Navigation View
+                            // Show in AS Navigation View
 
-                                ASNavCurveLines.Add(new CurveLine(posA, posB));
+                            //ASNavCurveLines.Add(new CurveLine(posA, posB));
 
-                                // Show in Map View
-                                posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
-                                posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
-                                MapCurveLines.Add(new CurveLine(posA, posB));
+                            // Show in Map View
+                            posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
+                            posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
+                            MapCurveLines.Add(new CurveLine(posA, posB));
 
-                                // Show in IP View
-                                uint ips = item.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
-                                ips = ips >> 12;
-                                int xs = 0;
-                                int ys = 0;
-                                d2xy(256, ips, out xs, out ys);
-                                //xs -= 128;
-                                //ys -= 128;
-                                uint ipe = itemB.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
-                                ipe = ipe >> 12;
-                                int xe = 0;
-                                int ye = 0;
-                                d2xy(256, ipe, out xe, out ye);
-                                //xe -= 128;
-                                //ye -= 128;
-                                posA = new Vector3(xs / 256.0f * IPWidth, 0, ys / 256.0f * IPHeight);
-                                posB = new Vector3(xe / 256.0f * IPWidth, 0, ye / 256.0f * IPHeight);
-                                IPCurveLines.Add(new CurveLine(posA, posB));
-                            }
+                            // Show in IP View
+                            int length = 2 << 16;
+                            uint ips = item.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+                            ips = ips;
+                            int xs = 0;
+                            int ys = 0;
+                            d2xy(length, ips, out xs, out ys);
+                            uint ipe = itemB.Value.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+                            ipe = ipe;
+                            int xe = 0;
+                            int ye = 0;
+                            d2xy(length, ipe, out xe, out ye);
+                            posA = new Vector3(xs * 1.0f / length * IPWidth, 0, ys * 1.0f / length * IPHeight);
+                            posB = new Vector3(xe * 1.0f / length * IPWidth, 0, ye * 1.0f / length * IPHeight);
+                            IPCurveLines.Add(new CurveLine(posA, posB));
                         }
                     }
                 }
-
             }
+
         }
-        else
-        {
-            CurveCal.DeleteLines();
-        }
+        AppendLines();
     }
 
     void d2xy(int n, long d, out int x, out int y)

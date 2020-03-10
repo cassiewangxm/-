@@ -31,6 +31,11 @@ public class ViewIP : MonoBehaviour
     private Vector2 lastCameraIdx;
     private int lastLv;
 
+    public Vector2 GetIPFullSize()
+    {
+        return new Vector2(Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - 1], Consts.IPSize.y * IPLevelScales[IPLevelScales.Length - 1]);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
