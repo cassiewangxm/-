@@ -71,7 +71,7 @@ public class raycastas : MonoBehaviour
         Position = new Vector3(Consts.ASPos.x, 0.0f, Consts.ASPos.y);
         Size = Consts.ASSize;
 
-        IPProxy.instance.GetIpInfoBlockType1(OnGetIPBlockBack);
+        //IPProxy.instance.GetIpInfoBlock(OnGetIPBlockBack);
 
         // #region LIPENGYUE
         //     InitTextsForNearlyAS();
@@ -300,7 +300,7 @@ public class raycastas : MonoBehaviour
     {
         if (Vector3.Distance(Camera.transform.position, cameraHitPoint) >= 1.0f)
         {
-            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 200.0f * Time.deltaTime);
+            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 100.0f * Time.deltaTime);
         }
         else
         {
