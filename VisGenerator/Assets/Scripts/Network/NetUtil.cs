@@ -32,20 +32,20 @@ public class NetUtil : MonoBehaviour
         { NetMessageType.ASMapFilter, "ASMAP_Query"}
     };
 
-    void FakeResponse(string data, Action<IpMapResponse, Action> action, Action action2)
-    {
-        string path = Application.dataPath + data;//Path.Combine(Application.dataPath, data);
-        Debug.Log(Application.dataPath + " ?? " + path);
-        StreamReader sr = new StreamReader(path);
-        string rdata = sr.ReadToEnd();
+    // void FakeResponse(string data, Action<IpMapResponse, Action> action, Action action2)
+    // {
+    //     string path = Application.dataPath + data;//Path.Combine(Application.dataPath, data);
+    //     Debug.Log(Application.dataPath + " ?? " + path);
+    //     StreamReader sr = new StreamReader(path);
+    //     string rdata = sr.ReadToEnd();
 
-        IpMapResponse response = JsonUtility.FromJson<IpMapResponse>(rdata);//(uwr.downloadHandler.text);
+    //     IpMapResponse response = JsonUtility.FromJson<IpMapResponse>(rdata);//(uwr.downloadHandler.text);
 
-        sr.Close();
-        sr.Dispose();
+    //     sr.Close();
+    //     sr.Dispose();
 
-        action(response, action2);
-    }
+    //     action(response, action2);
+    // }
 
     /// <summary>
     /// 请求IP地图信息
@@ -91,8 +91,6 @@ public class NetUtil : MonoBehaviour
             }    
             /////
 
-
-            Debug.Log(uwr.downloadHandler.text);
             IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
             action(array, action2);
         }
@@ -105,7 +103,7 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<string, Action<IpInfoType1[]>> action, Action<IpInfoType1[]> action2)
+    public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
         StartCoroutine(_RequestIpMapFilterInfo(msg.GetParamString(), action, action2));
     }
@@ -116,26 +114,28 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestIpMapFilterInfo(string urlParam,Action<string, Action<IpInfoType1[]>> action, Action<IpInfoType1[]> action2)
+    IEnumerator _RequestIpMapFilterInfo(string urlParam,Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
-#if NET_DEBUG
+// #if NET_DEBUG
 
-        //FakeResponse("/Scripts/Network/AS_2.json", action);
-        yield return new WaitForEndOfFrame();
+//         //FakeResponse("/Scripts/Network/AS_2.json", action);
+//         yield return new WaitForEndOfFrame();
 
-#else
+// #else
         
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapFilter]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        Debug.Log(uwr.url);
         yield return uwr.SendWebRequest();
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            action(uwr.downloadHandler.text, action2);
+            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+            action(array, action2);
         }
         uwr.Dispose();
-#endif
+//#endif
     }
 
     /// <summary>
@@ -239,11 +239,6 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType4[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
     {
-// #if NET_DEBUG
-//         //FakeASResponse("/Scripts/Network/AS.json", action);
-//         yield return new WaitForEndOfFrame();
-// #else
-        
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
@@ -262,7 +257,5 @@ public class NetUtil : MonoBehaviour
                 Debug.LogError("Net Error : " + uwr.downloadHandler.text);
             }
         }
-
-//#endif
     }
 }

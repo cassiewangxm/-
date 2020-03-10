@@ -4198,7 +4198,7 @@ MonoBehaviour:
   CurveLinePrefab: {fileID: 5831717533817584126, guid: f0e8098f986934e6094baecbd2aaf32c,
     type: 3}
   CurveLineParent: {fileID: 571143703}
-  SearchBox: {fileID: 0}
+  SearchBox: {fileID: 2036314581}
   ASGameObject: {fileID: 267209659}
   IPGameObject: {fileID: 797419922}
 --- !u!1 &661662086

@@ -30,16 +30,27 @@ public class IpInfoType1
     public string ip_prefix;   //IP地址前缀
     public int X;  //IP地址前缀Hilbert横坐标
     public int Y;   //IP地址前缀Hilbert纵坐标
-    public float Lat;   //IP地址前缀所属经度
-    public float Lng;   //IP地址前缀所属纬度
+    public float latitude;   //IP地址前缀所属经度
+    public float longitude;   //IP地址前缀所属纬度
     public int ASN;  //所属AS的AS号
     public string continent;    //所在大洲
     public string country_name; //所在国家
     public string country_code; //所在国家代号
-    public string Province;     //所在州/省
-    public string City;         //所在城市
-    public string Time_zone;    //所在时区
-    public string Post_code;    //邮政编码
+    public string province;     //所在州/省
+    public string city;         //所在城市
+    public string time_zone;    //所在时区
+    public string post_code;    //邮政编码
+
+    //type 2
+    public string ISP;      //AS所属的网络服务提供商
+    public string ISP_country_code; //网络服务提供商所在国家
+    public string org;      //分配该AS的组织
+    public string time;     //分配该IP到此AS的时间（日期）
+
+    //type 3
+    public string Device;       //IP地址设备类型
+    public string OS;           //IP地址操作系统
+    public IpPortInfo[] Port;   // 开放的端口及服务
 }
 
 [Serializable]
@@ -111,32 +122,6 @@ public class MessageRequestIpMap
     }
 }
 
-/// <summary>
-/// 请求IP地图 - 返回消息数据结构
-/// </summary>
-[Serializable]
-public class IpMapResponse
-{
-    public int Status;
-    public IpInfoType1[] Result;
-}
-
-public class IpMapResponseType2
-{
-    public int Status;
-    public IpInfoType2[] Result;
-}
-
-public class IpMapResponseType3
-{
-    public int Status;
-    public IpInfoType3[] Result;
-}
-public class IpMapResponseType4
-{
-    public int Status;
-    public IpInfoType4[] Result;
-}
 /// <summary>
 /// 在IP地图上Filter - 参数数据结构
 /// </summary>

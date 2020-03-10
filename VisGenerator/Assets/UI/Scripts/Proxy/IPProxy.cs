@@ -182,22 +182,25 @@ public class IPProxy : MonoBehaviour
         }
     }
 
-    public void GetIpInfoFilterType1(Action<IpInfoType1[]> action, MessageRequestIpMapFilter msg)
+    public void GetIpInfoByFilter(string keyword, Action<IpDetail[]> action)
     {
+        MessageRequestIpMapFilter msg = new MessageRequestIpMapFilter();
         msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
+        msg.Other = keyword;
         NetUtil.Instance.RequestIpMapFilterInfo(msg, OnIpInfoFilterResponse, action);  
     }
-    void OnIpInfoFilterResponse(string data, Action<IpInfoType1[]> action)
+
+    void OnIpInfoFilterResponse(IpInfoType1[] array, Action<IpDetail[]> action)
     {
-        IpMapFilterResponse response = JsonUtility.FromJson<IpMapFilterResponse>(data);
-        if(response.Status != 0)
+        IpDetail[] result = new IpDetail[array.Length];
+        for(int i = 0; i < array.Length; i++)
         {
-            Debug.LogError("IpMapFilter Response error code : " + response.Status);
-            return;
+            result[i] = new IpDetail(array[i]);
         }
+        
         if(action != null)
         {
-            action(response.Result);
+            action(result);
         }
     }
     // public void GetIpInfoBlock<T>(int prefixLen, string startIp, int xlen, int ylen, IpInfoStructType type, Action<T[]> action)

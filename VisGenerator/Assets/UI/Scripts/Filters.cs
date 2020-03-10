@@ -55,7 +55,7 @@ public class Filters : MonoBehaviour
     //public GameObject FilterRegion;
     //public GameObject FilterAS;
     //public GameObject FilterType;
-    public GameObject IPProxy;
+    //public GameObject IPProxy;
     //private Dropdown dropdownRegion;
     //private Dropdown dropdownAS;
     //private Dropdown dropdownType;
@@ -140,12 +140,38 @@ public class Filters : MonoBehaviour
         ModifyASHighlight(false);
 
         ShowAttacks();
+        
+        //搜索框加监听事件
+        SearchBox.onEndEdit.AddListener(OnSearchBoxSubmit);
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateAttacks();
+    }
+
+    // 发送搜索消息
+    void OnSearchBoxSubmit(string key)
+    {
+        if(!string.IsNullOrEmpty(SearchBox.text))
+        {
+            IPProxy.instance.GetIpInfoByFilter(SearchBox.text, OnRecieveFilterResult);
+        }
+    }
+
+    //  接到搜索返回的数据
+    void OnRecieveFilterResult(IpDetail[] a)
+    {
+        //Log 出前10条信息，如果有的话。。
+        Debug.Log(a.Length + " ,got IPs hhhhaaaa");
+        if(a.Length > 0)
+        {
+            for(int i =0;i<a.Length&&i<10;i++)
+            {
+                Debug.LogFormat("{0}; {1}; {2}; {3}",a[i].IP,a[i].ASNum,a[i].X,a[i].Y);
+            }
+        }    
     }
 
     public void ShowPos()
@@ -156,7 +182,7 @@ public class Filters : MonoBehaviour
         if (isShowPosOn)
         {
             string IP = "89.151.176.13";
-            Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
+            Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
             string region;
             string asNumber;
             string type;
@@ -208,7 +234,7 @@ public class Filters : MonoBehaviour
 
     void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)
     {
-        Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
+        Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
         //string region = dropdownRegion.options[dropdownRegion.value].text;
         //string asNumber = dropdownAS.options[dropdownAS.value].text;
         //string type = dropdownType.options[dropdownType.value].text;
@@ -415,7 +441,7 @@ public class Filters : MonoBehaviour
 
     public void ShowAttacks()
     {
-        Dictionary<string, IpDetail> dictionary = IPProxy.GetComponent<IPProxy>().GetDictionary();
+        Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
         int asNumberA, asNumberB;
         float latA, latB;
         float lngA, lngB;
