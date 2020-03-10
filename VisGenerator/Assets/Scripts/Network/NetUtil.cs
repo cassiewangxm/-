@@ -17,6 +17,11 @@ public class NetUtil : MonoBehaviour
 		get {
 			if (instance == null) {
 				GameObject mounter = new GameObject("NetUtil");
+
+                GameObject parent = GameObject.Find("Singleton");
+                if (parent != null)
+                    mounter.transform.parent = parent.transform;
+
 				instance = mounter.AddComponent<NetUtil>();
 			}
 			return instance;

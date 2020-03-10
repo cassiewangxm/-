@@ -174,7 +174,7 @@ public class WanderingASMap : MonoBehaviour
                 }
             }
             n++;
-            Debug.Log("Now the N is : " + n);
+            //Debug.Log("Now the N is : " + n);
         }
         m_initFinished = true;
         Debug.LogFormat("Finish init map in : {0}, with n = {1}",Time.time,n);

@@ -131,6 +131,10 @@ public class ASProxy : MonoBehaviour
             if(s_instance == null)
             {
                 s_instance = new GameObject("ASProxy").AddComponent<ASProxy>();
+
+                GameObject parent = GameObject.Find("Singleton");
+                if (parent != null)
+                    s_instance.transform.parent = parent.transform;
             }
             return s_instance;
         }

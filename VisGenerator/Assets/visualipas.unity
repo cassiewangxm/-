@@ -4185,7 +4185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Consts: {fileID: 2076573738}
-  IPProxy: {fileID: 506708999}
   GeoPointPrefab: {fileID: 0}
   PosMarkerPrefab: {fileID: 0}
   isRegionFilterOn: 0
@@ -4200,7 +4199,7 @@ MonoBehaviour:
   CurveLineParent: {fileID: 571143703}
   AttackEffectPrefab: {fileID: 5372207408137339758, guid: 35f631a0c3ab447d284eb5cc4015cba1,
     type: 3}
-  SearchBox: {fileID: 0}
+  SearchBox: {fileID: 2036314581}
   ASGameObject: {fileID: 267209659}
   IPGameObject: {fileID: 797419922}
 --- !u!1 &661662086
