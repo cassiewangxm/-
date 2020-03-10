@@ -71,7 +71,9 @@ public class raycastas : MonoBehaviour
         Position = new Vector3(Consts.ASPos.x, 0.0f, Consts.ASPos.y);
         Size = Consts.ASSize;
 
-        //IPProxy.instance.GetIpInfoBlock(OnGetIPBlockBack);
+        //NetUtil.Instance.RequestASSegmentsInfo(new MessageRequestASSegments(), null, Vector3Int.zero, null);
+                    
+        //IPProxy.instance.GetIpInfoByFilter("Merlin",OnGetIPBlockBack);
 
         // #region LIPENGYUE
         //     InitTextsForNearlyAS();
@@ -81,6 +83,8 @@ public class raycastas : MonoBehaviour
     void OnGetIPBlockBack(IpDetail[] a)
     {
         Debug.Log(a.Length+" ,got IPs hhhhaaaa");
+        if(a.Length > 0)
+            Debug.Log(a[0].IP);
     }
     int Select(float v, float textureSize)
     {
@@ -185,7 +189,7 @@ public class raycastas : MonoBehaviour
                                     plane.Raycast(cameraRay, out cameraEnter);
                                     cameraHitPoint = cameraRay.GetPoint(cameraEnter);
                                     Debug.Log(cameraHitPoint);
-                                    if (isSelected && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
+                                    if (isSelected && ASProxy.instance.IsASExistInLocal(zoomX,zoomY) && ((int)(hitPointT.x) == zoomX) && ((int)(hitPointT.y) == zoomY))
                                     {
                                         isZooming = true;
                                     }
@@ -300,7 +304,7 @@ public class raycastas : MonoBehaviour
     {
         if (Vector3.Distance(Camera.transform.position, cameraHitPoint) >= 1.0f)
         {
-            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 100.0f * Time.deltaTime);
+            Camera.transform.position = Vector3.MoveTowards(Camera.transform.position, cameraHitPoint, 60.0f * Time.deltaTime);
         }
         else
         {

@@ -133,6 +133,9 @@ public class SingleAS : MonoBehaviour
 
     public void SetSelected(bool value)
     {
+        if(!gameObject.activeSelf)
+            return;
+        
         StopAllCoroutines();
         StartCoroutine(InitSegments(value));
 
@@ -340,7 +343,7 @@ public class SingleAS : MonoBehaviour
             m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
 
             int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
-            ASProxy.instance.GetIpInfoFromAS(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
+            ASProxy.instance.GetASSegmentIPInfo(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
         }
     }
 

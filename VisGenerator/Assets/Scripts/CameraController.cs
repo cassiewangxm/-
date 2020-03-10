@@ -91,11 +91,17 @@ namespace Controller
         }
         public void ViewWanderingAS(int x, int y)
         {
-            raycastas.wanderingASMap.IntoWanderingMap(x,y);
-            RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
-            //currentView = ViewType.ViewWanderingAS;
-            Camera.cullingMask = 8193;
-            IsAS = false;
+            if(ASProxy.instance.IsASExistInLocal(x,y))
+            {
+                raycastas.wanderingASMap.IntoWanderingMap(x,y);
+                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
+                //currentView = ViewType.ViewWanderingAS;
+                Camera.cullingMask = 8193;
+                IsAS = false;
+            }
+            else{
+                Debug.LogErrorFormat("There is No AS at location : {0},{1}",x,y);
+            }
         }
         public void ViewIP()
         {

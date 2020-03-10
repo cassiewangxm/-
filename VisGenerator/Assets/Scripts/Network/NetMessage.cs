@@ -11,7 +11,7 @@ public enum NetMessageType
     IpMapLoad,
     IpMapFilter,
     ASMapLoad,
-    ASMapFilter,
+    ASMapQuery,
     Count,
 }
 
@@ -53,45 +53,45 @@ public class IpInfoType1
     public IpPortInfo[] Port;   // 开放的端口及服务
 }
 
-[Serializable]
-public class IpInfoType2
-{
-    public string IP;
-    public int CoordX;
-    public int CoordY;
-    public string ASN;
-    public string ISP;      //AS所属的网络服务提供商
-    public string ISP_country_code; //网络服务提供商所在国家
-    public string Org;      //分配该AS的组织
-    public string Time;     //分配该IP到此AS的时间（日期）
-}
+// [Serializable]
+// public class IpInfoType2
+// {
+//     public string IP;
+//     public int CoordX;
+//     public int CoordY;
+//     public string ASN;
+//     public string ISP;      //AS所属的网络服务提供商
+//     public string ISP_country_code; //网络服务提供商所在国家
+//     public string Org;      //分配该AS的组织
+//     public string Time;     //分配该IP到此AS的时间（日期）
+// }
 
-[Serializable]
-public class IpInfoType3
-{
-    public string IP;
-    public int CoordX;
-    public int CoordY;
-    public string Device;       //IP地址设备类型
-    public string OS;           //IP地址操作系统
-    public IpPortInfo[] Port;   // 开放的端口及服务
-}
+// [Serializable]
+// public class IpInfoType3
+// {
+//     public string IP;
+//     public int CoordX;
+//     public int CoordY;
+//     public string Device;       //IP地址设备类型
+//     public string OS;           //IP地址操作系统
+//     public IpPortInfo[] Port;   // 开放的端口及服务
+// }
 
-[Serializable]
-public class IpInfoType4
-{
-    public string IP;
-    public float Lat;
-    public float Lng;
-    public string Continent;
-    public string Country_name;
-    public string Country_code;
-    public string Province;
-    public string City;
-    public string Time_zone;
-    public string Post_code;
-    public string Time;
-}   
+// [Serializable]
+// public class IpInfoType4
+// {
+//     public string IP;
+//     public float Lat;
+//     public float Lng;
+//     public string Continent;
+//     public string Country_name;
+//     public string Country_code;
+//     public string Province;
+//     public string City;
+//     public string Time_zone;
+//     public string Post_code;
+//     public string Time;
+// }   
 
 [Serializable]
 public class IpPortInfo

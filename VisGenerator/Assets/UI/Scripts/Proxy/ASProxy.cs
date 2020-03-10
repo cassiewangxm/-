@@ -223,11 +223,12 @@ public class ASProxy : MonoBehaviour
 
     public bool IsASExistInLocal(int x, int y)
     {
+        Debug.LogFormat("AS ({0},{1}) exist ? : {2}",x,y, m_ASDict.ContainsKey(new Vector2(x,y)));
         return m_ASDict.ContainsKey(new Vector2(x,y));
     }
 
     //获取 某坐标的AS柱体某一层的某个IP信息
-    public void GetIpInfoFromAS(Vector2 asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
+    public void GetASSegmentIPInfo(Vector2 asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
     {
         if(m_ASDict.ContainsKey(asPos))
         {
@@ -273,7 +274,7 @@ public class ASProxy : MonoBehaviour
     }
 
 
-    void OnRecieveSegmentInfo(IpInfoType4[] array, Vector3Int key, Action<IpDetail> action)
+    void OnRecieveSegmentInfo(IpInfoType1[] array, Vector3Int key, Action<IpDetail> action)
     {
         ManageCacheSize();
         

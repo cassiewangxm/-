@@ -31,18 +31,13 @@ public class IpDetail
         }
     }
 
-    public IpDetail(IpInfoType4 info)
-    {
-        IP = info.IP;
-        country = info.Country_name;
-        lat = info.Lat;
-        lng = info.Lng;
-    }
     public IpDetail(IpInfoType1 info)
     {
         IP = info.ip_prefix;
         X = info.X;
         Y = info.Y;
+        lat = info.latitude;
+        lng = info.longitude;
         ASNum = (uint)info.ASN;
     }
 

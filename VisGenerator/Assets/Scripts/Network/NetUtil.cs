@@ -34,7 +34,7 @@ public class NetUtil : MonoBehaviour
         { NetMessageType.IpMapLoad, "IPMAP_Loading"},
         { NetMessageType.IpMapFilter, "IPMAP_Query"},
         { NetMessageType.ASMapLoad, "ASMAP_Loading"},
-        { NetMessageType.ASMapFilter, "ASMAP_Query"}
+        { NetMessageType.ASMapQuery, "ASMAP_Query"}
     };
 
     // void FakeResponse(string data, Action<IpMapResponse, Action> action, Action action2)
@@ -74,28 +74,17 @@ public class NetUtil : MonoBehaviour
         sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
-        Debug.Log(uwr.url);
+        Debug.Log("Request : " + uwr.url);
         yield return uwr.SendWebRequest();
+        
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            /////TEST
-            string path = Application.dataPath + "/../ip.txt";
-            if(!System.IO.File.Exists(path))
-            {
-                FileStream fileStream = System.IO.File.Create(path);
-                fileStream.Write(uwr.downloadHandler.data , 0 , (int)uwr.downloadedBytes);
-                fileStream.Close();
-                fileStream.Dispose();
-            }
-            else
-            {
-                FileStream fileStream = File.OpenWrite(path);
-                fileStream.Write(uwr.downloadHandler.data , 0 , (int)uwr.downloadedBytes);
-                fileStream.Close();
-                fileStream.Dispose();
-            }    
-            /////
+            /////TEST 把返回的IP数据写入文件
+            string path = Application.dataPath + "/../IP.txt";
+            WriteToFile(uwr.downloadHandler.data, path);
+            ////////////
 
+            Debug.Log("Response : "+uwr.url);
             IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
             action(array, action2);
         }
@@ -121,26 +110,27 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestIpMapFilterInfo(string urlParam,Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     {
-// #if NET_DEBUG
-
-//         //FakeResponse("/Scripts/Network/AS_2.json", action);
-//         yield return new WaitForEndOfFrame();
-
-// #else
-        
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapFilter]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
-        Debug.Log(uwr.url);
+        Debug.Log("Request : "+uwr.url);
         yield return uwr.SendWebRequest();
+        
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-            action(array, action2);
+            try
+            {
+                Debug.Log("Response : "+uwr.url);
+                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+                action(array, action2);
+            }
+            catch
+            {
+                Debug.LogError(uwr.downloadHandler.text);
+            }
         }
         uwr.Dispose();
-//#endif
     }
 
     /// <summary>
@@ -170,15 +160,20 @@ public class NetUtil : MonoBehaviour
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
-        Debug.Log(uwr.url);
-        //UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Loading/StartASN=48,xLen=21,yLen=21,type=ASinfotype");
+        Debug.Log("Request : "+uwr.url);
         yield return uwr.SendWebRequest();
+        
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            //Debug.Log(uwr.downloadHandler.text);
-
             try
             {
+
+                /////TEST 把返回的IP数据写入文件
+                string path = Application.dataPath + "/../AS.txt";
+                WriteToFile(uwr.downloadHandler.data, path);
+                ////////////
+
+                Debug.Log("Response : "+uwr.url);
                 ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
                 action(asinfo, action2);
             }
@@ -186,11 +181,8 @@ public class NetUtil : MonoBehaviour
             {
                 Debug.LogError(uwr.downloadHandler.text);
             }
-            
-            //ASMapResponse response = JsonUtility.FromJson<ASMapResponse>(result.ToString());
-            
         }
-
+        uwr.Dispose();
 #endif
     }
 
@@ -231,7 +223,7 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestASSegmentsInfo(MessageRequestASSegments msg, Action<IpInfoType4[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
+    public void RequestASSegmentsInfo(MessageRequestASSegments msg, Action<IpInfoType1[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
     {
         StartCoroutine(_RequestASSegmentsInfo(msg.GetParamString(), action, key, action2));
     }
@@ -242,19 +234,21 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType4[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
+    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType1[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
     {
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
-        sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
+        sb.Append(m_meessageKeywords[NetMessageType.ASMapQuery]);
         sb.Append(urlParam);
-        UnityWebRequest uwr = UnityWebRequest.Get("http://166.111.9.83:3000/ASMAP_Query/ASN=2,HeadIP=91.143.144.0,TailIP=91.143.144.25,type=IPinfotype4");//(sb.ToString());
+        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        Debug.Log("Request : " + uwr.url);
         yield return uwr.SendWebRequest();
+        
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
             try
             {
-                IpInfoType4[] array = JsonConvert.DeserializeObject<IpInfoType4[]>(uwr.downloadHandler.text);
-                
+                Debug.Log("Response : "+uwr.url);
+                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
                 action(array, key, action2);
             }
             catch
@@ -262,5 +256,22 @@ public class NetUtil : MonoBehaviour
                 Debug.LogError("Net Error : " + uwr.downloadHandler.text);
             }
         }
+        uwr.Dispose();
+    }
+
+    // TEST 测试专用
+    void WriteToFile(byte[] data, string path)
+    {
+            /////TEST 把返回的IP数据写入文件
+            if(!System.IO.File.Exists(path))
+            {
+                FileStream f = System.IO.File.Create(path);
+                f.Close();
+            } 
+            FileStream fileStream = File.OpenWrite(path);
+            fileStream.Write(data , 0 , data.Length);
+            fileStream.Close();
+            fileStream.Dispose();
+            /////
     }
 }

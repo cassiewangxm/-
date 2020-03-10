@@ -21,7 +21,7 @@ public class WanderingASMap : MonoBehaviour
         get {return m_baseWith;}
     }
 
-    private float m_baseWith = 15;//640.0f / 256 * 6;
+    private float m_baseWith = 12;//640.0f / 256 * 6;
     private int m_mapWidth = 256;
     private SingleAS[][] m_ASArray;
     private Vector2Int m_curSelected;
