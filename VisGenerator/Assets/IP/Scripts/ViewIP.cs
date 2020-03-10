@@ -31,6 +31,8 @@ public class ViewIP : MonoBehaviour
     private Vector2 lastCameraIdx;
     private int lastLv;
 
+    public IPProxy IPProxy;
+
     public Vector2 GetIPFullSize()
     {
         return new Vector2(Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - 1], Consts.IPSize.y * IPLevelScales[IPLevelScales.Length - 1]);
@@ -68,6 +70,10 @@ public class ViewIP : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    void TransformIPdata(IpDetail[] IpDetails)
+    {
+    }
+
     void GetIPData(int lv, int TopIdx, int LeftIdx)
     {
         float x = (LeftIdx + 0.5f) * Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - lv - 1] - IPSize.x / 2.0f;
@@ -80,6 +86,10 @@ public class ViewIP : MonoBehaviour
         NewQuad.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
 
         // Apply IP data here
+        if (lv == 0)
+        {
+            IPProxy.GetIpInfoBlock(TransformIPdata);
+        }
     }
 
     void UpdateIPView(int lv)
