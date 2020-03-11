@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using RTG;
 
@@ -45,15 +43,21 @@ public class SceneMananger : MonoBehaviour
         get { return currentSceneView; }
     }
 
-    private Dictionary<SceneView, GameObject> viewToObjMapping = null;
+    private Dictionary<SceneView, GameObject> viewTypeToCameraObjMapping = null;
+    private Dictionary<SceneView, GameObject> viewTypeToViewObjMapping = null;
 
     private void Awake()
     {
         ms_instance = this;
-        viewToObjMapping = new Dictionary<SceneView, GameObject>();
-        viewToObjMapping.Add(SceneView.ASView, GameObject.Find("CameraParent-AS"));
-        viewToObjMapping.Add(SceneView.IPView, GameObject.Find("CameraParent-IP"));
-        viewToObjMapping.Add(SceneView.MapView, GameObject.Find("CameraParent-Map"));
+        viewTypeToCameraObjMapping = new Dictionary<SceneView, GameObject>();
+        viewTypeToCameraObjMapping.Add(SceneView.ASView, GameObject.Find("CameraParent-AS"));
+        viewTypeToCameraObjMapping.Add(SceneView.IPView, GameObject.Find("CameraParent-IP"));
+        viewTypeToCameraObjMapping.Add(SceneView.MapView, GameObject.Find("CameraParent-Map"));
+        
+        viewTypeToViewObjMapping = new Dictionary<SceneView, GameObject>();
+        viewTypeToViewObjMapping.Add(SceneView.ASView, GameObject.Find("ViewAS"));
+        viewTypeToViewObjMapping.Add(SceneView.IPView, GameObject.Find("ViewIP"));
+        viewTypeToViewObjMapping.Add(SceneView.MapView, GameObject.Find("ViewMap"));
         
         ChangeScene(SceneView.ASView);
     }
@@ -67,9 +71,11 @@ public class SceneMananger : MonoBehaviour
         currentSceneView = targetSceneView;
         curChangeSceneTweenTime = doTween ? 0 : changeSceneTweenTime;
         
-        foreach (var pair in viewToObjMapping)
-        { 
-            pair.Value.SetActive(pair.Key == currentSceneView || pair.Key == lastSceneView);
+        foreach (var pair in viewTypeToCameraObjMapping)
+        {
+            bool show = pair.Key == currentSceneView || pair.Key == lastSceneView;
+            pair.Value.SetActive(show);
+            viewTypeToViewObjMapping[pair.Key].SetActive(show);
             if (pair.Key == currentSceneView) 
                 RTFocusCamera.SetTargetCamera(pair.Value.GetComponentInChildren<Camera>());
         }
@@ -81,9 +87,9 @@ public class SceneMananger : MonoBehaviour
         if (lastSceneView == currentSceneView || lastSceneView == SceneView.Invliad)
             return;
         
-        GameObject lastSceneViewObj = viewToObjMapping[lastSceneView];
+        GameObject lastSceneViewObj = viewTypeToCameraObjMapping[lastSceneView];
         Camera lastSceneViewCamera = lastSceneViewObj.GetComponentInChildren<Camera>();
-        GameObject curSceneViewObj = viewToObjMapping[currentSceneView];
+        GameObject curSceneViewObj = viewTypeToCameraObjMapping[currentSceneView];
         Camera curSceneViewCamera = curSceneViewObj.GetComponentInChildren<Camera>();
 
         curChangeSceneTweenTime += Time.deltaTime;
@@ -92,8 +98,9 @@ public class SceneMananger : MonoBehaviour
         if (finishTween)
         {
             curChangeSceneTweenTime = changeSceneTweenTime;
-            lastSceneView = currentSceneView;
             lastSceneViewObj.SetActive(false);
+            viewTypeToViewObjMapping[lastSceneView].SetActive(false);
+            lastSceneView = currentSceneView;
         }
         
         float tmp = Mathf.Lerp(0, 1, curChangeSceneTweenTime / changeSceneTweenTime);
