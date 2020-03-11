@@ -1647,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &323555221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14002,7 +14002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1824136186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14596,8 +14596,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 112.16, y: -2.17}
-  m_SizeDelta: {x: 219.84, y: 44.69}
+  m_AnchoredPosition: {x: -0.000030517578, y: -2.17}
+  m_SizeDelta: {x: 332, y: 44.69}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2036314581
 MonoBehaviour:
@@ -15095,8 +15095,8 @@ MonoBehaviour:
   ASPos: {x: 0, y: 0}
   IPSize: {x: 200, y: 200}
   IPPos: {x: 0, y: 0}
-  MapSize: {x: 640, y: 240}
-  MapPos: {x: 320, y: 320}
+  MapSize: {x: 640, y: 256, z: 640}
+  MapPos: {x: 320, y: 0, z: 320}
   ASGameObject: {fileID: 267209659}
   IPGameObject: {fileID: 797419921}
 --- !u!1 &2077403912

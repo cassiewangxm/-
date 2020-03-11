@@ -12,6 +12,9 @@ namespace RTG
 
         public void Update_SystemCall()
         {
+            if (_inputDevice == null)
+                return;
+            
             _inputDevice.Update();
         }
 
