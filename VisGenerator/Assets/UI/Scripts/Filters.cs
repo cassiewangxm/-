@@ -159,22 +159,8 @@ public class Filters : MonoBehaviour
     {
         if(!string.IsNullOrEmpty(SearchBox.text))
         {
-            IPProxy.instance.GetIpInfoByFilter(SearchBox.text, OnRecieveFilterResult);
+            IPProxy.instance.GetIpInfoByFilter(SearchBox.text);
         }
-    }
-
-    //  接到搜索返回的数据
-    void OnRecieveFilterResult(IpDetail[] a)
-    {
-        //Log 出前10条信息，如果有的话。。
-        Debug.Log(a.Length + " ,got IPs hhhhaaaa");
-        if(a.Length > 0)
-        {
-            for(int i =0;i<a.Length&&i<10;i++)
-            {
-                Debug.LogFormat("{0}; {1}; {2}; {3}",a[i].IP,a[i].ASNum,a[i].X,a[i].Y);
-            }
-        }    
     }
 
     public void ShowPos()

@@ -6,4 +6,5 @@ public enum EventDefine
 {
     Invliad,
     OnSceneViewChange,
+    OnRecieveSearchResult,
 }

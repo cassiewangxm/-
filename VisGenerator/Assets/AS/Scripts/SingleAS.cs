@@ -44,7 +44,7 @@ public class SingleAS : MonoBehaviour
    //private Texture2D m_tempTexture;    //区段IP图
     //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
     //private int m_curSegment;   //当前选中的区段序号
-    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 150.0f/255);
+    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 50.0f/255);
     private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
     private float m_height;
     private bool m_isFocused;

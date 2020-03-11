@@ -62,6 +62,7 @@ public class IPProxy : MonoBehaviour
 
     private Dictionary<string, IpDetail> fadeIpDetailDic;
     private Dictionary<Vector2Int, IpDetail> m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
+    private IpDetail[] m_searchResult;
 
     public static IPProxy instance
     {
@@ -177,26 +178,29 @@ public class IPProxy : MonoBehaviour
         }
     }
 
-    public void GetIpInfoByFilter(string keyword, Action<IpDetail[]> action)
+    public void GetIpInfoByFilter(string keyword)//, Action<IpDetail[]> action)
     {
         MessageRequestIpMapFilter msg = new MessageRequestIpMapFilter();
         msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
         msg.Other = keyword;
-        NetUtil.Instance.RequestIpMapFilterInfo(msg, OnIpInfoFilterResponse, action);  
+        NetUtil.Instance.RequestIpMapFilterInfo(msg, OnIpInfoFilterResponse);//, action);  
     }
 
-    void OnIpInfoFilterResponse(IpInfoType1[] array, Action<IpDetail[]> action)
+    void OnIpInfoFilterResponse(IpInfoType1[] array)//, Action<IpDetail[]> action)
     {
-        IpDetail[] result = new IpDetail[array.Length];
+        m_searchResult = null;
+        m_searchResult = new IpDetail[array.Length];
         for(int i = 0; i < array.Length; i++)
         {
-            result[i] = new IpDetail(array[i]);
+            m_searchResult[i] = new IpDetail(array[i]);
         }
-        
-        if(action != null)
-        {
-            action(result);
-        }
+
+        EventManager.SendEvent(EventDefine.OnRecieveSearchResult);
+    }
+
+    public IpDetail[] GetSearchResult()
+    {
+        return m_searchResult;
     }
     // public void GetIpInfoBlock<T>(int prefixLen, string startIp, int xlen, int ylen, IpInfoStructType type, Action<T[]> action)
     // {

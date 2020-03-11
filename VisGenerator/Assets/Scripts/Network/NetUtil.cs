@@ -97,9 +97,11 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
+    //public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
+    public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[]> action)
+    
     {
-        StartCoroutine(_RequestIpMapFilterInfo(msg.GetParamString(), action, action2));
+        StartCoroutine(_RequestIpMapFilterInfo(msg.GetParamString(), action));
     }
 
     /// <summary>
@@ -108,7 +110,7 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestIpMapFilterInfo(string urlParam,Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
+    IEnumerator _RequestIpMapFilterInfo(string urlParam,Action<IpInfoType1[]> action)
     {
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapFilter]);
@@ -123,7 +125,7 @@ public class NetUtil : MonoBehaviour
             {
                 Debug.Log("Response : "+uwr.url);
                 IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-                action(array, action2);
+                action(array);
             }
             catch
             {

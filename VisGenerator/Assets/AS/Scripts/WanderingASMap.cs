@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Controller;
 using UnityEngine.EventSystems;
+using System;
 
 public class WanderingASMap : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class WanderingASMap : MonoBehaviour
 
     void Awake()
     {
+        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)OnRecieveSearchResult);
         SegmentPool.Instance.Prepare();
         m_oldCamPos = m_targetCamera.transform.position;
         ASProxy.instance.GetASInfoOriginal(null);
@@ -49,6 +51,12 @@ public class WanderingASMap : MonoBehaviour
                 InWanderingState = false;
                 break;
         }
+    }
+    void OnRecieveSearchResult()
+    {
+        IpDetail[] results = IPProxy.instance.GetSearchResult();
+
+        //TODO 
     }
     void OnDestroy()
     {
