@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RTG;
+using System.IO;
 
 public class ViewIP : MonoBehaviour
 {
@@ -72,6 +73,25 @@ public class ViewIP : MonoBehaviour
 
     void TransformIPdata(IpDetail[] IpDetails)
     {
+        Texture2D texip = new Texture2D(256, 256, TextureFormat.RGB24, false);
+        for (int xi = 0; xi < 1024; xi++)
+        {
+            for (int yi = 0; yi < 256; yi++)
+            {
+                texip.SetPixel(xi, yi, new Color(0.0f, 0.0f, 0.0f));
+            }
+        }
+
+        for (int i = 0; i < IpDetails.Length; i ++)
+        {
+            IpDetail Item = IpDetails[i];
+
+            texip.SetPixel(Item.X, Item.Y, new Color(0.0f, 0.0f, 0.0f));
+
+        }
+        texip.Apply();
+        byte[] bytesip = texip.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture" + 1 + ".png", bytesip);
     }
 
     void GetIPData(int lv, int TopIdx, int LeftIdx)
@@ -88,7 +108,7 @@ public class ViewIP : MonoBehaviour
         // Apply IP data here
         if (lv == 0)
         {
-            IPProxy.GetIpInfoBlock(TransformIPdata);
+            IPProxy.GetIpInfoBlock(TransformIPdata, lv * 4 + 20);
         }
     }
 
