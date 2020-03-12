@@ -69,7 +69,7 @@ public class ViewIP : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    void TransformIPdata(IpDetail[] IpDetails, MessageRequestIpMap message)
+    void TransformIPdata(IpDetail[] IpDetails, IPLayerInfo info)
     {
         Texture2D texip = new Texture2D(256, 256, TextureFormat.RGB24, false);
         for (int xi = 0; xi < 1024; xi++)
