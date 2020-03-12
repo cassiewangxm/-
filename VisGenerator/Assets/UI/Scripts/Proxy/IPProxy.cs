@@ -154,6 +154,11 @@ public class IPProxy : MonoBehaviour
         {
             Debug.LogErrorFormat("Invalid IP pos : {0},{1}", x, y);
         }
+        else
+        {
+            x = 0;
+            y = 0;
+        }
 
         if(prefixLen > 0)
             msg.prefixLen = prefixLen;

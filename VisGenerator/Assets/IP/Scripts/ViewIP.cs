@@ -78,7 +78,7 @@ public class ViewIP : MonoBehaviour
     void TransformIPdata(IpDetail[] IpDetails, IPLayerInfo info)
     {
         Debug.Log("Generating IP Texture...");
-        Texture2D texip = new Texture2D(256, 256, TextureFormat.RGB24, false);
+        Texture2D texip = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
         for (int xi = 0; xi < 1024; xi++)
         {
             for (int yi = 0; yi < 1024; yi++)
@@ -109,9 +109,13 @@ public class ViewIP : MonoBehaviour
         NewQuad.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
 
         // Apply IP data here
-        if (lv == 0)
+        if (lv != 0)
         {
             IPProxy.instance.GetIpInfoBlock(TransformIPdata, lv * 4 + 20, LeftIdx * 1024, TopIdx * 1024);
+        }
+        else
+        {
+            IPProxy.instance.GetIpInfoBlock(TransformIPdata);
         }
     }
 
