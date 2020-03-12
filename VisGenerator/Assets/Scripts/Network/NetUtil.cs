@@ -57,9 +57,9 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestIpMapInfo(MessageRequestIpMap msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
+    public void RequestIpMapInfo(MessageRequestIpMap msg, Action<IpInfoType1[], MessageRequestIpMap, Action<IpDetail[],MessageRequestIpMap>> action, Action<IpDetail[],MessageRequestIpMap> action2)
     {
-        StartCoroutine(_RequestIpMapInfo(msg.GetParamString(), action, action2));
+        StartCoroutine(_RequestIpMapInfo(msg, action, action2));
     }
 
     /// <summary>
@@ -68,11 +68,11 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestIpMapInfo(string urlParam, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
+    IEnumerator _RequestIpMapInfo(MessageRequestIpMap msg, Action<IpInfoType1[],MessageRequestIpMap, Action<IpDetail[],MessageRequestIpMap>> action, Action<IpDetail[],MessageRequestIpMap> action2)
     {
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
-        sb.Append(urlParam);
+        sb.Append(msg.GetParamString());
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
         Debug.Log("Request : " + uwr.url);
         yield return uwr.SendWebRequest();
@@ -86,7 +86,7 @@ public class NetUtil : MonoBehaviour
 
             Debug.Log("Response : "+uwr.url);
             IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-            action(array, action2);
+            action(array, msg,  action2);
         }
 
         uwr.Dispose();
