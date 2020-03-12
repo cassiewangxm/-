@@ -32,8 +32,6 @@ public class ViewIP : MonoBehaviour
     private Vector2 lastCameraIdx;
     private int lastLv;
 
-    public IPProxy IPProxy;
-
     public Vector2 GetIPFullSize()
     {
         return new Vector2(Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - 1], Consts.IPSize.y * IPLevelScales[IPLevelScales.Length - 1]);
@@ -71,7 +69,7 @@ public class ViewIP : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    void TransformIPdata(IpDetail[] IpDetails)
+    void TransformIPdata(IpDetail[] IpDetails, MessageRequestIpMap message)
     {
         Texture2D texip = new Texture2D(256, 256, TextureFormat.RGB24, false);
         for (int xi = 0; xi < 1024; xi++)
@@ -108,7 +106,7 @@ public class ViewIP : MonoBehaviour
         // Apply IP data here
         if (lv == 0)
         {
-            IPProxy.GetIpInfoBlock(TransformIPdata, lv * 4 + 20);
+            IPProxy.instance.GetIpInfoBlock(TransformIPdata);
         }
     }
 
