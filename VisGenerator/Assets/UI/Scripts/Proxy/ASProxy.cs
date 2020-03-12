@@ -181,10 +181,14 @@ public class ASProxy : MonoBehaviour
             {
                 Debug.Log(response[i].X + " , " + response[i].X );
             }
-            response[i].Transfer();
-            m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
+            if(response[i].IP_segments.Count > 0)
+            {
+                response[i].Transfer();
+                m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
+            }
         }
-        Debug.Log("Get AS Count : 256x" + m_ASDict.Count/256);
+        
+        Debug.LogFormat("Get AS Count : {0}/{1}", response.Length,  m_ASDict.Count);
 
         m_originalDataReady = true;
     }

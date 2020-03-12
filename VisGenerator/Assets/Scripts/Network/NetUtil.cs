@@ -28,7 +28,7 @@ public class NetUtil : MonoBehaviour
 		}
 	}
 
-    private string m_baseAdressIP = "http://166.111.9.83:28281/";
+    private string m_baseAdressIP = "http://166.111.9.83:28280/";
     private string m_baseAdressAS = "http://166.111.9.83:3000/";
     private Dictionary<NetMessageType, string> m_meessageKeywords = new Dictionary<NetMessageType, string> {
         { NetMessageType.IpMapLoad, "IPMAP_Loading"},
@@ -176,7 +176,19 @@ public class NetUtil : MonoBehaviour
                 ////////////
 
                 Debug.Log("Response : "+uwr.url);
+                Debug.Log(uwr.downloadHandler.text.Substring(0,100));
                 ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
+                
+                // /////
+                // StringBuilder sb2 = new StringBuilder();
+                // foreach(var a in asinfo)
+                // {
+                //     sb2.Append(string.Format("{},{}\n",a.X,a.Y));
+                // }
+                // string path2 = Application.dataPath + "/../ASPos.txt";
+                // WriteToFile(Convert.FromBase64String(sb.ToString()), path);
+                // /////
+
                 action(asinfo, action2);
             }
             catch
