@@ -50,6 +50,14 @@ public class FakeIPData
    public IpDetail[] IPs;
 }
 
+//前缀 、 左上角坐标 x,y
+public struct IPLayerInfo
+{
+    public int prefixLen;
+    public int x;
+    public int y;
+}
+
 public class IPProxy : MonoBehaviour
 {
     public static readonly string fakeTestIp = "89.151.176.13";
@@ -131,7 +139,7 @@ public class IPProxy : MonoBehaviour
     };
 
     // x ,y 是左上角坐标
-    public void GetIpInfoBlock(Action<IpDetail[],MessageRequestIpMap> action,int prefixLen = 20, int x = -1, int y = -1)
+    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action,int prefixLen = 20, int x = -1, int y = -1)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
@@ -157,11 +165,16 @@ public class IPProxy : MonoBehaviour
 
         //msg.startIp = "166.111.9.83";
 
-        NetUtil.Instance.RequestIpMapInfo(msg, OnIpInfoResponse, action);
+        IPLayerInfo info = new IPLayerInfo();
+        info.prefixLen = prefixLen;
+        info.x = x;
+        info.y = y;
+
+        NetUtil.Instance.RequestIpMapInfo(msg,info, OnIpInfoResponse, action);
     }
 
 
-    void OnIpInfoResponse(IpInfoType1[] array, MessageRequestIpMap message, Action<IpDetail[],MessageRequestIpMap> action)
+    void OnIpInfoResponse(IpInfoType1[] array, IPLayerInfo info, Action<IpDetail[],IPLayerInfo> action)
     {
         if(m_ipDetailDict == null)
             m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
@@ -175,7 +188,7 @@ public class IPProxy : MonoBehaviour
         }
         if(action != null)
         {
-            action(ipArray, message);
+            action(ipArray, info);
         }
     }
 

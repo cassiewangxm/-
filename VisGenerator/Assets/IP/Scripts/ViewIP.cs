@@ -68,7 +68,7 @@ public class ViewIP : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    void TransformIPdata(IpDetail[] IpDetails, MessageRequestIpMap message)
+    void TransformIPdata(IpDetail[] IpDetails, IPLayerInfo info)
     {
     }
 
