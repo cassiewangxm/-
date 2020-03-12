@@ -69,8 +69,15 @@ public class ViewIP : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    Color CalculateColor(int asnum)
+    {
+        System.Random rnd = new System.Random();
+        return new Color((asnum / 256) / 256.0f, (asnum % 256) / 256.0f, rnd.Next(0, 128) / 256.0f);
+    }
+
     void TransformIPdata(IpDetail[] IpDetails, IPLayerInfo info)
     {
+        Debug.Log("Generating IP Texture...");
         Texture2D texip = new Texture2D(256, 256, TextureFormat.RGB24, false);
         for (int xi = 0; xi < 1024; xi++)
         {
@@ -83,11 +90,11 @@ public class ViewIP : MonoBehaviour
         for (int i = 0; i < IpDetails.Length; i ++)
         {
             IpDetail Item = IpDetails[i];
-            texip.SetPixel(Item.X, Item.Y, new Color(0.0f, 0.0f, 0.0f));
+            texip.SetPixel(Item.X - info.x, Item.Y - info.y, CalculateColor((int)Item.ASNum));
         }
         texip.Apply();
         byte[] bytesip = texip.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture" + 1 + ".png", bytesip);
+        File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/" + info.prefixLen + "-" + info.x.ToString() + "-" + info.y.ToString() + ".png", bytesip);
     }
 
     void GetIPData(int lv, int TopIdx, int LeftIdx)
