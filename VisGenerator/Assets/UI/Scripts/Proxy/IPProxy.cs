@@ -130,7 +130,8 @@ public class IPProxy : MonoBehaviour
         { IpInfoStructType.InfoType4, "IPinfotype4"}
     };
 
-    public void GetIpInfoBlock(Action<IpDetail[]> action,int prefixLen = 20, int x = -1, int y = -1)
+    // x ,y 是左上角坐标
+    public void GetIpInfoBlock(Action<IpDetail[],MessageRequestIpMap> action,int prefixLen = 20, int x = -1, int y = -1)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
@@ -160,7 +161,7 @@ public class IPProxy : MonoBehaviour
     }
 
 
-    void OnIpInfoResponse(IpInfoType1[] array, Action<IpDetail[]> action)
+    void OnIpInfoResponse(IpInfoType1[] array, MessageRequestIpMap message, Action<IpDetail[],MessageRequestIpMap> action)
     {
         if(m_ipDetailDict == null)
             m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
@@ -174,7 +175,7 @@ public class IPProxy : MonoBehaviour
         }
         if(action != null)
         {
-            action(ipArray);
+            action(ipArray, message);
         }
     }
 
