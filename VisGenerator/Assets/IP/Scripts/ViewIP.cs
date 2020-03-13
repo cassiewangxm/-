@@ -72,7 +72,22 @@ public class ViewIP : MonoBehaviour
     Color CalculateColor(int asnum)
     {
         System.Random rnd = new System.Random();
-        return new Color((asnum / 256) / 256.0f, (asnum % 256) / 256.0f, rnd.Next(0, 128) / 256.0f);
+        int x = (asnum / 256) % 256;
+        int y = (asnum % 256) % 256;
+        int r, g, b;
+        if (((y - x) < 128) && ((x - y) < 128))
+        {
+            g = x;
+            r = y;
+            b = 32 + rnd.Next(0, 32);
+        }
+        else
+        {
+            g = (x >= 128) ? x : (x + 128);
+            r = (y >= 128) ? y : (x + 128);
+            b = (x >= 128) ? (16 + rnd.Next(0, 16)) : (64 + rnd.Next(0, 16));
+        }
+        return new Color(r / 256.0f, g / 256.0f, b / 256.0f);
     }
 
     void TransformIPdata(IpDetail[] IpDetails, IPLayerInfo info)
