@@ -590,8 +590,8 @@ ParticleSystem:
         m_RotationOrder: 4
   ShapeModule:
     serializedVersion: 6
-    enabled: 0
-    type: 0
+    enabled: 1
+    type: 4
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -4731,3 +4731,4 @@ MonoBehaviour:
   IsHideInInspector: 0
   PS: {fileID: 5831717533817584125}
   Speed: 0.25
+  Thickness: 5
