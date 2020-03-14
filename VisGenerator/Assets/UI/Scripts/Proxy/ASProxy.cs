@@ -112,6 +112,28 @@ public class ASSegmentInfo
         //return Color.black;
     }
 
+    public string GetIpStringByIndex(int index)
+    {
+        string[] heads = HeadIP.Split('.');
+        string[] tails = TailIP.Split('.');
+        int[] ips = new int[heads.Length];
+        for(int i = 0; i < heads.Length ; i++)
+        {
+            if(heads[i].CompareTo(tails[i]) != 0)
+            {
+                int head = int.Parse(heads[i]);
+                int tail = int.Parse(tails[i]);
+                ips[i] = head + index/(int)Mathf.Pow(255, 3-i);
+            }
+            else
+            {
+                ips[i] = int.Parse(heads[i]);
+            }
+        }
+
+        return string.Format("{0}.{1}.{2}.{3}",ips[0],ips[1],ips[2],ips[3]);
+    }
+
     public float GetRadius()
     {
         return Mathf.Min((float)IPCount/256*2 + 2, 6);
@@ -139,8 +161,10 @@ public class ASProxy : MonoBehaviour
             return s_instance;
         }
     }
+    public int HeightMax    {   get {return m_heightMax;}   }
     public bool OriginalDataReady {get {return m_originalDataReady;}}
     private bool m_originalDataReady;
+    private int m_heightMax;
     public void GetASAreaInfo(int asN, int xlen, int ylen, Action action)
     {
         MessageRequestASMap msg = new MessageRequestASMap();
@@ -184,11 +208,12 @@ public class ASProxy : MonoBehaviour
             if(response[i].IP_segments.Count > 0)
             {
                 response[i].Transfer();
+                m_heightMax = Mathf.Max(m_heightMax, response[i].Height);
                 m_ASDict.Add(new Vector2Int(response[i].X, response[i].Y), response[i]);
             }
         }
         
-        Debug.LogFormat("Get AS Count : {0}/{1}", response.Length,  m_ASDict.Count);
+        Debug.LogFormat("Get AS Count : {0}/{1}, Max height : {2}", response.Length,  m_ASDict.Count, m_heightMax);
 
         m_originalDataReady = true;
     }
@@ -246,7 +271,7 @@ public class ASProxy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("IpIndex overflow : " + ipIndex);
+                    Debug.LogErrorFormat("IpIndex overflow : {0},{1},{2}" ,p.x, p.y, ipIndex);
                 }
             }
             else
@@ -256,8 +281,8 @@ public class ASProxy : MonoBehaviour
                     ASSegmentInfo segInfo = asinfo.ASSegment[segmentIndex];
                     MessageRequestASSegments msg = new MessageRequestASSegments();
                     msg.ASN = asinfo.ASN;
-                    msg.HeadIp = segInfo.HeadIP;
-                    msg.TailIp = segInfo.TailIP;
+                    msg.HeadIp = segInfo.GetIpStringByIndex(ipIndex);//segInfo.HeadIP;
+                    msg.TailIp = msg.HeadIp;
                     msg.type = "IPinfotype4";
 
                     NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, new Vector3Int(asinfo.ASN, segmentIndex, ipIndex), action);
@@ -292,7 +317,11 @@ public class ASProxy : MonoBehaviour
         if(!m_SegmentCache.ContainsKey(vi))
         {
             m_SegmentCache.Add(vi, ips);
+            Debug.LogFormat("Get {0},{1} : {2}", key.x, key.y, ips.Length);
         }
+
+        if(action == null)
+            return;
 
         if(key.z < ips.Length)
             action(ips[key.z]);

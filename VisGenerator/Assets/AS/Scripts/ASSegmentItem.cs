@@ -12,10 +12,6 @@ public class ASSegmentItem : MonoBehaviour
     public int SegmentObjID{
         get {return m_segmentID;}
     }
-
-    //private Texture2D m_IPTexture;
-
-    //private int m_TextureW = 256; //区段IP图宽度,可容纳256*256个ip
     private Vector3 m_OrifinalScale = Vector3.zero;
     private int m_segmentID;
     private int m_texturePixelLineCount = 1;
@@ -52,6 +48,9 @@ public class ASSegmentItem : MonoBehaviour
 
         float scale = transform.localScale.x;
         m_SegmentName.transform.localScale = new Vector3(m_OrifinalScale.x/scale,m_OrifinalScale.y,m_OrifinalScale.z/scale);
+        m_SegmentName.transform.localPosition = Vector3.zero;
+        m_SegmentName.transform.rotation = Camera.main.transform.rotation;
+        m_SegmentName.transform.position += m_SegmentName.transform.right * scale;
     }
 
     public void SetIPMap(bool open)
@@ -83,6 +82,8 @@ public class ASSegmentItem : MonoBehaviour
         count = count >= 0 ? count : 0;
         if(count >= m_SegemntData.IPCount)
             count = m_SegemntData.IPCount - 1;
+
+        Debug.LogFormat("seg name and ip count : {0},{1}",name,m_SegemntData.IPCount);
         
         return count;
     }

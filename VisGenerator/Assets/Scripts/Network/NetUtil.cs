@@ -84,9 +84,15 @@ public class NetUtil : MonoBehaviour
             WriteToFile(uwr.downloadHandler.data, path);
             ////////////
 
-            Debug.Log("Response : "+uwr.url);
-            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-            action(array, info,  action2);
+            try{
+                Debug.Log("Response : "+uwr.url);
+                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+                action(array, info,  action2);
+            }
+            catch
+            {
+                Debug.LogError("Deserialize json error : _RequestIpMapInfo");
+            }
         }
 
         uwr.Dispose();
@@ -259,15 +265,19 @@ public class NetUtil : MonoBehaviour
         
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
+            string path = Application.dataPath + "/../Segment.txt";
+            WriteToFile(uwr.downloadHandler.data, path);
+
             try
             {
                 Debug.Log("Response : "+uwr.url);
                 IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-                action(array, key, action2);
+                if(action != null)
+                    action(array, key, action2);
             }
             catch
             {
-                Debug.LogError("Net Error : " + uwr.downloadHandler.text);
+                Debug.LogError("Deserialize json error : _RequestASSegmentsInfo");
             }
         }
         uwr.Dispose();

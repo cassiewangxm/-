@@ -10,6 +10,9 @@ public class SegmentPool : MonoBehaviour
                 if(m_instance == null)
                 {
                     m_instance = new GameObject("SegmentPool").AddComponent<SegmentPool>();
+                    GameObject parent = GameObject.Find("Singleton");
+                    if (parent != null)
+                        m_instance.transform.parent = parent.transform;
                 }
                 return m_instance;
             }

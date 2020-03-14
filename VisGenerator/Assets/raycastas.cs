@@ -48,7 +48,7 @@ public class raycastas : MonoBehaviour
     // private TextMesh[] nearTexts; //附近AS柱体名称
     // private bool titlesDirty; //当前 TextMesh[] nearTexts 是否有title在显示
     // private Vector3 oldCamPos;
-    public WanderingASMap wanderingASMap;
+    public WanderingASMapV2 wanderingASMap;
     #endregion
 
     public void ExitZooming()
