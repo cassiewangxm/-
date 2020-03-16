@@ -187,22 +187,6 @@ public class IPProxy : MonoBehaviour
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
-        // Vector2Int key = new Vector2Int(x,y);
-        // if(m_ipDetailDict.ContainsKey(key))
-        // {
-        //     string[] strs = m_ipDetailDict[key].IP.Split('/');
-        //     if(strs != null && strs.Length > 0)
-        //         msg.startIp = strs[0];
-        // }
-        // else if(x != -1 || y != -1)
-        // {
-        //     Debug.LogErrorFormat("Invalid IP pos : {0},{1}", x, y);
-        // }
-        // else
-        // {
-        //     x = 0;
-        //     y = 0;
-        // }
         if(x == -1 && y == -1)
         {
             x = 0;
@@ -229,7 +213,8 @@ public class IPProxy : MonoBehaviour
         else
             msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
 
-        //msg.startIp = "166.111.9.83";
+        msg.IPy = y;
+        msg.IPx = x;
 
         IPLayerInfo info = new IPLayerInfo();
         info.prefixLen = prefixLen;
