@@ -58,6 +58,50 @@ public struct IPLayerInfo
     public int y;
 }
 
+public class AttackInfo
+{
+    public string time; //攻击开始的时间戳
+    public int attackTime;  //攻击持续的时间，单位 - 秒
+    public string destip;
+    public int destAS;
+    public Vector2Int destASPos;
+    public AttackSrcInfo[] srcInfo; //攻击源信息
+
+    public AttackInfo(AttackData data)
+    {
+        time = data.time;
+        attackTime = data.attackTime;
+        destAS = data.destAS;
+        destip = data.destip;
+        srcInfo = new AttackSrcInfo[data.srcInfo.Length];
+        for(int i = 0; i < srcInfo.Length; i++)
+        {
+            srcInfo[i] = new AttackSrcInfo(data.srcInfo[i]);
+        }
+    }   
+}
+
+public class AttackSrcInfo
+{
+    public string srcip;
+    public int srcAS;
+    public Vector2Int srcASPos;
+    public int flow;    //该ip地址发送的流的个数
+
+    public AttackSrcInfo(AttackSrcData data)
+    {
+        srcAS = data.srcAS;
+        srcip = data.srcip;
+        flow = data.flow;
+
+        ASInfo asinfo = ASProxy.instance.GetASByNumber(srcAS);
+        if(asinfo != null)
+            srcASPos = new Vector2Int(asinfo.X, asinfo.Y);
+        else
+            Debug.LogErrorFormat("AS {0} not found", srcAS);
+    }
+}
+
 public class IPProxy : MonoBehaviour
 {
     public static readonly string fakeTestIp = "89.151.176.13";
@@ -215,6 +259,24 @@ public class IPProxy : MonoBehaviour
         }
 
         EventManager.SendEvent(EventDefine.OnRecieveSearchResult);
+    }
+
+    public void GetAttackInfo(Action<AttackInfo[]> action)
+    {
+        MessageRequestAttackInfo msg = new MessageRequestAttackInfo();
+        NetUtil.Instance.RequestAttackInfo(msg, OnAttackInfoResponse, action);
+    }
+
+    void OnAttackInfoResponse(AttackData[] data, Action<AttackInfo[]> action)
+    {
+        if(action != null)
+        {
+            AttackInfo[] attackinfo = new AttackInfo[data.Length];
+            for(int i = 0; i < data.Length; i++)
+            {
+                attackinfo[i] = new AttackInfo(data[i]);
+            }
+        }
     }
 
     public IpDetail[] GetSearchResult()
