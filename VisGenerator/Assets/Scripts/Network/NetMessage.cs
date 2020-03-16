@@ -91,13 +91,15 @@ public class MessageRequestIpMap
     public int xLen;        //显示区域的横向大小
     public int yLen;        //显示区域的纵向大小
     public string type = "[IPinfotype1]";     //请求IP信息基本数据的具体级别 例如：“IPinfotype1”
+    public int IPx;
+    public int IPy;
 
     public virtual string GetParamString()
     {
         xLen = 1024;//(xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
         yLen = 1024;//(yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
 
-        return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4}", prefixLen, startIp, xLen, yLen, type);
+        return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4},IPx={5},IPy={6}", prefixLen, startIp, xLen, yLen, type, IPx, IPy);
     }
 }
 

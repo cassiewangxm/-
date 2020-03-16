@@ -1012,16 +1012,9 @@ VisualEffectResource:
       float4 uv3 : TEXCOORD3;\r\n\t\t\t    #endif\r\n\t\t\t    #if VFX_SHADERGRAPH_HAS_COLOR\r\n\t\t\t   
       float4 vertexColor : COLOR;\r\n\t\t\t    #endif\r\n\t\t\t\tfloat3 normal :
       NORMAL;\r\n\t\t\t\t#if defined(VFX_VARYING_TANGENT) || SHADERGRAPH_HAS_NORMAL\r\n\t\t\t\tfloat4
-      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t\n\t\t\tvoid
-      ModifyVertexPosition(float2 SegmentDetailInfo, float3 VertexPosition, out float3
-      OutputVertexPosition)\n\t\t\t{\n\t\t\t\tfloat3 vertexPos = VertexPosition;\n\t\t\t\tfloat
-      yScale = step(VertexPosition.y, -0.001f);\n\t\t\t\tfloat xScale = step(VertexPosition.x,
-      -0.001f);\n\t\t\t\tfloat zScale = step(VertexPosition.z, -0.001f);\n\t\t\t\tfloat
-      offset = yScale * SegmentDetailInfo.x + (1 - yScale) * SegmentDetailInfo.y;\n\t\t\t\tvertexPos.x
-      = vertexPos.x + (1 - xScale) * offset - xScale * offset;\n\t\t\t\tvertexPos.z
-      = vertexPos.z + (1 - zScale) * offset - zScale * offset;\n\t\t\t\tOutputVertexPosition
-      = vertexPos;\n\t\t\t}\n\t\t\t\n\t\t\t#pragma vertex vert\n\r\n\t\t\tVFX_VARYING_PS_INPUTS
-      vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t    VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
+      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t#pragma
+      vertex vert\r\n\t\t\tVFX_VARYING_PS_INPUTS vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t   
+      VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
       index = VFX_GET_INSTANCE_ID(i);\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tuint
       deadCount = 0;\r\n\t\t\t\t\t\t#if USE_DEAD_LIST_COUNT\r\n\t\t\t\t\t\tdeadCount
       = deadListCount.Load(0);\r\n\t\t\t\t\t\t#endif\t\r\n\t\t\t\t\t\tif (index >=
@@ -1096,9 +1089,8 @@ VisualEffectResource:
       #endif\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tfloat3 size3 = float3(attributes.size,attributes.size,attributes.size);\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEX_CURRENT\r\n\t\t\t\t\t\tsize3.x *= attributes.scaleX;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEY_CURRENT\r\n\t\t\t\t\t\tsize3.y *= attributes.scaleY;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
-      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\n\t\t\t\tfloat3
-      inputVertexPosition = i.pos;\n\t\t\t\tModifyVertexPosition(attributes.color.rg,
-      i.pos, inputVertexPosition);\n\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
+      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat3
+      inputVertexPosition = i.pos;\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
       vPos = mul(elementToVFX,float4(inputVertexPosition,1.0f)).xyz;\r\n\t\t\t\tfloat4
       csPos = TransformPositionVFXToClip(vPos);\r\n\t\t\t\to.VFX_VARYING_POSCS =
       csPos;\r\n\t\t\t\t\r\n\t\t\t\tfloat3 normalWS = normalize(TransformDirectionVFXToWorld(mul((float3x3)elementToVFX,
@@ -1285,16 +1277,9 @@ VisualEffectResource:
       float4 uv3 : TEXCOORD3;\r\n\t\t\t    #endif\r\n\t\t\t    #if VFX_SHADERGRAPH_HAS_COLOR\r\n\t\t\t   
       float4 vertexColor : COLOR;\r\n\t\t\t    #endif\r\n\t\t\t\tfloat3 normal :
       NORMAL;\r\n\t\t\t\t#if defined(VFX_VARYING_TANGENT) || SHADERGRAPH_HAS_NORMAL\r\n\t\t\t\tfloat4
-      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t\n\t\t\tvoid
-      ModifyVertexPosition(float2 SegmentDetailInfo, float3 VertexPosition, out float3
-      OutputVertexPosition)\n\t\t\t{\n\t\t\t\tfloat3 vertexPos = VertexPosition;\n\t\t\t\tfloat
-      yScale = step(VertexPosition.y, -0.001f);\n\t\t\t\tfloat xScale = step(VertexPosition.x,
-      -0.001f);\n\t\t\t\tfloat zScale = step(VertexPosition.z, -0.001f);\n\t\t\t\tfloat
-      offset = yScale * SegmentDetailInfo.x + (1 - yScale) * SegmentDetailInfo.y;\n\t\t\t\tvertexPos.x
-      = vertexPos.x + (1 - xScale) * offset - xScale * offset;\n\t\t\t\tvertexPos.z
-      = vertexPos.z + (1 - zScale) * offset - zScale * offset;\n\t\t\t\tOutputVertexPosition
-      = vertexPos;\n\t\t\t}\n\t\t\t\n\t\t\t#pragma vertex vert\n\r\n\t\t\tVFX_VARYING_PS_INPUTS
-      vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t    VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
+      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t#pragma
+      vertex vert\r\n\t\t\tVFX_VARYING_PS_INPUTS vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t   
+      VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
       index = VFX_GET_INSTANCE_ID(i);\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tuint
       deadCount = 0;\r\n\t\t\t\t\t\t#if USE_DEAD_LIST_COUNT\r\n\t\t\t\t\t\tdeadCount
       = deadListCount.Load(0);\r\n\t\t\t\t\t\t#endif\t\r\n\t\t\t\t\t\tif (index >=
@@ -1369,9 +1354,8 @@ VisualEffectResource:
       #endif\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tfloat3 size3 = float3(attributes.size,attributes.size,attributes.size);\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEX_CURRENT\r\n\t\t\t\t\t\tsize3.x *= attributes.scaleX;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEY_CURRENT\r\n\t\t\t\t\t\tsize3.y *= attributes.scaleY;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
-      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\n\t\t\t\tfloat3
-      inputVertexPosition = i.pos;\n\t\t\t\tModifyVertexPosition(attributes.color.rg,
-      i.pos, inputVertexPosition);\n\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
+      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat3
+      inputVertexPosition = i.pos;\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
       vPos = mul(elementToVFX,float4(inputVertexPosition,1.0f)).xyz;\r\n\t\t\t\tfloat4
       csPos = TransformPositionVFXToClip(vPos);\r\n\t\t\t\to.VFX_VARYING_POSCS =
       csPos;\r\n\t\t\t\t\r\n\t\t\t\tfloat3 normalWS = normalize(TransformDirectionVFXToWorld(mul((float3x3)elementToVFX,
@@ -1579,16 +1563,9 @@ VisualEffectResource:
       float4 uv3 : TEXCOORD3;\r\n\t\t\t    #endif\r\n\t\t\t    #if VFX_SHADERGRAPH_HAS_COLOR\r\n\t\t\t   
       float4 vertexColor : COLOR;\r\n\t\t\t    #endif\r\n\t\t\t\tfloat3 normal :
       NORMAL;\r\n\t\t\t\t#if defined(VFX_VARYING_TANGENT) || SHADERGRAPH_HAS_NORMAL\r\n\t\t\t\tfloat4
-      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t\n\t\t\tvoid
-      ModifyVertexPosition(float2 SegmentDetailInfo, float3 VertexPosition, out float3
-      OutputVertexPosition)\n\t\t\t{\n\t\t\t\tfloat3 vertexPos = VertexPosition;\n\t\t\t\tfloat
-      yScale = step(VertexPosition.y, -0.001f);\n\t\t\t\tfloat xScale = step(VertexPosition.x,
-      -0.001f);\n\t\t\t\tfloat zScale = step(VertexPosition.z, -0.001f);\n\t\t\t\tfloat
-      offset = yScale * SegmentDetailInfo.x + (1 - yScale) * SegmentDetailInfo.y;\n\t\t\t\tvertexPos.x
-      = vertexPos.x + (1 - xScale) * offset - xScale * offset;\n\t\t\t\tvertexPos.z
-      = vertexPos.z + (1 - zScale) * offset - zScale * offset;\n\t\t\t\tOutputVertexPosition
-      = vertexPos;\n\t\t\t}\n\t\t\t\n\t\t\t#pragma vertex vert\n\r\n\t\t\tVFX_VARYING_PS_INPUTS
-      vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t    VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
+      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t#pragma
+      vertex vert\r\n\t\t\tVFX_VARYING_PS_INPUTS vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t   
+      VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
       index = VFX_GET_INSTANCE_ID(i);\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tuint
       deadCount = 0;\r\n\t\t\t\t\t\t#if USE_DEAD_LIST_COUNT\r\n\t\t\t\t\t\tdeadCount
       = deadListCount.Load(0);\r\n\t\t\t\t\t\t#endif\t\r\n\t\t\t\t\t\tif (index >=
@@ -1663,9 +1640,8 @@ VisualEffectResource:
       #endif\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tfloat3 size3 = float3(attributes.size,attributes.size,attributes.size);\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEX_CURRENT\r\n\t\t\t\t\t\tsize3.x *= attributes.scaleX;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEY_CURRENT\r\n\t\t\t\t\t\tsize3.y *= attributes.scaleY;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
-      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\n\t\t\t\tfloat3
-      inputVertexPosition = i.pos;\n\t\t\t\tModifyVertexPosition(attributes.color.rg,
-      i.pos, inputVertexPosition);\n\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
+      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat3
+      inputVertexPosition = i.pos;\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
       vPos = mul(elementToVFX,float4(inputVertexPosition,1.0f)).xyz;\r\n\t\t\t\tfloat4
       csPos = TransformPositionVFXToClip(vPos);\r\n\t\t\t\to.VFX_VARYING_POSCS =
       csPos;\r\n\t\t\t\t\r\n\t\t\t\tfloat3 normalWS = normalize(TransformDirectionVFXToWorld(mul((float3x3)elementToVFX,
@@ -1948,16 +1924,9 @@ VisualEffectResource:
       float4 uv3 : TEXCOORD3;\r\n\t\t\t    #endif\r\n\t\t\t    #if VFX_SHADERGRAPH_HAS_COLOR\r\n\t\t\t   
       float4 vertexColor : COLOR;\r\n\t\t\t    #endif\r\n\t\t\t\tfloat3 normal :
       NORMAL;\r\n\t\t\t\t#if defined(VFX_VARYING_TANGENT) || SHADERGRAPH_HAS_NORMAL\r\n\t\t\t\tfloat4
-      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t\n\t\t\tvoid
-      ModifyVertexPosition(float2 SegmentDetailInfo, float3 VertexPosition, out float3
-      OutputVertexPosition)\n\t\t\t{\n\t\t\t\tfloat3 vertexPos = VertexPosition;\n\t\t\t\tfloat
-      yScale = step(VertexPosition.y, -0.001f);\n\t\t\t\tfloat xScale = step(VertexPosition.x,
-      -0.001f);\n\t\t\t\tfloat zScale = step(VertexPosition.z, -0.001f);\n\t\t\t\tfloat
-      offset = yScale * SegmentDetailInfo.x + (1 - yScale) * SegmentDetailInfo.y;\n\t\t\t\tvertexPos.x
-      = vertexPos.x + (1 - xScale) * offset - xScale * offset;\n\t\t\t\tvertexPos.z
-      = vertexPos.z + (1 - zScale) * offset - zScale * offset;\n\t\t\t\tOutputVertexPosition
-      = vertexPos;\n\t\t\t}\n\t\t\t\n\t\t\t#pragma vertex vert\n\r\n\t\t\tVFX_VARYING_PS_INPUTS
-      vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t    VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
+      tangent : TANGENT;\r\n\t\t\t\t#endif\r\n\t\t\t\tVFX_DECLARE_INSTANCE_ID\r\n\t\t\t};\r\n\t\t\t\r\n\t\t\t#pragma
+      vertex vert\r\n\t\t\tVFX_VARYING_PS_INPUTS vert(vs_input i)\r\n\t\t\t{\r\n\t\t\t   
+      VFX_VARYING_PS_INPUTS o = (VFX_VARYING_PS_INPUTS)0;\r\n\t\t\t\r\n\t\t\t\tUNITY_SETUP_INSTANCE_ID(i);\r\n\t\t\t\tUNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);\r\n\t\t\t\r\n\t\t\t\tuint
       index = VFX_GET_INSTANCE_ID(i);\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tuint
       deadCount = 0;\r\n\t\t\t\t\t\t#if USE_DEAD_LIST_COUNT\r\n\t\t\t\t\t\tdeadCount
       = deadListCount.Load(0);\r\n\t\t\t\t\t\t#endif\t\r\n\t\t\t\t\t\tif (index >=
@@ -2032,9 +2001,8 @@ VisualEffectResource:
       #endif\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\tfloat3 size3 = float3(attributes.size,attributes.size,attributes.size);\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEX_CURRENT\r\n\t\t\t\t\t\tsize3.x *= attributes.scaleX;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
       VFX_USE_SCALEY_CURRENT\r\n\t\t\t\t\t\tsize3.y *= attributes.scaleY;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t#if
-      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\n\t\t\t\tfloat3
-      inputVertexPosition = i.pos;\n\t\t\t\tModifyVertexPosition(attributes.color.rg,
-      i.pos, inputVertexPosition);\n\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
+      VFX_USE_SCALEZ_CURRENT\r\n\t\t\t\t\t\tsize3.z *= attributes.scaleZ;\r\n\t\t\t\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat3
+      inputVertexPosition = i.pos;\r\n\t\t\t\tfloat4x4 elementToVFX = GetElementToVFXMatrix(\r\n\t\t\t\t\tattributes.axisX,\r\n\t\t\t\t\tattributes.axisY,\r\n\t\t\t\t\tattributes.axisZ,\r\n\t\t\t\t\tfloat3(attributes.angleX,attributes.angleY,attributes.angleZ),\r\n\t\t\t\t\tfloat3(attributes.pivotX,attributes.pivotY,attributes.pivotZ),\r\n\t\t\t\t\tsize3,\r\n\t\t\t\t\tattributes.position);\r\n\t\t\t\t\t\r\n\t\t\t\tfloat3
       vPos = mul(elementToVFX,float4(inputVertexPosition,1.0f)).xyz;\r\n\t\t\t\tfloat4
       csPos = TransformPositionVFXToClip(vPos);\r\n\t\t\t\to.VFX_VARYING_POSCS =
       csPos;\r\n\t\t\t\t\r\n\t\t\t\tfloat3 normalWS = normalize(TransformDirectionVFXToWorld(mul((float3x3)elementToVFX,
