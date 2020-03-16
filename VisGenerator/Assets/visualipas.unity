@@ -1411,7 +1411,6 @@ GameObject:
   - component: {fileID: 267209660}
   - component: {fileID: 267209662}
   - component: {fileID: 267209661}
-  - component: {fileID: 267209663}
   m_Layer: 10
   m_Name: as
   m_TagString: Untagged
@@ -1480,7 +1479,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267209659}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: f04654df20f59464eaafbd61eeb9f55c, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 1402275f89d604be182e9d466f6164f7, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -1532,19 +1531,6 @@ VisualEffect:
         m_Overridden: 1
     m_Bool:
       m_Array: []
---- !u!114 &267209663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267209659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e43c533d0c248a28d6cd5f26bb44fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ASFilter: {fileID: 653240333}
 --- !u!1001 &269157472
 PrefabInstance:
   m_ObjectHideFlags: 0
