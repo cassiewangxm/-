@@ -12,6 +12,7 @@ public enum NetMessageType
     IpMapFilter,
     ASMapLoad,
     ASMapQuery,
+    AttackLoad,
     Count,
 }
 
@@ -61,6 +62,23 @@ public class IpPortInfo
     public string PortWork;
 }
 
+[Serializable]
+public class AttackData
+{
+    public string time; //攻击开始的时间戳
+    public string destip;
+    public int destAS;
+    public int attackTime;  //攻击持续的时间，单位 - 秒
+    public AttackSrcData[] srcInfo; //攻击源信息
+}
+
+[Serializable]
+public class AttackSrcData
+{
+    public string srcip;
+    public int srcAS;
+    public int flow;    //该ip地址发送的流的个数
+}
 
 
 /// <summary>
@@ -76,8 +94,8 @@ public class MessageRequestIpMap
 
     public virtual string GetParamString()
     {
-        xLen = (xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
-        yLen = (yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
+        xLen = 1024;//(xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
+        yLen = 1024;//(yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
 
         return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4}", prefixLen, startIp, xLen, yLen, type);
     }
@@ -168,5 +186,15 @@ public class MessageRequestASSegments
         //http://166.111.9.83:3000/ASMAP_Query/ASN=2,HeadIP=91.143.144.0,TailIP=91.143.144.25,type=IPinfotype4
         
         return string.Format("/ASN={0},HeadIP={1},TailIP={2},type={3}", ASN, HeadIp, TailIp, type);
+    }
+}
+
+public class MessageRequestAttackInfo
+{
+    public virtual string GetParamString()
+    {
+        //http://166.111.9.83:3000/Attack_Loading/attackinfotype
+        
+        return "/attackinfotype";
     }
 }
