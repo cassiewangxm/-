@@ -34,7 +34,8 @@ public class NetUtil : MonoBehaviour
         { NetMessageType.IpMapLoad, "IPMAP_Loading"},
         { NetMessageType.IpMapFilter, "IPMAP_Query"},
         { NetMessageType.ASMapLoad, "ASMAP_Loading"},
-        { NetMessageType.ASMapQuery, "ASMAP_Query"}
+        { NetMessageType.ASMapQuery, "ASMAP_Query"},
+        { NetMessageType.AttackLoad, "Attack_Loading"}
     };
 
     // void FakeResponse(string data, Action<IpMapResponse, Action> action, Action action2)
@@ -278,6 +279,51 @@ public class NetUtil : MonoBehaviour
             catch
             {
                 Debug.LogError("Deserialize json error : _RequestASSegmentsInfo");
+            }
+        }
+        uwr.Dispose();
+    }
+
+    /// <summary>
+    /// 请求AS具体层信息
+    /// </summary>
+    /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
+    /// <param name="action"></param>
+    public void RequestAttackInfo(MessageRequestAttackInfo msg, Action<AttackData[], Action<AttackInfo[]>> action, Action<AttackInfo[]> action2)
+    {
+        StartCoroutine(_RequestAttackInfo(msg.GetParamString(), action, action2));
+    }
+
+    /// <summary>
+    /// 发送网络请求
+    /// </summary>
+    /// <param name="urlParam"></param>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    IEnumerator _RequestAttackInfo(string urlParam, Action<AttackData[], Action<AttackInfo[]>> action, Action<AttackInfo[]> action2)
+    {
+        StringBuilder sb = new StringBuilder(m_baseAdressAS);
+        sb.Append(m_meessageKeywords[NetMessageType.AttackLoad]);
+        sb.Append(urlParam);
+        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+        Debug.Log("Request : " + uwr.url);
+        yield return uwr.SendWebRequest();
+        
+        if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
+        {  
+            string path = Application.dataPath + "/../Attack.txt";
+            WriteToFile(uwr.downloadHandler.data, path);
+
+            try
+            {
+                Debug.Log("Response : "+uwr.url);
+                AttackData[] array = JsonConvert.DeserializeObject<AttackData[]>(uwr.downloadHandler.text);
+                if(action != null)
+                    action(array, action2);
+            }
+            catch
+            {
+                Debug.LogError("Deserialize json error : _RequestAttackInfo");
             }
         }
         uwr.Dispose();

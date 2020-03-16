@@ -250,6 +250,17 @@ public class ASProxy : MonoBehaviour
         }
     }
 
+    public ASInfo GetASByNumber(int asNum)
+    {
+        foreach(var p in m_ASDict)
+        {
+            if(p.Value.ASN == asNum)
+                return p.Value;
+        }
+
+        return null;
+    }
+
     public bool IsASExistInLocal(int x, int y)
     {
         Debug.LogFormat("AS ({0},{1}) exist ? : {2}",x,y, m_ASDict.ContainsKey(new Vector2(x,y)));
