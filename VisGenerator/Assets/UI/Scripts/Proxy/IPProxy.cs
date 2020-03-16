@@ -183,26 +183,43 @@ public class IPProxy : MonoBehaviour
     };
 
     // x ,y 是左上角坐标
-    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action,int prefixLen = 20, int x = -1, int y = -1)
+    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action,int prefixLen = 20, int x = -1, int y = -1, string startIp = "")
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
-        Vector2Int key = new Vector2Int(x,y);
-        if(m_ipDetailDict.ContainsKey(key))
-        {
-            string[] strs = m_ipDetailDict[key].IP.Split('/');
-            if(strs != null && strs.Length > 0)
-                msg.startIp = strs[0];
-        }
-        else if(x != -1 || y != -1)
-        {
-            Debug.LogErrorFormat("Invalid IP pos : {0},{1}", x, y);
-        }
-        else
+        // Vector2Int key = new Vector2Int(x,y);
+        // if(m_ipDetailDict.ContainsKey(key))
+        // {
+        //     string[] strs = m_ipDetailDict[key].IP.Split('/');
+        //     if(strs != null && strs.Length > 0)
+        //         msg.startIp = strs[0];
+        // }
+        // else if(x != -1 || y != -1)
+        // {
+        //     Debug.LogErrorFormat("Invalid IP pos : {0},{1}", x, y);
+        // }
+        // else
+        // {
+        //     x = 0;
+        //     y = 0;
+        // }
+        if(x == -1 && y == -1)
         {
             x = 0;
             y = 0;
         }
+
+        if(!string.IsNullOrEmpty(startIp))
+        {
+            if(startIp.Contains("/"))
+            {
+                msg.startIp = startIp.Substring(0, startIp.IndexOf('/'));
+            }
+            else
+            {
+                msg.startIp = startIp;
+            }
+        }    
 
         if(prefixLen > 0)
             msg.prefixLen = prefixLen;
