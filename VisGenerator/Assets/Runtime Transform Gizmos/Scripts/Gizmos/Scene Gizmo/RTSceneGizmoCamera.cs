@@ -61,6 +61,7 @@ namespace RTG
             _camera.fieldOfView = _fieldOfView;
             _camera.orthographicSize = _orthoSize;
             _camera.allowHDR = false;
+            _camera.enabled = false;
 
             if (RTCameraBackground.Get != null) RTCameraBackground.Get.AddRenderIgnoreCamera(_camera);
             RTSceneGrid.Get.AddRenderIgnoreCamera(_camera);

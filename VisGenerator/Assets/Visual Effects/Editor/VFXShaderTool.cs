@@ -23,7 +23,33 @@ public class VFXShaderTool
         Type ssdType = shaderSource.GetType();
         FieldInfo fi = ssdType.GetField("source");
         string source = fi.GetValue(shaderSource) as string;
+        source = ReplaceRaycastTexture(source);
+        string shaderPath = assetPath.Replace("vfx", "shader");
+        File.WriteAllText(shaderPath, source);
+    }
 
+    private static string ReplaceRaycastTexture(string source)
+    {
+        source = source.Replace("Texture2D RaycastTexture;", "RWTexture2D<float4> RaycastTexture;");
+        
+        string prefix = "\t\t\t";
+        string insertCode = "";
+        insertCode += "ENCODE_INTO_GBUFFER(surface, builtin, i.VFX_VARYING_POSCS.xy, outGBuffer);\n";
+        insertCode += prefix + "float depth = LoadCameraDepth(i.VFX_VARYING_POSCS.xy);\n";
+        insertCode += prefix + "if (depth == i.VFX_VARYING_POSCS.z)\n";
+        insertCode += prefix + "\tRaycastTexture[i.VFX_VARYING_POSCS.xy] = float4(i.RaycastTextureUV.x, i.RaycastTextureUV.y, 0, 0);\n";
+        source = source.Replace("ENCODE_INTO_GBUFFER(surface, builtin, i.VFX_VARYING_POSCS.xy, outGBuffer);", insertCode);
+        
+        insertCode = "";
+        insertCode += "VFXComputePixelOutputToGBuffer(i,normalWS,uvData,outGBuffer);\n";
+        insertCode += prefix + "RaycastTexture[uvData] = float4(i.RaycastTextureUV.x, i.RaycastTextureUV.y, 0, 0);";
+        source = source.Replace("VFXComputePixelOutputToGBuffer(i,normalWS,uvData,outGBuffer);", insertCode);
+
+        return source;
+    }
+
+    private static string ReplaceVertexShader(string source)
+    {
         if (source.IndexOf("ModifyVertexPosition") == -1)
         {
             string prefix = "\t\t\t";
@@ -51,8 +77,7 @@ public class VFXShaderTool
             source = source.Replace("float3 inputVertexPosition = i.pos;", insertCode);
         }
 
-        string shaderPath = assetPath.Replace("vfx", "shader");
-        File.WriteAllText(shaderPath, source);
+        return source;
     }
 
     [MenuItem("VFXShaderTool/SetShaderToVFXAsset")]
@@ -115,7 +140,6 @@ public class VFXShaderTool
                     curColor.r = 0.5f;
                 colors[j * 16 + i] = curColor;
             }
-            
         }
 
         Texture2D tex = new Texture2D(16, 16, TextureFormat.RGB24, false);
