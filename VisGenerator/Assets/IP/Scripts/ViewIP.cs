@@ -79,13 +79,13 @@ public class ViewIP : MonoBehaviour
         {
             g = x;
             r = y;
-            b = 32 + rnd.Next(0, 32);
+            b = 96 + rnd.Next(0, 32);
         }
         else
         {
             g = (x >= 128) ? x : (x + 128);
             r = (y >= 128) ? y : (x + 128);
-            b = (x >= 128) ? (16 + rnd.Next(0, 16)) : (64 + rnd.Next(0, 16));
+            b = (x >= 128) ? (32 + rnd.Next(0, 32)) : (64 + rnd.Next(0, 32));
         }
         return new Color(r / 256.0f, g / 256.0f, b / 256.0f);
     }
