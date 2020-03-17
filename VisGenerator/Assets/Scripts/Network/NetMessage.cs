@@ -99,7 +99,8 @@ public class MessageRequestIpMap
         xLen = 1024;//(xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
         yLen = 1024;//(yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
 
-        return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4},IPx={5},IPy={6}", prefixLen, startIp, xLen, yLen, type, IPx, IPy);
+        //return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4},IPx={5},IPy={6}", prefixLen, startIp, xLen, yLen, type, IPx, IPy);
+        return string.Format("/PrefixLen={0},xLen={1},yLen={2},type={3},IPx={4},IPy={5}", prefixLen, xLen, yLen, type, IPx, IPy);
     }
 }
 
