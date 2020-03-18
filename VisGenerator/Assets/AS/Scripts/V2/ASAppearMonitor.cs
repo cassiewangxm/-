@@ -9,8 +9,10 @@ public class ASAppearMonitor : MonoBehaviour
     public Vector2Int Location {get;set;}
     public WanderingASMapV2 Wanderingmap {get; set;}
     public Action<SingleASV2> OnASBecameInvisible; 
+    public bool NewPosReady {   get; set;  }
     SingleASV2 m_asObject;
     private bool m_focused;
+    private bool m_visible;
 
     public void SetFocus(bool value)
     {
@@ -21,17 +23,22 @@ public class ASAppearMonitor : MonoBehaviour
         }
     }
 
-    void OnBecameVisible()
+    IEnumerator OnBecameVisible()
     {
+        while(!NewPosReady || !Wanderingmap.InWanderingState)
+            yield return null;
+
+        m_visible = true;
         ASInfo data = ASProxy.instance.GetASByPosition(Location.x, Location.y);
         if(data != null && ASPool.Instance != null)
         {
             if(m_asObject == null)
                 m_asObject = ASPool.Instance.GetASSave();
+            if(m_asObject.transform.parent != transform)
+                m_asObject.transform.SetParent(transform);
             m_asObject.transform.name = name;
             m_asObject.WanderingASMap = Wanderingmap;
             m_asObject.AppearRoot = this;
-            m_asObject.transform.SetParent(transform);
             m_asObject.transform.localPosition = new Vector3(0, data.Height/2, 0);
             m_asObject.RefreshAS(data);
             if(m_focused != m_asObject.Focused)
@@ -47,7 +54,8 @@ public class ASAppearMonitor : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        if(m_asObject != null && !m_asObject.Focused)
+        m_visible = false;
+        if(m_asObject != null && !m_asObject.IsVisibleInCam)
             ReturnASObject();
     }
 
@@ -57,6 +65,21 @@ public class ASAppearMonitor : MonoBehaviour
         {
             OnASBecameInvisible(m_asObject);
             m_asObject = null;
+        }
+    }
+
+    public void OnLeaveWanderingMap()
+    {
+        NewPosReady = false;
+        ReturnASObject();
+    }
+
+    public void Reawake()
+    {
+        if(m_visible)
+        {
+            StopAllCoroutines();
+            StartCoroutine(OnBecameVisible()); 
         }
     }
 }

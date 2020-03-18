@@ -29,7 +29,7 @@ public class SingleASV2 : MonoBehaviour
     public WanderingASMapV2 WanderingASMap{    set {m_wanderMap = value;}  }
     //public Vector2Int Location{   get {return m_location;}    }
     public bool Focused {   get {return m_isFocused;}   }
-    //public bool IsVisibleInCam {    get {return m_isVisibleInCam;}  }
+    public bool IsVisibleInCam {    get {return m_isVisibleInCam;}  }
     public ASAppearMonitor AppearRoot {   get; set;   }
 
     private WanderingASMapV2 m_wanderMap;
@@ -56,13 +56,17 @@ public class SingleASV2 : MonoBehaviour
 
     void OnBecameVisible()
     {
-        m_isVisibleInCam = true;
+        if(m_wanderMap.InWanderingState) 
+            m_isVisibleInCam = true;
     }
 
     void OnBecameInvisible()
     {
-        m_isVisibleInCam = false;
-        TryToReturn();
+        if(m_wanderMap.InWanderingState) 
+        {
+            m_isVisibleInCam = false;
+            TryToReturn();
+        }
     }
 
     void TryToReturn()
@@ -98,8 +102,9 @@ public class SingleASV2 : MonoBehaviour
     }
     public void InitASLooking()
     {
-        float d;
-        if(CheckDistance(out d))
+        float distance = GetCameraDistance();
+        bool isnear = IsDistanceNear(5, distance);
+        if(isnear)
         {
             m_ASName.text = transform.name;
             m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 1, 0);
@@ -150,8 +155,7 @@ public class SingleASV2 : MonoBehaviour
     {
         if(m_UnfinishLooking)
         {
-            float d;
-            if(CheckDistance(out d))
+            if(IsDistanceNear(10))
             {
                 //Debug.Log("I will change look : "+name);
                 InitASLooking();
@@ -184,16 +188,31 @@ public class SingleASV2 : MonoBehaviour
     }
 
     // true : nearly enough
-    bool CheckDistance(out float distance)
+    // bool CheckDistance(out float distance)
+    // {
+    //     Vector2 b = new Vector2(transform.position.x, transform.position.z);
+    //     Vector2 a = new Vector2(m_wanderMap.m_targetCamera.transform.position.x,m_wanderMap.m_targetCamera.transform.position.z);
+    //     distance = Vector2.Distance(a,b);
+    //     if(distance < m_wanderMap.BaseCellWidth * 15)
+    //     {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    bool IsDistanceNear(int num, float distance = 0)
+    {
+        if(distance > 0)
+            return distance < m_wanderMap.BaseCellWidth * num;
+        else
+            return GetCameraDistance() < m_wanderMap.BaseCellWidth * num;
+    }
+
+    float GetCameraDistance()
     {
         Vector2 b = new Vector2(transform.position.x, transform.position.z);
-        Vector2 a = new Vector2(m_wanderMap.m_targetCamera.transform.position.x,m_wanderMap.m_targetCamera.transform.position.z);
-        distance = Vector2.Distance(a,b);
-        if(distance < m_wanderMap.BaseCellWidth * 15)
-        {
-            return true;
-        }
-        return false;
+        Vector2 a = new Vector2(m_wanderMap.m_targetCamera.transform.position.x, m_wanderMap.m_targetCamera.transform.position.z);
+        return Vector2.Distance(a, b);
     }
 
     float InitSegmentsSimple()
@@ -244,8 +263,8 @@ public class SingleASV2 : MonoBehaviour
     {
         if(m_ASData != null )
         {
-            float distance ;
-            bool isnear = CheckDistance(out distance);
+            float distance = GetCameraDistance();
+            bool isnear = IsDistanceNear(10, distance);
             if(isnear && m_ASData.ASSegment.Length > 1)
             {
                 GenerateMeshJob(m_ASData.ASSegment.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
