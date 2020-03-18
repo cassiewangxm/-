@@ -81,19 +81,15 @@ public class NetUtil : MonoBehaviour
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
             /////TEST 把返回的IP数据写入文件
-            string path = Application.dataPath + "/../IP.txt";
+            string path = Application.dataPath + string.Format("/../IP_{0}_{1}.txt", msg.IPx, msg.IPy) ;
             WriteToFile(uwr.downloadHandler.data, path);
             ////////////
 
-            try{
-                Debug.Log("Response : "+uwr.url);
-                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+            Debug.Log("Response : "+uwr.url);
+            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+
+            if(action != null)
                 action(array, info,  action2);
-            }
-            catch
-            {
-                Debug.LogError("Deserialize json error : _RequestIpMapInfo");
-            }
         }
 
         uwr.Dispose();
@@ -128,16 +124,11 @@ public class NetUtil : MonoBehaviour
         
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            try
-            {
-                Debug.Log("Response : "+uwr.url);
-                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+            Debug.Log("Response : "+uwr.url);
+            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+
+            if(action != null)
                 action(array);
-            }
-            catch
-            {
-                Debug.LogError(uwr.downloadHandler.text);
-            }
         }
         uwr.Dispose();
     }
@@ -174,34 +165,16 @@ public class NetUtil : MonoBehaviour
         
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
-            try
-            {
+            /////TEST 把返回的IP数据写入文件
+            string path = Application.dataPath + "/../AS.txt";
+            WriteToFile(uwr.downloadHandler.data, path);
+            ////////////
 
-                /////TEST 把返回的IP数据写入文件
-                string path = Application.dataPath + "/../AS.txt";
-                WriteToFile(uwr.downloadHandler.data, path);
-                ////////////
-
-                Debug.Log("Response : "+uwr.url);
-                Debug.Log(uwr.downloadHandler.text.Substring(0,100));
-                ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
-                
-                // /////
-                // StringBuilder sb2 = new StringBuilder();
-                // foreach(var a in asinfo)
-                // {
-                //     sb2.Append(string.Format("{},{}\n",a.X,a.Y));
-                // }
-                // string path2 = Application.dataPath + "/../ASPos.txt";
-                // WriteToFile(Convert.FromBase64String(sb.ToString()), path);
-                // /////
-
+            Debug.Log("Response : "+uwr.url);
+            ASInfo[] asinfo = JsonConvert.DeserializeObject<ASInfo[]>(uwr.downloadHandler.text);
+            
+            if(action != null)
                 action(asinfo, action2);
-            }
-            catch
-            {
-                Debug.LogError(uwr.downloadHandler.text);
-            }
         }
         uwr.Dispose();
 #endif
@@ -269,17 +242,10 @@ public class NetUtil : MonoBehaviour
             string path = Application.dataPath + "/../Segment.txt";
             WriteToFile(uwr.downloadHandler.data, path);
 
-            try
-            {
-                Debug.Log("Response : "+uwr.url);
-                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-                if(action != null)
-                    action(array, key, action2);
-            }
-            catch
-            {
-                Debug.LogError("Deserialize json error : _RequestASSegmentsInfo");
-            }
+            Debug.Log("Response : "+uwr.url);
+            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+            if(action != null)
+                action(array, key, action2);
         }
         uwr.Dispose();
     }
@@ -289,9 +255,9 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestAttackInfo(MessageRequestAttackInfo msg, Action<AttackData[], Action<AttackInfo[]>> action, Action<AttackInfo[]> action2)
+    public void RequestAttackInfo(MessageRequestAttackInfo msg, Action<AttackData[]> action)
     {
-        StartCoroutine(_RequestAttackInfo(msg.GetParamString(), action, action2));
+        StartCoroutine(_RequestAttackInfo(msg.GetParamString(), action));
     }
 
     /// <summary>
@@ -300,7 +266,7 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestAttackInfo(string urlParam, Action<AttackData[], Action<AttackInfo[]>> action, Action<AttackInfo[]> action2)
+    IEnumerator _RequestAttackInfo(string urlParam, Action<AttackData[]> action)
     {
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.AttackLoad]);
@@ -314,17 +280,10 @@ public class NetUtil : MonoBehaviour
             string path = Application.dataPath + "/../Attack.txt";
             WriteToFile(uwr.downloadHandler.data, path);
 
-            try
-            {
-                Debug.Log("Response : "+uwr.url);
-                AttackData[] array = JsonConvert.DeserializeObject<AttackData[]>(uwr.downloadHandler.text);
-                if(action != null)
-                    action(array, action2);
-            }
-            catch
-            {
-                Debug.LogError("Deserialize json error : _RequestAttackInfo");
-            }
+            Debug.Log("Response : "+uwr.url);
+            AttackData[] array = JsonConvert.DeserializeObject<AttackData[]>(uwr.downloadHandler.text);
+            if(action != null)
+                action(array);
         }
         uwr.Dispose();
     }

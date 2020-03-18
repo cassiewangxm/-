@@ -136,7 +136,7 @@ public class ASSegmentInfo
 
     public float GetRadius()
     {
-        return Mathf.Min((float)IPCount/256*2 + 2, 6);
+        return Mathf.Min((float)IPCount*3/(256*256) + 3, 6);
     }
 }
 

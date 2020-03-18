@@ -66,8 +66,8 @@ public class IpPortInfo
 public class AttackData
 {
     public string time; //攻击开始的时间戳
-    public string destip;
-    public int destAS;
+    public string desip;
+    public int desAS;
     public int attackTime;  //攻击持续的时间，单位 - 秒
     public AttackSrcData[] srcInfo; //攻击源信息
 }
