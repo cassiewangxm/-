@@ -145,8 +145,8 @@ public class ASSegmentInfo
 
 public class ASProxy : MonoBehaviour
 {
-    public Dictionary<Vector2,ASInfo> ASDict {  get {return m_ASDict;}  }
-    private Dictionary<Vector2,ASInfo> m_ASDict = new Dictionary<Vector2, ASInfo>();
+    public Dictionary<Vector2Int, ASInfo> ASDict {  get {return m_ASDict;}  }
+    private Dictionary<Vector2Int, ASInfo> m_ASDict = new Dictionary<Vector2Int, ASInfo>();
     //(x,y) : x AS号，y 层序号
     private Dictionary<Vector2Int,IpDetail[]> m_SegmentCache = new Dictionary<Vector2Int, IpDetail[]>();
     private Dictionary<string,IpDetail> m_segmentIPCache = new Dictionary<string, IpDetail>();
@@ -226,7 +226,7 @@ public class ASProxy : MonoBehaviour
     // TEST --------
     public ASInfo GetASByPosition(int x, int y, float height)
     {
-        Vector2 v = new Vector2(x,y);
+        Vector2Int v = new Vector2Int(x,y);
         if(m_ASDict.ContainsKey(v))
         {
             Debug.Log("Found AS : ");
@@ -244,7 +244,7 @@ public class ASProxy : MonoBehaviour
 
     public ASInfo GetASByPosition(int x, int y)
     {
-        Vector2 v = new Vector2(x,y);
+        Vector2Int v = new Vector2Int(x,y);
         if(m_ASDict.ContainsKey(v))
         {
             return m_ASDict[v];
@@ -268,12 +268,12 @@ public class ASProxy : MonoBehaviour
 
     public bool IsASExistInLocal(int x, int y)
     {
-        Debug.LogFormat("AS ({0},{1}) exist ? : {2}",x,y, m_ASDict.ContainsKey(new Vector2(x,y)));
-        return m_ASDict.ContainsKey(new Vector2(x,y));
+        Debug.LogFormat("AS ({0},{1}) exist ? : {2}",x,y, m_ASDict.ContainsKey(new Vector2Int(x,y)));
+        return m_ASDict.ContainsKey(new Vector2Int(x,y));
     }
 
     //获取 某坐标的AS柱体某一层的某个IP信息
-    public void GetASSegmentIPInfo(Vector2 asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
+    public void GetASSegmentIPInfo(Vector2Int asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
     {
         if(m_ASDict.ContainsKey(asPos))
         {

@@ -343,7 +343,7 @@ public class SingleAS : MonoBehaviour
             m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
 
             int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
-            ASProxy.instance.GetASSegmentIPInfo(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
+            ASProxy.instance.GetASSegmentIPInfo(new Vector2Int(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
         }
     }
 

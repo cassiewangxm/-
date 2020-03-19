@@ -242,9 +242,10 @@ public class SingleASV2 : MonoBehaviour
         {
             for(int i = 0; i < m_ASData.ASSegment.Length; i++)
             {
+                float offsety = i == 0 ? 0.01f : -0.01f;
                 ASSegmentItem seg =  SegmentPool.Instance.GetSegment();
                 seg.transform.SetParent(m_RegmentsRoot);
-                seg.transform.localPosition = new Vector3(0, i*2 - m_height/2, 0);
+                seg.transform.localPosition = new Vector3(0, i*2 - m_height/2 + offsety, 0.01f);
                 seg.SetSegment(m_ASData.ASSegment[i]);
                 seg.transform.name = m_SegmentList.Count.ToString();
                 seg.SetText(select);
@@ -413,7 +414,7 @@ public class SingleASV2 : MonoBehaviour
         if(segIndex < m_SegmentList.Count)
         {
             int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
-            ASProxy.instance.GetASSegmentIPInfo(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
+            ASProxy.instance.GetASSegmentIPInfo(new Vector2Int(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
         }
     }
 
