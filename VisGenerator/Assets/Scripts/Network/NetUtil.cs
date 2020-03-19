@@ -217,7 +217,7 @@ public class NetUtil : MonoBehaviour
     /// </summary>
     /// <param name="msg">msg中的变量不用全赋值，未赋值变量会自动使用默认值</param>
     /// <param name="action"></param>
-    public void RequestASSegmentsInfo(MessageRequestASSegments msg, Action<IpInfoType1[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
+    public void RequestASSegmentsInfo(MessageRequestASSegments msg, Action<IpInfoType1[],string, Action<IpDetail>> action, string key, Action<IpDetail> action2)
     {
         StartCoroutine(_RequestASSegmentsInfo(msg.GetParamString(), action, key, action2));
     }
@@ -228,7 +228,7 @@ public class NetUtil : MonoBehaviour
     /// <param name="urlParam"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType1[],Vector3Int, Action<IpDetail>> action, Vector3Int key, Action<IpDetail> action2)
+    IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType1[],string, Action<IpDetail>> action, string key, Action<IpDetail> action2)
     {
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapQuery]);

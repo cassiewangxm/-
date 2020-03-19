@@ -65,6 +65,11 @@ public class ASSegmentItem : MonoBehaviour
         m_SegmentIPMap.material.SetTexture("_BaseColorMap", SegmentPool.Instance.GetTexture(m_SegemntData, out m_texturePixelLineCount));
     }
 
+    public void SetGrayTexture()
+    {
+        m_SegmentIPMap.material.SetTexture("_BaseColorMap", SegmentPool.Instance.GetGrayTexture());
+    }
+
     public void SetCollider(bool open)
     {
         m_Collider.enabled = open;

@@ -54,8 +54,8 @@ public class IPMenuPanel : UIBasePanel
     
     private void ShowDetail()
     {
-        UIEventDispatcher.OpenIPDetailPanel(m_IP);
-        gameObject.SetActive(false);
+        //UIEventDispatcher.OpenIPDetailPanel(m_IP);
+        //gameObject.SetActive(false);
     }
 
     private void ShowTopology()

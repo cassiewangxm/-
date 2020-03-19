@@ -192,6 +192,8 @@ public class WanderingASMapV2 : MonoBehaviour
         Vector2Int v = new Vector2Int(x,y);
         if(v != m_curSelected )
         {
+            ASProxy.instance.ManageCacheSize();
+            
             m_array[m_curSelected.x][m_curSelected.y].SetFocus(false);
             m_array[x][y].SetFocus(true);
             

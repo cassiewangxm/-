@@ -35,19 +35,21 @@ public class SingleASV2 : MonoBehaviour
     private WanderingASMapV2 m_wanderMap;
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
     private ASInfo m_ASData; //AS柱数据
-    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 50.0f/255);
+    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 10.0f/255);
     private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
     private float m_height;
     private bool m_isFocused;
     private float m_focusTime;
     private float m_maxSegmentWidth;
     private bool m_isVisibleInCam;
-    private Vector3 m_oldCamPos;
-    private Vector2Int m_location;
+    //private Vector3 m_oldCamPos;
+    //private Vector2Int m_location;
     List<float> m_radiusList = new List<float>();
     List<float> m_heightList = new List<float>();
     private bool m_eventRegisted;
     private bool m_UnfinishLooking;
+    private int m_curSelectedSeg = -1;
+    private Vector2 m_lastMousePosition;
 
     void OnDestroy()
     {
@@ -56,17 +58,17 @@ public class SingleASV2 : MonoBehaviour
 
     void OnBecameVisible()
     {
-        if(m_wanderMap.InWanderingState) 
+        if(m_wanderMap != null && m_wanderMap.InWanderingState) 
             m_isVisibleInCam = true;
     }
 
     void OnBecameInvisible()
     {
-        if(m_wanderMap.InWanderingState) 
+        if(m_wanderMap != null && m_wanderMap.InWanderingState) 
         {
             m_isVisibleInCam = false;
             TryToReturn();
-        }
+        }     
     }
 
     void TryToReturn()
@@ -75,10 +77,10 @@ public class SingleASV2 : MonoBehaviour
             AppearRoot.ReturnASObject();
     }
 
-    public void InitLocation(int x, int y)
-    {
-        m_location = new Vector2Int(x, y);
-    }
+    // public void InitLocation(int x, int y)
+    // {
+    //     m_location = new Vector2Int(x, y);
+    // }
     public void InitASData(ASInfo asData)
     {
         m_TestSeletedSegment.SetActive(false);
@@ -87,7 +89,7 @@ public class SingleASV2 : MonoBehaviour
 
         m_ASData = asData;
 
-        m_location = new Vector2Int(asData.X, asData.Y);
+        //m_location = new Vector2Int(asData.X, asData.Y);
         
         if(m_ASData != null)
             m_height = m_ASData.Height;
@@ -122,8 +124,6 @@ public class SingleASV2 : MonoBehaviour
 
         //生成外围不规则mesh
         InitMesh();
-
-        m_oldCamPos = m_wanderMap.m_targetCamera.transform.position;
     }
 
     public void RefreshAS(ASInfo data)
@@ -174,6 +174,7 @@ public class SingleASV2 : MonoBehaviour
         StartCoroutine(InitSegments(value));
 
         m_boxCollider.enabled = !value;
+        m_curSelectedSeg = -1;
 
         m_TestSeletedSegment.SetActive(false);
 
@@ -364,28 +365,53 @@ public class SingleASV2 : MonoBehaviour
                 if(Physics.Raycast(ray,out hitInfo))
                 {
                     Vector3 v = hitInfo.point - hitInfo.transform.position;
-                    Debug.Log(v+ " , Hit : ----- " + hitInfo.transform.name);
+                    Debug.LogFormat("Hit seg : ----- {0} ,  Screen : {1}" , hitInfo.transform.name, Input.mousePosition);
                     
-                    OnClickIp(hitInfo.transform.name, new Vector2(v.x, v.z));
+                    string name = hitInfo.transform.name;
+                    if(string.IsNullOrEmpty(name))
+                        return;
+                    int segIndex = 0;
+                    if(!int.TryParse(name,out segIndex))
+                        return;
+                    
+                    if(segIndex >= 0 && segIndex < m_ASData.ASSegment.Length)
+                    {
+                        m_lastMousePosition = Input.mousePosition;
+                        if(segIndex != m_curSelectedSeg)
+                        {
+                            OnClickSegment(segIndex);
+                        }
+                        else
+                        {
+                            OnClickIp(segIndex, new Vector2(v.x, v.z));
+                        }
+                    }
                 }
             }
         }
     }
 
-    void OnClickIp(string segName, Vector2 pos)
+
+    void OnClickSegment(int index)
     {
-        if(string.IsNullOrEmpty(segName))
-            return;
+        m_curSelectedSeg = index;
 
-        int segIndex = 0;
-        if(!int.TryParse(segName,out segIndex))
-            return;
+        Vector3 targetPos = m_SegmentList[index].transform.position - m_wanderMap.m_targetCamera.transform.forward * m_SegmentList[index].transform.localScale.x; 
+        m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
 
+        for(int i = 0; i < m_SegmentList.Count; i++)
+        {
+            if(i != index)
+                m_SegmentList[i].SetGrayTexture();
+            else
+                m_SegmentList[i].SetIPMap(true);
+        }
+    }
+
+    void OnClickIp(int segIndex, Vector2 pos)
+    {
         if(segIndex < m_SegmentList.Count)
         {
-            Vector3 targetPos = m_SegmentList[segIndex].transform.position - m_wanderMap.m_targetCamera.transform.forward * 12; 
-            m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
-
             int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
             ASProxy.instance.GetASSegmentIPInfo(new Vector2(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
         }
@@ -394,7 +420,14 @@ public class SingleASV2 : MonoBehaviour
     void ShowIPDetail(IpDetail ipDetail)
     {
         if(ipDetail != null)
-            UIEventDispatcher.OpenIPDetailPanel(ipDetail.IP);
+        {
+            Debug.LogFormat("I called ShowIPDetail, but did it success ? ? ? ? {0}",ipDetail.IP);
+            UIEventDispatcher.OpenIPDetailPanel(ipDetail, m_lastMousePosition);
+        }    
+        else
+        {
+            Debug.LogFormat("Cannot call ShowIPDetail, got null IPDetail ");
+        }
     }
 
     // Mesh GenerateMesh(List<ASSegmentItem> list, int n)

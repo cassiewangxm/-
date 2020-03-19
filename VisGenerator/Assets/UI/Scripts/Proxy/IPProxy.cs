@@ -13,10 +13,10 @@ public class IpDetail
     public uint ASNum;
     public string IPParent;
     public string country;
-    public string name;
+    public string province;
+    public string city;
     public float lat;
     public float lng;
-    public bool isBanned;
     public int X;
     public int Y;
 
@@ -34,19 +34,34 @@ public class IpDetail
 
     public IpDetail(IpInfoType1 info)
     {
-        if(info.ip_prefix.Contains("/"))
+        if(string.IsNullOrEmpty(info.ip))
         {
-            IP = info.ip_prefix.Substring(0,info.ip_prefix.IndexOf('/'));
+            if(info.ip_prefix.Contains("/"))
+            {
+                IP = info.ip_prefix.Substring(0,info.ip_prefix.IndexOf('/'));
+            }
+            else
+            {
+                IP = info.ip_prefix;
+            }
         }
         else
         {
-            IP = info.ip_prefix;
+            IP = info.ip;
         }
         X = info.X;
         Y = info.Y;
         lat = info.latitude;
         lng = info.longitude;
         ASNum = (uint)info.ASN;
+        country = info.country_name;
+        province = info.provience;
+        city = info.city;
+    }
+
+    public string GetDesc()
+    {
+        return string.Format("AS : {0}\nCountry : {1}\nProvince : {2}\nCity : {3}\nCoordinate : {4}", ASNum, country, province, city, MapCoordinate);
     }
 
     public static readonly string DEFAULT_IP = "0.0.0.0";
