@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Controller;
 using UnityEngine.EventSystems;
+using System.IO;
 
 public class raycastas : MonoBehaviour
 {
@@ -72,12 +73,46 @@ public class raycastas : MonoBehaviour
         Size = Consts.ASSize;
 
         //NetUtil.Instance.RequestASSegmentsInfo(new MessageRequestASSegments(), null, Vector3Int.zero, null);
-                    
+
         //IPProxy.instance.GetIpInfoByFilter("Merlin",OnGetIPBlockBack);
 
         // #region LIPENGYUE
         //     InitTextsForNearlyAS();
         // #endregion
+
+        ASProxy.instance.GetASInfoOriginal(WriteASTexture);
+    }
+
+    void WriteASTexture()
+    {
+        Debug.Log("Generating AS Texture...");
+        Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
+
+        for (int i = 0; i < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+            {
+                ASInfo ASInfo = ASProxy.instance.GetASByNumber((int)xy2d(256, i, j));
+                if (ASInfo != null)
+                {
+                    int count = 0;
+                    for (int p = 0; p < ASInfo.ASSegment.Length; p++)
+                    {
+                        count += ((ASInfo.ASSegment[p].IPCount) >> 8);
+                    }
+                    int v = count / 256 / 256 / 256;
+                    texas.SetPixel(i, j, new Color(0.0f, 0.0f, v / 256.0f));
+                }
+                else
+                {
+                    texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
+                }
+            }
+        }
+
+        texas.Apply();
+        byte[] bytesas = texas.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + "/AS/Data/ASTexture.png", bytesas);
     }
 
     void OnGetIPBlockBack(IpDetail[] a)
@@ -220,25 +255,6 @@ public class raycastas : MonoBehaviour
                         UIEventDispatcher.HideIpMenuPanel();
                     }
                 }
-                if (false)
-                {
-                    for (int i = 0; i < pairs.Length / 4; i++)
-                    {
-                        Vector2 hitPointT1 = new Vector2(pairs[i * 2], pairs[i * 2 + 1]);
-                        float height1 = Heights.GetPixel((int)(hitPointT1.x), (int)(hitPointT1.y)).r * 256.00f;
-                        Vector3 hitPoint1 = new Vector3();
-                        hitPoint1.x = (int)(hitPointT1.x) * 1.00f / 256 * Size.x;
-                        hitPoint1.z = (int)(hitPointT1.y) * 1.00f / 256 * Size.y;
-                        hitPoint1.y = height1 * HScale / 256.00f;
-
-                        Vector2 hitPointT2 = new Vector2(pairs[i * 2 + 2], pairs[i * 2 + 3]);
-                        float height2 = Heights.GetPixel((int)(hitPointT2.x), (int)(hitPointT2.y)).r * 256.00f;
-                        Vector3 hitPoint2 = new Vector3();
-                        hitPoint2.x = (int)(hitPointT2.x) * 1.00f / 256 * Size.x;
-                        hitPoint2.z = (int)(hitPointT2.y) * 1.00f / 256 * Size.y;
-                        hitPoint2.y = height2 * HScale / 256.00f;
-                    }
-                }
             }
             
 
@@ -286,7 +302,39 @@ public class raycastas : MonoBehaviour
         }
     }
 
-#region LIPENGYUE
+    long xy2d(int n, int x, int y)
+    {
+        long d = 0;
+        int s = n / 2;
+        int rx = 0;
+        int ry = 0;
+        while (s > 0)
+        {
+            rx = (x & s) > 0 ? 1 : 0;
+            ry = (y & s) > 0 ? 1 : 0;
+            d += s * s * ((3 * rx) ^ ry);
+            rot(s, ref x, ref y, rx, ry);
+            s /= 2;
+        }
+        return d;
+    }
+
+    void rot(int n, ref int x, ref int y, int rx, int ry)
+    {
+        if (ry == 0)
+        {
+            if (rx == 1)
+            {
+                x = n - 1 - x;
+                y = n - 1 - y;
+            }
+            int t = x;
+            x = y;
+            y = t;
+        }
+    }
+
+    #region LIPENGYUE
     // void ShowWanderingMap(int x, int y, float height)
     // {
     //     wanderingASMap.IntoWanderingMap(x,y);
