@@ -67,4 +67,9 @@ public static class EventManager
     {
         eventMap.Clear();
     }
+
+    internal static void RegistEvent(EventDefine onRecieveSearchResult, Action showFilterResult)
+    {
+        throw new NotImplementedException();
+    }
 }
