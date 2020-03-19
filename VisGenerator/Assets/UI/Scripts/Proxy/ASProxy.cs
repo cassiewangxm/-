@@ -106,7 +106,7 @@ public class ASSegmentInfo
     public Color GetIPColor(int index)
     {
         if(!IPColorDict.ContainsKey(index))
-            IPColorDict.Add(index, UnityEngine.Random.ColorHSV(0,1,0,1,0,1,0.5f,1));
+            IPColorDict.Add(index, UnityEngine.Random.ColorHSV(0,1,0,1,0,1,1,1));
         
         return IPColorDict[index];//UnityEngine.Random.ColorHSV(0,1,0,1,0,1,0.5f,1);
         //return Color.black;
@@ -145,6 +145,7 @@ public class ASSegmentInfo
 
 public class ASProxy : MonoBehaviour
 {
+    public Dictionary<Vector2,ASInfo> ASDict {  get {return m_ASDict;}  }
     private Dictionary<Vector2,ASInfo> m_ASDict = new Dictionary<Vector2, ASInfo>();
     //(x,y) : x AS号，y 层序号
     private Dictionary<Vector2Int,IpDetail[]> m_SegmentCache = new Dictionary<Vector2Int, IpDetail[]>();
