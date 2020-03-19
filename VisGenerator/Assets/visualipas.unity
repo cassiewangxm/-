@@ -1521,7 +1521,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 7e139d2a6dda442dea34a8a30a0d0dec, type: 3}
+      - m_Value: {fileID: 2800000, guid: 24670a3d26ac64d5b9263c84bbdd2de3, type: 3}
         m_Name: asheight
         m_Overridden: 1
       - m_Value: {fileID: 2800000, guid: 701cc69d9f4f94e21a6deea144805266, type: 3}

@@ -80,7 +80,7 @@ public class raycastas : MonoBehaviour
         //     InitTextsForNearlyAS();
         // #endregion
 
-        Dictionary<Vector2, ASInfo> ASDict = ASProxy.instance.ASDict;
+        Dictionary<Vector2Int, ASInfo> ASDict = ASProxy.instance.ASDict;
 
         Debug.Log("Generating AS Texture...");
         Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
@@ -89,21 +89,7 @@ public class raycastas : MonoBehaviour
         {
             for (int j = 0; j < 256; j++)
             {
-                ASInfo ASInfo = ASProxy.instance.GetASByNumber((int)xy2d(256, i, j));
-                if (ASInfo != null)
-                {
-                    int count = 0;
-                    for (int p = 0; p < ASInfo.ASSegment.Length; p++)
-                    {
-                        count += ((ASInfo.ASSegment[p].IPCount) >> 8);
-                    }
-                    int v = count / 256 / 256 / 256;
-                    texas.SetPixel(i, j, new Color(0.0f, 0.0f, v / 256.0f));
-                }
-                else
-                {
-                    texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
-                }
+                texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
             }
         }
 
@@ -114,13 +100,9 @@ public class raycastas : MonoBehaviour
             int y = entry.Key.y;
             if (ASInfo != null)
             {
-                int count = 0;
-                for (int p = 0; p < ASInfo.ASSegment.Length; p++)
-                {
-                    count += ((ASInfo.ASSegment[p].IPCount) >> 8);
-                }
-                int v = count / 256 / 256 / 256;
-                texas.SetPixel(x, y, new Color(0.0f, 0.0f, v / 256.0f));
+                int count = ASInfo.ASSegment.Length;
+                float v = Mathf.Sqrt(Mathf.Sqrt(count)) * 70.0f / 256.0f;
+                texas.SetPixel(x, y, new Color(0.0f, 0.0f, v));
             }
         }
 
