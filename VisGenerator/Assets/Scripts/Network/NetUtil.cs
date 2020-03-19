@@ -71,6 +71,7 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestIpMapInfo(MessageRequestIpMap msg, IPLayerInfo info, Action<IpInfoType1[],IPLayerInfo, Action<IpDetail[],IPLayerInfo>> action, Action<IpDetail[],IPLayerInfo> action2)
     {
+    #if USE_NET
         StringBuilder sb = new StringBuilder(m_baseAdressIP);
         sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
         sb.Append(msg.GetParamString());
@@ -93,6 +94,25 @@ public class NetUtil : MonoBehaviour
         }
 
         uwr.Dispose();
+    #else
+        FakeIPMapResponse("/IP_0_0.txt", info, action, action2);
+        yield return new WaitForEndOfFrame();
+    #endif
+    }
+
+    void FakeIPMapResponse(string filepath, IPLayerInfo info, Action<IpInfoType1[],IPLayerInfo, Action<IpDetail[],IPLayerInfo>> action, Action<IpDetail[],IPLayerInfo> action2)
+    {
+        string path = Application.dataPath + filepath;
+        Debug.Log(path);
+
+        StreamReader sr = new StreamReader(path);
+        string rdata = sr.ReadToEnd();
+        IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(rdata);
+        sr.Close();
+        sr.Dispose();
+
+        if(action != null)
+            action(array, info,  action2);
     }
 
     /// <summary>
@@ -102,7 +122,6 @@ public class NetUtil : MonoBehaviour
     /// <param name="action"></param>
     //public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[], Action<IpDetail[]>> action, Action<IpDetail[]> action2)
     public void RequestIpMapFilterInfo(MessageRequestIpMapFilter msg, Action<IpInfoType1[]> action)
-    
     {
         StartCoroutine(_RequestIpMapFilterInfo(msg.GetParamString(), action));
     }
@@ -151,10 +170,7 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestASMapInfo(string urlParam, Action<ASInfo[],Action> action, Action action2)
     {
-#if NET_DEBUG
-        FakeASResponse("/Scripts/Network/AS.json", action);
-        yield return new WaitForEndOfFrame();
-#else
+#if USE_NET
         
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapLoad]);
@@ -177,39 +193,33 @@ public class NetUtil : MonoBehaviour
                 action(asinfo, action2);
         }
         uwr.Dispose();
+#else
+        FakeASResponse("/AS.json", action, action2);
+        yield return new WaitForEndOfFrame();
 #endif
     }
 
-    void FakeASResponse(string filepath, Action<ASMapResponse> action)
+    void FakeASResponse(string filepath, Action<ASInfo[],Action> action, Action action2)
     {
         string path = Application.dataPath + filepath;//Path.Combine(Application.dataPath, data);
         Debug.Log(path);
 
-        ASMapResponse response = new ASMapResponse();
-        response.Status = 0;
-
-        StreamReader sr = new StreamReader(path);
-
-        int count = (int)Mathf.Pow(2, 16);
-        int i = 0;
         List<ASInfo> list = new List<ASInfo>();
+        StreamReader sr = new StreamReader(path);
         string rdata = sr.ReadLine();
-        while(!string.IsNullOrEmpty(rdata) && i < count)
+        while(!string.IsNullOrEmpty(rdata))
         {
             ASInfo asinfo = JsonConvert.DeserializeObject<ASInfo>(rdata);
             asinfo.Transfer();
             list.Add(asinfo);
             
             rdata = sr.ReadLine();
-            i++;
         }
-
-        response.Result = list.ToArray();
-
         sr.Close();
         sr.Dispose();
 
-        action(response);
+        if(action != null)
+            action(list.ToArray(), action2);
     }
 
     /// <summary>
@@ -268,6 +278,7 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestAttackInfo(string urlParam, Action<AttackData[]> action)
     {
+    #if USE_NET
         StringBuilder sb = new StringBuilder(m_baseAdressAS);
         sb.Append(m_meessageKeywords[NetMessageType.AttackLoad]);
         sb.Append(urlParam);
@@ -286,6 +297,27 @@ public class NetUtil : MonoBehaviour
                 action(array);
         }
         uwr.Dispose();
+    #else
+        FakeAttackResponse("/Attack.txt", action);
+        yield return new WaitForEndOfFrame();
+    #endif
+    }
+
+    void FakeAttackResponse(string filepath, Action<AttackData[]> action)
+    {
+        string path = Application.dataPath + filepath;//Path.Combine(Application.dataPath, data);
+        Debug.Log(path);
+
+        StreamReader sr = new StreamReader(path);
+        string rdata = sr.ReadToEnd();
+        AttackData[] array = JsonConvert.DeserializeObject<AttackData[]>(rdata);
+        sr.Close();
+        sr.Dispose();
+
+        if(action != null)
+            action(array);
+            
+        Debug.Log("Attack Data Loading Finish ~ ~ ~ ~ ~ ~ ~ ");
     }
 
     // TEST 测试专用
