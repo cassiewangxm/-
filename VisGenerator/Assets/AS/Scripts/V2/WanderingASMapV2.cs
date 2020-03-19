@@ -49,14 +49,14 @@ public class WanderingASMapV2 : MonoBehaviour
     }
     void OnViewChange()
     {
-        switch (SceneMananger.Instance.CurrentSceneView)
-        {
-            case SceneView.MapView:
-            case SceneView.IPView:
-                InWanderingState = false;
-                //m_targetCamera.farClipPlane = 1000;
-                break;
-        }
+        // switch (SceneMananger.Instance.CurrentSceneView)
+        // {
+        //     case SceneView.MapView:
+        //     case SceneView.IPView:
+        //         break;
+        //     case SceneView.ASView:
+        //         break;
+        // }
     }
     void OnRecieveSearchResult()
     {
@@ -280,7 +280,7 @@ public class WanderingASMapV2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(InWanderingState && ASProxy.instance.OriginalDataReady)
+        if(InWanderingState && SceneMananger.Instance.CurrentSceneView == SceneView.ASView && ASProxy.instance.OriginalDataReady)
         {
             if(m_targetCamera.transform.position.y > 150)//ASProxy.instance.HeightMax)
             {

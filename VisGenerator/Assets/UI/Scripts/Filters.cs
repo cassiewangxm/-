@@ -149,7 +149,7 @@ public class Filters : MonoBehaviour
 
         IPProxy.instance.RegistAttackDataCallback((UnityEngine.Events.UnityAction) EnableAttacks);
 
-        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, ShowFilterResult);
+        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)ShowFilterResult);
     }
 
     // Update is called once per frame
