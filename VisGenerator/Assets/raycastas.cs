@@ -80,11 +80,8 @@ public class raycastas : MonoBehaviour
         //     InitTextsForNearlyAS();
         // #endregion
 
-        ASProxy.instance.GetASInfoOriginal(WriteASTexture);
-    }
+        Dictionary<Vector2, ASInfo> ASDict = ASProxy.instance.ASDict;
 
-    void WriteASTexture()
-    {
         Debug.Log("Generating AS Texture...");
         Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
 
@@ -107,6 +104,23 @@ public class raycastas : MonoBehaviour
                 {
                     texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
                 }
+            }
+        }
+
+        foreach (KeyValuePair<Vector2Int, ASInfo> entry in ASDict)
+        {
+            ASInfo ASInfo = entry.Value;
+            int x = entry.Key.x;
+            int y = entry.Key.y;
+            if (ASInfo != null)
+            {
+                int count = 0;
+                for (int p = 0; p < ASInfo.ASSegment.Length; p++)
+                {
+                    count += ((ASInfo.ASSegment[p].IPCount) >> 8);
+                }
+                int v = count / 256 / 256 / 256;
+                texas.SetPixel(x, y, new Color(0.0f, 0.0f, v / 256.0f));
             }
         }
 
