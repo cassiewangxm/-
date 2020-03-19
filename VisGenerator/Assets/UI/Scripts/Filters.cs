@@ -97,6 +97,8 @@ public class Filters : MonoBehaviour
     public GameObject ASGameObject;
     public ViewIP IPGameObject;
 
+    IpDetail[] FilterResults;
+
     RegionData ReadJsonFile(string filePath)
     {
         string path = Path.Combine(Application.dataPath, filePath);
@@ -146,6 +148,8 @@ public class Filters : MonoBehaviour
         SearchBox.onEndEdit.AddListener(OnSearchBoxSubmit);
 
         IPProxy.instance.RegistAttackDataCallback((UnityEngine.Events.UnityAction) EnableAttacks);
+
+        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, ShowFilterResult);
     }
 
     // Update is called once per frame
@@ -221,7 +225,7 @@ public class Filters : MonoBehaviour
         ASGameObject.GetComponent<VisualEffect>().SetTexture("ashl", texas);
     }
 
-    void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0)
+    void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0, bool isSearchedAS = false)
     {
         Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
         //string region = dropdownRegion.options[dropdownRegion.value].text;
@@ -278,6 +282,17 @@ public class Filters : MonoBehaviour
             isHighlight = true;
         }
         ModifyASHighlight(isHighlight);
+        if (isSearchedAS)
+        {
+            for (int i = 0; i < FilterResults.Length; i++)
+            {
+                int xx = 0;
+                int yy = 0;
+                d2xy(256, FilterResults[i].ASNum, out xx, out yy);
+                asFilterFlag[xx * 256 + yy] = true;
+            }
+            ModifyASHighlight(true);
+        }
     }
 
     public void FilterBySearch()
@@ -406,6 +421,40 @@ public class Filters : MonoBehaviour
         }
     }
 
+    private Vector3 IP2Pos(IpDetail Item)
+    {
+        int length = 1 << 16;
+        uint ip = Item.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+        int xs = 0;
+        int ys = 0;
+        d2xy(length, ip, out xs, out ys);
+        return new Vector3(xs * 1.0f / length * IPWidth, 0, ys * 1.0f / length * IPHeight);
+    }
+
+    private Vector3 LatLng2Pos(IpDetail Item)
+    {
+        return new Vector3(Item.lng / 180.0f * MapWidth, 0, Item.lat / 90.0f * MapHeight);
+    }
+
+    private void ShowFilterResult()
+    {
+        FilterResults = IPProxy.instance.GetSearchResult();
+
+        // AS
+        MultipleFilters(false, 0, 0, true);
+
+        for (int i = 0; i < FilterResults.Length; i ++)
+        {
+            IpDetail Item = FilterResults[i];
+
+            // IP
+            Vector3 IPPos = IP2Pos(Item);
+
+            // Map
+            Vector3 MapPos = LatLng2Pos(Item);
+        }
+    }
+
     private void AddCurveLine(CurveLine CurveLineData, string tag, int layer)
     {
         GameObject CurveLine = Instantiate(CurveLinePrefab, Vector3.zero, Quaternion.identity);
@@ -478,8 +527,6 @@ public class Filters : MonoBehaviour
     public void ShowAttacks()
     {
         int asNumberA, asNumberB;
-        float latA, latB;
-        float lngA, lngB;
 
         for (int i = 0; i < /*AttackInfos.Count*/30; i ++)
         {
@@ -489,12 +536,8 @@ public class Filters : MonoBehaviour
                 IpDetail itemB = AttackInfos[i].destIpInfo;
                 {
                     asNumberA = (int)item.ASNum;
-                    latA = item.lat;
-                    lngA = item.lng;
                     {
                         asNumberB = (int)itemB.ASNum;
-                        latB = itemB.lat;
-                        lngB = itemB.lng;
 
                         // Show in AS View
                         int asX = 0;
@@ -510,25 +553,10 @@ public class Filters : MonoBehaviour
                         //ASNavCurveLines.Add(new CurveLine(posA, posB));
 
                         // Show in Map View
-                        posA = new Vector3(lngA / 180.0f * MapWidth, 0, latA / 90.0f * MapHeight);
-                        posB = new Vector3(lngB / 180.0f * MapWidth, 0, latB / 90.0f * MapHeight);
-                        MapCurveLines.Add(new CurveLine(posA, posB));
+                        MapCurveLines.Add(new CurveLine(LatLng2Pos(item), LatLng2Pos(itemB)));
 
                         // Show in IP View
-                        int length = 1 << 16;
-                        uint ips = item.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
-                        ips = ips;
-                        int xs = 0;
-                        int ys = 0;
-                        d2xy(length, ips, out xs, out ys);
-                        uint ipe = itemB.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
-                        ipe = ipe;
-                        int xe = 0;
-                        int ye = 0;
-                        d2xy(length, ipe, out xe, out ye);
-                        posA = new Vector3(xs * 1.0f / length * IPWidth, 0, ys * 1.0f / length * IPHeight);
-                        posB = new Vector3(xe * 1.0f / length * IPWidth, 0, ye * 1.0f / length * IPHeight);
-                        IPCurveLines.Add(new CurveLine(posA, posB));
+                        IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB)));
                     }
                 }
             }
