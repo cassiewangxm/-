@@ -24,7 +24,8 @@ public class WanderingASMapV2 : MonoBehaviour
     }
 
     private UnityEvent OnCameraMovedEnough = new UnityEvent();
-    private float m_baseWith = 15;//640.0f / 256 * 6;
+    private UnityEvent OnLeavedWandering = new UnityEvent();
+    private float m_baseWith = 12;
     private int m_mapWidth = 256;
     private Vector2Int m_curSelected;
     private const int m_lineCount = 64;
@@ -34,16 +35,17 @@ public class WanderingASMapV2 : MonoBehaviour
     private bool m_initFinished = false;
     private Vector2Int m_curSelectedASLocation;
     private ASAppearMonitor[][] m_array;
+    private Coroutine m_initMapCorotine;
 
     void Awake()
     {
+        EventManager.RegistEvent(EventDefine.OnSceneViewChange, (Action)OnViewChange);
         EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)OnRecieveSearchResult);
         SegmentPool.Instance.Prepare();
         ASPool.Instance.Prepare();
         m_oldCamPos = m_targetCamera.transform.position;
         ASProxy.instance.GetASInfoOriginal(null);
         StartCoroutine(CreateASCubes());
-        //StartCoroutine(Generate());
     }
     void OnViewChange()
     {
@@ -52,7 +54,7 @@ public class WanderingASMapV2 : MonoBehaviour
             case SceneView.MapView:
             case SceneView.IPView:
                 InWanderingState = false;
-                m_targetCamera.farClipPlane = 1000;
+                //m_targetCamera.farClipPlane = 1000;
                 break;
         }
     }
@@ -65,7 +67,8 @@ public class WanderingASMapV2 : MonoBehaviour
     void OnDestroy()
     {
         StopAllCoroutines();
-        Debug.Log(" StopAllCoroutines .......");
+        OnLeavedWandering.RemoveAllListeners();
+        Debug.Log(" OnDestroy WanderingMapV2 .......");
     }
     public void IntoWanderingMap(int x, int y)
     {
@@ -98,9 +101,12 @@ public class WanderingASMapV2 : MonoBehaviour
 
     void OnRecieveASMapInfo()
     {
-        m_targetCamera.farClipPlane = ASProxy.instance.HeightMax;
+        //m_targetCamera.farClipPlane = ASProxy.instance.HeightMax;
 
-        StartCoroutine(InitMap(m_curSelectedASLocation.x, m_curSelectedASLocation.y));
+        if(m_initMapCorotine != null)
+            StopCoroutine(m_initMapCorotine);
+
+        m_initMapCorotine = StartCoroutine(InitMap(m_curSelectedASLocation.x, m_curSelectedASLocation.y));
 
         SetFocusAS(m_lineCount/2, m_lineCount/2);
     }
@@ -132,6 +138,8 @@ public class WanderingASMapV2 : MonoBehaviour
                     transferVect = centerPos - m_array[cx][cy].transform.position;
                     m_array[cx][cy].Location = new Vector2Int(x, y);
                     m_array[cx][cy].transform.position = centerPos;
+                    m_array[cx][cy].NewPosReady = true;
+                    m_array[cx][cy].Reawake();
                     count++;
                 }
                 else
@@ -153,6 +161,8 @@ public class WanderingASMapV2 : MonoBehaviour
                         {
                             m_array[px][py].Location = new Vector2Int(px + offset.x, py + offset.y);
                             m_array[px][py].transform.Translate(transferVect.x, transferVect.y, transferVect.z);
+                            m_array[px][py].NewPosReady = true;
+                            m_array[px][py].Reawake();
                             count++;
                         }
                         if(i == -n || i == n)
@@ -182,6 +192,8 @@ public class WanderingASMapV2 : MonoBehaviour
         Vector2Int v = new Vector2Int(x,y);
         if(v != m_curSelected )
         {
+            ASProxy.instance.ManageCacheSize();
+            
             m_array[m_curSelected.x][m_curSelected.y].SetFocus(false);
             m_array[x][y].SetFocus(true);
             
@@ -212,6 +224,8 @@ public class WanderingASMapV2 : MonoBehaviour
                 m_array[i][j].Wanderingmap = this;
                 m_array[i][j].gameObject.AddComponent<MeshRenderer>();
                 m_array[i][j].transform.position = new Vector3((i - m_lineCount/2)*m_baseWith, 0, (j - m_lineCount/2)*m_baseWith);
+
+                RigistLeaveWandering((UnityEngine.Events.UnityAction)m_array[i][j].OnLeaveWanderingMap);
             }
 
             yield return 0;
@@ -230,10 +244,20 @@ public class WanderingASMapV2 : MonoBehaviour
         OnCameraMovedEnough.RemoveListener(act);
     }
 
+    public void RigistLeaveWandering(UnityAction act)
+    {
+        OnLeavedWandering.AddListener(act);
+    }
+
+    public void UnregistLeaveWandering(UnityAction act)
+    {
+        OnLeavedWandering.RemoveListener(act);
+    }
+
     void OnASBecameInvisible(SingleASV2 a)
     {
         if(ASPool.Instance != null)
-        ASPool.Instance.ReturnBackAS(a);
+            ASPool.Instance.ReturnBackAS(a);
     }
 
     void LeaveWanderingToAS()
@@ -247,6 +271,10 @@ public class WanderingASMapV2 : MonoBehaviour
         //退回鸟瞰view
         InWanderingState = false;
         m_camController.ViewAS();
+
+        //
+        StopCoroutine(m_initMapCorotine);
+        OnLeavedWandering.Invoke();
     }
     
     // Update is called once per frame

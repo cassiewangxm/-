@@ -18,7 +18,7 @@ public class UIEventDispatcher
 {
     public static Action<string, Vector2> showIPMenuPanel;
     public static Action hideIPMenuPanel;
-    public static Action<string> showIPDetail;
+    public static Action<IpDetail, Vector2> showIPDetail;
     public static Action<string> showIPTopology;
     public static Action<string> attackTarget;
     public static Action<string> banTarget;
@@ -35,10 +35,10 @@ public class UIEventDispatcher
             hideIPMenuPanel();
     }
 
-    public static void OpenIPDetailPanel(string ip)
+    public static void OpenIPDetailPanel(IpDetail info, Vector2 screenPos)
     {
         if (showIPDetail != null)
-            showIPDetail(ip);
+            showIPDetail(info, screenPos);
     }
 
     public static void OpenIPTopologyPanel(string ip)

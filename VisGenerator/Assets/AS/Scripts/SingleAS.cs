@@ -349,7 +349,7 @@ public class SingleAS : MonoBehaviour
 
     void ShowIPDetail(IpDetail ipDetail)
     {
-        UIEventDispatcher.OpenIPDetailPanel(ipDetail.IP);
+        //UIEventDispatcher.OpenIPDetailPanel(ipDetail);
     }
 
     // Mesh GenerateMesh(List<ASSegmentItem> list, int n)

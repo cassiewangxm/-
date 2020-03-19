@@ -128,6 +128,23 @@ public class SegmentPool : MonoBehaviour
         return tex;
     }
 
+    public Texture2D GetGrayTexture()
+    {
+        Color gray = Color.gray;
+        gray.a = 0.5f;
+        Texture2D tex = GetTextureFormStask();
+        for(int i = 0; i < m_textureW; i++)
+        {  
+            for(int j = 0; j < m_textureW; j++)
+            {
+                tex.SetPixel(i, j, Color.gray);
+            }
+        }
+        tex.Apply();
+
+        return tex;
+    }
+
     Texture2D GetTextureFormStask()
     {
         Texture2D tex;

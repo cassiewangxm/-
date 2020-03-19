@@ -36,12 +36,13 @@ public class UIController : MonoBehaviour
             m_IPMenu.gameObject.SetActive(false);
     }
 
-    public void ShowIPDetail(string _IP)
+    public void ShowIPDetail(IpDetail info, Vector2 screenPos)
     {
         if (m_IPDetailPanel != null)
         {
             m_IPDetailPanel.gameObject.SetActive(true);
-            m_IPDetailPanel.SetUIData(_IP);
+            m_IPDetailPanel.SetUIData(info);
+            m_IPDetailPanel.UpdatePos(screenPos);
         }
     }
 

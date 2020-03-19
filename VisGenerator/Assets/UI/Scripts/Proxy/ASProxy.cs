@@ -123,7 +123,10 @@ public class ASSegmentInfo
             {
                 int head = int.Parse(heads[i]);
                 int tail = int.Parse(tails[i]);
-                ips[i] = head + index/(int)Mathf.Pow(255, 3-i);
+                if(i == heads.Length - 1)
+                    ips[i] = head + index%256;
+                else
+                    ips[i] = head + index/(int)Mathf.Pow(256, 3-i);
             }
             else
             {
@@ -145,6 +148,7 @@ public class ASProxy : MonoBehaviour
     private Dictionary<Vector2,ASInfo> m_ASDict = new Dictionary<Vector2, ASInfo>();
     //(x,y) : x AS号，y 层序号
     private Dictionary<Vector2Int,IpDetail[]> m_SegmentCache = new Dictionary<Vector2Int, IpDetail[]>();
+    private Dictionary<string,IpDetail> m_segmentIPCache = new Dictionary<string, IpDetail>();
 
     private static ASProxy s_instance;
     public static ASProxy instance
@@ -273,36 +277,29 @@ public class ASProxy : MonoBehaviour
         if(m_ASDict.ContainsKey(asPos))
         {
             ASInfo asinfo = m_ASDict[asPos];
-            Vector2Int p = new Vector2Int(asinfo.ASN, segmentIndex);
-            if(m_SegmentCache.ContainsKey(p))
+            if(segmentIndex < asinfo.ASSegment.Length)
             {
-                if(ipIndex < m_SegmentCache[p].Length)
+                ASSegmentInfo segInfo = asinfo.ASSegment[segmentIndex];
+                string ip = segInfo.GetIpStringByIndex(ipIndex);
+                if(m_segmentIPCache.ContainsKey(ip))
                 {
-                    action(m_SegmentCache[p][ipIndex]);
-                }
-                else
-                {
-                    Debug.LogErrorFormat("IpIndex overflow : {0},{1},{2}" ,p.x, p.y, ipIndex);
-                }
-            }
-            else
-            {
-                if(segmentIndex < asinfo.ASSegment.Length)
-                {
-                    ASSegmentInfo segInfo = asinfo.ASSegment[segmentIndex];
-                    MessageRequestASSegments msg = new MessageRequestASSegments();
-                    msg.ASN = asinfo.ASN;
-                    msg.HeadIp = segInfo.GetIpStringByIndex(ipIndex);//segInfo.HeadIP;
-                    msg.TailIp = msg.HeadIp;
-                    msg.type = "IPinfotype4";
-
-                    NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, new Vector3Int(asinfo.ASN, segmentIndex, ipIndex), action);
+                    action(m_segmentIPCache[ip]);
                     return;
                 }
                 else
                 {
-                    Debug.LogError("segmentIndex overflow : " + segmentIndex);
+                    MessageRequestASSegments msg = new MessageRequestASSegments();
+                    msg.ASN = asinfo.ASN;
+                    msg.HeadIp = segInfo.GetIpStringByIndex(ipIndex);
+                    msg.TailIp = msg.HeadIp;
+                    msg.type = "IPinfotype4";
+                    NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, ip, action);
+                    return;
                 }
+            }
+            else
+            {
+                Debug.LogError("segmentIndex overflow : " + segmentIndex);
             }
         }
         else
@@ -314,37 +311,24 @@ public class ASProxy : MonoBehaviour
     }
 
 
-    void OnRecieveSegmentInfo(IpInfoType1[] array, Vector3Int key, Action<IpDetail> action)
+    void OnRecieveSegmentInfo(IpInfoType1[] array, string key, Action<IpDetail> action)
     {
-        ManageCacheSize();
-        
-        IpDetail[] ips = new IpDetail[array.Length];
         for(int i = 0; i < array.Length; i++)
         {
-            ips[i] = new IpDetail(array[i]);
-        }
-
-        Vector2Int vi = new Vector2Int(key.x, key.y);
-        if(!m_SegmentCache.ContainsKey(vi))
-        {
-            m_SegmentCache.Add(vi, ips);
-            Debug.LogFormat("Get {0},{1} : {2}", key.x, key.y, ips.Length);
+            m_segmentIPCache.Add(array[i].ip, new IpDetail(array[i]));
         }
 
         if(action == null)
             return;
 
-        if(key.z < ips.Length)
-            action(ips[key.z]);
+        if(m_segmentIPCache.ContainsKey(key))
+            action(m_segmentIPCache[key]);
         else
             action(null);
     }
 
-    void ManageCacheSize()
+    public void ManageCacheSize()
     {
-        if(m_SegmentCache.Count > 20)
-        {
-            m_SegmentCache.Clear();
-        }
+        m_SegmentCache.Clear();
     }
 }
