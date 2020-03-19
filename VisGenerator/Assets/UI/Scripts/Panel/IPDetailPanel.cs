@@ -48,9 +48,9 @@ public class IPDetailPanel : UIBasePanel
         Vector2 offset = screenPos - new Vector2(Screen.width/2, Screen.height/2);
 
         if(offset.x > 0)
-            offset.x += rect.sizeDelta.x/2;
-        else
             offset.x -= rect.sizeDelta.x/2;
+        else
+            offset.x += rect.sizeDelta.x/2;
         
         //越界检测
         if(offset.x - rect.sizeDelta.x/2 < - Screen.width/2)

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 450886522411333083}
   - component: {fileID: 450886522411333084}
   - component: {fileID: 450886522411333086}
+  - component: {fileID: 674863338}
   m_Layer: 13
-  m_Name: Text (TMP)
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,6 +205,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_maskType: 0
+--- !u!65 &674863338
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450886522411333087}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 5, z: 0.5}
+  m_Center: {x: 10, y: 0, z: 0}
 --- !u!1 &450886523161471174
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class ASSegmentItem : MonoBehaviour
     {
         m_SegemntData = data;
 
-        float scale = m_SegemntData.GetRadius();
+        float scale = m_SegemntData.GetRadius() - 0.02f;
         transform.localScale = new Vector3(scale,scale,1);
 
         m_SegmentName.text = "";

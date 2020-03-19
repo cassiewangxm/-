@@ -55,7 +55,7 @@ public class ASAppearMonitor : MonoBehaviour
     void OnBecameInvisible()
     {
         m_visible = false;
-        if(m_asObject != null && !m_asObject.IsVisibleInCam)
+        if(m_asObject != null && !m_asObject.IsVisibleInCam && !m_asObject.Focused)
             ReturnASObject();
     }
 

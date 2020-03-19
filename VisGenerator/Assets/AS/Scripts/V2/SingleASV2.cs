@@ -20,7 +20,6 @@ public class SingleASV2 : MonoBehaviour
     public MeshFilter m_mesh; //模拟柱体mesh
     public Transform m_simpleLook;
     public TextMeshPro m_ASName;
-    public GameObject m_TestSeletedSegment;
     public BoxCollider m_boxCollider;
 
     public bool IsInUse {   get;set;    }
@@ -83,7 +82,7 @@ public class SingleASV2 : MonoBehaviour
     // }
     public void InitASData(ASInfo asData)
     {
-        m_TestSeletedSegment.SetActive(false);
+        //m_TestSeletedSegment.SetActive(false);
         m_simpleLook.gameObject.SetActive(false);
         m_mesh.gameObject.SetActive(false);
 
@@ -98,7 +97,7 @@ public class SingleASV2 : MonoBehaviour
         
         //生成每一层
         m_maxSegmentWidth = InitSegmentsSimple();
-        m_boxCollider.enabled = true;
+        m_boxCollider.enabled = !m_isFocused;
         m_boxCollider.center = Vector3.zero;
         m_boxCollider.size = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth); 
     }
@@ -176,7 +175,7 @@ public class SingleASV2 : MonoBehaviour
         m_boxCollider.enabled = !value;
         m_curSelectedSeg = -1;
 
-        m_TestSeletedSegment.SetActive(false);
+        //m_TestSeletedSegment.SetActive(false);
 
         m_isFocused = value;
         m_focusTime = Time.time;
@@ -242,12 +241,12 @@ public class SingleASV2 : MonoBehaviour
         {
             for(int i = 0; i < m_ASData.ASSegment.Length; i++)
             {
-                float offsety = i == 0 ? 0.01f : -0.01f;
+                float offsety = (i < m_ASData.ASSegment.Length - 1) ? 0 : -0.02f;
                 ASSegmentItem seg =  SegmentPool.Instance.GetSegment();
                 seg.transform.SetParent(m_RegmentsRoot);
                 seg.transform.localPosition = new Vector3(0, i*2 - m_height/2 + offsety, 0.01f);
                 seg.SetSegment(m_ASData.ASSegment[i]);
-                seg.transform.name = m_SegmentList.Count.ToString();
+                seg.transform.name = i.ToString();
                 seg.SetText(select);
                 seg.SetIPMap(select);
                 seg.SetCollider(select);
@@ -371,6 +370,8 @@ public class SingleASV2 : MonoBehaviour
                     string name = hitInfo.transform.name;
                     if(string.IsNullOrEmpty(name))
                         return;
+                    if(name.CompareTo("Time") == 0)
+                        name = hitInfo.transform.parent.name;
                     int segIndex = 0;
                     if(!int.TryParse(name,out segIndex))
                         return;
@@ -396,8 +397,8 @@ public class SingleASV2 : MonoBehaviour
     void OnClickSegment(int index)
     {
         m_curSelectedSeg = index;
-
-        Vector3 targetPos = m_SegmentList[index].transform.position - m_wanderMap.m_targetCamera.transform.forward * m_SegmentList[index].transform.localScale.x; 
+        
+        Vector3 targetPos = m_SegmentList[index].transform.position - m_wanderMap.m_targetCamera.transform.forward * m_SegmentList[index].transform.localScale.x * 1.5f; 
         m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
 
         for(int i = 0; i < m_SegmentList.Count; i++)
