@@ -4421,6 +4421,8 @@ MonoBehaviour:
   CurveLineParent: {fileID: 571143703}
   AttackEffectPrefab: {fileID: 5372207408137339758, guid: 35f631a0c3ab447d284eb5cc4015cba1,
     type: 3}
+  PointPrefab: {fileID: 1765381327834152, guid: 033f1132334138d408d66e6fc3cfce37,
+    type: 3}
   SearchBox: {fileID: 2036314581}
   ASGameObject: {fileID: 267209659}
   IPGameObject: {fileID: 797419922}

@@ -92,6 +92,8 @@ public class Filters : MonoBehaviour
     public GameObject CurveLineParent;
     public GameObject AttackEffectPrefab;
 
+    public GameObject PointPrefab;
+
     public InputField SearchBox;
 
     public GameObject ASGameObject;
@@ -428,7 +430,9 @@ public class Filters : MonoBehaviour
         int xs = 0;
         int ys = 0;
         d2xy(length, ip, out xs, out ys);
-        return new Vector3(xs * 1.0f / length * IPWidth, 0, ys * 1.0f / length * IPHeight);
+        float x = xs * 1.0f / length * IPWidth;
+        float z = ys * 1.0f / length * IPHeight;
+        return new Vector3(x - 0.5f * IPWidth, 7000.0f, z - 0.5f * IPHeight);
     }
 
     private Vector3 LatLng2Pos(IpDetail Item)
@@ -449,9 +453,17 @@ public class Filters : MonoBehaviour
 
             // IP
             Vector3 IPPos = IP2Pos(Item);
+            GameObject SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint.transform.position = IPPos;
+            SearchedPoint.layer = 11;
+            SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
+            SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint.transform.position = MapPos;
+            SearchedPoint.layer = 12;
+            SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
         }
     }
 
