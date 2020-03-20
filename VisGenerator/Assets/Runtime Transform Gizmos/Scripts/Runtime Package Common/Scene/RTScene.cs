@@ -11,17 +11,19 @@ namespace RTG
         private static readonly float _nullCleanupTargetTime = 1.0f;
         private float _elapsedNullCleanupTime = 0.0f;
 
-        [SerializeField]
-        private SceneSettings _settings = new SceneSettings();
+        [SerializeField] private SceneSettings _settings = new SceneSettings();
 
         private List<IHoverableSceneEntityContainer> _hoverableSceneEntityContainers = new List<IHoverableSceneEntityContainer>();
-        private SceneTree _sceneTree = new SceneTree();
+        //private SceneTree _sceneTree = new SceneTree();
 
         private List<GameObject> _childrenAndSelf = new List<GameObject>(100);
         private HashSet<GameObject> _ignoredRootObjects = new HashSet<GameObject>();
         private List<GameObject> _rootGameObjects = new List<GameObject>();
 
-        public SceneSettings Settings { get { return _settings; } }
+        public SceneSettings Settings
+        {
+            get { return _settings; }
+        }
 
         public void SetRootObjectIgnored(GameObject root, bool ignored)
         {
@@ -40,13 +42,13 @@ namespace RTG
             boundsQConfig.ObjectTypes = GameObjectType.Mesh | GameObjectType.Sprite;
 
             AABB sceneAABB = new AABB();
-            foreach(var root in roots)
+            foreach (var root in roots)
             {
                 var allChildrenAndSelf = root.GetAllChildrenAndSelf();
-                foreach(var sceneObject in allChildrenAndSelf)
+                foreach (var sceneObject in allChildrenAndSelf)
                 {
                     AABB aabb = ObjectBounds.CalcWorldAABB(sceneObject, boundsQConfig);
-                    if(aabb.IsValid)
+                    if (aabb.IsValid)
                     {
                         if (sceneAABB.IsValid) sceneAABB.Encapsulate(aabb);
                         else sceneAABB = aabb;
@@ -60,7 +62,8 @@ namespace RTG
         public bool IsAnySceneEntityHovered()
         {
             foreach (var container in _hoverableSceneEntityContainers)
-                if (container.HasHoveredSceneEntity) return true;
+                if (container.HasHoveredSceneEntity)
+                    return true;
 
             return IsAnyUIElementHovered();
         }
@@ -104,7 +107,7 @@ namespace RTG
 
         public List<GameObject> OverlapBox(OBB obb)
         {
-            if(Settings.PhysicsMode == ScenePhysicsMode.UnityColliders)
+            if (Settings.PhysicsMode == ScenePhysicsMode.UnityColliders)
             {
                 // Retrieve the overlapped 3D objects and store them inside the output list
                 Collider[] overlapped3DColliders = Physics.OverlapBox(obb.Center, obb.Extents, obb.Rotation);
@@ -124,10 +127,11 @@ namespace RTG
                 // overlapped 2D colliders.
                 Collider2D[] overlapped2DColliders = Physics2D.OverlapAreaAll(projectedPtsAABB.Min, projectedPtsAABB.Max);
                 foreach (var collider in overlapped2DColliders) overlappedObjects.Add(collider.gameObject);
-               
+
                 return overlappedObjects;
             }
-            else return _sceneTree.OverlapBox(obb);
+            return new List<GameObject>();
+            //else return _sceneTree.OverlapBox(obb);
         }
 
         public List<GameObject> OverlapBox(OBB obb, SceneOverlapFilter overlapFilter)
@@ -159,20 +163,21 @@ namespace RTG
 
                 return allHits;
             }
-            else return _sceneTree.RaycastAll(ray, rtRaycastPrecision);
+            return new List<GameObjectRayHit>();
+            //else return _sceneTree.RaycastAll(ray, rtRaycastPrecision);
         }
 
         public List<GameObjectRayHit> RaycastAllObjectsSorted(Ray ray, SceneRaycastPrecision raycastPresicion)
         {
             List<GameObjectRayHit> allHits = RaycastAllObjects(ray, raycastPresicion);
             GameObjectRayHit.SortByHitDistance(allHits);
-  
+
             return allHits;
         }
 
         public List<GameObjectRayHit> RaycastAllObjectsSorted(Ray ray, SceneRaycastPrecision rtRaycastPrecision, SceneRaycastFilter raycastFilter)
         {
-            if (raycastFilter != null && 
+            if (raycastFilter != null &&
                 raycastFilter.AllowedObjectTypes.Count == 0) return new List<GameObjectRayHit>();
 
             List<GameObjectRayHit> sortedHits = RaycastAllObjectsSorted(ray, rtRaycastPrecision);
@@ -187,17 +192,20 @@ namespace RTG
             {
                 Collider raycastCollider = null;
                 MeshCollider meshCollider = meshObject.GetComponent<MeshCollider>();
-                if(meshCollider != null) raycastCollider = meshCollider;
-                if(raycastCollider == null) raycastCollider = meshObject.GetComponent<Collider>();
+                if (meshCollider != null) raycastCollider = meshCollider;
+                if (raycastCollider == null) raycastCollider = meshObject.GetComponent<Collider>();
 
-                if(raycastCollider != null)
+                if (raycastCollider != null)
                 {
                     RaycastHit rayHit;
                     if (raycastCollider.Raycast(ray, out rayHit, float.MaxValue)) return new GameObjectRayHit(ray, rayHit);
                 }
+
                 return null;
             }
-            else return _sceneTree.RaycastMeshObject(ray, meshObject);
+
+            return null;
+            //else return _sceneTree.RaycastMeshObject(ray, meshObject);
         }
 
         public GameObjectRayHit RaycastMeshObjectReverseIfFail(Ray ray, GameObject meshObject)
@@ -212,7 +220,8 @@ namespace RTG
         {
             // NOTE: 'ObjectInteractionMode.UnityColliders' must be ignored here as there doesn't seem to
             //       be a way to raycast against a 2D collider.
-            return _sceneTree.RaycastSpriteObject(ray, spriteObject);
+           // return _sceneTree.RaycastSpriteObject(ray, spriteObject);
+           return null;
         }
 
         public GameObjectRayHit RaycastTerrainObject(Ray ray, GameObject terrainObject)
@@ -247,7 +256,7 @@ namespace RTG
             if (!RTSceneGrid.Get.Settings.IsVisible) return null;
 
             float t;
-            if(RTSceneGrid.Get.Raycast(ray, out t))
+            if (RTSceneGrid.Get.Raycast(ray, out t))
             {
                 XZGridCell hitCell = RTSceneGrid.Get.CellFromWorldPoint(ray.GetPoint(t));
                 return new XZGridRayHit(ray, hitCell, t);
@@ -258,45 +267,45 @@ namespace RTG
 
         public void Update_SystemCall()
         {
-            _elapsedNullCleanupTime += Time.deltaTime;
-            if (_elapsedNullCleanupTime >= _nullCleanupTargetTime)
-            {
-                _sceneTree.RemoveNodesWithNullObjects();
-                RTMeshDb.Get.RemoveNullMeshEntries();
-                _elapsedNullCleanupTime = 0.0f;
-            }
-
-            Scene activeScene = SceneManager.GetActiveScene();
-            int numRoots = activeScene.rootCount;
-            if (_rootGameObjects.Capacity <= numRoots) _rootGameObjects.Capacity = numRoots + 100;
-            activeScene.GetRootGameObjects(_rootGameObjects);
-
-            for (int rootIndex = 0; rootIndex < numRoots; ++rootIndex)
-            {
-                GameObject rootObject = _rootGameObjects[rootIndex];
-                if (_ignoredRootObjects.Contains(rootObject)) continue;
-
-                rootObject.GetAllChildrenAndSelf(_childrenAndSelf);
-
-                int numObjectsInHierarchy = _childrenAndSelf.Count;
-                for (int sceneObjIndex = 0; sceneObjIndex < numObjectsInHierarchy; ++sceneObjIndex)
-                {
-                    GameObject sceneObject = _childrenAndSelf[sceneObjIndex];
-                    if (!_sceneTree.IsObjectRegistered(sceneObject))
-                    {
-                        _sceneTree.RegisterObject(sceneObject);
-                    }
-                    else
-                    {
-                        Transform objectTransform = sceneObject.transform;
-                        if (objectTransform.hasChanged)
-                        {
-                            _sceneTree.OnObjectTransformChanged(objectTransform);
-                            objectTransform.hasChanged = false;
-                        }
-                    }
-                }
-            }
+            // _elapsedNullCleanupTime += Time.deltaTime;
+            // if (_elapsedNullCleanupTime >= _nullCleanupTargetTime)
+            // {
+            //     _sceneTree.RemoveNodesWithNullObjects();
+            //     RTMeshDb.Get.RemoveNullMeshEntries();
+            //     _elapsedNullCleanupTime = 0.0f;
+            // }
+            //
+            // Scene activeScene = SceneManager.GetActiveScene();
+            // int numRoots = activeScene.rootCount;
+            // if (_rootGameObjects.Capacity <= numRoots) _rootGameObjects.Capacity = numRoots + 100;
+            // activeScene.GetRootGameObjects(_rootGameObjects);
+            //
+            // for (int rootIndex = 0; rootIndex < numRoots; ++rootIndex)
+            // {
+            //     GameObject rootObject = _rootGameObjects[rootIndex];
+            //     if (_ignoredRootObjects.Contains(rootObject)) continue;
+            //
+            //     rootObject.GetAllChildrenAndSelf(_childrenAndSelf);
+            //
+            //     int numObjectsInHierarchy = _childrenAndSelf.Count;
+            //     for (int sceneObjIndex = 0; sceneObjIndex < numObjectsInHierarchy; ++sceneObjIndex)
+            //     {
+            //         GameObject sceneObject = _childrenAndSelf[sceneObjIndex];
+            //         if (!_sceneTree.IsObjectRegistered(sceneObject))
+            //         {
+            //             _sceneTree.RegisterObject(sceneObject);
+            //         }
+            //         else
+            //         {
+            //             Transform objectTransform = sceneObject.transform;
+            //             if (objectTransform.hasChanged)
+            //             {
+            //                 _sceneTree.OnObjectTransformChanged(objectTransform);
+            //                 objectTransform.hasChanged = false;
+            //             }
+            //         }
+            //     }
+            // }
         }
     }
 }
