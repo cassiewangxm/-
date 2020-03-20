@@ -6,6 +6,13 @@ using System.IO;
 
 public class ViewIP : MonoBehaviour
 {
+    public class IPPixelData
+    {
+        public int X;
+        public int Y;
+        public int ASN;
+    }
+
     public Consts Consts;
 
     public Camera Camera;
@@ -32,10 +39,187 @@ public class ViewIP : MonoBehaviour
     private Vector2 lastCameraIdx;
     private int lastLv;
 
+    public Material MaterialTemplate;
+
+    /*
+    private Texture2D[] IPTextures28 = new Texture2D[256];
+    private Texture2D[] IPTextures24 = new Texture2D[16];
+    private Texture2D IPTextures20;
+    */
+
     public Vector2 GetIPFullSize()
     {
         return new Vector2(Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - 1], Consts.IPSize.y * IPLevelScales[IPLevelScales.Length - 1]);
     }
+
+    /*
+    void InitIPData()
+    {
+        for (int i = 0; i < 256; i ++)
+        {
+            IPTextures28[i] = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
+            for (int x = 0; x < 1024; x ++)
+            {
+                for (int y = 0; y < 1024; y ++)
+                {
+                    IPTextures28[i].SetPixel(x, y, new Color(0.0f, 0.0f, 0.0f));
+                }
+            }
+        }
+    }
+    */
+
+    /*
+    void InitIPData24()
+    {
+        for (int i = 0; i < 16; i++)
+        {
+            IPTextures24[i] = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
+            for (int x = 0; x < 1024; x++)
+            {
+                for (int y = 0; y < 1024; y++)
+                {
+                    IPTextures24[i].SetPixel(x, y, new Color(0.0f, 0.0f, 0.0f));
+                }
+            }
+        }
+    }
+    */
+
+    /*
+    void InitIPData20()
+    {
+        IPTextures20 = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
+        for (int x = 0; x < 1024; x++)
+        {
+            for (int y = 0; y < 1024; y++)
+            {
+                IPTextures20.SetPixel(x, y, new Color(0.0f, 0.0f, 0.0f));
+            }
+        }
+    }
+    */
+
+    /*
+    Color PixelCompression(Texture2D texture2D, int x, int y)
+    {
+        float r = 0.0f;
+        float g = 0.0f;
+        float b = 0.0f;
+        for (int i = 0; i < 4; i ++)
+        {
+            for (int j = 0; j < 4; j ++)
+            {
+                Color color = texture2D.GetPixel(x * 4 + i, y * 4 + j);
+                r += color.r;
+                g += color.g;
+                b += color.b;
+            }
+        }
+        return new Color(r / 16.0f, g / 16.0f, b / 16.0f);
+    }
+    */
+
+    /*
+    void ProcessIPData24()
+    {
+        InitIPData24();
+
+        Debug.Log("Processing IPs..");
+
+        for (int i = 0; i < 256; i++)
+        {
+            string texture = "Data/IPTexture/24-" + (i / 16 * 1024).ToString() + "-" + (i % 16 * 1024).ToString() + "";
+            IPTextures28[i] = Resources.Load<Texture2D>(texture);
+            for (int x = 0; x < 256; x ++)
+            {
+                for (int y = 0; y < 256; y ++)
+                {
+                    int IndexX = (i / 64);
+                    int IndexY = ((i % 16) / 4);
+                    int PixelX = (i / 16 * 256) % 1024 + x;
+                    int PixelY = ((i % 16) * 256) % 1024 + y;
+                    IPTextures24[IndexX * 4 + IndexY].SetPixel(PixelX, PixelY, PixelCompression(IPTextures28[i], x, y));
+                }
+            }
+        }
+        for (int i = 0; i < 16; i ++)
+        {
+            IPTextures24[i].Apply();
+            byte[] bytesip = IPTextures24[i].EncodeToPNG();
+            File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/20-" + (i / 4 * 1024).ToString() + "-" + (i % 4 * 1024).ToString() + ".png", bytesip);
+        }
+        Debug.Log("IP Processing Finished.");
+    }
+    */
+
+    /*
+    void ProcessIPData20()
+    {
+        InitIPData20();
+
+        Debug.Log("Processing IPs..");
+
+        for (int i = 0; i < 16; i++)
+        {
+            string texture = "Data/IPTexture/20-" + (i / 4 * 1024).ToString() + "-" + (i % 4 * 1024).ToString() + "";
+            IPTextures24[i] = Resources.Load<Texture2D>(texture);
+            for (int x = 0; x < 256; x++)
+            {
+                for (int y = 0; y < 256; y++)
+                {
+                    int PixelX = (i / 4 * 256) + x;
+                    int PixelY = ((i % 4) * 256) + y;
+                    IPTextures20.SetPixel(PixelX, PixelY, PixelCompression(IPTextures24[i], x, y));
+                }
+            }
+        }
+
+        IPTextures20.Apply();
+        byte[] bytesip = IPTextures20.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/16-0-0.png", bytesip);
+        Debug.Log("IP Processing Finished.");
+    }
+    */
+
+    /*
+    IEnumerator ProcessIPData()
+    {
+        InitIPData();
+        string line;
+
+        StreamReader file = new StreamReader("Assets/prefix_NXY_28.json");
+
+        Debug.Log("Processing IPs..");
+        int count = 0;
+        while (((line = file.ReadLine()) != null))
+        {
+            IPPixelData PixelData = JsonUtility.FromJson<IPPixelData>(line);
+            int IndexX = PixelData.X / 1024;
+            int IndexY = PixelData.Y / 1024;
+            int PixelX = PixelData.X % 1024;
+            int PixelY = PixelData.Y % 1024;
+            IPTextures28[IndexX * 16 + IndexY].SetPixel(PixelX, PixelY, CalculateColor(PixelData.ASN));
+            count++;
+            if (count % 1048576 == 0)
+            {
+                Debug.Log("IP Lines Read: " + (count / 1048576).ToString());
+                yield return null;
+            }
+        }
+
+        file.Close();
+
+        for (int i = 0; i < 256; i++)
+        {
+            Debug.Log("Processing IP Block " + i.ToString() + "..");
+            IPTextures28[i].Apply();
+            byte[] bytesip = IPTextures28[i].EncodeToPNG();
+            File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/24-" + (i / 16 * 1024).ToString() + "-" + (i % 16 * 1024).ToString() + ".png", bytesip);
+        }
+        Debug.Log("IP Processing Finished.");
+    }
+    */
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +239,7 @@ public class ViewIP : MonoBehaviour
         heightLv24 = heightLv20 / 4.0f;
         heightLv28 = heightLv24 / 4.0f;
         heightLv32 = heightLv28 / 4.0f;
+
     }
 
     Vector2 CalculateIdx(int scale)
@@ -109,7 +294,27 @@ public class ViewIP : MonoBehaviour
         }
         texip.Apply();
         byte[] bytesip = texip.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/" + info.prefixLen + "-" + info.x.ToString() + "-" + info.y.ToString() + ".png", bytesip);
+        //File.WriteAllBytes(Application.dataPath + "/IP/Data/IPTexture/" + info.prefixLen + "-" + info.x.ToString() + "-" + info.y.ToString() + ".png", bytesip);
+    }
+
+    Texture2D GenerateTmpTexture(Texture2D texture, int xOffset, int yOffset)
+    {
+        Texture2D NewTexture = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
+        System.Random rnd = new System.Random();
+
+        for (int i = 0; i < 1024; i ++)
+        {
+            for (int j = 0; j < 1024; j ++)
+            {
+                Color color = texture.GetPixel(xOffset * 256 + (i / 4), yOffset * 256 + (j / 4));
+                color.r += ((rnd.Next(0, 96) - 48) / 256.0f);
+                color.g += ((rnd.Next(0, 96) - 48) / 256.0f);
+                color.b += ((rnd.Next(0, 96) - 48) / 256.0f);
+                NewTexture.SetPixel(i, j, color);
+            }
+        }
+
+        return NewTexture;
     }
 
     void GetIPData(int lv, int TopIdx, int LeftIdx)
@@ -122,15 +327,19 @@ public class ViewIP : MonoBehaviour
         NewQuad.transform.localScale = Vector3.one;
         NewQuad.transform.position = NewQuadPos;
         NewQuad.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
-
-        // Apply IP data here
-        if (lv != 0)
+        if (lv == 3)
         {
-            IPProxy.instance.GetIpInfoBlock(TransformIPdata, lv * 4 + 20, LeftIdx * 1024, TopIdx * 1024);
+            /*
+            string texture = "Data/IPTexture/" + 24.ToString() + "-" + (LeftIdx / 4 * 1024).ToString() + "-" + (TopIdx / 4 * 1024).ToString() + "";
+            Texture2D TmpTexture = GenerateTmpTexture(Resources.Load<Texture2D>(texture), LeftIdx % 4, TopIdx % 4);
+            NewQuad.GetComponent<MeshRenderer>().materials[0].SetTexture("_UnlitColorMap", TmpTexture);
+            */
         }
         else
         {
-            IPProxy.instance.GetIpInfoBlock(TransformIPdata);
+            string texture = "Data/IPTexture/" + (lv * 4 + 16).ToString() + "-" + (LeftIdx * 1024).ToString() + "-" + (TopIdx * 1024).ToString() + "";
+            
+            NewQuad.GetComponent<MeshRenderer>().materials[0].SetTexture("_UnlitColorMap", Resources.Load<Texture2D>(texture));
         }
     }
 

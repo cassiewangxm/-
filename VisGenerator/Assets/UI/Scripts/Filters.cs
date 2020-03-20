@@ -439,7 +439,7 @@ public class Filters : MonoBehaviour
     private void ShowFilterResult()
     {
         FilterResults = IPProxy.instance.GetSearchResult();
-
+        Debug.Log("Filter length = " + FilterResults.Length);
         // AS
         MultipleFilters(false, 0, 0, true);
 

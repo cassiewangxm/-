@@ -5267,6 +5267,7 @@ MonoBehaviour:
   IPQuadPrefab: {fileID: 259256921425091231, guid: 28093496a4ac84e3f92bacc775cac0bd,
     type: 3}
   heightLv20: 4096
+  MaterialTemplate: {fileID: 2100000, guid: 66d51a64d753b48db9cee673dbbc640d, type: 2}
 --- !u!4 &797419923
 Transform:
   m_ObjectHideFlags: 0
