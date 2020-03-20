@@ -67,13 +67,16 @@ public class SingleASV2 : MonoBehaviour
         {
             m_isVisibleInCam = false;
             TryToReturn();
+            RegisterCameraEvent(false);
         }     
     }
 
     void TryToReturn()
     {
         if(AppearRoot != null && !m_isFocused && !m_isVisibleInCam)
+        {
             AppearRoot.ReturnASObject();
+        }    
     }
 
     // public void InitLocation(int x, int y)
@@ -103,11 +106,18 @@ public class SingleASV2 : MonoBehaviour
     }
     public void InitASLooking()
     {
+        RefreshName();
+        //生成外围不规则mesh
+        InitMesh();
+    }
+
+    void RefreshName()
+    {
         float distance = GetCameraDistance();
         bool isnear = IsDistanceNear(5, distance);
         if(isnear)
         {
-            m_ASName.text = transform.name;
+            m_ASName.text = m_ASData.ASN.ToString();//transform.name;
             m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 1, 0);
 
             if(m_wanderMap.m_targetCamera != null)
@@ -120,9 +130,6 @@ public class SingleASV2 : MonoBehaviour
         {
             m_ASName.text = "";
         }
-
-        //生成外围不规则mesh
-        InitMesh();
     }
 
     public void RefreshAS(ASInfo data)
@@ -138,7 +145,6 @@ public class SingleASV2 : MonoBehaviour
         {
             if(regist && !m_eventRegisted )
             {
-                //Debug.Log("will eventRegisted : ");
                 m_eventRegisted = true;
                 m_wanderMap.RegistCameraMoveEvent((UnityEngine.Events.UnityAction) OnCameraMoveEnough);
             }
@@ -152,13 +158,19 @@ public class SingleASV2 : MonoBehaviour
 
     void OnCameraMoveEnough()
     {
+        bool lookingRefreshed = false;
         if(m_UnfinishLooking)
         {
             if(IsDistanceNear(10))
             {
-                //Debug.Log("I will change look : "+name);
                 InitASLooking();
+                lookingRefreshed = true;
             }
+        }
+
+        if(!lookingRefreshed)
+        {
+            RefreshName();
         }
     }
 
@@ -301,7 +313,7 @@ public class SingleASV2 : MonoBehaviour
             m_simpleLook.gameObject.SetActive(false);
             m_mesh.gameObject.SetActive(false);
         }
-        RegisterCameraEvent(m_UnfinishLooking);
+        RegisterCameraEvent(true);
     }
 
     Mesh GenerateMeshJob(int n)
