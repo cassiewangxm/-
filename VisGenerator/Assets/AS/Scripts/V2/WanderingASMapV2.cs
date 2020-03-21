@@ -25,6 +25,8 @@ public class WanderingASMapV2 : MonoBehaviour
 
     private UnityEvent OnCameraMovedEnough = new UnityEvent();
     private UnityEvent OnLeavedWandering = new UnityEvent();
+    private UnityEvent OnGetSearchResult = new UnityEvent();
+    private UnityEvent OnClearSearchResult = new UnityEvent();
     private float m_baseWith = 12;
     private int m_mapWidth = 256;
     private Vector2Int m_curSelected;
@@ -33,14 +35,16 @@ public class WanderingASMapV2 : MonoBehaviour
     private Vector3 m_oldCamPos;
     private Vector3 m_enterCamPos;
     private bool m_initFinished = false;
-    private Vector2Int m_curSelectedASLocation;
+    private Vector2Int m_enterMomentASLocation;
     private ASAppearMonitor[][] m_array;
+    private Dictionary<int,Vector2Int> m_ASN_Pos_Dict = new Dictionary<int, Vector2Int>();
     private Coroutine m_initMapCorotine;
 
     void Awake()
     {
         EventManager.RegistEvent(EventDefine.OnSceneViewChange, (Action)OnViewChange);
-        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)OnRecieveSearchResult);
+        EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)RecieveSearchResult);
+        EventManager.RegistEvent(EventDefine.OnClearSearchResult, (Action)ClearSearchResult);
         SegmentPool.Instance.Prepare();
         ASPool.Instance.Prepare();
         m_oldCamPos = m_targetCamera.transform.position;
@@ -58,12 +62,17 @@ public class WanderingASMapV2 : MonoBehaviour
         //         break;
         // }
     }
-    void OnRecieveSearchResult()
+    void RecieveSearchResult()
     {
-        IpDetail[] results = IPProxy.instance.GetSearchResult();
-
-        //TODO 
+        OnClearSearchResult.Invoke();
+        OnGetSearchResult.Invoke();
     }
+
+    void ClearSearchResult()
+    {
+        OnClearSearchResult.Invoke();
+    }
+
     void OnDestroy()
     {
         StopAllCoroutines();
@@ -79,7 +88,7 @@ public class WanderingASMapV2 : MonoBehaviour
             m_array[m_curSelected.x][m_curSelected.y].SetFocus(false);
         m_curSelected = Vector2Int.zero;
 
-        m_curSelectedASLocation = new Vector2Int(x,y);
+        m_enterMomentASLocation = new Vector2Int(x,y);
         StartCoroutine(GetASAreaInfo());
     }
 
@@ -106,13 +115,14 @@ public class WanderingASMapV2 : MonoBehaviour
         if(m_initMapCorotine != null)
             StopCoroutine(m_initMapCorotine);
 
-        m_initMapCorotine = StartCoroutine(InitMap(m_curSelectedASLocation.x, m_curSelectedASLocation.y));
+        m_initMapCorotine = StartCoroutine(InitMap(m_enterMomentASLocation.x, m_enterMomentASLocation.y));
 
         SetFocusAS(m_lineCount/2, m_lineCount/2);
     }
     
     IEnumerator InitMap(int x, int y)
     {
+        m_ASN_Pos_Dict.Clear();
         Debug.Log("Start init map : "+Time.time);
         m_initFinished = false;
         m_oldCamPos = m_targetCamera.transform.position;
@@ -133,6 +143,7 @@ public class WanderingASMapV2 : MonoBehaviour
                 ASInfo data = ASProxy.instance.GetASByPosition(x, y);
                 if(data != null)
                 {
+                    m_ASN_Pos_Dict.Add(data.ASN, new Vector2Int(cx, cy));
                     centerHeight = data.Height;
                     centerPos = new Vector3(x * 640.0f / 256.0f, -centerHeight/2, y * 640.0f / 256.0f) + m_targetCamera.transform.forward * (12 + centerHeight/2);
                     transferVect = centerPos - m_array[cx][cy].transform.position;
@@ -226,6 +237,8 @@ public class WanderingASMapV2 : MonoBehaviour
                 m_array[i][j].transform.position = new Vector3((i - m_lineCount/2)*m_baseWith, 0, (j - m_lineCount/2)*m_baseWith);
 
                 RigistLeaveWandering((UnityEngine.Events.UnityAction)m_array[i][j].OnLeaveWanderingMap);
+                RegistSearchEvent((UnityEngine.Events.UnityAction)m_array[i][j].OnShowSearchResult);
+                RegistClearSearchEvent((UnityEngine.Events.UnityAction)m_array[i][j].OnClearSearchResult);
             }
 
             yield return 0;
@@ -252,6 +265,16 @@ public class WanderingASMapV2 : MonoBehaviour
     public void UnregistLeaveWandering(UnityAction act)
     {
         OnLeavedWandering.RemoveListener(act);
+    }
+
+    public void RegistSearchEvent(UnityAction act)
+    {
+        OnGetSearchResult.AddListener(act);
+    }
+
+    public void RegistClearSearchEvent(UnityAction act)
+    {
+        OnClearSearchResult.AddListener(act);
     }
 
     void OnASBecameInvisible(SingleASV2 a)

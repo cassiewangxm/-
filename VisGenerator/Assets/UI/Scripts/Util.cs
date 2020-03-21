@@ -87,7 +87,7 @@ public static class Util
             return;
         }
 
-        uint asNum = ipDetail.ASNum;
+        int asNum = ipDetail.ASNum;
         int x, y;
         d2xy(AS_STRIDE, asNum, out x, out y);
         position.x = x;

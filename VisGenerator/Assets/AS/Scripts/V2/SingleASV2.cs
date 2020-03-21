@@ -36,6 +36,7 @@ public class SingleASV2 : MonoBehaviour
     private ASInfo m_ASData; //AS柱数据
     private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 10.0f/255);
     private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
+    private Color m_colorSearchTarget = new Color(0, 1, 0, 50.0f/255);
     private float m_height;
     private bool m_isFocused;
     private float m_focusTime;
@@ -49,6 +50,8 @@ public class SingleASV2 : MonoBehaviour
     private bool m_UnfinishLooking;
     private int m_curSelectedSeg = -1;
     private Vector2 m_lastMousePosition;
+    private bool m_isSearchTarget;
+    private float m_colorWeak;
 
     void OnDestroy()
     {
@@ -199,6 +202,27 @@ public class SingleASV2 : MonoBehaviour
             TryToReturn();
     }
 
+    public void SetFileterMode()
+    {
+        m_isSearchTarget = IPProxy.instance.IsASInSearchResult(m_ASData.ASN);
+        if(m_isSearchTarget)
+        {
+            m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", m_colorSearchTarget);
+            m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", m_colorSearchTarget);
+        }
+    }
+
+    public void ClearFilterMode()
+    {
+        if(m_isSearchTarget)
+        {
+            Color c = m_isFocused ? m_colorSelected : m_colorUnSelected;
+            m_isSearchTarget = false;
+            m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor",  c * m_colorWeak);
+            m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor",  c * m_colorWeak);
+        }
+    }
+
     // true : nearly enough
     // bool CheckDistance(out float distance)
     // {
@@ -292,14 +316,15 @@ public class SingleASV2 : MonoBehaviour
                 Color color = m_isFocused ? m_colorSelected : m_colorUnSelected;
                 if(!isnear)//distance > m_wanderMap.BaseCellWidth * 5)
                 {
-                    float weak = (m_wanderMap.BaseCellWidth*15-  distance)/(m_wanderMap.BaseCellWidth*5);
-                    weak = weak < 0 ? 0 : (weak > 1 ? 1 : weak);
-                    weak = 0.5f + weak*0.5f;
+                    m_colorWeak = 0.5f;//(m_wanderMap.BaseCellWidth*15-  distance)/(m_wanderMap.BaseCellWidth*5);
+                    //weak = weak < 0 ? 0 : (weak > 1 ? 1 : weak);
+                    //weak = 0.5f + weak*0.5f;
                     //Debug.Log( distance+" , "+weak);
-                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", new Vector4(color.r*weak, color.g*weak, color.b*weak, color.a*weak));
+                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", new Vector4(color.r*m_colorWeak, color.g*m_colorWeak, color.b*m_colorWeak, color.a*m_colorWeak));
                 }
                 else
                 {
+                    m_colorWeak = 1;
                     m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", color);
                 }    
                 m_simpleLook.localScale = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth);

@@ -51,6 +51,7 @@ public class ASPool : MonoBehaviour
             SingleASV2 a = Instantiate(m_prefab, transform).GetComponent<SingleASV2>();
             a.IsInUse = false;
             m_FreeASStack.Push(a);
+           // counter++;
             yield return 0;
         }
     }
@@ -62,6 +63,7 @@ public class ASPool : MonoBehaviour
         
         SingleASV2 a = Instantiate(m_prefab, transform).GetComponent<SingleASV2>();
         a.IsInUse = true;
+        //    counter++;
 
         return a;
     }
@@ -71,7 +73,17 @@ public class ASPool : MonoBehaviour
         //a.transform.SetParent(transform);
         a.transform.position = transform.position;
         a.IsInUse = false;
+        a.ClearFilterMode();
         a.AppearRoot = null;
         m_FreeASStack.Push(a);
     }
+
+    // int counter = 0;
+    // void OnGUI()
+    // {
+    //     GUIStyle s = new GUIStyle();
+    //     s.fontSize = 36;
+    //     s.normal.textColor = Color.yellow;
+    //     GUI.Label(new Rect(100,200,200,100), string.Format("{0}/{1}", m_FreeASStack.Count, counter),s);
+    // }
 }

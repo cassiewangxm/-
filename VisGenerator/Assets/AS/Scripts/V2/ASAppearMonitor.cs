@@ -13,6 +13,7 @@ public class ASAppearMonitor : MonoBehaviour
     SingleASV2 m_asObject;
     private bool m_focused;
     private bool m_visible;
+    private bool m_searchShowed = true;
 
     public void SetFocus(bool value)
     {
@@ -22,6 +23,16 @@ public class ASAppearMonitor : MonoBehaviour
             m_asObject.SetSelected(m_focused);
         }
     }
+
+    // public bool SetFileterMode(bool value)
+    // {
+    //     if(m_asObject != null)
+    //     {
+    //         m_asObject.SetFileterMode(value);
+    //     }
+
+    //     return m_asObject != null;
+    // }
 
     IEnumerator OnBecameVisible()
     {
@@ -44,6 +55,11 @@ public class ASAppearMonitor : MonoBehaviour
             if(m_focused != m_asObject.Focused)
             {
                 SetFocus(m_focused);
+            }
+
+            if(!m_searchShowed)
+            {
+                m_asObject.SetFileterMode();
             }
         }
         else
@@ -72,6 +88,24 @@ public class ASAppearMonitor : MonoBehaviour
     {
         NewPosReady = false;
         ReturnASObject();
+    }
+
+    public void OnShowSearchResult()
+    {
+        m_searchShowed = false;
+        if(m_asObject != null)
+        {
+            m_asObject.SetFileterMode();
+            m_searchShowed = true;
+        }
+    }
+    public void OnClearSearchResult()
+    {
+        m_searchShowed = true;
+        if(m_asObject != null)
+        {
+            m_asObject.ClearFilterMode();
+        }
     }
 
     public void Reawake()

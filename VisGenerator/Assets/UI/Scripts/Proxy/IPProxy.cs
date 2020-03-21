@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public class IpDetail
 {
     public string IP;
-    public uint ASNum;
+    public int ASNum;
     public string IPParent;
     public string country;
     public string province;
@@ -53,7 +53,7 @@ public class IpDetail
         Y = info.Y;
         lat = info.latitude;
         lng = info.longitude;
-        ASNum = (uint)info.ASN;
+        ASNum = info.ASN;
         country = info.country_name;
         province = info.provience;
         city = info.city;
@@ -170,6 +170,7 @@ public class IPProxy : MonoBehaviour
     //目前只存prefixLen=20的数据
     private Dictionary<string, IpDetail> m_ipDetailCache = new Dictionary<string, IpDetail>();
     private IpDetail[] m_searchResult;
+    private List<int> m_searchResultASN = new List<int>();
     private List<AttackInfo> m_attackInfo;
     private UnityEvent OnAttackDataReady = new UnityEvent();
     //private bool m_requestedPrefix20;   //最上次IPloading消息是否已发（避免重发）
@@ -322,11 +323,13 @@ public class IPProxy : MonoBehaviour
     }
     void OnIpInfoFilterResponse(IpInfoType1[] array)//, Action<IpDetail[]> action)
     {
+        m_searchResultASN.Clear();
         m_searchResult = null;
         m_searchResult = new IpDetail[array.Length];
         for(int i = 0; i < array.Length; i++)
         {
             m_searchResult[i] = new IpDetail(array[i]);
+            m_searchResultASN.Add(array[i].ASN);
         }
 
         EventManager.SendEvent(EventDefine.OnRecieveSearchResult);
@@ -419,6 +422,12 @@ public class IPProxy : MonoBehaviour
     {
         return m_searchResult;
     }
+
+    public bool IsASInSearchResult(int ASN)
+    {
+        return m_searchResultASN.Contains(ASN);
+    }
+
     // public void GetIpInfoBlock<T>(int prefixLen, string startIp, int xlen, int ylen, IpInfoStructType type, Action<T[]> action)
     // {
     //     MessageRequestIpMap msg = new MessageRequestIpMap();

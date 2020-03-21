@@ -143,6 +143,12 @@ public class NetUtil : MonoBehaviour
         
         if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
         {  
+
+            /////TEST 把返回的IP数据写入文件
+            string path = Application.dataPath + "/../Filter.txt";
+            WriteToFile(uwr.downloadHandler.data, path);
+            ////////////
+
             Debug.Log("Response : "+uwr.url);
             IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
 

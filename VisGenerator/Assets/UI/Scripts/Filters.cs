@@ -163,6 +163,8 @@ public class Filters : MonoBehaviour
     // 发送搜索消息
     void OnSearchBoxSubmit(string key)
     {
+        EventManager.SendEvent(EventDefine.OnClearSearchResult);
+        
         if(!string.IsNullOrEmpty(SearchBox.text))
         {
             IPProxy.instance.GetIpInfoByFilter(SearchBox.text);
