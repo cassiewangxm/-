@@ -50,6 +50,10 @@ namespace Controller
 
         public raycastas raycastas;
 
+        float HightlightFloat = 0.0f;
+        bool HighlightBool = false;
+        float HighlightSpeed = 0.03f;
+
         bool IsInside(Vector3 move)
         {
             if (move.x < cameraBound0)
@@ -247,6 +251,23 @@ namespace Controller
             ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("itemsize", asItemsize);
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("HighlightFloat", HightlightFloat);
+            if (!HighlightBool)
+            {
+                HightlightFloat += HighlightSpeed;
+                if (HightlightFloat >= 1.0f)
+                {
+                    HighlightBool = !HighlightBool;
+                }
+            }
+            else
+            {
+                HightlightFloat -= HighlightSpeed;
+                if (HightlightFloat <= 0.5f)
+                {
+                    HighlightBool = !HighlightBool;
+                }
+            }
         }
 
     }
