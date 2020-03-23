@@ -52,7 +52,7 @@ namespace Controller
 
         float HightlightFloat = 0.0f;
         bool HighlightBool = false;
-        float HighlightSpeed = 0.03f;
+        float HighlightSpeed = 0.018f;
 
         bool IsInside(Vector3 move)
         {
@@ -251,11 +251,11 @@ namespace Controller
             ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("itemsize", asItemsize);
-            ASGameObject.GetComponent<VisualEffect>().SetFloat("HighlightFloat", HightlightFloat);
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("HighlightFloat", (HightlightFloat > 1.0f) ? 1.0f : HightlightFloat);
             if (!HighlightBool)
             {
                 HightlightFloat += HighlightSpeed;
-                if (HightlightFloat >= 1.0f)
+                if (HightlightFloat >= 1.25f)
                 {
                     HighlightBool = !HighlightBool;
                 }

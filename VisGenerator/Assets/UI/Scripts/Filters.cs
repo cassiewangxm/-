@@ -100,6 +100,7 @@ public class Filters : MonoBehaviour
     public ViewIP IPGameObject;
 
     IpDetail[] FilterResults;
+    public GameObject FilterParent;
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -446,6 +447,12 @@ public class Filters : MonoBehaviour
     {
         FilterResults = IPProxy.instance.GetSearchResult();
         Debug.Log("Filter length = " + FilterResults.Length);
+
+        foreach (Transform child in FilterParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         // AS
         MultipleFilters(false, 0, 0, true);
 
@@ -456,15 +463,19 @@ public class Filters : MonoBehaviour
             // IP
             Vector3 IPPos = IP2Pos(Item);
             GameObject SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint.transform.SetParent(FilterParent.transform);
             SearchedPoint.transform.position = IPPos;
             SearchedPoint.layer = 11;
+            SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
             SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint.transform.SetParent(FilterParent.transform);
             SearchedPoint.transform.position = MapPos;
             SearchedPoint.layer = 12;
+            SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
         }
     }
