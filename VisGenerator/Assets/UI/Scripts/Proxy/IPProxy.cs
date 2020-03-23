@@ -169,7 +169,7 @@ public class IPProxy : MonoBehaviour
     //private Dictionary<Vector2Int, IpDetail> m_ipDetailDict = new Dictionary<Vector2Int, IpDetail>();
     //目前只存prefixLen=20的数据
     private Dictionary<string, IpDetail> m_ipDetailCache = new Dictionary<string, IpDetail>();
-    private IpDetail[] m_searchResult;
+    private List<IpDetail> m_searchResult = new List<IpDetail>();
     private List<int> m_searchResultASN = new List<int>();
     private List<AttackInfo> m_attackInfo;
     private UnityEvent OnAttackDataReady = new UnityEvent();
@@ -324,11 +324,10 @@ public class IPProxy : MonoBehaviour
     void OnIpInfoFilterResponse(IpInfoType1[] array)//, Action<IpDetail[]> action)
     {
         m_searchResultASN.Clear();
-        m_searchResult = null;
-        m_searchResult = new IpDetail[array.Length];
+        m_searchResult.Clear();
         for(int i = 0; i < array.Length; i++)
         {
-            m_searchResult[i] = new IpDetail(array[i]);
+            m_searchResult.Add(new IpDetail(array[i]));
             m_searchResultASN.Add(array[i].ASN);
         }
 
@@ -418,9 +417,17 @@ public class IPProxy : MonoBehaviour
         return msg;
     }
 
+    public void ClearSearchResult()
+    {
+        m_searchResult.Clear();
+        m_searchResultASN.Clear();
+
+        EventManager.SendEvent(EventDefine.OnClearSearchResult);
+    }
+
     public IpDetail[] GetSearchResult()
     {
-        return m_searchResult;
+        return m_searchResult.ToArray();
     }
 
     public bool IsASInSearchResult(int ASN)

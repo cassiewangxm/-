@@ -329,13 +329,13 @@ public class NetUtil : MonoBehaviour
     // TEST 测试专用
     void WriteToFile(byte[] data, string path)
     {
+        if(System.IO.File.Exists(path))
+            System.IO.File.Delete(path);
+            
             /////TEST 把返回的IP数据写入文件
-            if(!System.IO.File.Exists(path))
-            {
-                FileStream f = System.IO.File.Create(path);
-                f.Close();
-            } 
-            FileStream fileStream = File.OpenWrite(path);
+
+            FileStream fileStream = System.IO.File.Create(path);
+            //FileStream fileStream = File.OpenWrite(path);
             fileStream.Write(data , 0 , data.Length);
             fileStream.Close();
             fileStream.Dispose();
