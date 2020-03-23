@@ -64,7 +64,6 @@ public class WanderingASMapV2 : MonoBehaviour
     }
     void RecieveSearchResult()
     {
-        OnClearSearchResult.Invoke();
         OnGetSearchResult.Invoke();
     }
 

@@ -152,6 +152,7 @@ public class Filters : MonoBehaviour
         IPProxy.instance.RegistAttackDataCallback((UnityEngine.Events.UnityAction) EnableAttacks);
 
         EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)ShowFilterResult);
+        EventManager.RegistEvent(EventDefine.OnClearSearchResult, (Action)ShowFilterResult);
     }
 
     // Update is called once per frame
@@ -163,8 +164,7 @@ public class Filters : MonoBehaviour
     // 发送搜索消息
     void OnSearchBoxSubmit(string key)
     {
-        EventManager.SendEvent(EventDefine.OnClearSearchResult);
-        
+        IPProxy.instance.ClearSearchResult();
         if(!string.IsNullOrEmpty(SearchBox.text))
         {
             IPProxy.instance.GetIpInfoByFilter(SearchBox.text);
