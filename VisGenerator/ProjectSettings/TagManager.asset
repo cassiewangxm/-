@@ -9,6 +9,8 @@ TagManager:
   - MapCurve
   - IPCurve
   - ASCurve
+  - effect
+  - HighlightMark
   layers:
   - Default
   - TransparentFX

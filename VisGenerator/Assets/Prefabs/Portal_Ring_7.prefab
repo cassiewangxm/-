@@ -9437,7 +9437,7 @@ GameObject:
   - component: {fileID: 6947043189098836627}
   m_Layer: 0
   m_Name: Portal_Ring_7
-  m_TagString: Untagged
+  m_TagString: HighlightMark
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
