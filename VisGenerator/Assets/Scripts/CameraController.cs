@@ -246,7 +246,7 @@ namespace Controller
         {
             float height = CameraAS.transform.position.y;
             float asScale = GetModifiedASScale(height);
-            float asGScale = 0.009f / GetModifiedASScale(height);
+            float asGScale = 0.03f * GetModifiedASScale(252.0f) / GetModifiedASScale(height);
             float asItemsize = (height / 250.0f) * 0.4f + 0.6f;
             ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
