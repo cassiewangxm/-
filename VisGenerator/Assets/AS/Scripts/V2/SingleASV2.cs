@@ -17,8 +17,9 @@ public class SingleASV2 : MonoBehaviour
     public Transform m_RegmentsRoot;//quad的 根结点
     //public GameObject m_QuadPrefab; // 用于划分区段
     //public SpriteRenderer m_SegmentIPMap; //区段IP图
-    public MeshFilter m_mesh; //模拟柱体mesh
-    public Transform m_simpleLook;
+    public MeshRenderer m_complexLook; //不规则柱体
+    public MeshRenderer m_simpleLook; //简单柱体
+    public MeshFilter m_complexMesh;
     public TextMeshPro m_ASName;
     public BoxCollider m_boxCollider;
 
@@ -34,7 +35,7 @@ public class SingleASV2 : MonoBehaviour
     private WanderingASMapV2 m_wanderMap;
     private List<ASSegmentItem> m_SegmentList = new List<ASSegmentItem>(); //用于显示IP区段时间等信息
     private ASInfo m_ASData; //AS柱数据
-    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 10.0f/255);
+    private Color m_colorSelected = new Color(0, 167.0f/255, 246.0f/255, 0.01f);
     private Color m_colorUnSelected = new Color(248.0f/255, 194.0f/255, 18.0f/255, 150.0f/255);
     private Color m_colorSearchTarget = new Color(0, 1, 0, 50.0f/255);
     private float m_height;
@@ -48,7 +49,7 @@ public class SingleASV2 : MonoBehaviour
     List<float> m_heightList = new List<float>();
     private bool m_eventRegisted;
     private bool m_UnfinishLooking;
-    private int m_curSelectedSeg = -1;
+    //private int m_curSelectedSeg = -1;
     private Vector2 m_lastMousePosition;
     private bool m_isSearchTarget;
     private float m_colorWeak;
@@ -90,7 +91,7 @@ public class SingleASV2 : MonoBehaviour
     {
         //m_TestSeletedSegment.SetActive(false);
         m_simpleLook.gameObject.SetActive(false);
-        m_mesh.gameObject.SetActive(false);
+        m_complexLook.gameObject.SetActive(false);
 
         m_ASData = asData;
 
@@ -188,15 +189,17 @@ public class SingleASV2 : MonoBehaviour
         StartCoroutine(InitSegments(value));
 
         m_boxCollider.enabled = !value;
-        m_curSelectedSeg = -1;
+        //m_curSelectedSeg = -1;
 
         //m_TestSeletedSegment.SetActive(false);
 
         m_isFocused = value;
         m_focusTime = Time.time;
 
-        m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
-        m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
+        m_complexLook.material.SetFloat("_Metallic", value ? 0.1f : 0.5f);
+        m_complexLook.material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
+        m_simpleLook.material.SetFloat("_Metallic", value ? 0.1f : 0.5f);
+        m_simpleLook.material.SetVector("_BaseColor", value ? m_colorSelected : m_colorUnSelected);
         
         if(!m_isFocused)
             TryToReturn();
@@ -207,8 +210,8 @@ public class SingleASV2 : MonoBehaviour
         m_isSearchTarget = IPProxy.instance.IsASInSearchResult(m_ASData.ASN);
         if(m_isSearchTarget)
         {
-            m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", m_colorSearchTarget);
-            m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", m_colorSearchTarget);
+            m_complexLook.material.SetVector("_BaseColor", m_colorSearchTarget);
+            m_simpleLook.material.SetVector("_BaseColor", m_colorSearchTarget);
         }
     }
 
@@ -218,8 +221,8 @@ public class SingleASV2 : MonoBehaviour
         {
             Color c = m_isFocused ? m_colorSelected : m_colorUnSelected;
             m_isSearchTarget = false;
-            m_mesh.GetComponent<MeshRenderer>().material.SetVector("_BaseColor",  c * m_colorWeak);
-            m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor",  c * m_colorWeak);
+            m_complexLook.material.SetVector("_BaseColor",  c * m_colorWeak);
+            m_simpleLook.material.SetVector("_BaseColor",  c * m_colorWeak);
         }
     }
 
@@ -307,11 +310,11 @@ public class SingleASV2 : MonoBehaviour
                 GenerateMeshJob(m_ASData.ASSegment.Length);//GenerateMesh(m_SegmentList,m_ASData.Segments.Length);
                 
                 m_simpleLook.gameObject.SetActive(false);
-                m_mesh.gameObject.SetActive(true);
+                m_complexLook.gameObject.SetActive(true);
             }
             else
             {
-                m_mesh.gameObject.SetActive(false);
+                m_complexLook.gameObject.SetActive(false);
 
                 Color color = m_isFocused ? m_colorSelected : m_colorUnSelected;
                 if(!isnear)//distance > m_wanderMap.BaseCellWidth * 5)
@@ -320,14 +323,14 @@ public class SingleASV2 : MonoBehaviour
                     //weak = weak < 0 ? 0 : (weak > 1 ? 1 : weak);
                     //weak = 0.5f + weak*0.5f;
                     //Debug.Log( distance+" , "+weak);
-                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", new Vector4(color.r*m_colorWeak, color.g*m_colorWeak, color.b*m_colorWeak, color.a*m_colorWeak));
+                    m_simpleLook.material.SetVector("_BaseColor", new Vector4(color.r*m_colorWeak, color.g*m_colorWeak, color.b*m_colorWeak, color.a*m_colorWeak));
                 }
                 else
                 {
                     m_colorWeak = 1;
-                    m_simpleLook.GetComponent<MeshRenderer>().material.SetVector("_BaseColor", color);
+                    m_simpleLook.material.SetVector("_BaseColor", color);
                 }    
-                m_simpleLook.localScale = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth);
+                m_simpleLook.transform.localScale = new Vector3(m_maxSegmentWidth, m_height, m_maxSegmentWidth);
                 m_simpleLook.gameObject.SetActive(true);
 
                 m_UnfinishLooking = m_ASData.ASSegment.Length > 1 || !isnear;
@@ -336,7 +339,7 @@ public class SingleASV2 : MonoBehaviour
         else
         {
             m_simpleLook.gameObject.SetActive(false);
-            m_mesh.gameObject.SetActive(false);
+            m_complexLook.gameObject.SetActive(false);
         }
         RegisterCameraEvent(true);
     }
@@ -368,7 +371,7 @@ public class SingleASV2 : MonoBehaviour
         JobHandle jobHandle = job.Schedule();
         jobHandle.Complete();
 
-        Mesh mesh = m_mesh.mesh;//new Mesh();
+        Mesh mesh = m_complexMesh.mesh;
         mesh.Clear();
         mesh.vertices = vect.ToArray();
         mesh.uv = uvss.ToArray();
@@ -416,14 +419,15 @@ public class SingleASV2 : MonoBehaviour
                     if(segIndex >= 0 && segIndex < m_ASData.ASSegment.Length)
                     {
                         m_lastMousePosition = Input.mousePosition;
-                        if(segIndex != m_curSelectedSeg)
-                        {
-                            OnClickSegment(segIndex);
-                        }
-                        else
-                        {
-                            OnClickIp(segIndex, new Vector2(v.x, v.z));
-                        }
+                        OnClickSegment(segIndex);
+                        // if(segIndex != m_curSelectedSeg)
+                        // {
+                        //     OnClickSegment(segIndex);
+                        // }
+                        // else
+                        // {
+                        //     OnClickIp(segIndex, new Vector2(v.x, v.z));
+                        // }
                     }
                 }
             }
@@ -433,7 +437,7 @@ public class SingleASV2 : MonoBehaviour
 
     void OnClickSegment(int index)
     {
-        m_curSelectedSeg = index;
+        //m_curSelectedSeg = index;
         
         Vector3 targetPos = m_SegmentList[index].transform.position - m_wanderMap.m_targetCamera.transform.forward * m_SegmentList[index].transform.localScale.x * 1.5f; 
         m_wanderMap.m_camController.raycastas.FocusCamera(targetPos);
@@ -445,29 +449,31 @@ public class SingleASV2 : MonoBehaviour
             else
                 m_SegmentList[i].SetIPMap(true);
         }
+
+        UIEventDispatcher.OpenSegmentDetailPanel(m_ASData.ASSegment[index], m_lastMousePosition);
     }
 
-    void OnClickIp(int segIndex, Vector2 pos)
-    {
-        if(segIndex < m_SegmentList.Count)
-        {
-            int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
-            ASProxy.instance.GetASSegmentIPInfo(new Vector2Int(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
-        }
-    }
+    // void OnClickIp(int segIndex, Vector2 pos)
+    // {
+    //     if(segIndex < m_SegmentList.Count)
+    //     {
+    //         int ipIndex = m_SegmentList[segIndex].GetIPIndexByPos(pos);
+    //         ASProxy.instance.GetASSegmentIPInfo(new Vector2Int(m_ASData.X,m_ASData.Y), segIndex, ipIndex, ShowIPDetail);
+    //     }
+    // }
 
-    void ShowIPDetail(IpDetail ipDetail)
-    {
-        if(ipDetail != null)
-        {
-            Debug.LogFormat("I called ShowIPDetail, but did it success ? ? ? ? {0}",ipDetail.IP);
-            UIEventDispatcher.OpenIPDetailPanel(ipDetail, m_lastMousePosition);
-        }    
-        else
-        {
-            Debug.LogFormat("Cannot call ShowIPDetail, got null IPDetail ");
-        }
-    }
+    // void ShowIPDetail(IpDetail ipDetail)
+    // {
+    //     if(ipDetail != null)
+    //     {
+    //         Debug.LogFormat("I called ShowIPDetail, but did it success ? ? ? ? {0}",ipDetail.IP);
+    //         UIEventDispatcher.OpenIPDetailPanel(ipDetail, m_lastMousePosition);
+    //     }    
+    //     else
+    //     {
+    //         Debug.LogFormat("Cannot call ShowIPDetail, got null IPDetail ");
+    //     }
+    // }
 
     // Mesh GenerateMesh(List<ASSegmentItem> list, int n)
     // {

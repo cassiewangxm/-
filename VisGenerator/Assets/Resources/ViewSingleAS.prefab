@@ -590,10 +590,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RegmentsRoot: {fileID: 5615985816135229844}
-  m_mesh: {fileID: 36205227200969037}
-  m_simpleLook: {fileID: 6872678902889268866}
+  m_complexLook: {fileID: 8149082606754714980}
+  m_simpleLook: {fileID: 2478276860119999540}
+  m_complexMesh: {fileID: 36205227200969037}
   m_ASName: {fileID: 7293841664328760062}
-  m_TestSeletedSegment: {fileID: 0}
   m_boxCollider: {fileID: 4045095799583838711}
 --- !u!1 &8015482406967715570
 GameObject:
