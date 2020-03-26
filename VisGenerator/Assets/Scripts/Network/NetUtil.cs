@@ -30,6 +30,8 @@ public class NetUtil : MonoBehaviour
 
     private string m_baseAdressIP = "http://166.111.9.83:28280/";
     private string m_baseAdressAS = "http://166.111.9.83:3000/";
+    private string m_baseAdressASQuery = "http://166.111.9.83:3001/";
+    
     private Dictionary<NetMessageType, string> m_meessageKeywords = new Dictionary<NetMessageType, string> {
         { NetMessageType.IpMapLoad, "IPMAP_Loading"},
         { NetMessageType.IpMapFilter, "IPMAP_Query"},
@@ -246,7 +248,7 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestASSegmentsInfo(string urlParam, Action<IpInfoType1[],string, Action<IpDetail>> action, string key, Action<IpDetail> action2)
     {
-        StringBuilder sb = new StringBuilder(m_baseAdressAS);
+        StringBuilder sb = new StringBuilder(m_baseAdressASQuery);
         sb.Append(m_meessageKeywords[NetMessageType.ASMapQuery]);
         sb.Append(urlParam);
         UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());

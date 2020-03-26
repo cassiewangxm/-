@@ -25,7 +25,7 @@ public class ASInfo
             ASSegment = new ASSegmentInfo[IP_segments.Count];
             foreach(var pair in IP_segments)
             {
-                ASSegment[i++] = new ASSegmentInfo(pair.Key, pair.Value);
+                ASSegment[i++] = new ASSegmentInfo(pair.Key, pair.Value, ASN);
             }
 
             Height = IP_segments.Count * 2;
@@ -62,6 +62,7 @@ public class ASInfo
 #endif
 public class ASSegmentInfo
 {
+    public int ASN;
     public string HeadIP;   //起始IP
     public string TailIP;   //终止IP 
     public int IPCount;     //IP数量
@@ -70,8 +71,9 @@ public class ASSegmentInfo
 
     private Dictionary<int, Color> IPColorDict = new Dictionary<int, Color>();
 
-    public ASSegmentInfo(string time, string[] other)
+    public ASSegmentInfo(string time, string[] other, int asn)
     {
+        ASN = asn;
         Time = time;
 
         if(other.Length < 3)
@@ -135,6 +137,31 @@ public class ASSegmentInfo
         }
 
         return string.Format("{0}.{1}.{2}.{3}",ips[0],ips[1],ips[2],ips[3]);
+    }
+
+    // index 附近的一组IP
+    public string[] GetHeadTailByIndex(int index)
+    {
+        string[] heads = HeadIP.Split('.');
+        string[] tails = TailIP.Split('.');
+        int[] ips = new int[heads.Length - 1];
+        for(int i = 0; i < heads.Length - 1 ; i++)
+        {
+            if(heads[i].CompareTo(tails[i]) != 0)
+            {
+                int head = int.Parse(heads[i]);
+                ips[i] = head + index/(int)Mathf.Pow(256, 3-i);
+            }
+            else
+            {
+                ips[i] = int.Parse(heads[i]);
+            }
+        }
+
+        string[] ht = new string[2];
+        ht[0] = string.Format("{0}.{1}.{2}.{3}",ips[0],ips[1],ips[2],heads[3]);
+        ht[1] = string.Format("{0}.{1}.{2}.{3}",ips[0],ips[1],ips[2],tails[3]);
+        return ht;
     }
 
     public float GetRadius()
@@ -272,6 +299,29 @@ public class ASProxy : MonoBehaviour
         return m_ASDict.ContainsKey(new Vector2Int(x,y));
     }
 
+    public void GetSegmentIPInfo(ASSegmentInfo segInfo, int ipIndex, Action<IpDetail> action)
+    {
+        string ip = segInfo.GetIpStringByIndex(ipIndex);
+        if(m_segmentIPCache.ContainsKey(ip))
+        {
+            IpDetail target = m_segmentIPCache[ip];
+            target.IP = ip;
+            action(target);
+            return;
+        }
+        else
+        {
+            string[] ht = segInfo.GetHeadTailByIndex(ipIndex);
+            MessageRequestASSegments msg = new MessageRequestASSegments();
+            msg.ASN = segInfo.ASN;
+            msg.HeadIp = ht[0];
+            msg.TailIp = ht[1];
+            msg.type = "IPinfotype2";
+            NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, ip, action);
+            return;
+        }
+    }
+
     //获取 某坐标的AS柱体某一层的某个IP信息
     public void GetASSegmentIPInfo(Vector2Int asPos, int segmentIndex, int ipIndex, Action<IpDetail> action)
     {
@@ -284,16 +334,19 @@ public class ASProxy : MonoBehaviour
                 string ip = segInfo.GetIpStringByIndex(ipIndex);
                 if(m_segmentIPCache.ContainsKey(ip))
                 {
-                    action(m_segmentIPCache[ip]);
+                    IpDetail target = m_segmentIPCache[ip];
+                    target.IP = ip;
+                    action(target);
                     return;
                 }
                 else
                 {
+                    string[] ht = segInfo.GetHeadTailByIndex(ipIndex);
                     MessageRequestASSegments msg = new MessageRequestASSegments();
                     msg.ASN = asinfo.ASN;
-                    msg.HeadIp = segInfo.GetIpStringByIndex(ipIndex);
-                    msg.TailIp = msg.HeadIp;
-                    msg.type = "IPinfotype4";
+                    msg.HeadIp = ht[0];
+                    msg.TailIp = ht[1];
+                    msg.type = "IPinfotype2";
                     NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, ip, action);
                     return;
                 }
@@ -314,16 +367,28 @@ public class ASProxy : MonoBehaviour
 
     void OnRecieveSegmentInfo(IpInfoType1[] array, string key, Action<IpDetail> action)
     {
+        IpDetail share = null;
         for(int i = 0; i < array.Length; i++)
         {
-            m_segmentIPCache.Add(array[i].ip, new IpDetail(array[i]));
+            if(i == 0)
+            {
+                share = new IpDetail(array[i]);
+            }
+            else if(array[i].ip != null && !m_segmentIPCache.ContainsKey(array[i].ip))
+            {
+                m_segmentIPCache.Add(array[i].ip, share);
+            }
         }
 
         if(action == null)
             return;
 
         if(m_segmentIPCache.ContainsKey(key))
-            action(m_segmentIPCache[key]);
+        {
+            IpDetail target = m_segmentIPCache[key];
+            target.IP = key;
+            action(target);
+        }
         else
             action(null);
     }
