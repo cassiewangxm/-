@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Text;
 
 
 [Serializable]
@@ -61,7 +62,19 @@ public class IpDetail
 
     public string GetDesc()
     {
-        return string.Format("AS : {0}\nCountry : {1}\nProvince : {2}\nCity : {3}\nCoordinate : {4}", ASNum, country, province, city, MapCoordinate);
+        StringBuilder sb = new StringBuilder();
+        sb.AppendFormat("AS : {0}\n", ASNum);
+        if(!string.IsNullOrEmpty(country))
+            sb.AppendFormat("Country : {0}\n", country);
+        if(!string.IsNullOrEmpty(province))
+            sb.AppendFormat("Province : {0}\n", province);
+        if(!string.IsNullOrEmpty(city))
+            sb.AppendFormat("City : {0}\n", city);
+        
+        sb.AppendFormat("Coordinate : {0}\n", MapCoordinate);
+
+        return sb.ToString();
+        //return string.Format("AS : {0}\nCountry : {1}\nProvince : {2}\nCity : {3}\nCoordinate : {4}", ASNum, country, province, city, MapCoordinate);
     }
 
     public static readonly string DEFAULT_IP = "0.0.0.0";

@@ -7,7 +7,7 @@ using RTG;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandler
+public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
 {
     [SerializeField]
     private Text m_TimeText;
@@ -26,7 +26,9 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
     private int m_maxWidth;
     private int m_curLevel;
     private int m_maxLevel;
-    private Vector2Int m_pixelInfo = Vector2Int.one; // x = pixel size， y = line count
+    private float m_IpBlockWith = 1;
+    private float m_lineCount = 1;
+    private bool m_lastIpShowFinished = true;
     void Awake()
     {
         m_originalWidth = (int)m_IPMap.rectTransform.sizeDelta.x;
@@ -57,6 +59,7 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
         StopAllCoroutines();
         StartCoroutine(GenerateTextureByLevel(m_curLevel));
         UpdateUI();
+        m_IpBlockWith = m_IPMap.rectTransform.sizeDelta.x / m_lineCount;
 
         RTFocusCamera.Get.LookAroundSettings.IsLookAroundEnabled = false;
         RTFocusCamera.Get.ZoomSettings.IsZoomEnabled = false;
@@ -74,9 +77,8 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
 
         int pixelsize = (int)Mathf.Sqrt( (width * width) / m_segmentData.IPCount);
         pixelsize = pixelsize > 0 ? pixelsize : 1;
-        int lineCount = width/pixelsize + 1;
-        m_pixelInfo.x = pixelsize;
-        m_pixelInfo.y = lineCount;
+        int lineCount = width/pixelsize;
+        m_lineCount = (float)width/pixelsize;
         Debug.LogFormat("IPMap Resize (width , pixel) = ({0},{1}) ", width, pixelsize);
 
         int curCount = 0;
@@ -84,13 +86,13 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
         {  
             for(int j = 0; j < width; j++)
             {
-                if(j/pixelsize >= lineCount)
+                if(j/pixelsize >= lineCount || i/pixelsize >= lineCount)
                 {
                     m_texture.SetPixel(i, j, Color.black);
                 }
                 else
                 {
-                    curCount = i/pixelsize * lineCount + j/pixelsize;
+                    curCount = j/pixelsize * lineCount + i/pixelsize;
                     m_texture.SetPixel(i, j, m_segmentData.GetIPColor(curCount));
                     //Debug.LogFormat("({0},{1}) : {2}", i, j, m_segmentData.GetIPColor(curCount));
                 }
@@ -132,8 +134,9 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
     {
         if (m_segmentData == null) 
             return;
-            
+        m_IPMap.rectTransform.sizeDelta = new Vector2(m_originalWidth, m_originalWidth);
         m_focusMark.gameObject.SetActive(false);
+        HideIpDetail();
         m_TimeText.text = m_segmentData.Time;
     }
 
@@ -166,47 +169,74 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler, IDragHandle
             }
 
             if(targetSize.x <= m_maxWidth * 2 && targetSize.x >= m_originalWidth)
+            {
                 m_IPMap.rectTransform.sizeDelta = targetSize;
+                m_IpBlockWith = targetSize.x / m_lineCount;
+            }
         }
     }
     public void OnPointerClick(PointerEventData data)
     {
+        if(!m_lastIpShowFinished)
+        {
+            ShowWarningOnTitle(true);
+            return;
+        }
         if(CheckClickPos(data.position, m_validClickRect) && CheckClickPos(data.position, m_IPMap.rectTransform))
         {
-            UpdateMarkPos(data.position);
-
+            m_lastIpShowFinished = false;
             Vector2 offset = GetOffset(data.position, m_IPMap.rectTransform);
 
-            int y = (int)(offset.y/m_IPMap.rectTransform.rect.height * m_pixelInfo.y);
-            int x = (int)(offset.x/m_IPMap.rectTransform.rect.width * m_pixelInfo.y);
+            int y = (int)(offset.y/m_IPMap.rectTransform.rect.height * m_lineCount);
+            int x = (int)(offset.x/m_IPMap.rectTransform.rect.width * m_lineCount);
 
-            int index = y * m_pixelInfo.y + x;
+            //需要判断x y 越界
+            int index = y * (int)m_lineCount + x;
 
+            UpdateMarkPos(x,y);
+
+            Debug.LogFormat("Clicked IP : {0},{1} ; {2}/{3}", x, y, index, m_segmentData.IPCount);
+
+            HideIpDetail();
             ASProxy.instance.GetSegmentIPInfo(m_segmentData, index, ShowIPDetail);
         }
         
     }
-    public void OnDrag(PointerEventData eventData)
+    void UpdateMarkPos(int x, int y)
     {
-        HideFocusMark();
-    }   
-
-    void UpdateMarkPos(Vector2 pos)
-    {
-        float x = pos.x - m_validClickRect.position.x;
-        float y = pos.y - m_validClickRect.position.y;
+        Vector2 start = new Vector2(-m_IPMap.rectTransform.pivot.x * m_IPMap.rectTransform.rect.width, -m_IPMap.rectTransform.pivot.y * m_IPMap.rectTransform.rect.height);
+        Debug.Log(start);
         m_focusMark.gameObject.SetActive(true);
-        m_focusMark.rectTransform.localPosition = new Vector3(x, y, 0);
+        m_focusMark.rectTransform.localPosition = new Vector3((x + 0.5f) * m_IpBlockWith + start.x, (y + 0.5f) * m_IpBlockWith + start.y, 0);
     }
 
-    void HideFocusMark()
+    void ShowWarningOnTitle(bool warning)
+    {
+        if(warning)
+        {
+            m_TimeText.text = m_segmentData.Time + " <color=#f7cd46ff>(Waiting for net response !!!)</color>";
+        }
+        else
+        {
+            m_TimeText.text = m_segmentData.Time;
+        }
+    }
+
+    public void HideFocusMark()
     {
         if(m_focusMark.gameObject.activeSelf)
             m_focusMark.gameObject.SetActive(false);
     }
 
+    void HideIpDetail()
+    {
+        m_IpDetailPanel.gameObject.SetActive(false);
+    }
+
     void ShowIPDetail(IpDetail ipDetail)
     {
+        ShowWarningOnTitle(false);
+        m_lastIpShowFinished = true;
         if(m_IpDetailPanel != null && ipDetail != null)
         {
             m_IpDetailPanel.SetUIData(ipDetail);
