@@ -48,11 +48,39 @@ public class ParticlePath : MonoBehaviour
 
     public void RemakeBezierPoints()
     {
+        if (!PS || Waypoints.Count <= 0)
+        {
+            IsApprove = false;
+            IsPath = false;
+            return;
+        }
+
+        //创建贝塞尔曲线的路径点（而不是实时计算）
+        //if (IsBezier)
         MakeBezierPoints();
+
+        _psmm = PS.main;
+        _oldSpeed = Speed;
+        if (IsBezier)
+            _psmm.startLifetime = BezierPoints.Count * Speed;
+        else
+            _psmm.startLifetime = Waypoints.Count * Speed;
+
+        _psmm.simulationSpace = ParticleSystemSimulationSpace.Custom;
+        _psmm.customSimulationSpace = transform;
+
+        transform.localRotation = Quaternion.identity;
+
+        //Camera.main.transform.position = new Vector3(0, 0, 0);
+        //if (IsCameraFollow)
+        //    Camera.main.transform.position = transform.position;
+
+        cameraWaitTick = 0;
     }
 
     private void Awake()
     {
+        
         if (!PS || Waypoints.Count <= 0)
         {
             IsApprove = false;
@@ -81,6 +109,7 @@ public class ParticlePath : MonoBehaviour
         //    Camera.main.transform.position = transform.position;
 
         cameraWaitTick = 0;
+        
     }
 
     private void Update()
@@ -90,7 +119,7 @@ public class ParticlePath : MonoBehaviour
             //直线模式
             if (IsBezier == false)
             {
-                MoveParticles(Waypoints);
+                MoveParticles(Waypoints, Time.deltaTime);
 
                 if (IsCameraFollow)
                     MoveLineCamera();
@@ -98,7 +127,7 @@ public class ParticlePath : MonoBehaviour
             else
             {
 
-                MoveParticles(BezierPoints);
+                MoveParticles(BezierPoints, Time.deltaTime);
 
                 if (IsCameraFollow)
                     MoveBezierCamera();
@@ -108,7 +137,7 @@ public class ParticlePath : MonoBehaviour
         }
     }
 
-    void MoveParticles(List<Vector3> movePoints)
+    void MoveParticles(List<Vector3> movePoints, float deltaTime)
     {
         ParticleSystem.Particle[] ps = new ParticleSystem.Particle[PS.particleCount];
         int pCount = PS.GetParticles(ps);
@@ -127,6 +156,7 @@ public class ParticlePath : MonoBehaviour
             {
                 Vector3 direction = movePoints[index + 1] - movePoints[index];
                 ps[i].velocity = direction * (1.0f / Speed) * (1.0f / transform.localScale.x);
+                ps[i].position = movePoints[index] + (proportion * movePoints.Count - index) * direction;
             }
             else
             {

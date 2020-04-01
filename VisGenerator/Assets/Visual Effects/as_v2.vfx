@@ -1154,7 +1154,7 @@ VisualEffectResource:
       Out = A + B;\n\t\t\t}\n\t\t\t\n\t\t\t// Property: Gradient\n\t\t\tGradient
       Gradient_150991D1_Definition()\n\t\t\t{\n\t\t\t    Gradient g;\n\t\t\t    g.type
       = 0;\n\t\t\t    g.colorsLength = 2;\n\t\t\t    g.alphasLength = 2;\n\t\t\t   
-      g.colors[0] = float4(0.004405484, 0.02539425, 0.08490568, 0.002944991);\n\t\t\t   
+      g.colors[0] = float4(0.03773582, 0.01832205, 0.003025986, 0.002944991);\n\t\t\t   
       g.colors[1] = float4(2, 1.294118, 0.6196079, 1);\n\t\t\t    g.colors[2] = float4(0,
       0, 0, 0);\n\t\t\t    g.colors[3] = float4(0, 0, 0, 0);\n\t\t\t    g.colors[4]
       = float4(0, 0, 0, 0);\n\t\t\t    g.colors[5] = float4(0, 0, 0, 0);\n\t\t\t   
@@ -1212,7 +1212,7 @@ VisualEffectResource:
       // Node: Add\n\t\t\t    float4 _Add_D8A1D76E_Out_2;\n\t\t\t    Unity_Add_float4(_Multiply_23F0F88D_Out_2,
       _Multiply_6C6D466_Out_2, _Add_D8A1D76E_Out_2);\n\t\t\t\n\t\t\t    // Visual
       Effect Master\n\t\t\t    SG_Output_abfd42c13223447bfbe3d7528d18d99d OUT;\n\t\t\t   
-      OUT.BaseColor_1 = (_Add_D8A1D76E_Out_2.xyz);\n\t\t\t    OUT.Metallic_2 = 0.5;\n\t\t\t   
+      OUT.BaseColor_1 = (_Add_D8A1D76E_Out_2.xyz);\n\t\t\t    OUT.Metallic_2 = 1;\n\t\t\t   
       OUT.Smoothness_3 = 0.5;\n\t\t\t    OUT.Normal_8 = float3 (0, 0, 1);\n\t\t\t   
       OUT.Emissive_5 = (_Add_D8A1D76E_Out_2.xyz);\n\t\t\t    OUT.Alpha_4 = 1;\n\t\t\t   
       return OUT;\n\t\t\t}\n\t\t\t\n\r\n\t\t    \r\n\t\t\t#pragma fragment frag\r\n\t\t\tvoid
@@ -1534,7 +1534,7 @@ VisualEffectResource:
       Out = A + B;\n\t\t    }\n\t\t    \n\t\t    // Property: Gradient\n\t\t    Gradient
       Gradient_150991D1_Definition()\n\t\t    {\n\t\t        Gradient g;\n\t\t       
       g.type = 0;\n\t\t        g.colorsLength = 2;\n\t\t        g.alphasLength =
-      2;\n\t\t        g.colors[0] = float4(0.004405484, 0.02539425, 0.08490568, 0.002944991);\n\t\t       
+      2;\n\t\t        g.colors[0] = float4(0.03773582, 0.01832205, 0.003025986, 0.002944991);\n\t\t       
       g.colors[1] = float4(2, 1.294118, 0.6196079, 1);\n\t\t        g.colors[2] =
       float4(0, 0, 0, 0);\n\t\t        g.colors[3] = float4(0, 0, 0, 0);\n\t\t       
       g.colors[4] = float4(0, 0, 0, 0);\n\t\t        g.colors[5] = float4(0, 0, 0,
@@ -1597,7 +1597,7 @@ VisualEffectResource:
       _Multiply_6C6D466_Out_2, _Add_D8A1D76E_Out_2);\n\t\t    \n\t\t        // Visual
       Effect Master\n\t\t        SG_Output_abfd42c13223447bfbe3d7528d18d99d OUT;\n\t\t       
       OUT.BaseColor_1 = (_Add_D8A1D76E_Out_2.xyz);\n\t\t        OUT.Metallic_2 =
-      0.5;\n\t\t        OUT.Smoothness_3 = 0.5;\n\t\t        OUT.Normal_8 = float3
+      1;\n\t\t        OUT.Smoothness_3 = 0.5;\n\t\t        OUT.Normal_8 = float3
       (0, 0, 1);\n\t\t        OUT.Emissive_5 = (_Add_D8A1D76E_Out_2.xyz);\n\t\t       
       OUT.Alpha_4 = 1;\n\t\t        return OUT;\n\t\t    }\n\t\t    \n\r\n\t\t\r\n\t\t\t#pragma
       fragment frag\r\n\t\t\tvoid frag(ps_input i\r\n\t\t\t, out float4 outColor

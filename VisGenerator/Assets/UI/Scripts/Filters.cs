@@ -34,14 +34,20 @@ class CurveLine
 {
     public Vector3 PosA;
     public Vector3 PosB;
+    public int flow;
+    private float GetTopPoint()
+    {
+        return ((float)Math.Sqrt(Vector3.Distance(PosA, PosB)) * 15.0f);
+    }
     public Vector3 GetPosT(float k)
     {
-        return new Vector3((PosA.x * (1.0f - k) + PosB.x * k), 100.0f * (0.25f - (k - 0.5f) * (k - 0.5f)), (PosA.z * (1.0f - k) + PosB.z * k));
+        return new Vector3((PosA.x * (1.0f - k) + PosB.x * k), GetTopPoint() * (0.25f - (k - 0.5f) * (k - 0.5f)), (PosA.z * (1.0f - k) + PosB.z * k));
     }
-    public CurveLine(Vector3 A, Vector3 B)
+    public CurveLine(Vector3 A, Vector3 B, int flow)
     {
         PosA = A;
         PosB = B;
+        this.flow = flow;
     }
     public GameObject ParticlePathGO;
     public GameObject EffectA;
@@ -91,6 +97,7 @@ public class Filters : MonoBehaviour
     public GameObject CurveLinePrefab;
     public GameObject CurveLineParent;
     public GameObject AttackEffectPrefab;
+    public GameObject AttackEffectASPrefab;
 
     public GameObject PointPrefab;
 
@@ -369,12 +376,12 @@ public class Filters : MonoBehaviour
         float ipHeight = IPCamera.transform.position.y;
         float mapHeight = MapCamera.transform.position.y;
 
-        float thicknessk = 50.0f;
+        float thicknessk = 10.0f;
         float radiusk = 140.0f;
 
         for (int i = 0; i < ASCurveLines.Count; i ++)
         {
-            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = asHeight / thicknessk;
+            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(asHeight) / thicknessk);
             /*
             GameObject GO = ASCurveLines[i].EffectA;
             for (int j = 0; j < GO.transform.childCount; j ++)
@@ -487,15 +494,24 @@ public class Filters : MonoBehaviour
         CurveLine.tag = tag;
         CurveLine.layer = layer;
         CurveLine.GetComponent<ParticlePath>().Waypoints.Clear();
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.PosA);
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.15f));
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.3f));
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.5f));
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.7f));
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.85f));
-        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.PosB);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(Vector3.zero);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.15f) - CurveLineData.PosA);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.3f) - CurveLineData.PosA);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.5f) - CurveLineData.PosA);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.7f) - CurveLineData.PosA);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.GetPosT(0.85f) - CurveLineData.PosA);
+        CurveLine.GetComponent<ParticlePath>().Waypoints.Add(CurveLineData.PosB - CurveLineData.PosA);
         CurveLine.transform.position = CurveLineData.PosA;
         CurveLine.GetComponent<ParticlePath>().RemakeBezierPoints();
+
+        float distance = Vector3.Distance(CurveLineData.PosA, CurveLineData.PosB);
+        var main = CurveLine.GetComponent<ParticleSystem>().main;
+        main.simulationSpeed = 10.0f;
+        var emission = CurveLine.GetComponent<ParticleSystem>().emission;
+        emission.rateOverTime = new ParticleSystem.MinMaxCurve(0.0012f * (float)Math.Sqrt(CurveLineData.flow) * distance);
+        var trails = CurveLine.GetComponent<ParticleSystem>().trails;
+        trails.lifetime = 0.00005f * distance;
+
         CurveLineData.ParticlePathGO = CurveLine;
         /*
         GameObject EffectA = Instantiate(AttackEffectPrefab, CurveLineData.PosA, Quaternion.identity);
@@ -510,6 +526,14 @@ public class Filters : MonoBehaviour
         }
         CurveLineData.EffectA = EffectA;
         CurveLineData.EffectB = EffectB;
+        */
+
+        /*
+        GameObject ASEffectB = Instantiate(AttackEffectASPrefab, CurveLineData.PosB, Quaternion.identity);
+        for (int i = 0; i < ASEffectB.transform.childCount; i++)
+        {
+            ASEffectB.transform.GetChild(i).gameObject.layer = 11;
+        }
         */
     }
 
@@ -553,7 +577,7 @@ public class Filters : MonoBehaviour
     {
         int asNumberA, asNumberB;
 
-        for (int i = 0; i < /*AttackInfos.Count*/30; i ++)
+        for (int i = 0; i < AttackInfos.Count / 2; i ++)
         {
             for (int j = 0; j < AttackInfos[i].srcInfo.Count; j ++)
             {
@@ -564,24 +588,28 @@ public class Filters : MonoBehaviour
                     {
                         asNumberB = (int)itemB.ASNum;
 
+                        int flow = AttackInfos[i].srcInfo[j].flow;
+
                         // Show in AS View
                         int asX = 0;
                         int asY = 0;
                         d2xy(256, asNumberA, out asX, out asY);
-                        Vector3 posA = new Vector3(asX / 256.0f * ASHeight, 0.0f, asY / 256.0f * ASWidth);
+                        Vector3 posA = new Vector3((asX + 0.5f) / 256.0f * ASHeight, 0.0f, (asY + 0.5f) / 256.0f * ASWidth);
                         d2xy(256, asNumberB, out asX, out asY);
-                        Vector3 posB = new Vector3(asX / 256.0f * ASHeight, 0.0f, asY / 256.0f * ASWidth);
-                        ASCurveLines.Add(new CurveLine(posA, posB));
+                        Vector3 posB = new Vector3((asX + 0.5f) / 256.0f * ASHeight, 0.0f, (asY + 0.5f) / 256.0f * ASWidth);
+                        ASCurveLines.Add(new CurveLine(posA, posB, flow));
 
                         // Show in AS Navigation View
 
                         //ASNavCurveLines.Add(new CurveLine(posA, posB));
 
                         // Show in Map View
-                        MapCurveLines.Add(new CurveLine(LatLng2Pos(item), LatLng2Pos(itemB)));
+                        MapCurveLines.Add(new CurveLine(LatLng2Pos(item), LatLng2Pos(itemB), flow));
 
                         // Show in IP View
-                        IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB)));
+                        IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB), flow));
+
+                        Debug.Log("Flow: " + flow.ToString());
                     }
                 }
             }

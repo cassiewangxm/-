@@ -44,6 +44,8 @@ namespace Controller
         public Camera CameraIP;
         public Camera CameraMap;
 
+        public Light ASLight;
+
         public GameObject ASGameObject;
 
         //public ViewType currentView = ViewType.ViewAS;
@@ -268,6 +270,8 @@ namespace Controller
                     HighlightBool = !HighlightBool;
                 }
             }
+
+            ASLight.intensity = (180.0f / (height + 50.0f)) * 200000.0f;
         }
 
     }
