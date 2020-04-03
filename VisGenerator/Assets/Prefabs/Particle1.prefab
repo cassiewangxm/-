@@ -208,7 +208,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0, g: 0.40668535, b: 1, a: 0.5019608}
-      maxColor: {r: 0, g: 0.6686826, b: 1, a: 0.7607843}
+      maxColor: {r: 0, g: 0.6686826, b: 1, a: 0.28235295}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3429,7 +3429,7 @@ ParticleSystem:
     separateAxes: 0
     range: {x: 0, y: 1}
   ColorBySpeedModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1

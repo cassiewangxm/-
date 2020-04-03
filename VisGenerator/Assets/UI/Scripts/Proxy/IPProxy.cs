@@ -312,7 +312,7 @@ public class IPProxy : MonoBehaviour
     public void GetIpInfoByFilter(string keyword)//, Action<IpDetail[]> action)
     {
         MessageRequestIpMapFilter msg = new MessageRequestIpMapFilter();
-        msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
+        msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType2];
         msg.Other = keyword;
         NetUtil.Instance.RequestIpMapFilterInfo(msg, OnIpInfoFilterResponse);//, action);  
     }

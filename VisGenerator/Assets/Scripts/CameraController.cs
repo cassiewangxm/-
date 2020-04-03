@@ -52,9 +52,12 @@ namespace Controller
 
         public raycastas raycastas;
 
-        float HightlightFloat = 0.0f;
+        public Filters Filters;
+
+        float HighlightFloat = 0.0f;
         bool HighlightBool = false;
         float HighlightSpeed = 0.018f;
+        public float HighlightIntensity;
 
         bool IsInside(Vector3 move)
         {
@@ -253,25 +256,25 @@ namespace Controller
             ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("itemsize", asItemsize);
-            ASGameObject.GetComponent<VisualEffect>().SetFloat("HighlightFloat", (HightlightFloat > 1.0f) ? 1.0f : HightlightFloat);
+            ASGameObject.GetComponent<VisualEffect>().SetFloat("HighlightFloat", (HighlightFloat > 1.0f) ? 1.0f : HighlightFloat);
             if (!HighlightBool)
             {
-                HightlightFloat += HighlightSpeed;
-                if (HightlightFloat >= 1.25f)
+                HighlightFloat += HighlightSpeed * Time.deltaTime * 60.0f;
+                if (HighlightFloat >= 1.25f)
                 {
                     HighlightBool = !HighlightBool;
                 }
             }
             else
             {
-                HightlightFloat -= HighlightSpeed;
-                if (HightlightFloat <= 0.5f)
+                HighlightFloat -= HighlightSpeed * Time.deltaTime * 60.0f;
+                if (HighlightFloat <= 0.5f)
                 {
                     HighlightBool = !HighlightBool;
                 }
             }
 
-            ASLight.intensity = (180.0f / (height + 50.0f)) * 200000.0f;
+            ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.3f : 1.0f);
         }
 
     }

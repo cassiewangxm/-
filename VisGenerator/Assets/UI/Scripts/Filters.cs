@@ -79,6 +79,8 @@ public class Filters : MonoBehaviour
     public bool isASFilterOn = false;
     public bool isTypeFilterOn = false;
 
+    public bool isHighlight = false;
+
     private bool isShowPosOn = false;
 
     public bool[] asFilterFlag = new bool[65536];
@@ -126,7 +128,7 @@ public class Filters : MonoBehaviour
         ASWidth = Consts.ASSize.x;
         ASHeight = Consts.ASSize.y;
         MapWidth = Consts.MapSize.x;
-        MapHeight = Consts.MapSize.y;
+        MapHeight = Consts.MapSize.z;
         IPWidth = IPGameObject.GetIPFullSize().x;
         IPHeight = IPGameObject.GetIPFullSize().y;
 
@@ -227,7 +229,7 @@ public class Filters : MonoBehaviour
                 }
                 else
                 {
-                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 1.0f, 0.0f));
+                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 0.3f, 0.0f));
                 }
             }
         }
@@ -235,6 +237,9 @@ public class Filters : MonoBehaviour
         byte[] bytesas = texas.EncodeToPNG();
         File.WriteAllBytes(Application.dataPath + "/ashl.png", bytesas);
         ASGameObject.GetComponent<VisualEffect>().SetTexture("ashl", texas);
+
+        this.isHighlight = isHighlight;
+    
     }
 
     void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0, bool isSearchedAS = false)
@@ -303,7 +308,14 @@ public class Filters : MonoBehaviour
                 d2xy(256, FilterResults[i].ASNum, out xx, out yy);
                 asFilterFlag[xx * 256 + yy] = true;
             }
-            ModifyASHighlight(true);
+            if (FilterResults.Length > 0)
+            {
+                ModifyASHighlight(true);
+            }
+            else
+            {
+                ModifyASHighlight(false);
+            }
         }
     }
 
@@ -381,7 +393,7 @@ public class Filters : MonoBehaviour
 
         for (int i = 0; i < ASCurveLines.Count; i ++)
         {
-            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(asHeight) / thicknessk);
+            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(asHeight) / thicknessk) * (float)Math.Sqrt(ASCurveLines[i].flow);
             /*
             GameObject GO = ASCurveLines[i].EffectA;
             for (int j = 0; j < GO.transform.childCount; j ++)
@@ -397,7 +409,7 @@ public class Filters : MonoBehaviour
         }
         for (int i = 0; i < IPCurveLines.Count; i++)
         {
-            IPCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = ipHeight / thicknessk;
+            IPCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(ipHeight) / thicknessk);
             /*
             GameObject GO = IPCurveLines[i].EffectA;
             for (int j = 0; j < GO.transform.childCount; j++)
@@ -413,7 +425,7 @@ public class Filters : MonoBehaviour
         }
         for (int i = 0; i < MapCurveLines.Count; i++)
         {
-            MapCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = mapHeight / thicknessk;
+            MapCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(mapHeight) / thicknessk);
             /*
             GameObject GO = MapCurveLines[i].EffectA;
             for (int j = 0; j < GO.transform.childCount; j++)
@@ -484,6 +496,7 @@ public class Filters : MonoBehaviour
             SearchedPoint.layer = 12;
             SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+            Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
         }
     }
 
@@ -577,7 +590,7 @@ public class Filters : MonoBehaviour
     {
         int asNumberA, asNumberB;
 
-        for (int i = 0; i < AttackInfos.Count / 2; i ++)
+        for (int i = 0; i < AttackInfos.Count; i ++)
         {
             for (int j = 0; j < AttackInfos[i].srcInfo.Count; j ++)
             {
@@ -604,10 +617,10 @@ public class Filters : MonoBehaviour
                         //ASNavCurveLines.Add(new CurveLine(posA, posB));
 
                         // Show in Map View
-                        MapCurveLines.Add(new CurveLine(LatLng2Pos(item), LatLng2Pos(itemB), flow));
+                        //MapCurveLines.Add(new CurveLine(LatLng2Pos(item), LatLng2Pos(itemB), flow));
 
                         // Show in IP View
-                        IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB), flow));
+                        //IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB), flow));
 
                         Debug.Log("Flow: " + flow.ToString());
                     }
