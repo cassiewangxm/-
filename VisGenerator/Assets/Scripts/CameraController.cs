@@ -251,7 +251,7 @@ namespace Controller
         {
             float height = CameraAS.transform.position.y;
             float asScale = GetModifiedASScale(height);
-            float asGScale = 0.03f * GetModifiedASScale(252.0f) / GetModifiedASScale(height);
+            float asGScale = 0.06f * GetModifiedASScale(252.0f) / GetModifiedASScale(height);
             float asItemsize = (height / 250.0f) * 0.4f + 0.6f;
             ASGameObject.GetComponent<VisualEffect>().SetFloat("scale", asScale);
             ASGameObject.GetComponent<VisualEffect>().SetFloat("gscale", asGScale);
@@ -274,7 +274,7 @@ namespace Controller
                 }
             }
 
-            ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.3f : 1.0f);
+            ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.7f : 1.0f);
         }
 
     }

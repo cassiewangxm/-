@@ -103,6 +103,8 @@ public class Filters : MonoBehaviour
 
     public GameObject PointPrefab;
 
+    public GameObject PyramidPrefab;
+
     public InputField SearchBox;
 
     public GameObject ASGameObject;
@@ -110,6 +112,7 @@ public class Filters : MonoBehaviour
 
     IpDetail[] FilterResults;
     public GameObject FilterParent;
+    public GameObject PyramidParent;
 
     RegionData ReadJsonFile(string filePath)
     {
@@ -225,11 +228,11 @@ public class Filters : MonoBehaviour
             {
                 if (!isHighlight)
                 {
-                    texas.SetPixel(i, j, new Color(0.0f, 1.0f, 0.0f));
+                    texas.SetPixel(i, j, new Color(0.0f, 0.75f, 0.0f));
                 }
                 else
                 {
-                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 0.3f, 0.0f));
+                    texas.SetPixel(i, j, asFilterFlag[i * 256 + j] ? new Color(1.0f, 0.0f, 0.0f) : new Color(0.0f, 0.75f, 0.0f));
                 }
             }
         }
@@ -307,6 +310,13 @@ public class Filters : MonoBehaviour
                 int yy = 0;
                 d2xy(256, FilterResults[i].ASNum, out xx, out yy);
                 asFilterFlag[xx * 256 + yy] = true;
+
+                // Place Pyramids
+                GameObject newPyramid = Instantiate(PyramidPrefab, new Vector3((xx + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(xx, yy), (yy + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+                newPyramid.transform.SetParent(PyramidParent.transform);
+                newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+                newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
+                newPyramid.layer = 10;
             }
             if (FilterResults.Length > 0)
             {
@@ -586,6 +596,16 @@ public class Filters : MonoBehaviour
         Debug.Log("Attack Info Fetched");
     }
 
+    float ASCubeHeight(int X, int Y)
+    {
+        return 10.0f;
+    }
+
+    float ASCurveLinesCenter(int X, int Y)
+    {
+        return ASCubeHeight(X, Y);
+    }
+
     public void ShowAttacks()
     {
         int asNumberA, asNumberB;
@@ -607,9 +627,9 @@ public class Filters : MonoBehaviour
                         int asX = 0;
                         int asY = 0;
                         d2xy(256, asNumberA, out asX, out asY);
-                        Vector3 posA = new Vector3((asX + 0.5f) / 256.0f * ASHeight, 0.0f, (asY + 0.5f) / 256.0f * ASWidth);
+                        Vector3 posA = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
                         d2xy(256, asNumberB, out asX, out asY);
-                        Vector3 posB = new Vector3((asX + 0.5f) / 256.0f * ASHeight, 0.0f, (asY + 0.5f) / 256.0f * ASWidth);
+                        Vector3 posB = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
                         ASCurveLines.Add(new CurveLine(posA, posB, flow));
 
                         // Show in AS Navigation View

@@ -1134,11 +1134,13 @@ VisualEffectResource:
       Node: Add\n\t\t\tvoid Unity_Add_float(float A, float B, out float Out)\n\t\t\t{\n\t\t\t   
       Out = A + B;\n\t\t\t}\n\t\t\t\n\t\t\t// Node: Divide\n\t\t\tvoid Unity_Divide_float(float
       A, float B, out float Out)\n\t\t\t{\n\t\t\t    Out = A / B;\n\t\t\t}\n\t\t\t\n\t\t\t//
-      Node: Multiply\n\t\t\tvoid Unity_Multiply_float(float4 A, float4 B, out float4
-      Out)\n\t\t\t{\n\t\t\t    Out = A * B;\n\t\t\t}\n\t\t\t\n\t\t\t// Node: Multiply\n\t\t\tvoid
-      Unity_Multiply_float(float A, float B, out float Out)\n\t\t\t{\n\t\t\t    Out
-      = A * B;\n\t\t\t}\n\t\t\t\n\t\t\t// Node: Sample Gradient\n\t\t\tvoid Unity_SampleGradient_float(Gradient
-      Gradient, float Time, out float4 Out)\n\t\t\t{\n\t\t\t    float3 color = Gradient.colors[0].rgb;\n\t\t\t   
+      Node: Round\n\t\t\tvoid Unity_Round_float(float In, out float Out)\n\t\t\t{\n\t\t\t   
+      Out = round(In);\n\t\t\t}\n\t\t\t\n\t\t\t// Node: Multiply\n\t\t\tvoid Unity_Multiply_float(float4
+      A, float4 B, out float4 Out)\n\t\t\t{\n\t\t\t    Out = A * B;\n\t\t\t}\n\t\t\t\n\t\t\t//
+      Node: Multiply\n\t\t\tvoid Unity_Multiply_float(float A, float B, out float
+      Out)\n\t\t\t{\n\t\t\t    Out = A * B;\n\t\t\t}\n\t\t\t\n\t\t\t// Node: Sample
+      Gradient\n\t\t\tvoid Unity_SampleGradient_float(Gradient Gradient, float Time,
+      out float4 Out)\n\t\t\t{\n\t\t\t    float3 color = Gradient.colors[0].rgb;\n\t\t\t   
       [unroll]\n\t\t\t    for (int c = 1; c < 8; c++)\n\t\t\t    {\n\t\t\t       
       float colorPos = saturate((Time - Gradient.colors[c-1].w) / (Gradient.colors[c].w
       - Gradient.colors[c-1].w)) * step(c, Gradient.colorsLength-1);\n\t\t\t       
@@ -1193,17 +1195,21 @@ VisualEffectResource:
       float _SampleTexture2D_5EB2E67D_G_5 = _SampleTexture2D_5EB2E67D_RGBA_0.g;\n\t\t\t   
       float _SampleTexture2D_5EB2E67D_B_6 = _SampleTexture2D_5EB2E67D_RGBA_0.b;\n\t\t\t   
       float _SampleTexture2D_5EB2E67D_A_7 = _SampleTexture2D_5EB2E67D_RGBA_0.a;\n\t\t\t\n\t\t\t   
-      // Node: Property\n\t\t\t    float4 _Property_5AB79687_Out_0 = Color_DCF944C2;\n\t\t\t\n\t\t\t   
-      // Node: Multiply\n\t\t\t    float4 _Multiply_23F0F88D_Out_2;\n\t\t\t    Unity_Multiply_float((_SampleTexture2D_5EB2E67D_R_4.xxxx),
+      // Node: Round\n\t\t\t    float _Round_EC56179A_Out_1;\n\t\t\t    Unity_Round_float(_SampleTexture2D_5EB2E67D_R_4,
+      _Round_EC56179A_Out_1);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t    float4
+      _Property_5AB79687_Out_0 = Color_DCF944C2;\n\t\t\t\n\t\t\t    // Node: Multiply\n\t\t\t   
+      float4 _Multiply_23F0F88D_Out_2;\n\t\t\t    Unity_Multiply_float((_Round_EC56179A_Out_1.xxxx),
       _Property_5AB79687_Out_0, _Multiply_23F0F88D_Out_2);\n\t\t\t\n\t\t\t    //
-      Node: Property\n\t\t\t    Gradient _Property_27170F86_Out_0 = Gradient_150991D1;\n\t\t\t\n\t\t\t   
-      // Node: Property\n\t\t\t    float _Property_E377AE6C_Out_0 = Vector1_1FF39C4B;\n\t\t\t\n\t\t\t   
-      // Node: Multiply\n\t\t\t    float _Multiply_16D86C1C_Out_2;\n\t\t\t    Unity_Multiply_float(_Split_EC6A98BB_G_2,
+      Node: Round\n\t\t\t    float _Round_27EC9B72_Out_1;\n\t\t\t    Unity_Round_float(_SampleTexture2D_5EB2E67D_G_5,
+      _Round_27EC9B72_Out_1);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t    Gradient
+      _Property_27170F86_Out_0 = Gradient_150991D1;\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
+      float _Property_E377AE6C_Out_0 = Vector1_1FF39C4B;\n\t\t\t\n\t\t\t    // Node:
+      Multiply\n\t\t\t    float _Multiply_16D86C1C_Out_2;\n\t\t\t    Unity_Multiply_float(_Split_EC6A98BB_G_2,
       _Property_E377AE6C_Out_0, _Multiply_16D86C1C_Out_2);\n\t\t\t\n\t\t\t    //
       Node: Sample Gradient\n\t\t\t    float4 _SampleGradient_C193F82B_Out_2;\n\t\t\t   
       Unity_SampleGradient_float(_Property_27170F86_Out_0, _Multiply_16D86C1C_Out_2,
       _SampleGradient_C193F82B_Out_2);\n\t\t\t\n\t\t\t    // Node: Multiply\n\t\t\t   
-      float4 _Multiply_6C6D466_Out_2;\n\t\t\t    Unity_Multiply_float((_SampleTexture2D_5EB2E67D_G_5.xxxx),
+      float4 _Multiply_6C6D466_Out_2;\n\t\t\t    Unity_Multiply_float((_Round_27EC9B72_Out_1.xxxx),
       _SampleGradient_C193F82B_Out_2, _Multiply_6C6D466_Out_2);\n\t\t\t\n\t\t\t   
       // Node: Add\n\t\t\t    float4 _Add_D8A1D76E_Out_2;\n\t\t\t    Unity_Add_float4(_Multiply_23F0F88D_Out_2,
       _Multiply_6C6D466_Out_2, _Add_D8A1D76E_Out_2);\n\t\t\t\n\t\t\t    // Node:
@@ -1508,15 +1514,17 @@ VisualEffectResource:
       // Node: Add\n\t\t    void Unity_Add_float(float A, float B, out float Out)\n\t\t   
       {\n\t\t        Out = A + B;\n\t\t    }\n\t\t    \n\t\t    // Node: Divide\n\t\t   
       void Unity_Divide_float(float A, float B, out float Out)\n\t\t    {\n\t\t       
-      Out = A / B;\n\t\t    }\n\t\t    \n\t\t    // Node: Multiply\n\t\t    void
-      Unity_Multiply_float(float4 A, float4 B, out float4 Out)\n\t\t    {\n\t\t       
-      Out = A * B;\n\t\t    }\n\t\t    \n\t\t    // Node: Multiply\n\t\t    void
-      Unity_Multiply_float(float A, float B, out float Out)\n\t\t    {\n\t\t       
-      Out = A * B;\n\t\t    }\n\t\t    \n\t\t    // Node: Sample Gradient\n\t\t   
-      void Unity_SampleGradient_float(Gradient Gradient, float Time, out float4 Out)\n\t\t   
-      {\n\t\t        float3 color = Gradient.colors[0].rgb;\n\t\t        [unroll]\n\t\t       
-      for (int c = 1; c < 8; c++)\n\t\t        {\n\t\t            float colorPos
-      = saturate((Time - Gradient.colors[c-1].w) / (Gradient.colors[c].w - Gradient.colors[c-1].w))
+      Out = A / B;\n\t\t    }\n\t\t    \n\t\t    // Node: Round\n\t\t    void Unity_Round_float(float
+      In, out float Out)\n\t\t    {\n\t\t        Out = round(In);\n\t\t    }\n\t\t   
+      \n\t\t    // Node: Multiply\n\t\t    void Unity_Multiply_float(float4 A, float4
+      B, out float4 Out)\n\t\t    {\n\t\t        Out = A * B;\n\t\t    }\n\t\t   
+      \n\t\t    // Node: Multiply\n\t\t    void Unity_Multiply_float(float A, float
+      B, out float Out)\n\t\t    {\n\t\t        Out = A * B;\n\t\t    }\n\t\t   
+      \n\t\t    // Node: Sample Gradient\n\t\t    void Unity_SampleGradient_float(Gradient
+      Gradient, float Time, out float4 Out)\n\t\t    {\n\t\t        float3 color
+      = Gradient.colors[0].rgb;\n\t\t        [unroll]\n\t\t        for (int c = 1;
+      c < 8; c++)\n\t\t        {\n\t\t            float colorPos = saturate((Time
+      - Gradient.colors[c-1].w) / (Gradient.colors[c].w - Gradient.colors[c-1].w))
       * step(c, Gradient.colorsLength-1);\n\t\t            color = lerp(color, Gradient.colors[c].rgb,
       lerp(colorPos, step(0.01, colorPos), Gradient.type));\n\t\t        }\n\t\t   
       #ifndef UNITY_COLORSPACE_GAMMA\n\t\t        color = SRGBToLinear(color);\n\t\t   
@@ -1572,19 +1580,22 @@ VisualEffectResource:
       float _SampleTexture2D_5EB2E67D_G_5 = _SampleTexture2D_5EB2E67D_RGBA_0.g;\n\t\t       
       float _SampleTexture2D_5EB2E67D_B_6 = _SampleTexture2D_5EB2E67D_RGBA_0.b;\n\t\t       
       float _SampleTexture2D_5EB2E67D_A_7 = _SampleTexture2D_5EB2E67D_RGBA_0.a;\n\t\t   
+      \n\t\t        // Node: Round\n\t\t        float _Round_EC56179A_Out_1;\n\t\t       
+      Unity_Round_float(_SampleTexture2D_5EB2E67D_R_4, _Round_EC56179A_Out_1);\n\t\t   
       \n\t\t        // Node: Property\n\t\t        float4 _Property_5AB79687_Out_0
       = Color_DCF944C2;\n\t\t    \n\t\t        // Node: Multiply\n\t\t        float4
-      _Multiply_23F0F88D_Out_2;\n\t\t        Unity_Multiply_float((_SampleTexture2D_5EB2E67D_R_4.xxxx),
+      _Multiply_23F0F88D_Out_2;\n\t\t        Unity_Multiply_float((_Round_EC56179A_Out_1.xxxx),
       _Property_5AB79687_Out_0, _Multiply_23F0F88D_Out_2);\n\t\t    \n\t\t       
-      // Node: Property\n\t\t        Gradient _Property_27170F86_Out_0 = Gradient_150991D1;\n\t\t   
-      \n\t\t        // Node: Property\n\t\t        float _Property_E377AE6C_Out_0
-      = Vector1_1FF39C4B;\n\t\t    \n\t\t        // Node: Multiply\n\t\t        float
-      _Multiply_16D86C1C_Out_2;\n\t\t        Unity_Multiply_float(_Split_EC6A98BB_G_2,
-      _Property_E377AE6C_Out_0, _Multiply_16D86C1C_Out_2);\n\t\t    \n\t\t       
-      // Node: Sample Gradient\n\t\t        float4 _SampleGradient_C193F82B_Out_2;\n\t\t       
+      // Node: Round\n\t\t        float _Round_27EC9B72_Out_1;\n\t\t        Unity_Round_float(_SampleTexture2D_5EB2E67D_G_5,
+      _Round_27EC9B72_Out_1);\n\t\t    \n\t\t        // Node: Property\n\t\t       
+      Gradient _Property_27170F86_Out_0 = Gradient_150991D1;\n\t\t    \n\t\t       
+      // Node: Property\n\t\t        float _Property_E377AE6C_Out_0 = Vector1_1FF39C4B;\n\t\t   
+      \n\t\t        // Node: Multiply\n\t\t        float _Multiply_16D86C1C_Out_2;\n\t\t       
+      Unity_Multiply_float(_Split_EC6A98BB_G_2, _Property_E377AE6C_Out_0, _Multiply_16D86C1C_Out_2);\n\t\t   
+      \n\t\t        // Node: Sample Gradient\n\t\t        float4 _SampleGradient_C193F82B_Out_2;\n\t\t       
       Unity_SampleGradient_float(_Property_27170F86_Out_0, _Multiply_16D86C1C_Out_2,
       _SampleGradient_C193F82B_Out_2);\n\t\t    \n\t\t        // Node: Multiply\n\t\t       
-      float4 _Multiply_6C6D466_Out_2;\n\t\t        Unity_Multiply_float((_SampleTexture2D_5EB2E67D_G_5.xxxx),
+      float4 _Multiply_6C6D466_Out_2;\n\t\t        Unity_Multiply_float((_Round_27EC9B72_Out_1.xxxx),
       _SampleGradient_C193F82B_Out_2, _Multiply_6C6D466_Out_2);\n\t\t    \n\t\t       
       // Node: Add\n\t\t        float4 _Add_D8A1D76E_Out_2;\n\t\t        Unity_Add_float4(_Multiply_23F0F88D_Out_2,
       _Multiply_6C6D466_Out_2, _Add_D8A1D76E_Out_2);\n\t\t    \n\t\t        // Node:
