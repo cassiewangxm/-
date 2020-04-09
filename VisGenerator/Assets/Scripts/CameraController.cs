@@ -54,7 +54,9 @@ namespace Controller
 
         public Filters Filters;
 
-        float HighlightFloat = 0.0f;
+        Vector3 PyramidPosition;
+
+        float HighlightFloat = 0.5f;
         bool HighlightBool = false;
         float HighlightSpeed = 0.018f;
         public float HighlightIntensity;
@@ -81,6 +83,8 @@ namespace Controller
             cameraBound1 = Consts.ASPos.x + Consts.ASSize.x;
             cameraBound2 = Consts.ASPos.y;
             cameraBound3 = Consts.ASPos.y + Consts.ASSize.y;
+
+            PyramidPosition = Filters.PyramidParent.transform.position;
         }
 
         public void ViewAS()
@@ -273,7 +277,7 @@ namespace Controller
                     HighlightBool = !HighlightBool;
                 }
             }
-
+            Filters.PyramidParent.transform.position = new Vector3(PyramidPosition.x, PyramidPosition.y + (HighlightFloat - 0.5f) * 2.0f, PyramidPosition.z);
             ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.7f : 1.0f);
         }
 

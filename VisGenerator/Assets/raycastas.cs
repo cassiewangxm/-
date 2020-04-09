@@ -90,6 +90,7 @@ public class raycastas : MonoBehaviour
             for (int j = 0; j < 256; j++)
             {
                 texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
+                ASFilter.ASHeightsArray[i * 256 + j] = 0.0f;
             }
         }
 
@@ -103,6 +104,7 @@ public class raycastas : MonoBehaviour
                 int count = ASInfo.ASSegment.Length;
                 float v = Mathf.Sqrt(Mathf.Sqrt(count)) * 70.0f / 256.0f;
                 texas.SetPixel(x, y, new Color(0.0f, 0.0f, v));
+                ASFilter.ASHeightsArray[x * 256 + y] = v * HScale;
             }
         }
 

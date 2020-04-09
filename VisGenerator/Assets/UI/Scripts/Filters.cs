@@ -114,6 +114,8 @@ public class Filters : MonoBehaviour
     public GameObject FilterParent;
     public GameObject PyramidParent;
 
+    public float[] ASHeightsArray = new float[65536];
+
     RegionData ReadJsonFile(string filePath)
     {
         string path = Path.Combine(Application.dataPath, filePath);
@@ -598,7 +600,7 @@ public class Filters : MonoBehaviour
 
     float ASCubeHeight(int X, int Y)
     {
-        return 10.0f;
+        return ASHeightsArray[X * 256 + Y];
     }
 
     float ASCurveLinesCenter(int X, int Y)
