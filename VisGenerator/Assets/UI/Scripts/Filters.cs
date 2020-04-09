@@ -105,6 +105,8 @@ public class Filters : MonoBehaviour
 
     public GameObject PyramidPrefab;
 
+    public GameObject RingPrefab;
+
     public InputField SearchBox;
 
     public GameObject ASGameObject;
@@ -113,6 +115,7 @@ public class Filters : MonoBehaviour
     IpDetail[] FilterResults;
     public GameObject FilterParent;
     public GameObject PyramidParent;
+    public GameObject RingParent;
 
     public float[] ASHeightsArray = new float[65536];
 
@@ -319,6 +322,15 @@ public class Filters : MonoBehaviour
                 newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
                 newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
                 newPyramid.layer = 10;
+
+                GameObject newRing = Instantiate(RingPrefab, new Vector3((xx + 0.5f) / 256.0f * ASHeight, 0.6f, (yy + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+                newRing.transform.SetParent(RingParent.transform);
+                newRing.layer = 10;
+                for (int j = 0; j < newRing.transform.childCount; j++)
+                {
+                    newRing.transform.GetChild(j).gameObject.layer = 10;
+                    newRing.transform.GetChild(j).localScale = new Vector3(2.0f, 4.0f, 2.0f);
+                }
             }
             if (FilterResults.Length > 0)
             {
