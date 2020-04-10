@@ -500,7 +500,7 @@ public class Filters : MonoBehaviour
         }
     }
 
-    private Vector3 IP2Pos(IpDetail Item)
+    public Vector3 IP2Pos(IpDetail Item)
     {
         int length = 1 << 16;
         uint ip = Item.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);

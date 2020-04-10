@@ -44,6 +44,15 @@ public class ViewIP : MonoBehaviour
 
     public Material MaterialTemplate;
 
+    public Filters Filters;
+    public GameObject IconParent;
+
+    public GameObject IconComputerPrefab;
+    public GameObject IconDesktopPrefab;
+    public GameObject IconPhonePrefab;
+    public GameObject IconServerPrefab;
+    public GameObject IconTabletPrefab;
+
     /*
     private Texture2D[] IPTextures28 = new Texture2D[256];
     private Texture2D[] IPTextures24 = new Texture2D[16];
@@ -359,6 +368,26 @@ public class ViewIP : MonoBehaviour
 
     void PlaceIcons(IpDetail[] Result, IPLayerInfo LayerInfo)
     {
+        for (int i = 0; i < Result.Length; i ++)
+        {
+            GameObject IconPrefab = null;
+            switch(Result[i].deviceType)
+            {
+                case DeviceType.Laptop: IconPrefab = IconComputerPrefab; break;
+                case DeviceType.Mac: IconPrefab = IconComputerPrefab; break;
+                case DeviceType.Pad: IconPrefab = IconTabletPrefab; break;
+                case DeviceType.PC: IconPrefab = IconComputerPrefab; break;
+                case DeviceType.Server: IconPrefab = IconServerPrefab; break;
+                default: break;
+            }
+            if (IconPrefab != null)
+            {
+                GameObject NewIcon = Instantiate(IconPrefab, Filters.IP2Pos(Result[i]), Quaternion.identity);
+                NewIcon.transform.SetParent(IconParent.transform);
+                NewIcon.transform.localScale = Vector3.one;
+                NewIcon.layer = 11;
+            }
+        }
         return;
     }
 
@@ -366,17 +395,16 @@ public class ViewIP : MonoBehaviour
     {
         Vector2 CenterPosition = CalculatePosition();
 
+        // Clear Previous Icons
+        foreach (Transform child in IconParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         if (lastCenterPosition != CenterPosition)
         {
             IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 8), (int)(CenterPosition.y - 8), 17);
-            for (int i = -8; i < 9; i ++)
-            {
-                for (int j = -8; j < 9; j ++)
-                {
-                    Vector2 TmpPosition = new Vector2(CenterPosition.x + i, CenterPosition.y + j);
-
-                }
-            }
+            
         }
     }
 
