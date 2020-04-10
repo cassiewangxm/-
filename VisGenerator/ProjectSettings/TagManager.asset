@@ -11,6 +11,7 @@ TagManager:
   - ASCurve
   - effect
   - HighlightMark
+  - Marker
   layers:
   - Default
   - TransparentFX

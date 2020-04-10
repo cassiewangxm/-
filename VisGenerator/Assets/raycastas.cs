@@ -229,7 +229,7 @@ public class raycastas : MonoBehaviour
                                     else
                                     {
                                         isZooming = false;
-                                        //ASFilter.FilterBySelectedAS((int)(hitPointT.x), (int)(hitPointT.y));
+                                        ASFilter.FilterBySelectedAS((int)(hitPointT.x), (int)(hitPointT.y));
                                     }
                                     zoomX = (int)(hitPointT.x);
                                     zoomY = (int)(hitPointT.y);

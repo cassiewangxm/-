@@ -269,6 +269,16 @@ public class Filters : MonoBehaviour
 
         // Clear geo points
 
+        // Clear markers
+        foreach (Transform child in PyramidParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in RingParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         bool isHighlight = false;
         foreach (var item in dictionary)
         {
@@ -305,6 +315,24 @@ public class Filters : MonoBehaviour
         {
             asFilterFlag[x * 256 + y] = true;
             isHighlight = true;
+            // Place Pyramids
+            GameObject newPyramid = Instantiate(PyramidPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(x, y), (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+            newPyramid.transform.SetParent(PyramidParent.transform);
+            newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+            newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
+            newPyramid.layer = 10;
+            newPyramid.tag = "Marker";
+
+            GameObject newRing = Instantiate(RingPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, 0.6f, (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+            newRing.transform.SetParent(RingParent.transform);
+            newRing.layer = 10;
+            for (int j = 0; j < newRing.transform.childCount; j++)
+            {
+                newRing.transform.GetChild(j).gameObject.layer = 10;
+                newRing.transform.GetChild(j).gameObject.tag = "Marker";
+                newRing.transform.GetChild(j).localScale = new Vector3(2.0f, 4.0f, 2.0f);
+            }
+            newRing.tag = "Marker";
         }
         ModifyASHighlight(isHighlight);
         if (isSearchedAS)
@@ -322,6 +350,7 @@ public class Filters : MonoBehaviour
                 newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
                 newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
                 newPyramid.layer = 10;
+                newPyramid.tag = "Marker";
 
                 GameObject newRing = Instantiate(RingPrefab, new Vector3((xx + 0.5f) / 256.0f * ASHeight, 0.6f, (yy + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
                 newRing.transform.SetParent(RingParent.transform);
@@ -329,8 +358,10 @@ public class Filters : MonoBehaviour
                 for (int j = 0; j < newRing.transform.childCount; j++)
                 {
                     newRing.transform.GetChild(j).gameObject.layer = 10;
+                    newRing.transform.GetChild(j).gameObject.tag = "Marker";
                     newRing.transform.GetChild(j).localScale = new Vector3(2.0f, 4.0f, 2.0f);
                 }
+                newRing.tag = "Marker";
             }
             if (FilterResults.Length > 0)
             {
@@ -478,7 +509,7 @@ public class Filters : MonoBehaviour
         d2xy(length, ip, out xs, out ys);
         float x = xs * 1.0f / length * IPWidth;
         float z = ys * 1.0f / length * IPHeight;
-        return new Vector3(x - 0.5f * IPWidth, 7000.0f, z - 0.5f * IPHeight);
+        return new Vector3(x - 0.5f * IPWidth, 0.0f, z - 0.5f * IPHeight);
     }
 
     private Vector3 LatLng2Pos(IpDetail Item)
@@ -505,21 +536,21 @@ public class Filters : MonoBehaviour
 
             // IP
             Vector3 IPPos = IP2Pos(Item);
-            GameObject SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            GameObject SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
             SearchedPoint.transform.SetParent(FilterParent.transform);
             SearchedPoint.transform.position = IPPos;
             SearchedPoint.layer = 11;
             SearchedPoint.tag = "HighlightMark";
-            SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+            SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
-            SearchedPoint = Instantiate(PointPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
             SearchedPoint.transform.SetParent(FilterParent.transform);
             SearchedPoint.transform.position = MapPos;
             SearchedPoint.layer = 12;
             SearchedPoint.tag = "HighlightMark";
-            SearchedPoint.transform.rotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+            SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
         }
     }

@@ -32,12 +32,15 @@ public class ViewIP : MonoBehaviour
     private float heightLv24;
     private float heightLv28;
     private float heightLv32;
+    private float heightIconOn;
 
     private Vector2 IPSize;
     private Vector2 IPPos;
 
     private Vector2 lastCameraIdx;
     private int lastLv;
+
+    private Vector2 lastCenterPosition = Vector2.zero;
 
     public Material MaterialTemplate;
 
@@ -239,9 +242,20 @@ public class ViewIP : MonoBehaviour
         heightLv24 = heightLv20 / 4.0f;
         heightLv28 = heightLv24 / 4.0f;
         heightLv32 = heightLv28 / 4.0f;
-
+        heightIconOn = heightLv32 / 4.0f;
     }
 
+    Vector2 CalculatePosition()
+    {
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray cameraRay = new Ray(Camera.transform.position, Camera.transform.forward);
+        float cameraEnter = 0.0f;
+        plane.Raycast(cameraRay, out cameraEnter);
+        Vector3 cameraHitPoint = cameraRay.GetPoint(cameraEnter);
+        float x = (cameraHitPoint.x - IPPos.x + IPSize.x / 2.0f);
+        float y = (cameraHitPoint.z - IPPos.y + IPSize.y / 2.0f);
+        return new Vector2(x, y);
+    }
     Vector2 CalculateIdx(int scale)
     {
         Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -343,6 +357,29 @@ public class ViewIP : MonoBehaviour
         }
     }
 
+    void PlaceIcons(IpDetail[] Result, IPLayerInfo LayerInfo)
+    {
+        return;
+    }
+
+    void UpdateIcon()
+    {
+        Vector2 CenterPosition = CalculatePosition();
+
+        if (lastCenterPosition != CenterPosition)
+        {
+            IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 8), (int)(CenterPosition.y - 8), 17);
+            for (int i = -8; i < 9; i ++)
+            {
+                for (int j = -8; j < 9; j ++)
+                {
+                    Vector2 TmpPosition = new Vector2(CenterPosition.x + i, CenterPosition.y + j);
+
+                }
+            }
+        }
+    }
+
     void UpdateIPView(int lv)
     {
         Vector2 CameraIdx = CalculateIdx(IPLevelScales[lv]);
@@ -432,6 +469,7 @@ public class ViewIP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 Position = CalculatePosition();
         if (RTFocusCamera.TargetCamera == Camera)
         {
             RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = false;
@@ -451,7 +489,12 @@ public class ViewIP : MonoBehaviour
                     IP28.SetActive(false);
 
                     // Request data 32
-                    UpdateIPView(3);
+                    //UpdateIPView(3);
+                    UpdateIPView(2);
+                    if (Camera.transform.position.y < heightIconOn)
+                    {
+                        UpdateIcon();
+                    }
 
                     IP32.SetActive(true);
                 }
@@ -478,5 +521,6 @@ public class ViewIP : MonoBehaviour
 
             IP20.SetActive(true);
         }
+        lastCenterPosition = Position;
     }
 }
