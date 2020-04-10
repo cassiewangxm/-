@@ -50,9 +50,9 @@ public class IpInfoType1
     public string time;     //分配该IP到此AS的时间（日期）
 
     //type 3
-    public string Device;       //IP地址设备类型
-    public string OS;           //IP地址操作系统
-    public IpPortInfo[] Port;   // 开放的端口及服务
+    public string device;       //IP地址设备类型
+    public string os;           //IP地址操作系统
+    //public IpPortInfo[] port;   // 开放的端口及服务
 }
 
 [Serializable]
@@ -96,8 +96,8 @@ public class MessageRequestIpMap
 
     public virtual string GetParamString()
     {
-        xLen = 1024;//(xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
-        yLen = 1024;//(yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
+        xLen = (xLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : xLen;
+        yLen = (yLen == 0) ? (int)Mathf.Pow(2, prefixLen/2) : yLen;
 
         //return string.Format("/PrefixLen={0},startIP={1},xLen={2},yLen={3},type={4},IPx={5},IPy={6}", prefixLen, startIp, xLen, yLen, type, IPx, IPy);
         return string.Format("/PrefixLen={0},xLen={1},yLen={2},type={3},IPx={4},IPy={5}", prefixLen, xLen, yLen, type, IPx, IPy);

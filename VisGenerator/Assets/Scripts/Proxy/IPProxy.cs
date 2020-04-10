@@ -6,6 +6,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Text;
 
+public enum DeviceType
+{
+    Laptop,
+    PC,
+    Mac,
+    SmartPhone,
+    Pad,
+    Server,
+
+    None
+}
+
 
 [Serializable]
 public class IpDetail
@@ -20,6 +32,7 @@ public class IpDetail
     public float lng;
     public int X;
     public int Y;
+    public DeviceType deviceType = DeviceType.None;
 
     private Vector2 mapCoordinate;
 
@@ -58,6 +71,19 @@ public class IpDetail
         country = info.country_name;
         province = info.provience;
         city = info.city;
+
+        if(!string.IsNullOrEmpty(info.device))
+        {
+            switch(info.device)
+            {
+                case "pc":      deviceType = DeviceType.PC;         break;
+                case "pad":     deviceType = DeviceType.Pad;        break;
+                case "laptop":  deviceType = DeviceType.Laptop;     break;
+                case "mac":     deviceType = DeviceType.Mac;        break;
+                case "server":      deviceType = DeviceType.Server;     break;
+                case "smart_phone": deviceType = DeviceType.SmartPhone; break;
+            }
+        }
     }
 
     public string GetDesc()
@@ -70,6 +96,8 @@ public class IpDetail
             sb.AppendFormat("Province : {0}\n", province);
         if(!string.IsNullOrEmpty(city))
             sb.AppendFormat("City : {0}\n", city);
+        if(deviceType != DeviceType.None)
+            sb.AppendFormat("Device : {0}\n", deviceType.ToString());
         
         sb.AppendFormat("Coordinate : {0}\n", MapCoordinate);
 
@@ -261,46 +289,56 @@ public class IPProxy : MonoBehaviour
         }
     }
 
+    public void GetLocalIpData()
+    {
+        IPLayerInfo info = new IPLayerInfo();
+        info.prefixLen = 20;
+        NetUtil.Instance.RequestIpMapInfo(null, info, OnIpInfoResponse, null);
+    }
+
     // x ,y 是左上角坐标
-    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action,int prefixLen = 20, int x = -1, int y = -1, string startIp = "")
+    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action, int x, int y, int n, int prefixLen = 32)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
-        if(x == -1 && y == -1)
-        {
-            x = 0;
-            y = 0;
-        }
+        // if(x == -1 && y == -1)
+        // {
+        //     x = 0;
+        //     y = 0;
+        // }
 
-        if(!string.IsNullOrEmpty(startIp))
-        {
-            if(startIp.Contains("/"))
-            {
-                msg.startIp = startIp.Substring(0, startIp.IndexOf('/'));
-            }
-            else
-            {
-                msg.startIp = startIp;
-            }
-        }    
+        // if(!string.IsNullOrEmpty(startIp))
+        // {
+        //     if(startIp.Contains("/"))
+        //     {
+        //         msg.startIp = startIp.Substring(0, startIp.IndexOf('/'));
+        //     }
+        //     else
+        //     {
+        //         msg.startIp = startIp;
+        //     }
+        // }    
 
         if(prefixLen > 0)
             msg.prefixLen = prefixLen;
 
         if(msg.prefixLen >= 32)
-            msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType3];
+            msg.type = "IPinfotype5";
         else
             msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
 
         msg.IPy = y;
         msg.IPx = x;
 
+        msg.xLen = n;
+        msg.yLen = n;
+
         IPLayerInfo info = new IPLayerInfo();
         info.prefixLen = prefixLen;
         info.x = x;
         info.y = y;
 
-        NetUtil.Instance.RequestIpMapInfo(msg,info, OnIpInfoResponse, action);
+        NetUtil.Instance.RequestIpMapInfo(msg, info, OnIpInfoResponse, action);
     }
 
 
@@ -319,7 +357,6 @@ public class IPProxy : MonoBehaviour
         {
             action(ipArray, info);
         }
-
     }
 
     public void GetIpInfoByFilter(string keyword)//, Action<IpDetail[]> action)
@@ -355,7 +392,7 @@ public class IPProxy : MonoBehaviour
         m_attackInfo = new List<AttackInfo>();
         if(m_ipDetailCache.Count <= 0)
         {
-            GetIpInfoBlock(null);
+            GetLocalIpData();
 
             while(m_ipDetailCache.Count <= 0)
                 yield return null;

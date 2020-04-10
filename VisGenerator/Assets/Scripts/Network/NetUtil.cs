@@ -73,33 +73,36 @@ public class NetUtil : MonoBehaviour
     /// <returns></returns>
     IEnumerator _RequestIpMapInfo(MessageRequestIpMap msg, IPLayerInfo info, Action<IpInfoType1[],IPLayerInfo, Action<IpDetail[],IPLayerInfo>> action, Action<IpDetail[],IPLayerInfo> action2)
     {
-    #if USE_NET
-        StringBuilder sb = new StringBuilder(m_baseAdressIP);
-        sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
-        sb.Append(msg.GetParamString());
-        UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
-        Debug.Log("Request : " + uwr.url);
-        yield return uwr.SendWebRequest();
-        
-        if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
-        {  
-            /////TEST 把返回的IP数据写入文件
-            string path = Application.dataPath + string.Format("/../IP_{0}_{1}.txt", msg.IPx, msg.IPy) ;
-            WriteToFile(uwr.downloadHandler.data, path);
-            ////////////
+        if(msg != null)
+        {
+            StringBuilder sb = new StringBuilder(m_baseAdressIP);
+            sb.Append(m_meessageKeywords[NetMessageType.IpMapLoad]);
+            sb.Append(msg.GetParamString());
+            UnityWebRequest uwr = UnityWebRequest.Get(sb.ToString());
+            Debug.Log("Request : " + uwr.url);
+            yield return uwr.SendWebRequest();
+            
+            if(!uwr.isNetworkError && !uwr.isHttpError && action != null)
+            {  
+                /////TEST 把返回的IP数据写入文件
+                string path = Application.dataPath + string.Format("/../IP_{0}_{1}.txt", msg.IPx, msg.IPy) ;
+                WriteToFile(uwr.downloadHandler.data, path);
+                ////////////
 
-            Debug.Log("Response : "+uwr.url);
-            IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
+                Debug.Log("Response : "+uwr.url);
+                IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
 
-            if(action != null)
-                action(array, info,  action2);
+                if(action != null)
+                    action(array, info,  action2);
+            }
+
+            uwr.Dispose();
         }
-
-        uwr.Dispose();
-    #else
-        FakeIPMapResponse("/IP_0_0.txt", info, action, action2);
-        yield return new WaitForEndOfFrame();
-    #endif
+        else
+        {
+            FakeIPMapResponse("/IP_0_0.txt", info, action, action2);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     void FakeIPMapResponse(string filepath, IPLayerInfo info, Action<IpInfoType1[],IPLayerInfo, Action<IpDetail[],IPLayerInfo>> action, Action<IpDetail[],IPLayerInfo> action2)
