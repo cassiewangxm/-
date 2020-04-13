@@ -114,6 +114,8 @@ public class Filters : MonoBehaviour
 
     IpDetail[] FilterResults;
     public GameObject FilterParent;
+    public GameObject FilterParent2;
+    public GameObject FilterParent3;
     public GameObject PyramidParent;
     public GameObject RingParent;
 
@@ -509,7 +511,7 @@ public class Filters : MonoBehaviour
         d2xy(length, ip, out xs, out ys);
         float x = xs * 1.0f / length * IPWidth;
         float z = ys * 1.0f / length * IPHeight;
-        return new Vector3(x - 0.5f * IPWidth, 0.0f, z - 0.5f * IPHeight);
+        return new Vector3(x - 0.5f * IPWidth, 0.1f, z - 0.5f * IPHeight);
     }
 
     private Vector3 LatLng2Pos(IpDetail Item)
@@ -535,9 +537,10 @@ public class Filters : MonoBehaviour
             IpDetail Item = FilterResults[i];
 
             // IP
+            /*
             Vector3 IPPos = IP2Pos(Item);
             GameObject SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
-            SearchedPoint.transform.SetParent(FilterParent.transform);
+            SearchedPoint.transform.SetParent(FilterParent2.transform);
             SearchedPoint.transform.position = IPPos;
             SearchedPoint.layer = 11;
             SearchedPoint.tag = "HighlightMark";
@@ -546,12 +549,13 @@ public class Filters : MonoBehaviour
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
             SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
-            SearchedPoint.transform.SetParent(FilterParent.transform);
+            SearchedPoint.transform.SetParent(FilterParent3.transform);
             SearchedPoint.transform.position = MapPos;
             SearchedPoint.layer = 12;
             SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
+            */
         }
     }
 

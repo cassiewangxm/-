@@ -40,7 +40,7 @@ public class ViewIP : MonoBehaviour
     private Vector2 lastCameraIdx;
     private int lastLv;
 
-    private Vector2 lastCenterPosition = Vector2.zero;
+    private Vector2 lastCenterPosition = new Vector2(int.MaxValue, int.MaxValue);
 
     public Material MaterialTemplate;
 
@@ -52,6 +52,10 @@ public class ViewIP : MonoBehaviour
     public GameObject IconPhonePrefab;
     public GameObject IconServerPrefab;
     public GameObject IconTabletPrefab;
+
+    public SceneMananger SceneMananger;
+
+    public UIEventDispatcher UIEventDispatcher;
 
     /*
     private Texture2D[] IPTextures28 = new Texture2D[256];
@@ -251,7 +255,7 @@ public class ViewIP : MonoBehaviour
         heightLv24 = heightLv20 / 4.0f;
         heightLv28 = heightLv24 / 4.0f;
         heightLv32 = heightLv28 / 4.0f;
-        heightIconOn = heightLv32 / 4.0f;
+        heightIconOn = heightLv32 / 2.0f;
     }
 
     Vector2 CalculatePosition()
@@ -261,8 +265,8 @@ public class ViewIP : MonoBehaviour
         float cameraEnter = 0.0f;
         plane.Raycast(cameraRay, out cameraEnter);
         Vector3 cameraHitPoint = cameraRay.GetPoint(cameraEnter);
-        float x = (cameraHitPoint.x - IPPos.x + IPSize.x / 2.0f);
-        float y = (cameraHitPoint.z - IPPos.y + IPSize.y / 2.0f);
+        float x = (cameraHitPoint.x - IPPos.x + IPSize.x / 2.0f) / IPSize.x * 1024 * 64;
+        float y = (cameraHitPoint.z - IPPos.y + IPSize.y / 2.0f) / IPSize.y * 1024 * 64;
         return new Vector2(x, y);
     }
     Vector2 CalculateIdx(int scale)
@@ -368,6 +372,7 @@ public class ViewIP : MonoBehaviour
 
     void PlaceIcons(IpDetail[] Result, IPLayerInfo LayerInfo)
     {
+        Debug.Log("Place icons..");
         for (int i = 0; i < Result.Length; i ++)
         {
             GameObject IconPrefab = null;
@@ -384,7 +389,8 @@ public class ViewIP : MonoBehaviour
             {
                 GameObject NewIcon = Instantiate(IconPrefab, Filters.IP2Pos(Result[i]), Quaternion.identity);
                 NewIcon.transform.SetParent(IconParent.transform);
-                NewIcon.transform.localScale = Vector3.one;
+                NewIcon.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                NewIcon.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
                 NewIcon.layer = 11;
             }
         }
@@ -393,17 +399,18 @@ public class ViewIP : MonoBehaviour
 
     void UpdateIcon()
     {
+        Vector2 Position = new Vector2(Camera.transform.position.x, Camera.transform.position.z);
         Vector2 CenterPosition = CalculatePosition();
 
-        // Clear Previous Icons
-        foreach (Transform child in IconParent.transform)
+        if ((lastCenterPosition != Position))
         {
-            Destroy(child.gameObject);
-        }
-
-        if (lastCenterPosition != CenterPosition)
-        {
-            IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 8), (int)(CenterPosition.y - 8), 17);
+            Debug.Log("Update icons..");
+            // Clear Previous Icons
+            foreach (Transform child in IconParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 16), (int)(CenterPosition.y), 33);
             
         }
     }
@@ -497,7 +504,7 @@ public class ViewIP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 Position = CalculatePosition();
+        Vector3 Position = Camera.transform.position;
         if (RTFocusCamera.TargetCamera == Camera)
         {
             RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = false;
@@ -514,7 +521,8 @@ public class ViewIP : MonoBehaviour
                 IP24.SetActive(false);
                 if (Camera.transform.position.y < heightLv32)
                 {
-                    IP28.SetActive(false);
+                    //IP28.SetActive(false);
+                    IP28.SetActive(true);
 
                     // Request data 32
                     //UpdateIPView(3);
@@ -522,9 +530,10 @@ public class ViewIP : MonoBehaviour
                     if (Camera.transform.position.y < heightIconOn)
                     {
                         UpdateIcon();
+                        lastCenterPosition = new Vector2(Position.x, Position.z);
                     }
 
-                    IP32.SetActive(true);
+                    //IP32.SetActive(true);
                 }
                 else
                 {
@@ -549,6 +558,55 @@ public class ViewIP : MonoBehaviour
 
             IP20.SetActive(true);
         }
-        lastCenterPosition = Position;
+        
+
+        if (SceneMananger.CurrentSceneView == SceneView.IPView)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+                float enter = 0.0f;
+                if (plane.Raycast(ray, out enter))
+                {
+                    Vector3 hitPoint = ray.GetPoint(enter);
+                    
+                    if (IsInside(hitPoint, new Vector2(IPSize.x * -1.0f, IPSize.y * -1.0f), new Vector2(IPSize.x * 2.0f, IPSize.y * 2.0f)))
+                    {
+                        int x = (int)((hitPoint.x + IPSize.x * 0.5f) / IPSize.x * (1 << 16));
+                        int y = (int)((hitPoint.z + IPSize.y * 0.5f) / IPSize.y * (1 << 16));
+                        IPProxy.instance.GetIpInfoBlock(ShowIPDetail, x, y, 1);
+                    }
+                }
+            }
+        }
+    }
+
+    void ShowIPDetail(IpDetail[] Result, IPLayerInfo LayerInfo)
+    {
+        if (Result.Length > 0)
+        {
+            Debug.Log("Show IP: Size" + Result.Length.ToString());
+            UIEventDispatcher.OpenIPDetailPanel(Result[0], Camera.WorldToScreenPoint(Input.mousePosition));
+        }
+    }
+
+    bool IsInside(Vector3 point, Vector2 position, Vector2 size)
+    {
+        if (((point.x - position.x) > -0.5f) && ((point.z - position.y) > -0.5f))
+        {
+            if (((point.x - position.x) < size.x + 0.5f) && ((point.z - position.y) < size.y + 0.5f))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Vector2 Pos2XY(Vector3 Pos)
+    {
+        float x = (Pos.x + 0.5f * IPSize.x) / IPSize.x * (1 << 16);
+        float z = (Pos.z + 0.5f * IPSize.y) / IPSize.y * (1 << 16);
+        return new Vector2(x, z);
     }
 }
