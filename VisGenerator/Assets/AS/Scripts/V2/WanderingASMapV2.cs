@@ -209,6 +209,8 @@ public class WanderingASMapV2 : MonoBehaviour
             
             m_curSelected = v;
 
+            //Debug.Log(GetCurSelectedASPosition());
+
             if(moveCam)
             {
                 ASInfo data = ASProxy.instance.GetASByPosition(m_array[x][y].Location.x, m_array[x][y].Location.y);
@@ -274,6 +276,15 @@ public class WanderingASMapV2 : MonoBehaviour
     public void RegistClearSearchEvent(UnityAction act)
     {
         OnClearSearchResult.AddListener(act);
+    }
+
+    public Vector3 GetCurSelectedASPosition()
+    {
+        if(m_array != null && m_curSelected.x >= 0 && m_curSelected.x < m_array.Length && m_curSelected.y >= 0 && m_curSelected.y <= m_array.Length)
+        {
+            return m_array[m_curSelected.x][m_curSelected.y].BottomPosition;
+        }
+        return Vector3.zero;
     }
 
     void OnASBecameInvisible(SingleASV2 a)
