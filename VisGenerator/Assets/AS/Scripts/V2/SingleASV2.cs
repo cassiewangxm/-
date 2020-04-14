@@ -25,7 +25,7 @@ public class SingleASV2 : MonoBehaviour
 
     public bool IsInUse {   get;set;    }
     //public ASInfo ASData{get {return m_ASData;}}
-    public float Height{get {return m_height;}}
+    //public float Height{get {return m_height;}}
     public WanderingASMapV2 WanderingASMap{    set {m_wanderMap = value;}  }
     //public Vector2Int Location{   get {return m_location;}    }
     public bool Focused {   get {return m_isFocused;}   }

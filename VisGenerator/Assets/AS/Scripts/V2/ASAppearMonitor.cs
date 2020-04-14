@@ -10,13 +10,13 @@ public class ASAppearMonitor : MonoBehaviour
     public WanderingASMapV2 Wanderingmap {get; set;}
     public Action<SingleASV2> OnASBecameInvisible; 
     public bool NewPosReady {   get; set;  }
-    public Vector3 BottomPosition {
-        get{
-            Vector3 pos = transform.position;
-            if(m_asObject != null)
-                pos.y -= m_asObject.Height/2;
-            return pos;
-        }}
+    // public Vector3 BottomPosition {
+    //     get{
+    //         Vector3 pos = transform.position;
+    //         if(m_asObject != null)
+    //             pos.y -= m_asObject.Height/2;
+    //         return pos;
+    //     }}
     SingleASV2 m_asObject;
     private bool m_focused;
     private bool m_visible;

@@ -13,6 +13,7 @@ public class WanderingASMapV2 : MonoBehaviour
     public CameraController m_camController;
     public Camera m_targetCamera;
     public Transform m_root;
+    public GameObject m_floor;
     public bool InWanderingState
     {
         get; set;
@@ -42,6 +43,7 @@ public class WanderingASMapV2 : MonoBehaviour
 
     void Awake()
     {
+        m_initFinished = false;
         EventManager.RegistEvent(EventDefine.OnSceneViewChange, (Action)OnViewChange);
         EventManager.RegistEvent(EventDefine.OnRecieveSearchResult, (Action)RecieveSearchResult);
         EventManager.RegistEvent(EventDefine.OnClearSearchResult, (Action)ClearSearchResult);
@@ -117,13 +119,31 @@ public class WanderingASMapV2 : MonoBehaviour
         m_initMapCorotine = StartCoroutine(InitMap(m_enterMomentASLocation.x, m_enterMomentASLocation.y));
 
         SetFocusAS(m_lineCount/2, m_lineCount/2);
+
+        StartCoroutine(UpdateFloor());
+    }
+
+    IEnumerator UpdateFloor()
+    {
+        while(!m_initFinished)
+            yield return null;
+
+        //floor position refresh
+        Vector3 pos = m_array[m_lineCount/2][m_lineCount/2].transform.position;
+        ASInfo data = ASProxy.instance.GetASByPosition(m_enterMomentASLocation.x, m_enterMomentASLocation.y);
+        if(data != null)
+            pos.y -= data.Height;
+        m_floor.transform.position = pos;
     }
     
     IEnumerator InitMap(int x, int y)
     {
+        while(!m_initFinished)
+            yield return null;
+
         m_ASN_Pos_Dict.Clear();
         Debug.Log("Start init map : "+Time.time);
-        m_initFinished = false;
+       
         m_oldCamPos = m_targetCamera.transform.position;
         m_enterCamPos = m_targetCamera.transform.position;
         Vector3 centerPos = Vector3.zero;
@@ -194,7 +214,6 @@ public class WanderingASMapV2 : MonoBehaviour
             }
             n++;
         }
-        m_initFinished = true;
         Debug.LogFormat("Finish init map in : {0}, with n = {1}",Time.time,n);
     }
     void SetFocusAS(int x, int y, bool moveCam = false)
@@ -244,7 +263,7 @@ public class WanderingASMapV2 : MonoBehaviour
 
             yield return 0;
         }
-
+        m_initFinished = true;
         Debug.Log("FInish : " + Time.time);
     }
 
@@ -278,14 +297,14 @@ public class WanderingASMapV2 : MonoBehaviour
         OnClearSearchResult.AddListener(act);
     }
 
-    public Vector3 GetCurSelectedASPosition()
-    {
-        if(m_array != null && m_curSelected.x >= 0 && m_curSelected.x < m_array.Length && m_curSelected.y >= 0 && m_curSelected.y <= m_array.Length)
-        {
-            return m_array[m_curSelected.x][m_curSelected.y].BottomPosition;
-        }
-        return Vector3.zero;
-    }
+    // public Vector3 GetCurSelectedASPosition()
+    // {
+    //     if(m_array != null && m_curSelected.x >= 0 && m_curSelected.x < m_array.Length && m_curSelected.y >= 0 && m_curSelected.y <= m_array.Length)
+    //     {
+    //         return m_array[m_curSelected.x][m_curSelected.y].BottomPosition;
+    //     }
+    //     return Vector3.zero;
+    // }
 
     void OnASBecameInvisible(SingleASV2 a)
     {
