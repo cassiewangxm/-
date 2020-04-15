@@ -83,13 +83,13 @@ public class raycastas : MonoBehaviour
         Dictionary<Vector2Int, ASInfo> ASDict = ASProxy.instance.ASDict;
 
         Debug.Log("Generating AS Texture...");
-        Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
+        //Texture2D texas = new Texture2D(256, 256, TextureFormat.RGB24, false);
 
         for (int i = 0; i < 256; i++)
         {
             for (int j = 0; j < 256; j++)
             {
-                texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
+                //texas.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
                 ASFilter.ASHeightsArray[i * 256 + j] = 0.0f;
             }
         }
@@ -103,14 +103,14 @@ public class raycastas : MonoBehaviour
             {
                 int count = ASInfo.ASSegment.Length;
                 float v = Mathf.Sqrt(Mathf.Sqrt(count)) * 70.0f / 256.0f;
-                texas.SetPixel(x, y, new Color(0.0f, 0.0f, v));
+                //texas.SetPixel(x, y, new Color(0.0f, 0.0f, v));
                 ASFilter.ASHeightsArray[x * 256 + y] = v * HScale;
             }
         }
 
-        texas.Apply();
-        byte[] bytesas = texas.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "/AS/Data/ASTexture.png", bytesas);
+        //texas.Apply();
+        //byte[] bytesas = texas.EncodeToPNG();
+        //File.WriteAllBytes(Application.dataPath + "/AS/Data/ASTexture.png", bytesas);
     }
 
     void OnGetIPBlockBack(IpDetail[] a)
