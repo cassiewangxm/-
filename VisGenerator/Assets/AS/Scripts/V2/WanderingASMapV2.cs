@@ -130,10 +130,13 @@ public class WanderingASMapV2 : MonoBehaviour
 
         //floor position refresh
         Vector3 pos = m_array[m_lineCount/2][m_lineCount/2].transform.position;
+        /*
         ASInfo data = ASProxy.instance.GetASByPosition(m_enterMomentASLocation.x, m_enterMomentASLocation.y);
         if(data != null)
-            pos.y -= data.Height;
-        m_floor.transform.position = pos;
+            pos.y -= data.Height / 2;
+        Debug.Log("Nav Plane Pos: " + pos.y);
+        */
+        m_floor.transform.position = new Vector3(pos.x - 6.0f, pos.y, pos.z - 6.0f);
     }
     
     IEnumerator InitMap(int x, int y)

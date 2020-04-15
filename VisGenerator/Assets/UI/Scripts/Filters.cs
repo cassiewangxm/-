@@ -450,7 +450,7 @@ public class Filters : MonoBehaviour
 
         for (int i = 0; i < ASCurveLines.Count; i ++)
         {
-            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(asHeight) / thicknessk) * (float)Math.Sqrt(ASCurveLines[i].flow);
+            ASCurveLines[i].ParticlePathGO.GetComponent<ParticlePath>().Thickness = (float)(Math.Sqrt(asHeight) / thicknessk) * (float)((Math.Sqrt(ASCurveLines[i].flow) + ASCurveLines[i].flow / 2.0f) * 0.15f);
             /*
             GameObject GO = ASCurveLines[i].EffectA;
             for (int j = 0; j < GO.transform.childCount; j ++)
@@ -580,9 +580,9 @@ public class Filters : MonoBehaviour
         var main = CurveLine.GetComponent<ParticleSystem>().main;
         main.simulationSpeed = 10.0f;
         var emission = CurveLine.GetComponent<ParticleSystem>().emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(0.0012f * (float)Math.Sqrt(CurveLineData.flow) * distance);
+        emission.rateOverTime = new ParticleSystem.MinMaxCurve(0.0012f /** (float)Math.Sqrt(CurveLineData.flow)*/ * distance);
         var trails = CurveLine.GetComponent<ParticleSystem>().trails;
-        trails.lifetime = 0.00005f * distance;
+        trails.lifetime = 0.015f;
 
         CurveLineData.ParticlePathGO = CurveLine;
         /*
