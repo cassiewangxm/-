@@ -136,7 +136,7 @@ public class WanderingASMapV2 : MonoBehaviour
             pos.y -= data.Height / 2;
         Debug.Log("Nav Plane Pos: " + pos.y);
         */
-        m_floor.transform.position = new Vector3(pos.x - 6.0f, pos.y, pos.z - 6.0f);
+        m_floor.transform.position = new Vector3(pos.x - 6.0f, pos.y - 0.2f, pos.z - 6.0f);
     }
     
     IEnumerator InitMap(int x, int y)
