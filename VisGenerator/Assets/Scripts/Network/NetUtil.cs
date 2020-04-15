@@ -107,7 +107,7 @@ public class NetUtil : MonoBehaviour
 
     void FakeIPMapResponse(string filepath, IPLayerInfo info, Action<IpInfoType1[],IPLayerInfo, Action<IpDetail[],IPLayerInfo>> action, Action<IpDetail[],IPLayerInfo> action2)
     {
-        string path = Application.dataPath + filepath;
+        string path = Application.streamingAssetsPath + filepath;
         Debug.Log(path);
 
         StreamReader sr = new StreamReader(path);
@@ -212,7 +212,7 @@ public class NetUtil : MonoBehaviour
 
     void FakeASResponse(string filepath, Action<ASInfo[],Action> action, Action action2)
     {
-        string path = Application.dataPath + filepath;//Path.Combine(Application.dataPath, data);
+        string path = Application.streamingAssetsPath + filepath;//Path.Combine(Application.dataPath, data);
         Debug.Log(path);
 
         List<ASInfo> list = new List<ASInfo>();
@@ -316,7 +316,7 @@ public class NetUtil : MonoBehaviour
 
     void FakeAttackResponse(string filepath, Action<AttackData[]> action)
     {
-        string path = Application.dataPath + filepath;//Path.Combine(Application.dataPath, data);
+        string path = Application.streamingAssetsPath + filepath;//Path.Combine(Application.dataPath, data);
         Debug.Log(path);
 
         StreamReader sr = new StreamReader(path);
@@ -334,6 +334,9 @@ public class NetUtil : MonoBehaviour
     // TEST 测试专用
     void WriteToFile(byte[] data, string path)
     {
+        if(Application.platform != RuntimePlatform.OSXEditor || Application.platform != RuntimePlatform.WindowsEditor)
+            return;
+        
         if(System.IO.File.Exists(path))
             System.IO.File.Delete(path);
             

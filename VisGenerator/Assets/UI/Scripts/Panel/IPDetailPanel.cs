@@ -26,13 +26,13 @@ public class IPDetailPanel : UIBasePanel
     //     m_CloseBtn.onClick.RemoveAllListeners();
     // }
     
-    public void SetUIData(string ip)
-    {
-        Clean();
-        m_IP = ip;
-        m_IPDetailData = IPProxy.instance.GetIpDetail(ip);
-        UpdateUI();
-    }
+    // public void SetUIData(string ip)
+    // {
+    //     Clean();
+    //     m_IP = ip;
+    //     m_IPDetailData = IPProxy.instance.GetIpDetail(ip);
+    //     UpdateUI();
+    // }
 
     public void SetUIData(IpDetail ipinfo)
     {

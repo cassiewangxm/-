@@ -191,38 +191,38 @@ public class Filters : MonoBehaviour
         }
     }
 
-    public void ShowPos()
-    {
-        isShowPosOn = !isShowPosOn;
-        // Clear geopoints
-        Destroy(GameObject.FindWithTag("PosPoint"));
-        if (isShowPosOn)
-        {
-            string IP = "89.151.176.13";
-            Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
-            string region;
-            string asNumber;
-            string type;
-            foreach (var item in dictionary)
-            {
-                if (item.Value.IP == IP)
-                {
-                    region = item.Value.country;
-                    asNumber = item.Value.ASNum.ToString();
-                    type = "0";
-                    // Show in AS View
+    // public void ShowPos()
+    // {
+    //     isShowPosOn = !isShowPosOn;
+    //     // Clear geopoints
+    //     Destroy(GameObject.FindWithTag("PosPoint"));
+    //     if (isShowPosOn)
+    //     {
+    //         string IP = "89.151.176.13";
+    //         Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
+    //         string region;
+    //         string asNumber;
+    //         string type;
+    //         foreach (var item in dictionary)
+    //         {
+    //             if (item.Value.IP == IP)
+    //             {
+    //                 region = item.Value.country;
+    //                 asNumber = item.Value.ASNum.ToString();
+    //                 type = "0";
+    //                 // Show in AS View
 
-                    // Show in Map View
-                    float lat = item.Value.lat;
-                    float lng = item.Value.lng;
-                    GameObject newPosPoint = Instantiate(PosMarkerPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                    //newPosPoint.transform.parent = PosPointCollector.transform;
-                    // Show in IP View
+    //                 // Show in Map View
+    //                 float lat = item.Value.lat;
+    //                 float lng = item.Value.lng;
+    //                 GameObject newPosPoint = Instantiate(PosMarkerPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
+    //                 //newPosPoint.transform.parent = PosPointCollector.transform;
+    //                 // Show in IP View
 
-                }
-            }
-        }
-    }
+    //             }
+    //         }
+    //     }
+    // }
 
     void ModifyASHighlight(bool isHighlight)
     {
@@ -254,7 +254,7 @@ public class Filters : MonoBehaviour
 
     void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0, bool isSearchedAS = false)
     {
-        Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
+        //Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
         //string region = dropdownRegion.options[dropdownRegion.value].text;
         //string asNumber = dropdownAS.options[dropdownAS.value].text;
         //string type = dropdownType.options[dropdownType.value].text;
@@ -282,9 +282,9 @@ public class Filters : MonoBehaviour
         }
 
         bool isHighlight = false;
+            /*
         foreach (var item in dictionary)
         {
-            /*
             if ((isRegionFilterOn && (item.Value.country == region)) || !isRegionFilterOn)
             {
                 if ((isASFilterOn && (item.Value.ASNum.ToString() == asNumber)) || !isASFilterOn)
@@ -311,8 +311,8 @@ public class Filters : MonoBehaviour
                     }
                 }
             }
-            */
-        }
+            
+        }*/
         if (isSelectedAS)
         {
             asFilterFlag[x * 256 + y] = true;
