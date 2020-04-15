@@ -142,6 +142,8 @@ public class Filters : MonoBehaviour
         IPWidth = IPGameObject.GetIPFullSize().x;
         IPHeight = IPGameObject.GetIPFullSize().y;
 
+        /*
+
         //dropdownRegion = FilterRegion.GetComponent<Dropdown>();
         RegionData regionData = ReadJsonFile("UI/Config/RegionConfig.json");
         for (int i = 0; i < regionData.Regions.Length; i ++)
@@ -160,6 +162,7 @@ public class Filters : MonoBehaviour
         {
             //dropdownType.options.Add(new Dropdown.OptionData(i.ToString()));
         }
+        */
 
         // Fake ddos
         ipPairs[0] = new IPPair("89.151.0.0", "89.151.176.13");
