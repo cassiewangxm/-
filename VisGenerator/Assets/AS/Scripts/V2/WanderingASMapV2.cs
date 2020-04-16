@@ -340,6 +340,7 @@ public class WanderingASMapV2 : MonoBehaviour
             if(m_targetCamera.transform.position.y > 150)//ASProxy.instance.HeightMax)
             {
                 LeaveWanderingToAS();
+                m_camController.ASLightGO.SetActive(true);
                 return;
             }
             if(Input.GetMouseButtonDown(0))

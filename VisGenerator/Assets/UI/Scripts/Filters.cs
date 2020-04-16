@@ -106,6 +106,7 @@ public class Filters : MonoBehaviour
     public GameObject PyramidPrefab;
 
     public GameObject RingPrefab;
+    public GameObject MapRingPrefab;
 
     public InputField SearchBox;
 
@@ -182,6 +183,7 @@ public class Filters : MonoBehaviour
     void Update()
     {
         UpdateAttacks();
+        UpdateHighlights();
     }
 
     // 发送搜索消息
@@ -442,6 +444,24 @@ public class Filters : MonoBehaviour
         */
     }
 
+    private void UpdateHighlights()
+    {
+        float ipHeight = IPCamera.transform.position.y;
+        float mapHeight = MapCamera.transform.position.y;
+
+        foreach (Transform child in FilterParent2.transform)
+        {
+            var main = child.gameObject.GetComponent<ParticleSystem>().main;
+            main.startSize = 0.3f * ipHeight;
+        }
+
+        foreach (Transform child in FilterParent3.transform)
+        {
+            var main = child.gameObject.GetComponent<ParticleSystem>().main;
+            main.startSize = 0.1f * mapHeight;
+        }
+    }
+
     private void UpdateAttacks()
     {
         float asHeight = ASCamera.transform.position.y;
@@ -519,7 +539,8 @@ public class Filters : MonoBehaviour
 
     private Vector3 LatLng2Pos(IpDetail Item)
     {
-        return new Vector3(Item.lng / 180.0f * MapWidth, 0, Item.lat / 90.0f * MapHeight);
+        //return new Vector3(Item.lng / 180.0f * MapWidth, -8.4f, Item.lat / 90.0f * MapHeight);
+        return new Vector3(Item.lng / 180.0f * MapWidth, -8.4f, ((Item.lat + 90.0f) / 185.0f * 180.0f - 90.0f) / 90.0f * MapHeight);
     }
 
     private void ShowFilterResult()
@@ -540,25 +561,25 @@ public class Filters : MonoBehaviour
             IpDetail Item = FilterResults[i];
 
             // IP
-            /*
             Vector3 IPPos = IP2Pos(Item);
-            GameObject SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
+            GameObject SearchedPoint = Instantiate(MapRingPrefab, Vector3.zero, Quaternion.identity);
             SearchedPoint.transform.SetParent(FilterParent2.transform);
             SearchedPoint.transform.position = IPPos;
             SearchedPoint.layer = 11;
             SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            
 
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
-            SearchedPoint = Instantiate(RingPrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint = Instantiate(MapRingPrefab, Vector3.zero, Quaternion.identity);
             SearchedPoint.transform.SetParent(FilterParent3.transform);
             SearchedPoint.transform.position = MapPos;
             SearchedPoint.layer = 12;
             SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
-            */
+            
         }
     }
 

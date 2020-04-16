@@ -115,6 +115,9 @@ namespace RTG
         public CameraProjectionSwitchSettings ProjectionSwitchSettings { get { return _projectionSwitchSettings; } }
         public CameraHotkeys Hotkeys { get { return _hotkeys; } }
 
+        public Vector3 UpperBound = Vector3.zero;
+        public Vector3 LowerBound = Vector3.zero;
+
         public bool IsViewportHoveredByDevice()
         {
             Vector2 devicePos = RTInputDevice.Get.Device.GetPositionYAxisUp();
@@ -307,7 +310,17 @@ namespace RTG
             else if (IsMovingDown) moveVector -= _targetTransform.up * moveAmount;
 
             bool needsToMove = moveVector.sqrMagnitude != 0.0f;
-            if (needsToMove)  _targetTransform.position += moveVector;
+            if (needsToMove)
+            {
+                Vector3 newPosition = _targetTransform.position + moveVector;
+                if ((newPosition.x < UpperBound.x) && (newPosition.y < UpperBound.y) && (newPosition.z < UpperBound.z))
+                {
+                    if ((newPosition.x > LowerBound.x) && (newPosition.y > LowerBound.y) && (newPosition.z > LowerBound.z))
+                    {
+                        _targetTransform.position += moveVector;
+                    }
+                }
+            }
 
             if (needsToMove || wasZoomed)
             {
@@ -403,7 +416,14 @@ namespace RTG
         {
             Vector3 focusPoint = GetFocusPoint();
 
-            _targetTransform.position += _targetTransform.forward * zoomAmount;
+            Vector3 newPosition = _targetTransform.position + _targetTransform.forward * zoomAmount;
+            if ((newPosition.x < UpperBound.x) && (newPosition.y < UpperBound.y) && (newPosition.z < UpperBound.z))
+            {
+                if ((newPosition.x > LowerBound.x) && (newPosition.y > LowerBound.y) && (newPosition.z > LowerBound.z))
+                {
+                    _targetTransform.position += _targetTransform.forward * zoomAmount;
+                }
+            }
             if (TargetCamera.orthographic)
             {
                 Vector3 toFocusPt = focusPoint - _targetTransform.position;
@@ -434,7 +454,14 @@ namespace RTG
 
         private void Pan(Vector2 panAmount)
         {
-            _targetTransform.position += _targetTransform.right * panAmount.x + _targetTransform.up * panAmount.y;
+            Vector3 newPosition = _targetTransform.position + _targetTransform.right * panAmount.x + _targetTransform.up * panAmount.y;
+            if ((newPosition.x < UpperBound.x) && (newPosition.y < UpperBound.y) && (newPosition.z < UpperBound.z))
+            {
+                if ((newPosition.x > LowerBound.x) && (newPosition.y > LowerBound.y) && (newPosition.z > LowerBound.z))
+                {
+                    _targetTransform.position += _targetTransform.right * panAmount.x + _targetTransform.up * panAmount.y;
+                }
+            }
         }
 
         public void LookAround(float degreesLocalX, float degreesWorldY)

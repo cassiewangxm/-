@@ -16,6 +16,15 @@ public class SceneMananger : MonoBehaviour
 
     public RTFocusCamera RTFocusCamera;
 
+    public GameObject ASLightGO;
+
+    public Vector3 UpperBoundAS;
+    public Vector3 UpperBoundIP;
+    public Vector3 UpperBoundMap;
+    public Vector3 LowerBoundAS;
+    public Vector3 LowerBoundIP;
+    public Vector3 LowerBoundMap;
+
     public static SceneMananger Instance
     {
         get
@@ -80,6 +89,26 @@ public class SceneMananger : MonoBehaviour
                 RTFocusCamera.SetTargetCamera(pair.Value.GetComponentInChildren<Camera>());
         }
         EventManager.SendEvent(EventDefine.OnSceneViewChange);
+
+        if (targetSceneView == SceneView.ASView)
+        {
+            RTFocusCamera.UpperBound = UpperBoundAS;
+            RTFocusCamera.LowerBound = LowerBoundAS;
+            RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = true;
+            ASLightGO.SetActive(true);
+        }
+        else if (targetSceneView == SceneView.IPView)
+        {
+            RTFocusCamera.UpperBound = UpperBoundIP;
+            RTFocusCamera.LowerBound = LowerBoundIP;
+            RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = false;
+        }
+        else if (targetSceneView == SceneView.MapView)
+        {
+            RTFocusCamera.UpperBound = UpperBoundMap;
+            RTFocusCamera.LowerBound = LowerBoundMap;
+            RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = false;
+        }
     }
 
     private void Update()
