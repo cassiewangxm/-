@@ -90,9 +90,9 @@ public class IpDetail
         StringBuilder sb = new StringBuilder();
         sb.AppendFormat("AS : {0}\n", ASNum);
         if(!string.IsNullOrEmpty(country))
-            sb.AppendFormat("Country : {0}\n", country);
+            sb.AppendFormat("Region : {0}\n", country);
         if(!string.IsNullOrEmpty(province))
-            sb.AppendFormat("Province : {0}\n", province);
+            sb.AppendFormat("Subregion : {0}\n", province);
         if(!string.IsNullOrEmpty(city))
             sb.AppendFormat("City : {0}\n", city);
         if(deviceType != DeviceType.None)

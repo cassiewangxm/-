@@ -93,6 +93,7 @@ namespace Controller
 
         public void ViewAS()
         {
+            SceneMananger.UpperBoundAS.y = 270.0f;
             //currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
@@ -116,6 +117,7 @@ namespace Controller
                 Camera.cullingMask = 8193;
                 IsAS = false;
                 ASLightGO.SetActive(false);
+                SceneMananger.UpperBoundAS.y = 5000.0f;
             }
             else{
                 Debug.LogErrorFormat("There is No AS at location : {0},{1}",x,y);
