@@ -40,6 +40,7 @@ public class WanderingASMapV2 : MonoBehaviour
     private ASAppearMonitor[][] m_array;
     private Dictionary<int,Vector2Int> m_ASN_Pos_Dict = new Dictionary<int, Vector2Int>();
     private Coroutine m_initMapCorotine;
+    private float m_heightToLeave = 70;
 
     void Awake()
     {
@@ -231,11 +232,14 @@ public class WanderingASMapV2 : MonoBehaviour
             
             m_curSelected = v;
 
-            //Debug.Log(GetCurSelectedASPosition());
+            ASInfo data = ASProxy.instance.GetASByPosition(m_array[x][y].Location.x, m_array[x][y].Location.y);
+            if(data == null)
+                return;
+
+            m_heightToLeave = data.Height > m_heightToLeave ? data.Height + 2 : m_heightToLeave;
 
             if(moveCam)
             {
-                ASInfo data = ASProxy.instance.GetASByPosition(m_array[x][y].Location.x, m_array[x][y].Location.y);
                 Vector3 targetPos = m_array[x][y].transform.position - m_targetCamera.transform.forward * (12 + data.Height/2) + new Vector3(0,data.Height/2,0);//m_targetCamera.transform.position + m_targetCamera.transform.forward * (12 + m_ASArray[v.x][v.y].Height/2f);
                 m_camController.raycastas.FocusCamera(targetPos);
             }
@@ -337,7 +341,7 @@ public class WanderingASMapV2 : MonoBehaviour
     {
         if(InWanderingState && SceneMananger.Instance.CurrentSceneView == SceneView.ASView && ASProxy.instance.OriginalDataReady)
         {
-            if(m_targetCamera.transform.position.y > 150)//ASProxy.instance.HeightMax)
+            if(m_targetCamera.transform.position.y > m_heightToLeave)//ASProxy.instance.HeightMax)
             {
                 LeaveWanderingToAS();
                 m_camController.ASLightGO.SetActive(true);
