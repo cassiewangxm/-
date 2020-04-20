@@ -552,6 +552,14 @@ public class Filters : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in FilterParent2.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent3.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         // AS
         MultipleFilters(false, 0, 0, true);
@@ -581,6 +589,62 @@ public class Filters : MonoBehaviour
             Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
             
         }
+    }
+
+    public void ClearFilterResult()
+    {
+        foreach (Transform child in FilterParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent2.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent3.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ShowSingleFilterResult(IpDetail Item)
+    {
+        foreach (Transform child in FilterParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent2.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent3.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // AS
+        MultipleFilters(false, 0, 0, false);
+
+        // IP
+        Vector3 IPPos = IP2Pos(Item);
+        GameObject SearchedPoint = Instantiate(MapRingPrefab, Vector3.zero, Quaternion.identity);
+        SearchedPoint.transform.SetParent(FilterParent2.transform);
+        SearchedPoint.transform.position = IPPos;
+        SearchedPoint.layer = 11;
+        SearchedPoint.tag = "HighlightMark";
+        SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+
+        // Map
+        Vector3 MapPos = LatLng2Pos(Item);
+        SearchedPoint = Instantiate(MapRingPrefab, Vector3.zero, Quaternion.identity);
+        SearchedPoint.transform.SetParent(FilterParent3.transform);
+        SearchedPoint.transform.position = MapPos;
+        SearchedPoint.layer = 12;
+        SearchedPoint.tag = "HighlightMark";
+        SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        Debug.Log("Lat = " + Item.lat.ToString() + " Lng = " + Item.lng.ToString());
+
     }
 
     private void AddCurveLine(CurveLine CurveLineData, string tag, int layer)

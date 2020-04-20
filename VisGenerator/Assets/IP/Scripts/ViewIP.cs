@@ -576,6 +576,8 @@ public class ViewIP : MonoBehaviour
                         int x = (int)((hitPoint.x + IPSize.x * 0.5f) / IPSize.x * (1 << 16));
                         int y = (int)((hitPoint.z + IPSize.y * 0.5f) / IPSize.y * (1 << 16));
                         IPProxy.instance.GetIpInfoBlock(ShowIPDetail, x, y, 1);
+
+                        
                     }
                 }
             }
@@ -588,6 +590,13 @@ public class ViewIP : MonoBehaviour
         {
             Debug.Log("Show IP: Size" + Result.Length.ToString());
             UIEventDispatcher.OpenIPDetailPanel(Result[0], Camera.WorldToScreenPoint(Input.mousePosition));
+
+            // Cancel highlights and add a single point
+            Filters.ShowSingleFilterResult(Result[0]);
+        }
+        else
+        {
+            Filters.ClearFilterResult();
         }
     }
 
