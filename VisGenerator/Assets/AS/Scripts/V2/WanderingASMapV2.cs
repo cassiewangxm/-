@@ -56,14 +56,14 @@ public class WanderingASMapV2 : MonoBehaviour
     }
     void OnViewChange()
     {
-        // switch (SceneMananger.Instance.CurrentSceneView)
-        // {
-        //     case SceneView.MapView:
-        //     case SceneView.IPView:
-        //         break;
-        //     case SceneView.ASView:
-        //         break;
-        // }
+        switch (SceneMananger.Instance.CurrentSceneView)
+        {
+            case SceneView.ASView:
+                Debug.Log("back to asview ...."+InWanderingState);
+                if(InWanderingState)
+                    m_camController.ASLightGO.SetActive(false);
+                break;
+        }
     }
     void RecieveSearchResult()
     {

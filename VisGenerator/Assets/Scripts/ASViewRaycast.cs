@@ -30,7 +30,7 @@ public class ASViewRaycast : MonoBehaviour
         VisualEffect ve = this.GetComponent<VisualEffect>();
 
         RenderTextureDescriptor rtd = new RenderTextureDescriptor();
-        rtd.sRGB = false;
+        //rtd.sRGB = true;
         rtd.volumeDepth = 1;
         rtd.msaaSamples = 1;
         rtd.dimension = TextureDimension.Tex2D;

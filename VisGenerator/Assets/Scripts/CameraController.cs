@@ -93,6 +93,8 @@ namespace Controller
         {
             SceneMananger.Instance.UpperBoundAS.y = 270.0f;
             SceneMananger.Instance.LowerBoundAS.y = 20.0f;
+            RTFocusCamera.GetComponent<RTFocusCamera>().UpperBound = SceneMananger.Instance.UpperBoundAS;
+            RTFocusCamera.GetComponent<RTFocusCamera>().LowerBound = SceneMananger.Instance.LowerBoundAS;
             //currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
@@ -111,14 +113,16 @@ namespace Controller
             if(ASProxy.instance.IsASExistInLocal(x,y))
             {
                 raycastas.wanderingASMap.IntoWanderingMap(x,y);
-                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
+                //RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.AccelerationRate = 0;
                 //currentView = ViewType.ViewWanderingAS;
                 Camera.cullingMask = 8193;
                 IsAS = false;
                 ASLightGO.SetActive(false);
                 SceneMananger.Instance.UpperBoundAS.y = 5000.0f;
                 SceneMananger.Instance.LowerBoundAS.y = -5000.0f;
-                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = 5.0f;
+                RTFocusCamera.GetComponent<RTFocusCamera>().UpperBound = SceneMananger.Instance.UpperBoundAS;
+                RTFocusCamera.GetComponent<RTFocusCamera>().LowerBound = SceneMananger.Instance.LowerBoundAS;
+                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = 50.0f;
             }
             else{
                 Debug.LogErrorFormat("There is No AS at location : {0},{1}",x,y);
@@ -299,7 +303,6 @@ namespace Controller
             {
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraMap.transform.position.y / 250.0f * 6.0f;
             }
-            Debug.Log(CameraAS.transform.position);
         }
 
     }

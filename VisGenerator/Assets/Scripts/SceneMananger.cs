@@ -95,7 +95,6 @@ public class SceneMananger : MonoBehaviour
             RTFocusCamera.UpperBound = UpperBoundAS;
             RTFocusCamera.LowerBound = LowerBoundAS;
             RTFocusCamera.LookAroundSettings.IsLookAroundEnabled = true;
-            ASLightGO.SetActive(true);
         }
         else if (targetSceneView == SceneView.IPView)
         {

@@ -779,7 +779,7 @@ public class Filters : MonoBehaviour
                         // Show in IP View
                         //IPCurveLines.Add(new CurveLine(IP2Pos(item), IP2Pos(itemB), flow));
 
-                        Debug.Log("Flow: " + flow.ToString());
+                        //Debug.Log("Flow: " + flow.ToString());
                     }
                 }
             }
