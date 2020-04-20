@@ -118,6 +118,7 @@ namespace Controller
                 ASLightGO.SetActive(false);
                 SceneMananger.Instance.UpperBoundAS.y = 5000.0f;
                 SceneMananger.Instance.LowerBoundAS.y = -5000.0f;
+                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = 5.0f;
             }
             else{
                 Debug.LogErrorFormat("There is No AS at location : {0},{1}",x,y);
@@ -286,7 +287,7 @@ namespace Controller
             }
             Filters.PyramidParent.transform.position = new Vector3(PyramidPosition.x, PyramidPosition.y + (HighlightFloat - 0.5f) * 2.0f, PyramidPosition.z);
             ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.7f : 1.0f);
-            if (SceneMananger.Instance.CurrentSceneView == SceneView.ASView)
+            if ((SceneMananger.Instance.CurrentSceneView == SceneView.ASView) && (Camera.cullingMask == 1025))
             {
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraAS.transform.position.y / 250.0f * 6.0f;
             }

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/visualipas.unity
+    guid: 27ecc58850b7d40edb69196cf7f0b61c
   m_configObjects: {}
