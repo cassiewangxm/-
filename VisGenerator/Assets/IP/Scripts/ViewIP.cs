@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTG;
 using System.IO;
+using UnityEngine.EventSystems;
 
 public class ViewIP : MonoBehaviour
 {
@@ -564,6 +565,10 @@ public class ViewIP : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                if(EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
                 Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
                 Plane plane = new Plane(Vector3.up, Vector3.zero);
                 float enter = 0.0f;
