@@ -48,8 +48,6 @@ namespace Controller
 
         public GameObject ASGameObject;
 
-        public SceneMananger SceneMananger;
-
         //public ViewType currentView = ViewType.ViewAS;
 
         public raycastas raycastas;
@@ -93,7 +91,7 @@ namespace Controller
 
         public void ViewAS()
         {
-            SceneMananger.UpperBoundAS.y = 270.0f;
+            SceneMananger.Instance.UpperBoundAS.y = 270.0f;
             //currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
@@ -117,7 +115,7 @@ namespace Controller
                 Camera.cullingMask = 8193;
                 IsAS = false;
                 ASLightGO.SetActive(false);
-                SceneMananger.UpperBoundAS.y = 5000.0f;
+                SceneMananger.Instance.UpperBoundAS.y = 5000.0f;
             }
             else{
                 Debug.LogErrorFormat("There is No AS at location : {0},{1}",x,y);
@@ -286,15 +284,15 @@ namespace Controller
             }
             Filters.PyramidParent.transform.position = new Vector3(PyramidPosition.x, PyramidPosition.y + (HighlightFloat - 0.5f) * 2.0f, PyramidPosition.z);
             ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.7f : 1.0f);
-            if (SceneMananger.CurrentSceneView == SceneView.ASView)
+            if (SceneMananger.Instance.CurrentSceneView == SceneView.ASView)
             {
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraAS.transform.position.y / 250.0f * 6.0f;
             }
-            else if (SceneMananger.CurrentSceneView == SceneView.IPView)
+            else if (SceneMananger.Instance.CurrentSceneView == SceneView.IPView)
             {
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraIP.transform.position.y / 250.0f * 6.0f;
             }
-            else if (SceneMananger.CurrentSceneView == SceneView.IPView)
+            else if (SceneMananger.Instance.CurrentSceneView == SceneView.IPView)
             {
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraMap.transform.position.y / 250.0f * 6.0f;
             }

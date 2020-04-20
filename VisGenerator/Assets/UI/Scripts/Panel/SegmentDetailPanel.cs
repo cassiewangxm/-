@@ -19,6 +19,8 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
     private IPDetailPanel m_IpDetailPanel;
     [SerializeField]
     private RawImage m_focusMark;
+    [SerializeField]
+    private UIline m_line;
 
     private Texture2D m_texture;
     private ASSegmentInfo m_segmentData;
@@ -47,6 +49,7 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
     }
     public void SetUIData(ASSegmentInfo info)
     {
+        m_lastIpShowFinished = true;
         m_segmentData = info;
         m_curLevel = 1;
         int maxw = Mathf.CeilToInt( Mathf.Sqrt(info.IPCount) ) * 16;
@@ -98,7 +101,7 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
                 }
             }
 
-            if(curCount % 512 == 0)
+            if(curCount % 1024 == 0)
             {
                 m_texture.Apply();
                 yield return null;
@@ -150,6 +153,7 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
         if(Input.mouseScrollDelta != Vector2.zero)
         {
             HideFocusMark();
+            HideIpDetail();
 
             //Debug.Log(Input.mouseScrollDelta); 
             Vector2 targetSize = m_IPMap.rectTransform.sizeDelta * (1.0f + Input.mouseScrollDelta.y / 100);
@@ -231,16 +235,31 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
     void HideIpDetail()
     {
         m_IpDetailPanel.gameObject.SetActive(false);
+        m_line.gameObject.SetActive(false);
     }
 
     void ShowIPDetail(IpDetail ipDetail)
     {
+        if(!gameObject.activeSelf)
+            return;
+            
         ShowWarningOnTitle(false);
         m_lastIpShowFinished = true;
         if(m_IpDetailPanel != null && ipDetail != null)
         {
+            float offsetx = 300;
+            float offsety = 100;
+            if(m_focusMark.transform.position.x > Screen.width/2)
+                offsetx = -offsetx;
+            if(m_focusMark.transform.position.y > Screen.height/2)
+                offsety = -offsety;
+
+            m_IpDetailPanel.transform.position = new Vector3(m_focusMark.transform.position.x + offsetx,m_focusMark.transform.position.y + offsety, 0);
             m_IpDetailPanel.SetUIData(ipDetail);
             m_IpDetailPanel.gameObject.SetActive(true);
+
+            m_line.gameObject.SetActive(true);
+            m_line.SetTarget(m_IpDetailPanel.GetLineEndPos(offsetx > 0), m_focusMark.transform.position);
         }
     }
 
@@ -262,5 +281,5 @@ public class SegmentDetailPanel : UIBasePanel, IPointerClickHandler
 
         return new Vector2(x,y);
     }
-    
+
 }

@@ -34,6 +34,18 @@ public class IPDetailPanel : UIBasePanel
     //     UpdateUI();
     // }
 
+    public Vector3 GetLineEndPos(bool left)
+    {
+        RectTransform rectTrans = GetComponent<RectTransform>();
+        float offsetx = - rectTrans.rect.size.x/2 + 5;
+        if(!left)
+            offsetx = -offsetx;
+
+        Vector3 pos = new Vector3(rectTrans.position.x + offsetx ,rectTrans.position.y ,0);//+ rectTrans.rect.size.y/2 - 5
+
+        return pos;
+    }
+
     public void SetUIData(IpDetail ipinfo)
     {
         Clean();
