@@ -35,6 +35,7 @@ class CurveLine
     public Vector3 PosA;
     public Vector3 PosB;
     public int flow;
+    public Color color;
     private float GetTopPoint()
     {
         return ((float)Math.Sqrt(Vector3.Distance(PosA, PosB)) * 15.0f);
@@ -43,11 +44,12 @@ class CurveLine
     {
         return new Vector3((PosA.x * (1.0f - k) + PosB.x * k), GetTopPoint() * (0.25f - (k - 0.5f) * (k - 0.5f)), (PosA.z * (1.0f - k) + PosB.z * k));
     }
-    public CurveLine(Vector3 A, Vector3 B, int flow)
+    public CurveLine(Vector3 A, Vector3 B, int flow, Color color)
     {
         PosA = A;
         PosB = B;
         this.flow = flow;
+        this.color = color;
     }
     public GameObject ParticlePathGO;
     public GameObject EffectA;
@@ -667,10 +669,11 @@ public class Filters : MonoBehaviour
         float distance = Vector3.Distance(CurveLineData.PosA, CurveLineData.PosB);
         var main = CurveLine.GetComponent<ParticleSystem>().main;
         main.simulationSpeed = 10.0f;
+        main.startColor = CurveLineData.color;
         var emission = CurveLine.GetComponent<ParticleSystem>().emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(0.0012f /** (float)Math.Sqrt(CurveLineData.flow)*/ * distance);
+        emission.rateOverTime = new ParticleSystem.MinMaxCurve(0.0018f /** (float)Math.Sqrt(CurveLineData.flow)*/ * distance);
         var trails = CurveLine.GetComponent<ParticleSystem>().trails;
-        trails.lifetime = 0.015f;
+        trails.lifetime = 0.025f;
 
         CurveLineData.ParticlePathGO = CurveLine;
         /*
@@ -767,7 +770,7 @@ public class Filters : MonoBehaviour
                         Vector3 posA = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
                         d2xy(256, asNumberB, out asX, out asY);
                         Vector3 posB = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
-                        ASCurveLines.Add(new CurveLine(posA, posB, flow));
+                        ASCurveLines.Add(new CurveLine(posA, posB, flow, AttackInfos[i].lineColor));
 
                         // Show in AS Navigation View
 

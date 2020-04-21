@@ -107,8 +107,8 @@ public class AttackColorMap
             colorMap.Add("web",Color.red);
             colorMap.Add("email",Color.blue);
             colorMap.Add("management",Color.green);
-            colorMap.Add("database",Color.yellow);
-            colorMap.Add("infrastructure",Color.white);
+            colorMap.Add("database",Color.cyan);
+            colorMap.Add("infrastructure", new Color(0.5f, 0.0f, 1.0f));
         }
 
         if(colorMap.ContainsKey(kind))
@@ -135,8 +135,13 @@ public class AttackColorMap
             colorLayer.Add("rpc",0.6f);
         }
 
-        if(colorLayer.ContainsKey(type))
-            basecolor *= colorLayer[type];
+        if (colorLayer.ContainsKey(type))
+        {
+            float h = 0, s = 0, v = 0;
+            //basecolor *= colorLayer[type];
+            Color.RGBToHSV(basecolor, out h, out s, out v);
+            basecolor = Color.HSVToRGB(h, (float)(s * (0.6f + ((1.0 - colorLayer[type]) * 0.5f))), v);
+        }
 
         basecolor.a = 1.0f;
 
