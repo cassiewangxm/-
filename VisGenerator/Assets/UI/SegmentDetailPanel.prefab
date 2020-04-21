@@ -565,8 +565,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 204721543929672926}
   m_HandleRect: {fileID: 204721543929672925}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0.8525557
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -907,7 +907,7 @@ RectTransform:
   - {fileID: 204721543374951440}
   - {fileID: 204721542522450790}
   - {fileID: 8821720208189739562}
-  - {fileID: 8287402198040764560}
+  - {fileID: 630484280632751283}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_validClickRect: {fileID: 204721543626173742}
   m_IpDetailPanel: {fileID: 204721542522450791}
   m_focusMark: {fileID: 204721543229778758}
-  m_line: {fileID: 7091718563435928949}
+  m_line: {fileID: 630484280632751223}
 --- !u!1 &204721543477280849
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,10 +966,10 @@ RectTransform:
   m_Father: {fileID: 204721543393495604}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 410}
-  m_SizeDelta: {x: -100, y: -1019}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: -100, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &204721543477280852
 CanvasRenderer:
@@ -1402,7 +1402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0010986328, y: 0.0010375977}
   m_SizeDelta: {x: 1526, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &204721543789563184
@@ -1807,8 +1807,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 204721544406679659}
   m_HandleRect: {fileID: 204721544406679658}
   m_Direction: 2
-  m_Value: 0.5
-  m_Size: 0.8232422
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2214,13 +2214,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da0f16de49c2418cbdf38ddc0dd00af, type: 3}
---- !u!224 &8287402198040764560 stripped
+--- !u!224 &630484280632751283 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8916329562793039227, guid: 2da0f16de49c2418cbdf38ddc0dd00af,
     type: 3}
   m_PrefabInstance: {fileID: 630484280632751595}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7091718563435928949 stripped
+--- !u!114 &630484280632751223 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7698118964323379358, guid: 2da0f16de49c2418cbdf38ddc0dd00af,
     type: 3}
