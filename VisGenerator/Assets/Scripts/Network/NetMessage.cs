@@ -140,7 +140,7 @@ public class AttackColorMap
             float h = 0, s = 0, v = 0;
             //basecolor *= colorLayer[type];
             Color.RGBToHSV(basecolor, out h, out s, out v);
-            basecolor = Color.HSVToRGB(h, (float)(s * (0.6f + ((1.0 - colorLayer[type]) * 0.5f))), v);
+            basecolor = Color.HSVToRGB(h, (float)(s * (0.7f + ((1.0 - colorLayer[type]) * 0.5f))), (float)(v - ((1.0 - colorLayer[type]) * 0.5f)));
         }
 
         basecolor.a = 1.0f;
