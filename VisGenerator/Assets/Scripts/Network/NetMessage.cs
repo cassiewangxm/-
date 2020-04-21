@@ -69,7 +69,13 @@ public class AttackData
     public string desip;
     public int desAS;
     public int attackTime;  //攻击持续的时间，单位 - 秒
+    public AttackPortData portInfo;
     public AttackSrcData[] srcInfo; //攻击源信息
+
+    public Color GetColor()
+    {
+        return  AttackColorMap.GetColor(portInfo.attackKind, portInfo.attackType);
+    }
 }
 
 [Serializable]
@@ -80,6 +86,63 @@ public class AttackSrcData
     public int flow;    //该ip地址发送的流的个数
 }
 
+[Serializable]
+public class AttackPortData
+{
+    public string attackKind; //攻击类型
+    public string attackType; //攻击类型的子类型
+    public int port;    //端口号
+}
+
+public class AttackColorMap
+{
+    private static Dictionary<string,Color> colorMap = new Dictionary<string, Color>();
+    private static Dictionary<string,float> colorLayer = new Dictionary<string, float>();
+
+    public static Color GetColor(string kind, string type)
+    {
+        Color basecolor = Color.blue;
+        if(colorMap.Count == 0)
+        {
+            colorMap.Add("web",Color.red);
+            colorMap.Add("email",Color.blue);
+            colorMap.Add("management",Color.green);
+            colorMap.Add("database",Color.yellow);
+            colorMap.Add("infrastructure",Color.white);
+        }
+
+        if(colorMap.ContainsKey(kind))
+            basecolor = colorMap[kind];
+
+        if(colorLayer.Count == 0)
+        {
+            colorLayer.Add("http",1.0f);
+            colorLayer.Add("https",0.8f);
+
+            colorLayer.Add("smtp",1.0f);
+            colorLayer.Add("imap",0.8f);
+            colorLayer.Add("pop3",0.6f);
+
+            colorLayer.Add("ssh",1.0f);
+            colorLayer.Add("telnet",0.8f);
+
+            colorLayer.Add("mysql",1.0f);
+            colorLayer.Add("oracle",0.8f);
+            colorLayer.Add("mongodb",0.6f);
+
+            colorLayer.Add("dns",1.0f);
+            colorLayer.Add("ftp",0.8f);
+            colorLayer.Add("rpc",0.6f);
+        }
+
+        if(colorLayer.ContainsKey(type))
+            basecolor *= colorLayer[type];
+
+        basecolor.a = 1.0f;
+
+        return basecolor;
+    }
+}
 
 /// <summary>
 /// 请求IP地图 - 参数数据结构

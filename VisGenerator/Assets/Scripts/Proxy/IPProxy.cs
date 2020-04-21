@@ -131,6 +131,7 @@ public class AttackInfo
     public Vector2Int destASPos;
     public List<AttackSrcInfo> srcInfo; //攻击源信息
     public bool matchData; //是否与本地数据匹配，不匹配即弃
+    public Color lineColor;
 
     public AttackInfo(AttackData data)
     {
@@ -165,6 +166,7 @@ public class AttackInfo
             attackTime = data.attackTime;
             destAS = data.desAS;
             destip = data.desip;
+            lineColor = data.GetColor();
         }
     }
 
