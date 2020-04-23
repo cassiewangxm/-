@@ -33,6 +33,7 @@ public class raycastas : MonoBehaviour
     public GameObject CameraParent;
     private CameraController CameraController;
     public Filters ASFilter;
+    public ASDetailPanel ASDetailPanel;
 
     private bool m_HasHit;
 
@@ -151,6 +152,20 @@ public class raycastas : MonoBehaviour
         return false;
     }
 
+    void ShowInfoByAS(int x, int y)
+    {
+        Debug.Log("Showing AS");
+        ASInfo ASInfo = ASProxy.instance.GetASByPosition(x, y);
+        ASDetailPanel.SetUIData(ASInfo);
+        ASDetailPanel.gameObject.SetActive(true);
+    }
+
+    void HideASInfoPanel()
+    {
+        Debug.Log("Hiding AS");
+        ASDetailPanel.gameObject.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -172,6 +187,48 @@ public class raycastas : MonoBehaviour
                 {
                     MoveASCamera();
                     return;
+                }
+                //Get AS that a mouse is on
+                {
+                    if (EventSystem.current.IsPointerOverGameObject())
+                        return;
+                    Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
+
+                    for (int i = 255; i >= 0; i--)
+                    {
+                        Plane plane = new Plane(Vector3.up, new Vector3(0.0f, i * CameraController.GetModifiedASScale(HScale) / 256.00f, 0.0f));
+                        float enter = 0.0f;
+                        if (plane.Raycast(ray, out enter))
+                        {
+                            Vector3 hitPoint = ray.GetPoint(enter);
+                            if (IsInside(hitPoint, Position, Size))
+                            {
+                                Vector2 hitPointT = WorldtoUVHit(hitPoint, 1024.0f, Position, Size);
+                                float height = Heights.GetPixel((int)(hitPointT.x), (int)(hitPointT.y)).r * 256.00f;
+                                hitPointT = new Vector2(hitPointT.x / 4.0f, hitPointT.y / 4.0f);
+                                if (hitPoint.y <= height * HScale / 256.00f + 0.005f)
+                                {
+                                    
+                                    // Move the camera forward
+                                    Vector3 targetBasePos = new Vector3((hitPointT.x) / 256.0f * Size.x + Position.x, 0.0f, (hitPointT.y) / 256.0f * Size.y + Position.z);
+                                    Vector3 cameraPos = Camera.transform.position;
+                                    Ray cameraRay = new Ray(cameraPos, Vector3.Normalize(targetBasePos - cameraPos));
+                                    float cameraEnter = 0.0f;
+                                    plane.Raycast(cameraRay, out cameraEnter);
+                                    cameraHitPoint = cameraRay.GetPoint(cameraEnter);
+                                    Debug.Log("Mouse on");
+                                    if (ASProxy.instance.IsASExistInLocal((int)(hitPointT.x), (int)(hitPointT.y)))
+                                    {
+                                        ShowInfoByAS((int)(hitPointT.x), (int)(hitPointT.y));
+                                    }
+                                    else
+                                    {
+                                        HideASInfoPanel();
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 //Detect when there is a mouse click
                 if (Input.GetMouseButtonUp(0))
@@ -284,6 +341,11 @@ public class raycastas : MonoBehaviour
                     }
                 }
             }
+            HideASInfoPanel();
+        }
+        else
+        {
+            HideASInfoPanel();
         }
     }
 
