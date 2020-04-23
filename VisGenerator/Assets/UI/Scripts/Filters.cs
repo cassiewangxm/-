@@ -32,6 +32,8 @@ class IPPair
 
 class CurveLine
 {
+    public int src;
+    public int des;
     public Vector3 PosA;
     public Vector3 PosB;
     public int flow;
@@ -44,8 +46,10 @@ class CurveLine
     {
         return new Vector3((PosA.x * (1.0f - k) + PosB.x * k), GetTopPoint() * (0.25f - (k - 0.5f) * (k - 0.5f)), (PosA.z * (1.0f - k) + PosB.z * k));
     }
-    public CurveLine(Vector3 A, Vector3 B, int flow, Color color)
+    public CurveLine(int src, int des, Vector3 A, Vector3 B, int flow, Color color)
     {
+        this.src = src;
+        this.des = des;
         PosA = A;
         PosB = B;
         this.flow = flow;
@@ -289,59 +293,75 @@ public class Filters : MonoBehaviour
         }
 
         bool isHighlight = false;
-            /*
-        foreach (var item in dictionary)
+
+        if (x == -1)
         {
-            if ((isRegionFilterOn && (item.Value.country == region)) || !isRegionFilterOn)
+            return;
+        }
+        /*
+    foreach (var item in dictionary)
+    {
+        if ((isRegionFilterOn && (item.Value.country == region)) || !isRegionFilterOn)
+        {
+            if ((isASFilterOn && (item.Value.ASNum.ToString() == asNumber)) || !isASFilterOn)
             {
-                if ((isASFilterOn && (item.Value.ASNum.ToString() == asNumber)) || !isASFilterOn)
+                if ((isTypeFilterOn && (item.Value.country == type)) || !isTypeFilterOn)
                 {
-                    if ((isTypeFilterOn && (item.Value.country == type)) || !isTypeFilterOn)
+                    // Highlight an as
+                    if (isASFilterOn)
                     {
-                        // Highlight an as
-                        if (isASFilterOn)
-                        {
-                            asFilterFlag[item.Value.ASNum] = true;
-                            isHighlight = true;
-                        }
-                        // Highlight an IP
+                        asFilterFlag[item.Value.ASNum] = true;
+                        isHighlight = true;
+                    }
+                    // Highlight an IP
 
 
-                        // Highlight an geo
-                        if (isRegionFilterOn)
-                        {
-                            float lat = item.Value.lat;
-                            float lng = item.Value.lng;
-                            GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                            //newGeoPoint.transform.parent = GeoPointCollector.transform;
-                        }
+                    // Highlight an geo
+                    if (isRegionFilterOn)
+                    {
+                        float lat = item.Value.lat;
+                        float lng = item.Value.lng;
+                        GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
+                        //newGeoPoint.transform.parent = GeoPointCollector.transform;
                     }
                 }
             }
-            
-        }*/
+        }
+
+    }*/
         if (isSelectedAS)
         {
-            asFilterFlag[x * 256 + y] = true;
-            isHighlight = true;
-            // Place Pyramids
-            GameObject newPyramid = Instantiate(PyramidPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(x, y), (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
-            newPyramid.transform.SetParent(PyramidParent.transform);
-            newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
-            newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
-            newPyramid.layer = 10;
-            newPyramid.tag = "Marker";
-
-            GameObject newRing = Instantiate(RingPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, 0.6f, (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
-            newRing.transform.SetParent(RingParent.transform);
-            newRing.layer = 10;
-            for (int j = 0; j < newRing.transform.childCount; j++)
+            if (x != -1)
             {
-                newRing.transform.GetChild(j).gameObject.layer = 10;
-                newRing.transform.GetChild(j).gameObject.tag = "Marker";
-                newRing.transform.GetChild(j).localScale = new Vector3(2.0f, 4.0f, 2.0f);
+                asFilterFlag[x * 256 + y] = true;
+                isHighlight = true;
+                // Place Pyramids
+                GameObject newPyramid = Instantiate(PyramidPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(x, y), (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+                newPyramid.transform.SetParent(PyramidParent.transform);
+                newPyramid.transform.rotation = Quaternion.Euler(180.0f, 0.0f, 0.0f);
+                newPyramid.transform.localScale = new Vector3(13.0f, 13.0f, 13.0f);
+                newPyramid.layer = 10;
+                newPyramid.tag = "Marker";
+
+                GameObject newRing = Instantiate(RingPrefab, new Vector3((x + 0.5f) / 256.0f * ASHeight, 0.6f, (y + 0.5f) / 256.0f * ASWidth), Quaternion.identity);
+                newRing.transform.SetParent(RingParent.transform);
+                newRing.layer = 10;
+                for (int j = 0; j < newRing.transform.childCount; j++)
+                {
+                    newRing.transform.GetChild(j).gameObject.layer = 10;
+                    newRing.transform.GetChild(j).gameObject.tag = "Marker";
+                    newRing.transform.GetChild(j).localScale = new Vector3(2.0f, 4.0f, 2.0f);
+                }
+                newRing.tag = "Marker";
+                EnterSingleASAttacks(x * 256 + y);
             }
-            newRing.tag = "Marker";
+        }
+        else
+        {
+            if (x != -1)
+            {
+                ExitSingleASAttacks();
+            }
         }
         ModifyASHighlight(isHighlight);
         if (isSearchedAS)
@@ -461,6 +481,29 @@ public class Filters : MonoBehaviour
         {
             var main = child.gameObject.GetComponent<ParticleSystem>().main;
             main.startSize = 0.1f * mapHeight;
+        }
+    }
+
+    private void EnterSingleASAttacks(int num)
+    {
+        for (int i = 0; i < ASCurveLines.Count; i++)
+        {
+            if ((ASCurveLines[i].src != num) && (ASCurveLines[i].des != num))
+            {
+                ASCurveLines[i].ParticlePathGO.SetActive(false);
+            }
+            else
+            {
+                ASCurveLines[i].ParticlePathGO.SetActive(true);
+            }
+        }
+    }
+
+    private void ExitSingleASAttacks()
+    {
+        for (int i = 0; i < ASCurveLines.Count; i++)
+        {
+            ASCurveLines[i].ParticlePathGO.SetActive(true);
         }
     }
 
@@ -743,7 +786,8 @@ public class Filters : MonoBehaviour
 
     float ASCurveLinesCenter(int X, int Y)
     {
-        return ASCubeHeight(X, Y);
+        //return ASCubeHeight(X, Y);
+        return 0.0f;
     }
 
     public void ShowAttacks()
@@ -767,10 +811,12 @@ public class Filters : MonoBehaviour
                         int asX = 0;
                         int asY = 0;
                         d2xy(256, asNumberA, out asX, out asY);
+                        int src = asX * 256 + asY;
                         Vector3 posA = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
                         d2xy(256, asNumberB, out asX, out asY);
+                        int des = asX * 256 + asY;
                         Vector3 posB = new Vector3((asX + 0.5f) / 256.0f * ASHeight, ASCurveLinesCenter(asX, asY), (asY + 0.5f) / 256.0f * ASWidth);
-                        ASCurveLines.Add(new CurveLine(posA, posB, flow, AttackInfos[i].lineColor));
+                        ASCurveLines.Add(new CurveLine(src, des, posA, posB, flow, AttackInfos[i].lineColor));
 
                         // Show in AS Navigation View
 

@@ -244,6 +244,7 @@ public class raycastas : MonoBehaviour
                             else
                             {
                                 isSelected = false;
+                                ASFilter.FilterBySelectedAS(-1, -1);
                             }
                         }
                     }

@@ -93,6 +93,10 @@ namespace Controller
         {
             SceneMananger.Instance.UpperBoundAS.y = 270.0f;
             SceneMananger.Instance.LowerBoundAS.y = 20.0f;
+            SceneMananger.Instance.UpperBoundAS.x = 640.0f;
+            SceneMananger.Instance.LowerBoundAS.x = 0.0f;
+            SceneMananger.Instance.UpperBoundAS.z = 640.0f;
+            SceneMananger.Instance.LowerBoundAS.z = 0.0f;
             RTFocusCamera.GetComponent<RTFocusCamera>().UpperBound = SceneMananger.Instance.UpperBoundAS;
             RTFocusCamera.GetComponent<RTFocusCamera>().LowerBound = SceneMananger.Instance.LowerBoundAS;
             //currentView = ViewType.ViewAS;
@@ -120,6 +124,10 @@ namespace Controller
                 ASLightGO.SetActive(false);
                 SceneMananger.Instance.UpperBoundAS.y = 5000.0f;
                 SceneMananger.Instance.LowerBoundAS.y = -5000.0f;
+                SceneMananger.Instance.UpperBoundAS.x = 5000.0f;
+                SceneMananger.Instance.LowerBoundAS.x = -5000.0f;
+                SceneMananger.Instance.UpperBoundAS.z = 5000.0f;
+                SceneMananger.Instance.LowerBoundAS.z = -5000.0f;
                 RTFocusCamera.GetComponent<RTFocusCamera>().UpperBound = SceneMananger.Instance.UpperBoundAS;
                 RTFocusCamera.GetComponent<RTFocusCamera>().LowerBound = SceneMananger.Instance.LowerBoundAS;
                 RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = 50.0f;
