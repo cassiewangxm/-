@@ -334,7 +334,7 @@ public class NetUtil : MonoBehaviour
     // TEST 测试专用
     void WriteToFile(byte[] data, string path)
     {
-        if(Application.platform != RuntimePlatform.OSXEditor || Application.platform != RuntimePlatform.WindowsEditor)
+        if(Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
             return;
         
         if(System.IO.File.Exists(path))

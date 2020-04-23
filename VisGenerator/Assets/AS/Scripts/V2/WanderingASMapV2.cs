@@ -254,24 +254,39 @@ public class WanderingASMapV2 : MonoBehaviour
         for(int i =0;i<m_lineCount;i++)
         {
             m_array[i] = new ASAppearMonitor[m_lineCount];
+        }
+
+        int center_i = m_lineCount/2;
+        m_array[center_i][center_i] = CreateASItem(center_i,center_i);
+
+        for(int i =0;i<m_lineCount;i++)
+        {
             for(int j =0;j<m_lineCount;j++)
             {
-                m_array[i][j] = new GameObject(string.Format("{0}_{1}",i,j)).AddComponent<ASAppearMonitor>();
-                m_array[i][j].transform.SetParent(m_root);
-                m_array[i][j].OnASBecameInvisible = OnASBecameInvisible;
-                m_array[i][j].Wanderingmap = this;
-                m_array[i][j].gameObject.AddComponent<MeshRenderer>();
-                m_array[i][j].transform.position = new Vector3((i - m_lineCount/2)*m_baseWith, 0, (j - m_lineCount/2)*m_baseWith);
-
-                RigistLeaveWandering((UnityEngine.Events.UnityAction)m_array[i][j].OnLeaveWanderingMap);
-                RegistSearchEvent((UnityEngine.Events.UnityAction)m_array[i][j].OnShowSearchResult);
-                RegistClearSearchEvent((UnityEngine.Events.UnityAction)m_array[i][j].OnClearSearchResult);
+                if(i != center_i || j != center_i)
+                    m_array[i][j] = CreateASItem(i, j);
             }
 
             yield return 0;
         }
         m_initFinished = true;
         Debug.Log("FInish : " + Time.time);
+    }
+
+    ASAppearMonitor CreateASItem(int i, int j)
+    {
+        ASAppearMonitor item = new GameObject(string.Format("{0}_{1}",i,j)).AddComponent<ASAppearMonitor>();
+        item.transform.SetParent(m_root);
+        item.OnASBecameInvisible = OnASBecameInvisible;
+        item.Wanderingmap = this;
+        item.gameObject.AddComponent<MeshRenderer>();
+        item.transform.position = new Vector3((i - m_lineCount/2)*m_baseWith, 0, (j - m_lineCount/2)*m_baseWith);
+
+        RigistLeaveWandering((UnityEngine.Events.UnityAction)item.OnLeaveWanderingMap);
+        RegistSearchEvent((UnityEngine.Events.UnityAction)item.OnShowSearchResult);
+        RegistClearSearchEvent((UnityEngine.Events.UnityAction)item.OnClearSearchResult);
+
+        return item;
     }
 
     public void  RegistCameraMoveEvent(UnityAction act)

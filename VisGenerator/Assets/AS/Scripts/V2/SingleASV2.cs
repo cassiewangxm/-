@@ -124,15 +124,23 @@ public class SingleASV2 : MonoBehaviour
             m_ASName.text = m_ASData.ASN.ToString();//transform.name;
             m_ASName.rectTransform.localPosition = new Vector3(0, m_height/2 + 1, 0);
 
-            if(m_wanderMap.m_targetCamera != null)
-            {
-                m_ASName.transform.parent.LookAt(m_wanderMap.m_targetCamera.transform);
-                m_ASName.transform.parent.localEulerAngles = new Vector3(0, m_ASName.transform.parent.localEulerAngles.y,m_ASName.transform.parent.localEulerAngles.z);
-            }
+            RefreshNameRotation();
         }
         else
         {
             m_ASName.text = "";
+        }
+    }
+
+    void RefreshNameRotation()
+    {
+        if(string.IsNullOrEmpty(m_ASName.text))
+            return;
+
+        if(m_wanderMap.m_targetCamera != null)
+        {
+            m_ASName.transform.parent.LookAt(m_wanderMap.m_targetCamera.transform);
+            m_ASName.transform.parent.localEulerAngles = new Vector3(0, m_ASName.transform.parent.localEulerAngles.y,m_ASName.transform.parent.localEulerAngles.z);
         }
     }
 
@@ -175,6 +183,10 @@ public class SingleASV2 : MonoBehaviour
         if(!lookingRefreshed)
         {
             RefreshName();
+        }
+        else
+        {
+            RefreshNameRotation();
         }
     }
 

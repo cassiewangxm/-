@@ -314,8 +314,8 @@ public class ASProxy : MonoBehaviour
             string[] ht = segInfo.GetHeadTailByIndex(ipIndex);
             MessageRequestASSegments msg = new MessageRequestASSegments();
             msg.ASN = segInfo.ASN;
-            msg.HeadIp = ht[0];
-            msg.TailIp = ht[1];
+            msg.HeadIp = ip;//ht[0];
+            msg.TailIp = ip;//ht[1];
             msg.type = "IPinfotype2";
             NetUtil.Instance.RequestASSegmentsInfo(msg, OnRecieveSegmentInfo, ip, action);
             return;
