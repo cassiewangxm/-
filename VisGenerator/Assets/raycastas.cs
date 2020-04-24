@@ -154,6 +154,11 @@ public class raycastas : MonoBehaviour
 
     void ShowInfoByAS(int x, int y)
     {
+        if(wanderingASMap.InWanderingState)
+        {
+            ASDetailPanel.gameObject.SetActive(false);
+            return;
+        }
         Debug.Log("Showing AS");
         ASInfo ASInfo = ASProxy.instance.GetASByPosition(x, y);
         ASDetailPanel.SetUIData(ASInfo);
@@ -357,6 +362,7 @@ public class raycastas : MonoBehaviour
         }
         else
         {
+            HideASInfoPanel();
             CameraController.ViewWanderingAS(zoomX, zoomY);
             //ShowWanderingMap(zoomX, zoomY, zoomHeight);
             isZooming = false;
