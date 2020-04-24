@@ -345,7 +345,7 @@ public class ViewIP : MonoBehaviour
         return NewTexture;
     }
 
-    void GetIPData(int lv, int TopIdx, int LeftIdx)
+    void GetIPData(int lv, int LeftIdx, int TopIdx)
     {
         float x = (LeftIdx + 0.5f) * Consts.IPSize.x * IPLevelScales[IPLevelScales.Length - lv - 1] - IPSize.x / 2.0f;
         float y = (TopIdx + 0.5f) * Consts.IPSize.y * IPLevelScales[IPLevelScales.Length - lv - 1] - IPSize.y / 2.0f;
@@ -355,6 +355,7 @@ public class ViewIP : MonoBehaviour
         NewQuad.transform.localScale = Vector3.one;
         NewQuad.transform.position = NewQuadPos;
         NewQuad.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+        NewQuad.layer = 11;
         if (lv == 3)
         {
             /*

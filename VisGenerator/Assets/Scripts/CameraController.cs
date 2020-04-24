@@ -91,14 +91,42 @@ namespace Controller
 
         public void ViewAS()
         {
-            SceneMananger.Instance.UpperBoundAS.y = 270.0f;
-            SceneMananger.Instance.LowerBoundAS.y = 20.0f;
-            SceneMananger.Instance.UpperBoundAS.x = 640.0f;
-            SceneMananger.Instance.LowerBoundAS.x = 0.0f;
-            SceneMananger.Instance.UpperBoundAS.z = 640.0f;
-            SceneMananger.Instance.LowerBoundAS.z = 0.0f;
+            SceneMananger.Instance.UpperBoundAS.y = 350.0f;
+            SceneMananger.Instance.LowerBoundAS.y = 1.0f;
+            SceneMananger.Instance.UpperBoundAS.x = 800.0f;
+            SceneMananger.Instance.LowerBoundAS.x = -160.0f;
+            SceneMananger.Instance.UpperBoundAS.z = 800.0f;
+            SceneMananger.Instance.LowerBoundAS.z = -160.0f;
             RTFocusCamera.GetComponent<RTFocusCamera>().UpperBound = SceneMananger.Instance.UpperBoundAS;
             RTFocusCamera.GetComponent<RTFocusCamera>().LowerBound = SceneMananger.Instance.LowerBoundAS;
+
+            Vector3 TmpPos = CameraAS.transform.position;
+            if (CameraAS.transform.position.y > SceneMananger.Instance.UpperBoundAS.y)
+            {
+                TmpPos = new Vector3(TmpPos.x, SceneMananger.Instance.UpperBoundAS.y - 50.0f, TmpPos.z);
+            }
+            else if (CameraAS.transform.position.y < SceneMananger.Instance.LowerBoundAS.y)
+            {
+                TmpPos = new Vector3(TmpPos.x, SceneMananger.Instance.LowerBoundAS.y + 5.0f, TmpPos.z);
+            }
+            if (CameraAS.transform.position.x > SceneMananger.Instance.UpperBoundAS.x)
+            {
+                TmpPos = new Vector3(SceneMananger.Instance.UpperBoundAS.x - 80.0f, TmpPos.y, TmpPos.z);
+            }
+            else if (CameraAS.transform.position.x < SceneMananger.Instance.LowerBoundAS.x)
+            {
+                TmpPos = new Vector3(SceneMananger.Instance.LowerBoundAS.x + 80.0f, TmpPos.y, TmpPos.z);
+            }
+            if (CameraAS.transform.position.z > SceneMananger.Instance.UpperBoundAS.z)
+            {
+                TmpPos = new Vector3(TmpPos.x ,TmpPos.y, SceneMananger.Instance.UpperBoundAS.z - 80.0f);
+            }
+            else if (CameraAS.transform.position.z < SceneMananger.Instance.LowerBoundAS.z)
+            {
+                TmpPos = new Vector3(TmpPos.x, TmpPos.y, SceneMananger.Instance.LowerBoundAS.z + 80.0f);
+            }
+            CameraAS.transform.position = TmpPos;
+
             //currentView = ViewType.ViewAS;
             Camera.cullingMask = 1025;
             IsAS = true;
