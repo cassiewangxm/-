@@ -603,8 +603,13 @@ public class ViewIP : MonoBehaviour
 
             SingleIPDetail = Result[0];
 
-            IPProxy.instance.GetIpInfoBlock(ShowIPDetailWithASN, (int)SingleIP24.x, (int)SingleIP24.y, 1, "IPinfotype1", 24);
+            //IPProxy.instance.GetIpInfoBlock(ShowIPDetailWithASN, (int)SingleIP24.x, (int)SingleIP24.y, 1, "IPinfotype1", 24);
+            SingleIPDetail.ASNum = IPProxy.instance.TryGetIpDetail(Result[0].IP, 32).ASNum;
 
+            UIEventDispatcher.OpenIPDetailPanel(SingleIPDetail, Camera.WorldToScreenPoint(Input.mousePosition));
+
+            // Cancel highlights and add a single point
+            Filters.ShowSingleFilterResult(SingleIPDetail);
         }
         else
         {
@@ -612,17 +617,6 @@ public class ViewIP : MonoBehaviour
         }
     }
 
-    void ShowIPDetailWithASN(IpDetail[] Result, IPLayerInfo LayerInfo)
-    {
-        SingleIPASN = Result[0].ASNum;
-        SingleIPDetail.ASNum = SingleIPASN;
-        Debug.Log(SingleIPDetail);
-
-        UIEventDispatcher.OpenIPDetailPanel(SingleIPDetail, Camera.WorldToScreenPoint(Input.mousePosition));
-
-        // Cancel highlights and add a single point
-        Filters.ShowSingleFilterResult(SingleIPDetail);
-    }
 
     bool IsInside(Vector3 point, Vector2 position, Vector2 size)
     {
