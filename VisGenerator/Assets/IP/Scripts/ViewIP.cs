@@ -58,6 +58,10 @@ public class ViewIP : MonoBehaviour
 
     public UIEventDispatcher UIEventDispatcher;
 
+    private IpDetail SingleIPDetail;
+    private Vector2 SingleIP24;
+    private int SingleIPASN;
+
     /*
     private Texture2D[] IPTextures28 = new Texture2D[256];
     private Texture2D[] IPTextures24 = new Texture2D[16];
@@ -412,7 +416,7 @@ public class ViewIP : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-            IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 16), (int)(CenterPosition.y), 33);
+            IPProxy.instance.GetIpInfoBlock(PlaceIcons, (int)(CenterPosition.x - 16), (int)(CenterPosition.y), 33, "IPinfotype5");
             
         }
     }
@@ -581,9 +585,10 @@ public class ViewIP : MonoBehaviour
                     {
                         int x = (int)((hitPoint.x + IPSize.x * 0.5f) / IPSize.x * (1 << 16));
                         int y = (int)((hitPoint.z + IPSize.y * 0.5f) / IPSize.y * (1 << 16));
-                        IPProxy.instance.GetIpInfoBlock(ShowIPDetail, x, y, 1);
 
-                        
+                        SingleIP24 = new Vector2(x >> 4, y >> 4);
+                        IPProxy.instance.GetIpInfoBlock(ShowIPDetail, x, y, 1, "IPinfotype1");
+
                     }
                 }
             }
@@ -595,15 +600,28 @@ public class ViewIP : MonoBehaviour
         if (Result.Length > 0)
         {
             Debug.Log("Show IP: Size" + Result.Length.ToString());
-            UIEventDispatcher.OpenIPDetailPanel(Result[0], Camera.WorldToScreenPoint(Input.mousePosition));
 
-            // Cancel highlights and add a single point
-            Filters.ShowSingleFilterResult(Result[0]);
+            SingleIPDetail = Result[0];
+
+            IPProxy.instance.GetIpInfoBlock(ShowIPDetailWithASN, (int)SingleIP24.x, (int)SingleIP24.y, 1, "IPinfotype1", 24);
+
         }
         else
         {
             Filters.ClearFilterResult();
         }
+    }
+
+    void ShowIPDetailWithASN(IpDetail[] Result, IPLayerInfo LayerInfo)
+    {
+        SingleIPASN = Result[0].ASNum;
+        SingleIPDetail.ASNum = SingleIPASN;
+        Debug.Log(SingleIPDetail);
+
+        UIEventDispatcher.OpenIPDetailPanel(SingleIPDetail, Camera.WorldToScreenPoint(Input.mousePosition));
+
+        // Cancel highlights and add a single point
+        Filters.ShowSingleFilterResult(SingleIPDetail);
     }
 
     bool IsInside(Vector3 point, Vector2 position, Vector2 size)

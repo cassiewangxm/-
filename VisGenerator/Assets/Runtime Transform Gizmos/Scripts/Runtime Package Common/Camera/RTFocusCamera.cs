@@ -118,6 +118,11 @@ namespace RTG
         public Vector3 UpperBound = Vector3.zero;
         public Vector3 LowerBound = Vector3.zero;
 
+        public void SetMoveSettings(CameraMoveSettings MoveSettings)
+        {
+            _moveSettings = MoveSettings;
+        }
+
         public bool IsViewportHoveredByDevice()
         {
             Vector2 devicePos = RTInputDevice.Get.Device.GetPositionYAxisUp();

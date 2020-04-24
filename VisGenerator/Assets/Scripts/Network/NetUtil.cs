@@ -91,7 +91,7 @@ public class NetUtil : MonoBehaviour
 
                 Debug.Log("Response : "+uwr.url);
                 IpInfoType1[] array = JsonConvert.DeserializeObject<IpInfoType1[]>(uwr.downloadHandler.text);
-
+                Debug.Log(uwr.downloadHandler.text);
                 if(action != null)
                     action(array, info,  action2);
             }

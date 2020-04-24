@@ -113,6 +113,7 @@ public class Filters : MonoBehaviour
 
     public GameObject RingPrefab;
     public GameObject MapRingPrefab;
+    public GameObject SquarePrefab;
 
     public InputField SearchBox;
 
@@ -122,6 +123,7 @@ public class Filters : MonoBehaviour
     IpDetail[] FilterResults;
     public GameObject FilterParent;
     public GameObject FilterParent2;
+    public GameObject FilterParent2x;
     public GameObject FilterParent3;
     public GameObject PyramidParent;
     public GameObject RingParent;
@@ -185,11 +187,26 @@ public class Filters : MonoBehaviour
         EventManager.RegistEvent(EventDefine.OnClearSearchResult, (Action)ShowFilterResult);
     }
 
+    void SwitchHighlights()
+    {
+        if (IPCamera.transform.position.y < IPGameObject.heightLv20 / 8.0f)
+        {
+            FilterParent2.SetActive(false);
+            FilterParent2x.SetActive(true);
+        }
+        else
+        {
+            FilterParent2.SetActive(true);
+            FilterParent2x.SetActive(false);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         UpdateAttacks();
         UpdateHighlights();
+        SwitchHighlights();
     }
 
     // 发送搜索消息
@@ -570,6 +587,20 @@ public class Filters : MonoBehaviour
         }
     }
 
+    public Vector3 IP2Pos24(IpDetail Item)
+    {
+        int length = 1 << 16;
+        uint ip = Item.IP.Split('.').Select(uint.Parse).Aggregate((a, b) => a * 256 + b);
+        int xs = 0;
+        int ys = 0;
+        d2xy(length, ip, out xs, out ys);
+        xs = xs - (xs % 256) + 128;
+        ys = ys - (ys % 256) + 128;
+        float x = xs * 1.0f / length * IPWidth;
+        float z = ys * 1.0f / length * IPHeight;
+        return new Vector3(x - 0.5f * IPWidth, 0.1f, z - 0.5f * IPHeight);
+    }
+
     public Vector3 IP2Pos(IpDetail Item)
     {
         int length = 1 << 16;
@@ -601,6 +632,10 @@ public class Filters : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in FilterParent2x.transform)
+        {
+            Destroy(child.gameObject);
+        }
         foreach (Transform child in FilterParent3.transform)
         {
             Destroy(child.gameObject);
@@ -621,7 +656,17 @@ public class Filters : MonoBehaviour
             SearchedPoint.layer = 11;
             SearchedPoint.tag = "HighlightMark";
             SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            
+
+            // IP
+            IPPos = IP2Pos24(Item);
+            SearchedPoint = Instantiate(SquarePrefab, Vector3.zero, Quaternion.identity);
+            SearchedPoint.transform.SetParent(FilterParent2x.transform);
+            SearchedPoint.transform.position = IPPos;
+            SearchedPoint.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+            SearchedPoint.layer = 11;
+            SearchedPoint.tag = "HighlightMark";
+            SearchedPoint.transform.localScale = new Vector3(49.85f, 49.85f, 49.85f);
+
 
             // Map
             Vector3 MapPos = LatLng2Pos(Item);
@@ -646,6 +691,10 @@ public class Filters : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in FilterParent2x.transform)
+        {
+            Destroy(child.gameObject);
+        }
         foreach (Transform child in FilterParent3.transform)
         {
             Destroy(child.gameObject);
@@ -659,6 +708,10 @@ public class Filters : MonoBehaviour
             Destroy(child.gameObject);
         }
         foreach (Transform child in FilterParent2.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in FilterParent2x.transform)
         {
             Destroy(child.gameObject);
         }
@@ -678,6 +731,16 @@ public class Filters : MonoBehaviour
         SearchedPoint.layer = 11;
         SearchedPoint.tag = "HighlightMark";
         SearchedPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+        // IP
+        IPPos = IP2Pos24(Item);
+        SearchedPoint = Instantiate(SquarePrefab, Vector3.zero, Quaternion.identity);
+        SearchedPoint.transform.SetParent(FilterParent2x.transform);
+        SearchedPoint.transform.position = IPPos;
+        SearchedPoint.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+        SearchedPoint.layer = 11;
+        SearchedPoint.tag = "HighlightMark";
+        SearchedPoint.transform.localScale = new Vector3(49.85f, 49.85f, 49.85f);
 
 
         // Map

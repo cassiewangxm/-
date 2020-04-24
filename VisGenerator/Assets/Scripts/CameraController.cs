@@ -327,18 +327,20 @@ namespace Controller
             }
             Filters.PyramidParent.transform.position = new Vector3(PyramidPosition.x, PyramidPosition.y + (HighlightFloat - 0.5f) * 2.0f, PyramidPosition.z);
             ASLight.intensity = (180.0f / (height + 50.0f)) * HighlightIntensity * (Filters.isHighlight ? 0.7f : 1.0f);
+            CameraMoveSettings cameraMoveSettings = RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings;
             if ((SceneMananger.Instance.CurrentSceneView == SceneView.ASView) && (Camera.cullingMask == 1025))
             {
-                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraAS.transform.position.y / 250.0f * 6.0f;
+                cameraMoveSettings.MoveSpeed = CameraAS.transform.position.y / 250.0f * 6.0f;
             }
             else if (SceneMananger.Instance.CurrentSceneView == SceneView.IPView)
             {
-                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraIP.transform.position.y / 250.0f * 6.0f;
+                cameraMoveSettings.MoveSpeed = CameraIP.transform.position.y / 250.0f * 10.0f;
             }
-            else if (SceneMananger.Instance.CurrentSceneView == SceneView.IPView)
+            else if (SceneMananger.Instance.CurrentSceneView == SceneView.MapView)
             {
-                RTFocusCamera.GetComponent<RTFocusCamera>().MoveSettings.MoveSpeed = CameraMap.transform.position.y / 250.0f * 6.0f;
+                cameraMoveSettings.MoveSpeed = CameraMap.transform.position.y / 250.0f * 6.0f;
             }
+            RTFocusCamera.GetComponent<RTFocusCamera>().SetMoveSettings(cameraMoveSettings);
         }
 
     }

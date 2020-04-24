@@ -98,7 +98,7 @@ public class IpDetail
         if(deviceType != DeviceType.None)
             sb.AppendFormat("Device : {0}\n", deviceType.ToString());
         
-        sb.AppendFormat("Coordinate : {0}\n", MapCoordinate);
+        //sb.AppendFormat("Coordinate : {0}\n", MapCoordinate);
 
         return sb.ToString();
         //return string.Format("AS : {0}\nCountry : {1}\nProvince : {2}\nCity : {3}\nCoordinate : {4}", ASNum, country, province, city, MapCoordinate);
@@ -291,7 +291,7 @@ public class IPProxy : MonoBehaviour
     }
 
     // x ,y 是左上角坐标
-    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action, int x, int y, int n, int prefixLen = 32)
+    public void GetIpInfoBlock(Action<IpDetail[],IPLayerInfo> action, int x, int y, int n, string type, int prefixLen = 32)
     {
         MessageRequestIpMap msg = new MessageRequestIpMap();
 
@@ -317,7 +317,7 @@ public class IPProxy : MonoBehaviour
             msg.prefixLen = prefixLen;
 
         if(msg.prefixLen >= 32)
-            msg.type = "IPinfotype5";
+            msg.type = type;
         else
             msg.type = m_IpInfoTypeDict[IpInfoStructType.InfoType1];
 
