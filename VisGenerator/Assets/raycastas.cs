@@ -6,6 +6,12 @@ using Controller;
 using UnityEngine.EventSystems;
 using System.IO;
 
+// The raycastas is used to capture mouse clicks on View AS
+// A single click on screen will be calculated to get an AS index (not accurate)
+// If the index exists that AS will be selected
+// A single click on a selected AS switches the view to Wandering Mode centering that AS
+// Double click on screen is processed as two single clicks
+
 public class raycastas : MonoBehaviour
 {
     public Consts Consts;

@@ -5,6 +5,12 @@ using RTG;
 using System.IO;
 using UnityEngine.EventSystems;
 
+// This script is used to manage textures and single clicks on View IP
+// The IP Map has different zoom levels where 1 tile corresponds to a 4x4 tile set in a lower level
+// In Update() zoom level is determined and passed to UpdateIPView()
+// UpdateIPView() fetches textures for the tile right below the camera and 8 tiles around it (if exist)
+// When the camera is below some height, device icons are shown on grids (within a distance from the camera) on the Map
+
 public class ViewIP : MonoBehaviour
 {
     public class IPPixelData

@@ -7,6 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
+// The script manages highlights and selections
+// In Class Filters, attack effects and highlight marks are frequently updated to stay in appropriate sizes
+// Search results call methods in this class to display them
+
 [Serializable]
 public class RegionDetail
 {

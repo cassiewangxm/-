@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.VFX;
 using RTG;
 
+// Class CameraController was used to set parameters for different views
+// As some functions were moved to Scenemanager or other scripts, not all codes here are effective
+// It sets bounds for different cameras, refreshes light intensity and AS Cube heights
+
 namespace Controller
 {
     // public enum ViewType
