@@ -34,11 +34,15 @@ class IPPair
     }
 }
 
+
+// Stores data of one curve line
 class CurveLine
 {
     public int src;
     public int des;
+    // Source point
     public Vector3 PosA;
+    // Target point
     public Vector3 PosB;
     public int flow;
     public Color color;
@@ -46,6 +50,7 @@ class CurveLine
     {
         return ((float)Math.Sqrt(Vector3.Distance(PosA, PosB)) * 15.0f);
     }
+    //Get position at position k (0 <= k <= 1)
     public Vector3 GetPosT(float k)
     {
         return new Vector3((PosA.x * (1.0f - k) + PosB.x * k), GetTopPoint() * (0.25f - (k - 0.5f) * (k - 0.5f)), (PosA.z * (1.0f - k) + PosB.z * k));
@@ -191,6 +196,7 @@ public class Filters : MonoBehaviour
         EventManager.RegistEvent(EventDefine.OnClearSearchResult, (Action)ShowFilterResult);
     }
 
+    // In IP View, selected areas will be shown as points at high levels and as blocks at low levels
     void SwitchHighlights()
     {
         if (IPCamera.transform.position.y < IPGameObject.heightLv20 / 8.0f)
@@ -256,6 +262,7 @@ public class Filters : MonoBehaviour
     //     }
     // }
 
+    // For recording highlight as points using a texture file
     void ModifyASHighlight(bool isHighlight)
     {
         
@@ -284,7 +291,9 @@ public class Filters : MonoBehaviour
     
     }
 
-    void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0, bool isSearchedAS = false)
+	// The method is used to calculate or refresh filter results
+	// Generally, isSelectedAS refers to selection by clicks and isSearchedAS refers to searches
+	void MultipleFilters(bool isSelectedAS = false, int x = 0, int y = 0, bool isSearchedAS = false)
     {
         //Dictionary<string, IpDetail> dictionary = IPProxy.instance.GetDictionary();
         //string region = dropdownRegion.options[dropdownRegion.value].text;
@@ -319,37 +328,7 @@ public class Filters : MonoBehaviour
         {
             return;
         }
-        /*
-    foreach (var item in dictionary)
-    {
-        if ((isRegionFilterOn && (item.Value.country == region)) || !isRegionFilterOn)
-        {
-            if ((isASFilterOn && (item.Value.ASNum.ToString() == asNumber)) || !isASFilterOn)
-            {
-                if ((isTypeFilterOn && (item.Value.country == type)) || !isTypeFilterOn)
-                {
-                    // Highlight an as
-                    if (isASFilterOn)
-                    {
-                        asFilterFlag[item.Value.ASNum] = true;
-                        isHighlight = true;
-                    }
-                    // Highlight an IP
 
-
-                    // Highlight an geo
-                    if (isRegionFilterOn)
-                    {
-                        float lat = item.Value.lat;
-                        float lng = item.Value.lng;
-                        GameObject newGeoPoint = Instantiate(GeoPointPrefab, new Vector3(lng / 180.0f * MapWidth, 0, lat / 90.0f * MapHeight), Quaternion.identity);
-                        //newGeoPoint.transform.parent = GeoPointCollector.transform;
-                    }
-                }
-            }
-        }
-
-    }*/
         if (isSelectedAS)
         {
             if (x != -1)
@@ -379,6 +358,7 @@ public class Filters : MonoBehaviour
         }
         else
         {
+            // If an empty as is clicked, no related attacks should be displayed
             if (x != -1)
             {
                 ExitSingleASAttacks();
@@ -487,6 +467,7 @@ public class Filters : MonoBehaviour
         */
     }
 
+    // Update highlights to keep appropriate sizes
     private void UpdateHighlights()
     {
         float ipHeight = IPCamera.transform.position.y;
@@ -505,6 +486,7 @@ public class Filters : MonoBehaviour
         }
     }
 
+    // Show attacks related to the selected AS
     private void EnterSingleASAttacks(int num)
     {
         for (int i = 0; i < ASCurveLines.Count; i++)
@@ -528,7 +510,8 @@ public class Filters : MonoBehaviour
         }
     }
 
-    private void UpdateAttacks()
+	// Update curvelines to keep appropriate sizes
+	private void UpdateAttacks()
     {
         float asHeight = ASCamera.transform.position.y;
         float ipHeight = IPCamera.transform.position.y;
